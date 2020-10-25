@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "145485577103",
+    "firebase_url": "https://medicine-reminder-406a5.firebaseio.com",
+    "project_id": "medicine-reminder-406a5",
+    "storage_bucket": "medicine-reminder-406a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145485577103:android:43d316f25d7a76728469fa",
+        "android_client_info": {
+          "package_name": "com.example.medicine_reminder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVWZSnQfXgrjYFeLDxtpythacQenE481o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
