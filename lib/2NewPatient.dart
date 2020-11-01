@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
+
 class NewPatient2 extends StatefulWidget{
   @override
   _NewPatient2State createState() => _NewPatient2State();
@@ -51,8 +52,39 @@ class _NewPatient2State extends State<NewPatient2>{
           ),
         ),
             Container(
-              child: Dosage(),
+              child: MedicineType(),
             ),
+            Padding(
+              padding: EdgeInsets.only(top: 8.0),
+                child: Container(
+                  child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Dosage in  ", style: myStyle(16),
+                        ),
+                        if (_selected == 'Pill' || _selected == 'Tablet')
+                          Column(
+                            children: [
+                              Text('numbers'),
+                            ],
+                          )
+                        else
+                          if (_selected == 'Bottle' || _selected == 'Syringe')
+                            Column(
+                              children: [
+                                Text('mL'),
+                              ],
+                            )
+                        else
+                          Column(
+                              children: [
+                              Text('Dosage Format'),
+                              ],
+                              ),
+                      ]
+                  ),
+                ),
+              ),
             Container(
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.symmetric(horizontal: 30),
@@ -68,14 +100,7 @@ class _NewPatient2State extends State<NewPatient2>{
               ),
             ),
             SizedBox(height: 8,),
-            Container(
-              child: Icon(
-                IconData(0xe901, fontFamily: "Ic"),
-        color: Color(0xFF3EB16F),
-        size: 50,
-      ),
 
-            ),
 
           ],
         ),
@@ -85,15 +110,14 @@ class _NewPatient2State extends State<NewPatient2>{
     );
   }
 }
-
-class Dosage extends StatefulWidget{
+class MedicineType extends StatefulWidget{
   @override
-  _DosageState createState() => _DosageState();
+  _MedicineTypeState createState() => _MedicineTypeState();
 }
 
-class _DosageState extends State<Dosage>{
-  List<String> _dosage = ['numbers', 'mg',];
-  String _selectedDosage = '0';
+class _MedicineTypeState extends State<MedicineType>{
+  List<String> _type = ['Pill', 'Bottle', 'Syringe', 'Tablet'];
+  String _selectedType = '0';
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -102,33 +126,32 @@ class _DosageState extends State<Dosage>{
         child: Row(
           children: <Widget>[
             Text(
-              "Dosage in  ", style: myStyle(16),
+              "Medicine Type:  ", style: myStyle(16),
             ),
             DropdownButton(
-                iconEnabledColor: Color(0xFF3EB16F),
-                 hint: _selectedDosage == '0' ? Text (
-              "Dosage Format", style: myStyle(16),
-            ) : null,
+              iconEnabledColor: Color(0xFF3EB16F),
+              hint: _selectedType == '0' ? Text (
+                "Type", style: myStyle(16),
+              ) : null,
               elevation: 4,
-              value: _selectedDosage == '0' ? null : _selectedDosage,
-              items: _dosage.map((String value){
+              value: _selectedType == '0' ? null : _selectedType,
+              items: _type.map((String value){
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(
-                  value, style: myStyle(16),
-                ),
+                    value, style: myStyle(16),
+                  ),
                 );
               }).toList(),
-                onChanged: (newVal){
-                  _selectedDosage = newVal;
-                  _selected = newVal;
-                },
+              onChanged: (newVal){
+                _selectedType = newVal;
+                _selected = newVal;
+              },
             ),
 
           ],
         ),
       ),
-
     );
   }
 }

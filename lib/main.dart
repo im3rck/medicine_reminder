@@ -1,8 +1,10 @@
 import 'package:medicine_reminder/2NewPatient.dart';
+import 'package:medicine_reminder/Timer.dart';
 import 'package:medicine_reminder/enhancements/FirstPage.dart';
 import 'package:medicine_reminder/navigation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
       // home: FirstPage(),
-      home: NewPatient2(),
+      home: Timer(),
     );
   }
 }
