@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Timer.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
+
 
 class NewPatient2 extends StatefulWidget{
   @override
@@ -7,16 +11,19 @@ class NewPatient2 extends StatefulWidget{
 }
 String _selected;
 
+
 class _NewPatient2State extends State<NewPatient2>{
+  PickedFile _image;
+  final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
         appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xfff96060),
         iconTheme: IconThemeData(
-        color: Colors.redAccent,
+        color: Color(0xfff96060),
     ),
            centerTitle: true,
             title: Text(
@@ -32,7 +39,7 @@ class _NewPatient2State extends State<NewPatient2>{
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 25),
           children: <Widget>[
-          SizedBox(height: 100,),
+          SizedBox(height: 50,),
             Container(
               child: Text("Medicine Name *", style: myStyle(16),),
             ),
@@ -99,16 +106,120 @@ class _NewPatient2State extends State<NewPatient2>{
                   )
               ),
             ),
-            SizedBox(height: 8,),
-
-
+            SizedBox(height: 16,),
+            Container(
+              child: Text("Sample *", style: myStyle(16),),
+            ),
+            SizedBox(height: 4,),
+            Container(
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  _showPicker(context);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: _image != null
+                      ? ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(
+                      File(_image.path),
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  )
+                      : Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    width: 100,
+                    height: 100,
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
+              ),
+            )
+      ),
+            SizedBox(height: 40,),
+            GestureDetector(
+              onTap: (){
+                navigateToTimer(context);
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                    color: Color(0xfff96060),
+                    borderRadius: BorderRadius.circular(30)
+                ),
+                child: Text("Set the Routine",style: myStyle(16,Colors.white),),
+              ),
+            ),
           ],
         ),
 
       ),
 
     );
+
   }
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+  _imgFromCamera() async {
+   final PickedFile image = await _picker.getImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    PickedFile image = await  _picker.getImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+
 }
 class MedicineType extends StatefulWidget{
   @override
@@ -154,5 +265,9 @@ class _MedicineTypeState extends State<MedicineType>{
       ),
     );
   }
+}
+
+Future navigateToTimer(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
 }
 
