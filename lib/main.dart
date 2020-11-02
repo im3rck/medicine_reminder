@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
       // home: FirstPage(),
-      home: Timer(),
+      home: SelectDay(),
     );
   }
 }

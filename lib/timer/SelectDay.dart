@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:medicine_reminder/timer/SingleSelection.dart';
+import 'package:medicine_reminder/timer/Timer.dart';
 
-class Timer extends StatelessWidget {
+class SelectDay extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,10 @@ class _MyHomePageState extends State<MyHomePage> {
     'Daily',
     'Custom',
   ];
+
+  Future navigateToSubPage(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
       body: SingleSelection(sortFilter),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.navigation),
+        backgroundColor: Color(0xfff96060),
+        onPressed: () {
+          navigateToSubPage(context);
+        },
+      ),
 
     );
   }

@@ -31,7 +31,7 @@ class _MultiSelectionState extends State<MultiSelection> {
               children: <Widget>[
                 Checkbox(
                     value: widget.wantedDays[index].isSelected,
-                    onChanged: (s) {
+                    onChanged: (val) {
                       widget.wantedDays[index].isSelected = !widget.wantedDays[index].isSelected;
                       setState(() {});
                     }),

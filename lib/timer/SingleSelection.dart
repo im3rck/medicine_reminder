@@ -32,6 +32,18 @@ class _SingleSelectionState extends State<SingleSelection> {
     Days('Sunday'),
   ];
 
+  // void updateList(){
+  //   List<Days> selectedDays = [
+  //     Days('Monday'),
+  //     Days('Tuesday'),
+  //     Days('Wednesday'),
+  //     Days('Thursday'),
+  //     Days('Friday'),
+  //     Days('Saturday'),
+  //     Days('Sunday'),
+  //   ];
+  // }
+
   void openDialog() {
       showDialog(
           context: context,
@@ -45,7 +57,9 @@ class _SingleSelectionState extends State<SingleSelection> {
               actions: <Widget>[
                 FlatButton(
                   padding: EdgeInsets.all(15),
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   child: Text('Ok'),
                   color: Colors.redAccent,
                   textColor: Colors.white,
