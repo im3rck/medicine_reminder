@@ -129,8 +129,8 @@ class _TimerState extends State<Timer> {
                                                 print(isSwitched);
                                               });
                                             },
-                                            activeTrackColor: Colors.lightGreenAccent,
-                                            activeColor: Colors.green,
+                                            activeTrackColor: Colors.grey,
+                                            activeColor: Colors.lightBlue,
                                           ),
                                         ),
                                         Container(

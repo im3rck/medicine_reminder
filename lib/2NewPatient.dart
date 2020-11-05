@@ -29,7 +29,7 @@ class _NewPatient2State extends State<NewPatient2>{
             title: Text(
                   "Add New MedReminder",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 18,
               ),
           ),

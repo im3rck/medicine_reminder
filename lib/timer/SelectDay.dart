@@ -60,6 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
       body: SingleSelection(sortFilter),
+      // body: Row(
+      //     children: <Widget>[
+      //       SingleSelection(sortFilter),
+      //       Text("Remind me Everyday"),
+      //     ],
+      // ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
         backgroundColor: Color(0xfff96060),
