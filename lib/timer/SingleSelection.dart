@@ -32,17 +32,6 @@ class _SingleSelectionState extends State<SingleSelection> {
     Days('Sunday'),
   ];
 
-  // void updateList(){
-  //   List<Days> selectedDays = [
-  //     Days('Monday'),
-  //     Days('Tuesday'),
-  //     Days('Wednesday'),
-  //     Days('Thursday'),
-  //     Days('Friday'),
-  //     Days('Saturday'),
-  //     Days('Sunday'),
-  //   ];
-  // }
 
   void openDialog() {
       showDialog(
@@ -70,6 +59,7 @@ class _SingleSelectionState extends State<SingleSelection> {
   }
 
   Widget customRadioString(String txt,int index){
+
     return OutlineButton(
       onPressed: () {
         changeIndex(index);
@@ -90,6 +80,54 @@ class _SingleSelectionState extends State<SingleSelection> {
   }
 
 
+  Widget showDays(int index) {
+
+    List<TextSpan> _getSelected() {
+
+      final String daily =
+          'Remind me Everyday ';
+
+      final String custom =
+          'Mon, '
+          'Tue, '
+          'Wed, '
+          'Thu, '
+          'Fri, '
+          'Sat, '
+          'Sun, ';
+
+      List<TextSpan> selected = [];
+      // int spanBoundary = 0;
+
+      // selected.add(TextSpan(text: text));
+      // do{
+      //
+      //   selected.add(TextSpan(text: test));
+      //
+      // } while (spanBoundary < txt.length);
+
+      if(index == 0)
+        selected.add(TextSpan(text: daily));
+      else
+        selected.add(TextSpan(text: custom));
+      return selected;
+    }
+
+    // final wordToStyle = 'text';
+    final style = TextStyle(
+        color: selectedIndex == index ?Colors.cyan : Colors.grey,
+        
+    );
+    final selected = _getSelected();
+
+    return RichText(
+      text: TextSpan(
+        style: style,
+        children: selected,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -108,7 +146,13 @@ class _SingleSelectionState extends State<SingleSelection> {
             child: Row(
                 children: <Widget>[
                   customRadioString(widget.optionList[index], index),
+                  Container(
+                    width: 260,
+                    alignment: Alignment.center,
+                    child: showDays(index),
+                  )
                 ],
+
             ),
           ),
         );
