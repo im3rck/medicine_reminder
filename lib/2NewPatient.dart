@@ -11,7 +11,6 @@ class NewPatient2 extends StatefulWidget{
 }
 String _selected;
 
-
 class _NewPatient2State extends State<NewPatient2>{
   PickedFile _image;
   final ImagePicker _picker = ImagePicker();
@@ -159,6 +158,25 @@ class _NewPatient2State extends State<NewPatient2>{
                     borderRadius: BorderRadius.circular(30)
                 ),
                 child: Text("Set the Routine",style: myStyle(16,Colors.white),),
+              ),
+            ),
+            SizedBox(height: 30,),
+            Container(
+              child: Text("Initial Count ", style: myStyle(16),),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              child: TextField(
+                  maxLength: 12,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    fillColor: Colors.white30,
+                    filled: true,
+                    labelText: 'Count',
+                    prefixIcon: Icon(Icons.notes, color: Colors.blueGrey,),
+                    labelStyle: myStyle(16,Colors.blueGrey),
+                  )
               ),
             ),
           ],
