@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:medicine_reminder/Login.dart';
+import 'package:medicine_reminder/Authentication/Login.dart';
 import 'package:medicine_reminder/PhasePage.dart';
 import 'package:flutter/material.dart';
 

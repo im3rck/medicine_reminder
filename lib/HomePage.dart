@@ -1,7 +1,7 @@
-import 'package:medicine_reminder/Login.dart';
+import 'file:///C:/Users/harig/IdeaProjects/medicine_reminder/lib/Authentication/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
-import 'package:medicine_reminder/navigation2.draft.dart';
+import 'package:medicine_reminder/navigation2.dart';
 
 class HomePage extends StatefulWidget{
   @override

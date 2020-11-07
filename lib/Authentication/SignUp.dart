@@ -1,4 +1,4 @@
-import 'package:medicine_reminder/Login.dart';
+import 'package:medicine_reminder/Authentication/Login.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
