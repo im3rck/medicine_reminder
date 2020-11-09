@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:medicine_reminder/timer/SelectedDays.dart';
 import 'package:medicine_reminder/timer/MultiSelection.dart';
-import 'package:medicine_reminder/timer/days.dart';
 
 class SingleSelection extends StatefulWidget {
   final List<String> optionList = [
@@ -25,6 +23,7 @@ class _SingleSelectionState extends State<SingleSelection> {
     super.initState();
     selectedValue = widget.optionList.first;
   }
+
   String selectedDays = ' Mon '
       ' Tue '
       ' Wed '
@@ -45,6 +44,20 @@ class _SingleSelectionState extends State<SingleSelection> {
                 width: 250,
                 height: 325,
                 child: MultiSelection(customFunction: listChange)),
+            actions: <Widget>[
+              FlatButton(
+                padding: EdgeInsets.all(15),
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: Text(
+                  'Ok',
+                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                ),
+                color: Colors.redAccent,
+                textColor: Colors.white,
+              ),
+            ],
           );
         });
   }
