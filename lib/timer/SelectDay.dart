@@ -4,7 +4,6 @@ import 'package:medicine_reminder/timer/SingleSelection.dart';
 import 'package:medicine_reminder/timer/Timer.dart';
 
 class SelectDay extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,11 +19,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  List<String> sortFilter = [
-    'Daily',
-    'Custom',
-  ];
 
   Future navigateToSubPage(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
@@ -59,13 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),
-      body: SingleSelection(sortFilter),
-      // body: Row(
-      //     children: <Widget>[
-      //       SingleSelection(sortFilter),
-      //       Text("Remind me Everyday"),
-      //     ],
-      // ),
+      body: SingleSelection(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
         backgroundColor: Color(0xfff96060),
