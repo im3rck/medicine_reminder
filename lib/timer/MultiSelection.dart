@@ -60,7 +60,7 @@ class _MultiSelectionState extends State<MultiSelection> {
         break;
     }
   }
-
+  bool _value = false;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -71,6 +71,7 @@ class _MultiSelectionState extends State<MultiSelection> {
             widget.wantedDays[index].isSelected =
                 !widget.wantedDays[index].isSelected;
             setState(() {
+              _value = true;
               addDays(index);
             });
           },
