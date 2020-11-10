@@ -44,6 +44,7 @@ class _TimerState extends State<Timer> {
                           color: Colors.white,
                           size: 30,
                       ),
+                      onPressed: () {  },
             )
             ],
             ),
