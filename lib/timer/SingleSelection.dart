@@ -62,12 +62,6 @@ class _SingleSelectionState extends State<SingleSelection> {
         });
   }
 
-  void listChange(String updateSelectedDays) {
-    setState(() {
-      selectedDays = updateSelectedDays;
-    });
-  }
-
   Widget customRadioString(String txt, int index) {
     return Container(
       child: Row(
@@ -76,7 +70,10 @@ class _SingleSelectionState extends State<SingleSelection> {
           OutlineButton(
             onPressed: () {
               changeIndex(index);
-              if (index == 1) openDialog(index);
+              if (index == 1) {
+                openDialog(index);
+                selectedDays = '';
+              }
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
@@ -100,6 +97,12 @@ class _SingleSelectionState extends State<SingleSelection> {
   void changeIndex(int index) {
     setState(() {
       selectedIndex = index;
+    });
+  }
+
+  void listChange(String updateSelectedDays) {
+    setState(() {
+      selectedDays = selectedDays + updateSelectedDays;
     });
   }
 

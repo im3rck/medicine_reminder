@@ -21,7 +21,45 @@ class MultiSelection extends StatefulWidget {
 }
 
 class _MultiSelectionState extends State<MultiSelection> {
-  // List<int> selectedItems = List();
+  void addDays(int index) {
+    switch (index) {
+      case 0:
+        {
+          widget.customFunction(' Mon ');
+        }
+        break;
+      case 1:
+        {
+          widget.customFunction(' Tue ');
+        }
+        break;
+      case 2:
+        {
+          widget.customFunction(' Wed ');
+        }
+        break;
+      case 3:
+        {
+          widget.customFunction(' Thu ');
+        }
+        break;
+      case 4:
+        {
+          widget.customFunction(' Fri ');
+        }
+        break;
+      case 5:
+        {
+          widget.customFunction(' Sat ');
+        }
+        break;
+      case 6:
+        {
+          widget.customFunction(' Sun ');
+        }
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +70,9 @@ class _MultiSelectionState extends State<MultiSelection> {
           onTap: () {
             widget.wantedDays[index].isSelected =
                 !widget.wantedDays[index].isSelected;
-            setState(() {});
+            setState(() {
+              addDays(index);
+            });
           },
           child: Container(
             color: widget.wantedDays[index].isSelected ? Colors.white : null,
@@ -44,11 +84,7 @@ class _MultiSelectionState extends State<MultiSelection> {
                       widget.wantedDays[index].isSelected =
                           !widget.wantedDays[index].isSelected;
                       setState(() {
-                        if (val) {
-                          // widget.wantedDays[index].isSelected = val;
-                          // selectedItems.add(index);
-                          widget.customFunction(' Mon ');
-                        }
+                        if (val) addDays(index);
                       });
                     }),
                 Text(widget.wantedDays[index].day),
@@ -61,63 +97,3 @@ class _MultiSelectionState extends State<MultiSelection> {
     );
   }
 }
-
-// class SetCustom extends StatelessWidget {
-//
-//   final List<int> _daysList = new List();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     _daysList.add(1);
-//     _daysList.add(2);
-//   }
-//
-//   List<int> getMainButtonsList() {
-//     return _daysList;
-//   }
-// }
-// class MyClass {
-//   String title;
-//   bool value;
-//   MyClass(this.title, this.value);
-//   @override
-//   String toString() {
-//     return 'MyClass{title: $title, value: $value}';
-//   }
-// }
-//
-// class MultiCheckBoxField extends StatelessWidget {
-//   const MultiCheckBoxField({
-//     Key key,
-//     this.count = 1,
-//     this.onSaved,
-//   }) : super(key: key);
-//
-//   final int count;
-//   final FormFieldSetter<List<bool>> onSaved;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FormField<List<bool>>(
-//       initialValue: List.filled(count, false),
-//       onSaved: onSaved,
-//       builder: (FormFieldState field) {
-//         return Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: List.generate(
-//             count,
-//                 (int index) {
-//               return Checkbox(
-//                 onChanged: (bool value) {
-//                   field.value[index] = value;
-//                   field.didChange(field.value);
-//                 },
-//                 value: field.value[index],
-//               );
-//             },
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
