@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 10,),
-              Text("Register", style: myStyle(28,Colors.grey[700],FontWeight.w700),
+              Text("Sign Up", style: myStyle(28,Colors.grey[700],FontWeight.w700),
               ),
               SizedBox(height: 150,),
               Container(
