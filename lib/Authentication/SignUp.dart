@@ -42,7 +42,10 @@ class _SignUpState extends State<SignUp>{
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
+                child: TextFormField(
+                    validator: (val){
+                      return val.isEmpty || val.length < 4 ? "Invalid Username":null;
+                    },
                     controller: userNameController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,
@@ -57,7 +60,12 @@ class _SignUpState extends State<SignUp>{
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
+                child: TextFormField(
+                    validator: (val){
+                      return RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(val) ? null : "Invalid Email";
+                    },
                     controller: emailController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,
@@ -72,7 +80,11 @@ class _SignUpState extends State<SignUp>{
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
+                child: TextFormField(
+                    obscureText: true,
+                    validator: (val){
+                      return val.length < 6 ? "Enter a stronger Password" : null;
+                    },
                     controller: passwordController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,

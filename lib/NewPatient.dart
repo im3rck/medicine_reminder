@@ -59,20 +59,6 @@ class _NewPatientState extends State<NewPatient>{
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  controller: pinController,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white30,
-                      filled: true,
-                      labelText: 'Secure Pin',
-                      prefixIcon: Icon(Icons.person, color: Colors.blueGrey,),
-                      labelStyle: myStyle(16,Colors.blueGrey),
-                    )
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
                   controller: ageController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,
