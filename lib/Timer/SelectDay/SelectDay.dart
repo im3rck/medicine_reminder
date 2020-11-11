@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:medicine_reminder/timer/SingleSelection.dart';
-import 'package:medicine_reminder/timer/Timer.dart';
+import 'package:medicine_reminder/Timer/SelectDay/SingleSelection.dart';
+import 'package:medicine_reminder/Timer/SelectTime/SelectTime.dart';
 
 class SelectDay extends StatelessWidget {
   @override
