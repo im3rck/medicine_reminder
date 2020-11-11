@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/Authentication/Login.dart';
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 
 // import 'package:medicine_reminder/2NewPatient.dart';
 // import 'package:medicine_reminder/timer/SelectTime.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-      home: SelectDay(),
+      home: AuthPage(),
       // home: NewPatient2(),
     );
   }

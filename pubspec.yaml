@@ -41,6 +41,7 @@ dependencies:
   timeago:
   image:
   image_picker: ^0.6.7+12
+  simple_animations: ^2.2.3
 
 dev_dependencies:
   flutter_test:
