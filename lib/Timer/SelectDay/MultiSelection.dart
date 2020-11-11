@@ -71,7 +71,7 @@ class _MultiSelectionState extends State<MultiSelection> {
                     value: widget.wantedDays[index].isSelected,
                     onChanged: (val) {
                       widget.wantedDays[index].isSelected =
-                          !widget.wantedDays[index].isSelected;
+                      !widget.wantedDays[index].isSelected;
                       setState(() {
                         if (val)
                           selectedDays.add(index);

@@ -25,17 +25,9 @@ class Login2 extends StatelessWidget {
               height: 1,
             ),
           ),
-          Text(
-            "Please login to continue",
-            style: TextStyle(
-              fontSize: 16,
-              color: Color(0xFF1C1C1C),
-              height: 1,
-            ),
-          ),
 
           SizedBox(
-            height: 16,
+            height: 36,
           ),
 
           TextField(
@@ -43,7 +35,7 @@ class Login2 extends StatelessWidget {
               hintText: 'Email / Username',
               hintStyle: TextStyle(
                 fontSize: 16,
-                color: Color(0xFFD9BC43),
+                color: Color(0xFF1C1C1C).withOpacity(0.6),
                 fontWeight: FontWeight.bold,
               ),
               border: OutlineInputBorder(
@@ -54,7 +46,7 @@ class Login2 extends StatelessWidget {
                 ),
               ),
               filled: true,
-              fillColor: Color(0xFFECCB45),
+              fillColor: Colors.redAccent,
               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             ),
           ),
@@ -67,7 +59,7 @@ class Login2 extends StatelessWidget {
               hintText: 'Password',
               hintStyle: TextStyle(
                 fontSize: 16,
-                color: Color(0xFFD9BC43),
+                color: Color(0xFF1C1C1C).withOpacity(0.6),
                 fontWeight: FontWeight.bold,
               ),
               border: OutlineInputBorder(
@@ -78,7 +70,7 @@ class Login2 extends StatelessWidget {
                 ),
               ),
               filled: true,
-              fillColor: Color(0xFFECCB45),
+              fillColor: Colors.redAccent,
               contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             ),
           ),

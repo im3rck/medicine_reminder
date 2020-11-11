@@ -136,7 +136,7 @@ class _SingleSelectionState extends State<SingleSelection> {
         return Container(
           padding: EdgeInsets.all(20),
           color:
-              selectedValue == widget.optionList[index] ? Colors.white : null,
+          selectedValue == widget.optionList[index] ? Colors.white : null,
           child: Row(
             children: <Widget>[
               customRadioString(widget.optionList[index], index),
