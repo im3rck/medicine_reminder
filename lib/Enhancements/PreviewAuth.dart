@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/Authentication/Login.dart';
-import 'package:medicine_reminder/Authentication/SignUp.dart';
+import 'package:medicine_reminder/Authentication/Login2.dart';
+import 'package:medicine_reminder/Authentication/LoginOption.dart';
+import 'package:medicine_reminder/Authentication/SignUp2.dart';
+import 'package:medicine_reminder/Authentication/SignUpOption.dart';
 
 class AuthPage extends StatefulWidget{
   @override
@@ -37,8 +39,8 @@ class _AuthPageState extends State<AuthPage>{
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                           child: login
-                              ? Login()
-                              : Null //LoginOption(),
+                              ? Login2()
+                              : LoginOption(),
                         ),
                       ),
                     ),
@@ -64,8 +66,8 @@ class _AuthPageState extends State<AuthPage>{
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                           child: !login
-                              ? SignUp()
-                              : Null //SignUpOption(),
+                              ? SignUp2()
+                              : SignUpOption(),
                         ),
                       ),
                     )
