@@ -52,6 +52,8 @@ class _MultiSelectionState extends State<MultiSelection> {
     });
   }
 
+  bool _selected = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -64,8 +66,12 @@ class _MultiSelectionState extends State<MultiSelection> {
                 onTap: () {
                   widget.wantedDays[index].isSelected =
                       !widget.wantedDays[index].isSelected;
+                  _selected = !_selected;
                   setState(() {
-                    selectedDays.add(index);
+                    if (_selected)
+                      selectedDays.add(index);
+                    else
+                      selectedDays.remove(index);
                   });
                 },
                 child: Container(
