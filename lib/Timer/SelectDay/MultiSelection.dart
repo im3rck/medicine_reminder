@@ -61,42 +61,24 @@ class _MultiSelectionState extends State<MultiSelection> {
         Expanded(
           child: ListView.builder(
             itemBuilder: (ctx, index) {
-              return GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  widget.wantedDays[index].isSelected =
+              return SizedBox(
+                height: 40.0,
+                width: 40.0,
+                child: CheckboxListTile(
+                    title: Text(widget.wantedDays[index].day),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.all(0),
+                    value: widget.wantedDays[index].isSelected,
+                    onChanged: (val) {
+                      widget.wantedDays[index].isSelected =
                       !widget.wantedDays[index].isSelected;
-                  _selected = !_selected;
-                  setState(() {
-                    if (_selected) {
-                      selectedDays.add(index);
-                      _selected=false;
-                    }
-                    else {
-                      selectedDays.remove(index);
-                      _selected=true;
-                    }
-                  });
-                },
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Checkbox(
-                          value: widget.wantedDays[index].isSelected,
-                          onChanged: (val) {
-                            widget.wantedDays[index].isSelected =
-                                !widget.wantedDays[index].isSelected;
-                            setState(() {
-                              if (val)
-                                selectedDays.add(index);
-                              else
-                                selectedDays.remove(index);
-                            });
-                          }),
-                      Text(widget.wantedDays[index].day),
-                    ],
-                  ),
-                ),
+                      setState(() {
+                        if (val)
+                          selectedDays.add(index);
+                        else
+                          selectedDays.remove(index);
+                      });
+                    }),
               );
             },
             itemCount: widget.wantedDays.length,
