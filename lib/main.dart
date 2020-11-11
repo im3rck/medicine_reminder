@@ -9,6 +9,7 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 // import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-      home: AuthPage(),
-      // home: NewPatient2(),
+      // home: AuthPage(),
+      home: SelectDay(),
     );
   }
 }
