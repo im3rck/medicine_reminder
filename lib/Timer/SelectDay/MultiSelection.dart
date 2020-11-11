@@ -68,10 +68,14 @@ class _MultiSelectionState extends State<MultiSelection> {
                       !widget.wantedDays[index].isSelected;
                   _selected = !_selected;
                   setState(() {
-                    if (_selected)
+                    if (_selected) {
                       selectedDays.add(index);
-                    else
+                      _selected=false;
+                    }
+                    else {
                       selectedDays.remove(index);
+                      _selected=true;
+                    }
                   });
                 },
                 child: Container(
