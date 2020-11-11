@@ -24,7 +24,7 @@ class _SingleSelectionState extends State<SingleSelection> {
     selectedValue = widget.optionList.first;
   }
 
-  String selectedDays = ' Mon '
+  String selectedDays = '    Mon '
       ' Tue '
       ' Wed '
       ' Thu '
@@ -39,7 +39,7 @@ class _SingleSelectionState extends State<SingleSelection> {
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(15)),
-            title: Text('Days'),
+            title: Text('DAYS'),
             content: Container(
                 width: 250,
                 height: 380,
@@ -58,10 +58,9 @@ class _SingleSelectionState extends State<SingleSelection> {
               changeIndex(index);
               if (index == 1) {
                 openDialog(index);
-                selectedDays = '';
-              }
-              else
-                selectedDays = ' Mon '
+                selectedDays = '   ';
+              } else
+                selectedDays = '    Mon '
                     ' Tue '
                     ' Wed '
                     ' Thu '
@@ -104,7 +103,7 @@ class _SingleSelectionState extends State<SingleSelection> {
 
   Widget showDailyMsg(int index) {
     List<TextSpan> _getSelected() {
-      final String daily = ' Remind me Everyday ';
+      final String daily = '    Remind me Everyday ';
 
       List<TextSpan> selected = [];
 
