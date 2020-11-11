@@ -12,9 +12,10 @@ class MultiSelection extends StatefulWidget {
     Days('Saturday'),
     Days('Sunday'),
   ];
-  final customFunction;
+  final updateDays;
+  final updateIndices;
 
-  MultiSelection({Key key, this.customFunction}) : super(key: key);
+  MultiSelection({Key key, this.updateDays,this.updateIndices}) : super(key: key);
 
   @override
   _MultiSelectionState createState() => _MultiSelectionState();
@@ -25,34 +26,33 @@ class _MultiSelectionState extends State<MultiSelection> {
 
   void addDays(List<int> list) {
     list.sort();
+    widget.updateIndices(list);
     list.forEach((element) {
       switch (element) {
         case 0:
-          widget.customFunction(' Mon ');
+          widget.updateDays(' Mon ');
           break;
         case 1:
-          widget.customFunction(' Tue ');
+          widget.updateDays(' Tue ');
           break;
         case 2:
-          widget.customFunction(' Wed ');
+          widget.updateDays(' Wed ');
           break;
         case 3:
-          widget.customFunction(' Thu ');
+          widget.updateDays(' Thu ');
           break;
         case 4:
-          widget.customFunction(' Fri ');
+          widget.updateDays(' Fri ');
           break;
         case 5:
-          widget.customFunction(' Sat ');
+          widget.updateDays(' Sat ');
           break;
         case 6:
-          widget.customFunction(' Sun ');
+          widget.updateDays(' Sun ');
           break;
       }
     });
   }
-
-  bool _selected = false;
 
   @override
   Widget build(BuildContext context) {
