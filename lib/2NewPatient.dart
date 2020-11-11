@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medicine_reminder/timer/Timer.dart';
+import 'package:medicine_reminder/Timer/SelectTime/SelectTime.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 
 

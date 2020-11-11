@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:medicine_reminder/timer/MultiSelection.dart';
+import 'package:medicine_reminder/Timer/SelectDay/MultiSelection.dart';
 
 class SingleSelection extends StatefulWidget {
   final List<String> optionList = [
@@ -101,9 +101,11 @@ class _SingleSelectionState extends State<SingleSelection> {
   }
 
   void listChange(String updateSelectedDays) {
-    setState(() {
-      selectedDays = selectedDays + updateSelectedDays;
-    });
+    var ok = selectedDays.contains(updateSelectedDays);
+    if (!ok)
+      setState(() {
+        selectedDays = selectedDays + updateSelectedDays;
+      });
   }
 
   Widget showDailyMsg(int index) {

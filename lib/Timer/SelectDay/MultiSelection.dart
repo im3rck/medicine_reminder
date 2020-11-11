@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:medicine_reminder/timer/days.dart';
+import 'package:medicine_reminder/Timer/days.dart';
 
 class MultiSelection extends StatefulWidget {
   final List<Days> wantedDays = [

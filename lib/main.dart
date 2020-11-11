@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:medicine_reminder/2NewPatient.dart';
-// import 'package:medicine_reminder/timer/Timer.dart';
+// import 'package:medicine_reminder/timer/SelectTime.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 // import 'package:medicine_reminder/navigation.dart';
-import 'package:medicine_reminder/timer/SelectDay.dart';
+import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
