@@ -42,22 +42,8 @@ class _SingleSelectionState extends State<SingleSelection> {
             title: Text('Days'),
             content: Container(
                 width: 250,
-                height: 325,
+                height: 380,
                 child: MultiSelection(customFunction: listChange)),
-            actions: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(15),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                },
-                child: Text(
-                  'Ok',
-                  style: TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
-                color: Colors.redAccent,
-                textColor: Colors.white,
-              ),
-            ],
           );
         });
   }
@@ -74,6 +60,14 @@ class _SingleSelectionState extends State<SingleSelection> {
                 openDialog(index);
                 selectedDays = '';
               }
+              else
+                selectedDays = ' Mon '
+                    ' Tue '
+                    ' Wed '
+                    ' Thu '
+                    ' Fri '
+                    ' Sat '
+                    ' Sun ';
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),

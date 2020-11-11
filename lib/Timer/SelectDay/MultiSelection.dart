@@ -21,80 +21,103 @@ class MultiSelection extends StatefulWidget {
 }
 
 class _MultiSelectionState extends State<MultiSelection> {
-  void addDays(int index) {
-    switch (index) {
-      case 0:
-        {
+  List<int> selectedDays = [];
+
+  void addDays(List<int> list) {
+    list.sort();
+    list.forEach((element) {
+      switch (element) {
+        case 0:
           widget.customFunction(' Mon ');
-        }
-        break;
-      case 1:
-        {
+          break;
+        case 1:
           widget.customFunction(' Tue ');
-        }
-        break;
-      case 2:
-        {
+          break;
+        case 2:
           widget.customFunction(' Wed ');
-        }
-        break;
-      case 3:
-        {
+          break;
+        case 3:
           widget.customFunction(' Thu ');
-        }
-        break;
-      case 4:
-        {
+          break;
+        case 4:
           widget.customFunction(' Fri ');
-        }
-        break;
-      case 5:
-        {
+          break;
+        case 5:
           widget.customFunction(' Sat ');
-        }
-        break;
-      case 6:
-        {
+          break;
+        case 6:
           widget.customFunction(' Sun ');
-        }
-        break;
-    }
+          break;
+      }
+    });
   }
-  bool _value = false;
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (ctx, index) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            widget.wantedDays[index].isSelected =
-                !widget.wantedDays[index].isSelected;
-            setState(() {
-              _value = true;
-              addDays(index);
-            });
-          },
-          child: Container(
-            color: widget.wantedDays[index].isSelected ? Colors.white : null,
-            child: Row(
-              children: <Widget>[
-                Checkbox(
-                    value: widget.wantedDays[index].isSelected,
-                    onChanged: (val) {
-                      widget.wantedDays[index].isSelected =
-                          !widget.wantedDays[index].isSelected;
-                      setState(() {
-                        if (val) addDays(index);
-                      });
-                    }),
-                Text(widget.wantedDays[index].day),
-              ],
-            ),
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (ctx, index) {
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  widget.wantedDays[index].isSelected =
+                      !widget.wantedDays[index].isSelected;
+                  setState(() {
+                    selectedDays.add(index);
+                  });
+                },
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Checkbox(
+                          value: widget.wantedDays[index].isSelected,
+                          onChanged: (val) {
+                            widget.wantedDays[index].isSelected =
+                                !widget.wantedDays[index].isSelected;
+                            setState(() {
+                              if (val)
+                                selectedDays.add(index);
+                              else
+                                selectedDays.remove(index);
+                            });
+                          }),
+                      Text(widget.wantedDays[index].day),
+                    ],
+                  ),
+                ),
+              );
+            },
+            itemCount: widget.wantedDays.length,
           ),
-        );
-      },
-      itemCount: widget.wantedDays.length,
+        ),
+        ButtonTheme(
+          padding: EdgeInsets.zero,
+          //adds padding inside the button
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          //limits the touch area to the button area
+          minWidth: 250,
+          //wraps child's width
+          height: 35,
+          //wraps child's height
+          child: FlatButton(
+            // shape: RoundedRectangleBorder(
+            //     borderRadius: new BorderRadius.circular(15)),
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              addDays(selectedDays);
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+            child: Text(
+              'Ok',
+              style: TextStyle(fontSize: 18.0, color: Colors.white),
+            ),
+            color: Colors.redAccent,
+            textColor: Colors.white,
+          ), //your original button
+        ),
+      ],
     );
   }
 }
