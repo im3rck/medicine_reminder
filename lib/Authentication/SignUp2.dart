@@ -1,10 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medicine_reminder/Widgets/variables.dart';
 
 class SignUp2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController userNameController = TextEditingController();
+
+    registerUser(){
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text)
+          .then((signeduser) {
+        userCollection.doc(signeduser.user.uid).set({
+          'username': userNameController.text,
+          'password': passwordController.text,
+          'email': emailController.text,
+          'uid': signeduser.user.uid,
+        });
+      });
+      Navigator.pop(context);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -14,32 +36,36 @@ class SignUp2 extends StatelessWidget {
           "Sign up with",
           style: TextStyle(
             fontSize: 16,
-            color: Color(0xFFF3D657),
+              fontWeight: FontWeight.bold,
+            color: Color(0xFF1C1C1C),
             height: 2,
           ),
         ),
 
         Text(
-          "HOMELAND",
+          "MedReminder",
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFF3D657),
+            color: Color(0xFF1C1C1C),
             letterSpacing: 2,
             height: 1,
           ),
         ),
-
         SizedBox(
           height: 16,
         ),
-
-        TextField(
+        TextFormField(
+            validator: (val){
+              return val.isEmpty || val.length < 4 ? "Invalid Username":null;
+            },
+            controller: userNameController,
           decoration: InputDecoration(
-            hintText: 'Enter Email / Username',
+            prefixIcon: Icon(Icons.person, color: Color(0xFF1C1C1C).withOpacity(0.7),),
+            hintText: 'Username',
             hintStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF3F3C31),
+              color: Color(0xFF1C1C1C).withOpacity(0.6),
               fontWeight: FontWeight.bold,
             ),
             border: OutlineInputBorder(
@@ -50,7 +76,38 @@ class SignUp2 extends StatelessWidget {
               ),
             ),
             filled: true,
-            fillColor: Colors.grey.withOpacity(0.1),
+            fillColor: Color(0xffECECEA),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          ),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+
+        TextFormField(
+          validator: (val){
+            return RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                .hasMatch(val) ? null : "Invalid Email";
+          },
+          controller: emailController,
+          decoration: InputDecoration(
+            hintText: 'Email',
+            prefixIcon: Icon(Icons.email, color: Color(0xFF1C1C1C).withOpacity(0.7),),
+            hintStyle: TextStyle(
+              fontSize: 16,
+              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              fontWeight: FontWeight.bold,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(
+                width: 0,
+                style: BorderStyle.none,
+              ),
+            ),
+            filled: true,
+            fillColor: Color(0xffECECEA),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           ),
         ),
@@ -59,12 +116,18 @@ class SignUp2 extends StatelessWidget {
           height: 16,
         ),
 
-        TextField(
+        TextFormField(
+          obscureText: true,
+          validator: (val){
+            return val.length < 6 ? "Enter a stronger Password" : null;
+          },
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: 'Password',
+            prefixIcon: Icon(Icons.lock, color: Color(0xFF1C1C1C).withOpacity(0.7),),
             hintStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF3F3C31),
+              color: Color(0xFF1C1C1C).withOpacity(0.6),
               fontWeight: FontWeight.bold,
             ),
             border: OutlineInputBorder(
@@ -75,84 +138,50 @@ class SignUp2 extends StatelessWidget {
               ),
             ),
             filled: true,
-            fillColor: Colors.grey.withOpacity(0.1),
+            fillColor: Color(0xffECECEA),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           ),
         ),
 
-        SizedBox(
-          height: 24,
-        ),
-
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            color: Color(0xFFF3D657),
-            borderRadius: BorderRadius.all(
-              Radius.circular(25),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFFF3D657).withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 4,
-                offset: Offset(0, 3),
-              ),
-            ],
-          ),
-          child:  Center(
-            child: Text(
-              "SIGN UP",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1C1C1C),
-              ),
-            ),
-          ),
-        ),
 
         SizedBox(
           height: 24,
         ),
 
-        Text(
-          "Or Signup with",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFFF3D657),
-            height: 1,
+          InkWell(
+            onTap: ()=>registerUser(),
+            child: Container(
+            height: 40,
+            decoration: BoxDecoration(
+              color: Color(0xFF1C1C1C),
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xffBE95C4).withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+              child:  Center(
+                child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF3D657),
+                ),
+              ),
+            ),
           ),
         ),
 
         SizedBox(
-          height: 16,
+          height: 24,
         ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            Icon(
-              Entypo.facebook_with_circle,
-              size: 32,
-              color: Color(0xFFF3D657),
-            ),
-
-            SizedBox(
-              width: 24,
-            ),
-
-            Icon(
-              Entypo.google__with_circle,
-              size: 32,
-              color: Color(0xFFF3D657),
-            ),
-
-          ],
-        )
-
       ],
     );
   }

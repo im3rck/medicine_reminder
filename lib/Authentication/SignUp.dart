@@ -16,12 +16,13 @@ class _SignUpState extends State<SignUp>{
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(
         email: emailController.text, password: passwordController.text)
-        .then((signeduser) {
-      userCollection.doc(signeduser.user.uid).set({
+        // ignore: non_constant_identifier_names
+        .then((SignedUser) {
+      userCollection.doc(SignedUser.user.uid).set({
         'username': userNameController.text,
         'password': passwordController.text,
         'email': emailController.text,
-        'uid': signeduser.user.uid,
+        'uid': SignedUser.user.uid,
       });
     });
   Navigator.pop(context);

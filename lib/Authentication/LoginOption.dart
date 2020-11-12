@@ -12,6 +12,9 @@ class LoginOption extends StatelessWidget {
           "Existing user?",
           style: TextStyle(
             fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF1C1C1C),
+            height: 1,
           ),
         ),
 
@@ -37,7 +40,7 @@ class LoginOption extends StatelessWidget {
           ),
           child:  Center(
             child: Text(
-              "LOGIN",
+              "Log In",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
