@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:medicine_reminder/Timer/SelectDay/SingleSelection.dart';
 import 'package:medicine_reminder/Timer/SelectTime/SelectTime.dart';
+import 'package:medicine_reminder/Timer/SelectTime/DayList.dart';
+import 'package:medicine_reminder/Timer/SelectTime/constructor.dart';
 
 class SelectDay extends StatelessWidget {
   @override
@@ -19,22 +21,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<int> returnedIndices = [];
+  List<int> returnedIndices = [0, 1, 2, 3, 4, 5, 6];
+
+  List<DayDetails> returnedDays = <DayDetails>[
+    DayDetails(dayNumber: 1, dayName: 'MONDAY'),
+    DayDetails(dayNumber: 2, dayName: 'TUESDAY'),
+    DayDetails(dayNumber: 3, dayName: 'WEDNESDAY'),
+    DayDetails(dayNumber: 4, dayName: 'THURSDAY'),
+    DayDetails(dayNumber: 5, dayName: 'FRIDAY'),
+    DayDetails(dayNumber: 6, dayName: 'SATURDAY'),
+    DayDetails(dayNumber: 7, dayName: 'SUNDAY')
+  ];
 
   Future navigateToSubPage(context) async {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Timer(returnedIndices)));
+        MaterialPageRoute(builder: (context) => DayList(returnedDays)));
   }
 
   void getIndices(List<int> list) {
-    returnedIndices = list;
+    setState(() {
+      returnedIndices = list;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: Color(0xff3196ae),
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Select Day",
+          style: TextStyle(fontSize: 30),
+        ),
         leading: GestureDetector(
           onTap: () {
             /* Write listener code here */
@@ -43,12 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Icons.arrow_back_outlined, // add custom icons also
           ),
         ),
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "Select Day",
-          style: TextStyle(fontSize: 30),
-        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -56,167 +71,35 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.white,
               size: 30,
             ),
-            highlightColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () {
+              print(returnedIndices);
+            },
           )
         ],
       ),
-      // body: SingleSelection(updateIndices: getIndices),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 70,
+                height: 10,
+                width: double.infinity,
                 color: Color(0xff3196ae),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // changeFilter("Time");
-                          },
-                          child: Text(
-                            "Time",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 4,
-                          width: 120,
-                          // color: (filterType == "Time")
-                          //     ? Colors.white
-                          //     : Colors.transparent,
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // changeFilter("Schedule");
-                          },
-                          child: Text(
-                            "Schedule",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 4,
-                          width: 120,
-                          // color: (filterType == "Schedule")
-                          //     ? Colors.white
-                          //     : Colors.transparent,
-                        )
-                      ],
-                    )
-                  ],
-                ),
               ),
-              // if (filterType == "Schedule")
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Container(
-                                margin: const EdgeInsets.all(6.0),
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0.0, 1.0), //(x,y)
-                                      blurRadius: 6.0,
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  "Multiple Dates",
-                                  // style: myStyle(16),
-                                )),
-                            Center(
-                              child: Switch(
-                                value: true,
-                                onChanged: (value) {
-                                  setState(() {
-                                    // isSwitched = value;
-                                    // print(isSwitched);
-                                  });
-                                },
-                                activeTrackColor: Colors.grey,
-                                activeColor: Colors.lightBlue,
-                              ),
-                            ),
-                            Container(
-                                margin: const EdgeInsets.all(6.0),
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50.0),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      offset: Offset(0.0, 1.0), //(x,y)
-                                      blurRadius: 6.0,
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  "Range of Dates",
-                                  // style: myStyle(16),
-                                )),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        // _calendarType(),
-                      ],
-                    ),
-                  ),
-                ),
-              // if (filterType == "Time")
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Container(
-                            child: SelectTime(),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+              Flexible(child: SingleSelection(updateIndices: getIndices)),
+              Container(
+                height: 10,
+                width: double.infinity,
+                color: Colors.white,
+              ),
+              // Flexible(child: DayList(returnedDays))
+              Flexible(child: Timer(returnedIndices))
             ],
           ),
         ],
       ),
-      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
         backgroundColor: Color(0xff3196ae),

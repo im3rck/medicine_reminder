@@ -95,8 +95,6 @@ class _MultiSelectionState extends State<MultiSelection> {
           height: 35,
           //wraps child's height
           child: FlatButton(
-            // shape: RoundedRectangleBorder(
-            //     borderRadius: new BorderRadius.circular(15)),
             padding: EdgeInsets.zero,
             onPressed: () {
               if (selectedDays.isNotEmpty) {

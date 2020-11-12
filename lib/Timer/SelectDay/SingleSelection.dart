@@ -62,6 +62,7 @@ class _SingleSelectionState extends State<SingleSelection> {
         children: <Widget>[
           OutlineButton(
             onPressed: () {
+
               changeIndex(index);
               if (index == 1) {
                 openDialog(index);
@@ -144,21 +145,22 @@ class _SingleSelectionState extends State<SingleSelection> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemBuilder: (ctx, index) {
-        // return a row with container and another widget if you want to add
-        // something else
-        return Container(
-          padding: EdgeInsets.all(20),
-          color:
-              selectedValue == widget.optionList[index] ? Colors.white : null,
-          child: Row(
-            children: <Widget>[
-              customRadioString(widget.optionList[index], index),
-            ],
-          ),
-        );
-      },
-      itemCount: widget.optionList.length,
-    );
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) {
+          // return a row with container and another widget if you want to add
+          // something else
+          return Container(
+            padding: EdgeInsets.all(20),
+            color:
+                selectedValue == widget.optionList[index] ? Colors.white : null,
+            child: Row(
+              children: <Widget>[
+                customRadioString(widget.optionList[index], index),
+              ],
+            ),
+          );
+        },
+        itemCount: widget.optionList.length,
+      );
   }
 }
