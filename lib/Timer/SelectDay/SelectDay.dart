@@ -19,8 +19,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<int> returnedIndices = [];
   Future navigateToSubPage(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Timer(returnedIndices)));
+  }
+
+  void getIndices(List<int> list) {
+    returnedIndices = list;
   }
 
   @override
@@ -54,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: SingleSelection(),
+      body: SingleSelection(updateIndices: getIndices),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
         backgroundColor: Color(0xfff96060),

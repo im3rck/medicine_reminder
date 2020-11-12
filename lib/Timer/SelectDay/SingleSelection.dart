@@ -7,8 +7,9 @@ class SingleSelection extends StatefulWidget {
     'Daily',
     'Custom',
   ];
+  final updateIndices;
 
-  SingleSelection();
+  SingleSelection({Key key, this.updateIndices}) : super(key: key);
 
   @override
   _SingleSelectionState createState() => _SingleSelectionState();
@@ -17,6 +18,7 @@ class SingleSelection extends StatefulWidget {
 class _SingleSelectionState extends State<SingleSelection> {
   String selectedValue;
   int selectedIndex = 0;
+  // List<int> returnedIndices = [];
 
   @override
   void initState() {
@@ -43,7 +45,7 @@ class _SingleSelectionState extends State<SingleSelection> {
             content: Container(
                 width: 250,
                 height: 380,
-                child: MultiSelection(customFunction: listChange)),
+                child: MultiSelection(updateDays: listChange,updateIndices: getIndices)),
           );
         });
   }
@@ -59,7 +61,9 @@ class _SingleSelectionState extends State<SingleSelection> {
               if (index == 1) {
                 openDialog(index);
                 selectedDays = '   ';
-              } else
+              } else {
+                var list = Iterable<int>.generate(7).toList();
+                getIndices(list);
                 selectedDays = '    Mon '
                     ' Tue '
                     ' Wed '
@@ -67,6 +71,7 @@ class _SingleSelectionState extends State<SingleSelection> {
                     ' Fri '
                     ' Sat '
                     ' Sun ';
+              }
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
@@ -99,6 +104,11 @@ class _SingleSelectionState extends State<SingleSelection> {
       setState(() {
         selectedDays = selectedDays + updateSelectedDays;
       });
+  }
+
+  void getIndices(List<int> list){
+    // returnedIndices = list;
+    widget.updateIndices(list);
   }
 
   Widget showDailyMsg(int index) {
