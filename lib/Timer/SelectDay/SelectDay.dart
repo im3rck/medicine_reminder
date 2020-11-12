@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xfff96060),
+        backgroundColor: Color(0xff3196ae),
         leading: GestureDetector(
           onTap: () {
             /* Write listener code here */
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleSelection(updateIndices: getIndices),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
-        backgroundColor: Color(0xfff96060),
+        backgroundColor: Color(0xff3196ae),
         onPressed: () {
           navigateToSubPage(context);
         },

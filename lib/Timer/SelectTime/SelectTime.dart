@@ -38,11 +38,11 @@ class _TimerState extends State<Timer> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppBar(
-                backgroundColor: Color(0xfff96060),
+                backgroundColor: Color(0xff3196ae),
                 elevation: 0,
                 centerTitle: true,
                 title: Text(
-                  "Set a Timer",
+                  "Set a Time",
                   style: TextStyle(fontSize: 30),
                 ),
                 actions: [
@@ -53,14 +53,14 @@ class _TimerState extends State<Timer> {
                       size: 30,
                     ),
                     onPressed: () {
-                      print(widget.updateIndices);
+                      // print(widget.updateIndices);
                     },
                   )
                 ],
               ),
               Container(
                 height: 70,
-                color: Color(0xfff96060),
+                color: Color(0xff3196ae),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -258,9 +258,9 @@ class _TimerState extends State<Timer> {
               dayFormat: 'EEE',
             ),
             selectionMode: DateRangePickerSelectionMode.range,
-            endRangeSelectionColor: const Color(0xfff96060),
-            rangeSelectionColor: const Color(0xfff96060).withOpacity(0.1),
-            startRangeSelectionColor: const Color(0xfff96060),
+            endRangeSelectionColor: const Color(0xff3196ae),
+            rangeSelectionColor: const Color(0xff3196ae).withOpacity(0.1),
+            startRangeSelectionColor: const Color(0xff3196ae),
             monthCellStyle: DateRangePickerMonthCellStyle(
                 todayTextStyle: TextStyle(
                   color: Colors.black,
@@ -268,9 +268,9 @@ class _TimerState extends State<Timer> {
                 todayCellDecoration: BoxDecoration(
                     color: Colors.white30,
                     border:
-                        Border.all(color: const Color(0xfff96060), width: 3),
+                        Border.all(color: const Color(0xff3196ae), width: 3),
                     shape: BoxShape.circle),
-                weekendTextStyle: TextStyle(color: Colors.red)),
+                weekendTextStyle: TextStyle(color: Color(0xff3196ae))),
           ));
     } else {
       return Container(
@@ -294,7 +294,7 @@ class _TimerState extends State<Timer> {
               dayFormat: 'EEE',
             ),
             selectionMode: DateRangePickerSelectionMode.multiple,
-            selectionColor: const Color(0xfff96060),
+            selectionColor: const Color(0xff3196ae),
             monthCellStyle: DateRangePickerMonthCellStyle(
                 todayTextStyle: TextStyle(
                   color: Colors.black,
@@ -302,9 +302,9 @@ class _TimerState extends State<Timer> {
                 todayCellDecoration: BoxDecoration(
                     color: Colors.white30,
                     border:
-                        Border.all(color: const Color(0xfff96060), width: 3),
+                        Border.all(color: const Color(0xff3196ae), width: 3),
                     shape: BoxShape.circle),
-                weekendTextStyle: TextStyle(color: Colors.red)),
+                weekendTextStyle: TextStyle(color: Color(0xff3196ae))),
           ));
     }
   }
@@ -342,7 +342,7 @@ class _SelectTimeState extends State<SelectTime> {
       child: Padding(
         padding: EdgeInsets.only(top: 10.0, bottom: 4),
         child: FlatButton(
-          color: Color(0xfff96060),
+          color: Color(0xff3196ae),
           shape: StadiumBorder(),
           onPressed: () {
             _selectTime(context);

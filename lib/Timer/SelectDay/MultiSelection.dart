@@ -15,7 +15,8 @@ class MultiSelection extends StatefulWidget {
   final updateDays;
   final updateIndices;
 
-  MultiSelection({Key key, this.updateDays,this.updateIndices}) : super(key: key);
+  MultiSelection({Key key, this.updateDays, this.updateIndices})
+      : super(key: key);
 
   @override
   _MultiSelectionState createState() => _MultiSelectionState();
@@ -30,25 +31,25 @@ class _MultiSelectionState extends State<MultiSelection> {
     list.forEach((element) {
       switch (element) {
         case 0:
-          widget.updateDays(' Mon ');
+          widget.updateDays(' MON ');
           break;
         case 1:
-          widget.updateDays(' Tue ');
+          widget.updateDays(' TUE ');
           break;
         case 2:
-          widget.updateDays(' Wed ');
+          widget.updateDays(' WED ');
           break;
         case 3:
-          widget.updateDays(' Thu ');
+          widget.updateDays(' THU ');
           break;
         case 4:
-          widget.updateDays(' Fri ');
+          widget.updateDays(' FRI ');
           break;
         case 5:
-          widget.updateDays(' Sat ');
+          widget.updateDays(' SAT ');
           break;
         case 6:
-          widget.updateDays(' Sun ');
+          widget.updateDays(' SUN ');
           break;
       }
     });
@@ -71,7 +72,7 @@ class _MultiSelectionState extends State<MultiSelection> {
                     value: widget.wantedDays[index].isSelected,
                     onChanged: (val) {
                       widget.wantedDays[index].isSelected =
-                      !widget.wantedDays[index].isSelected;
+                          !widget.wantedDays[index].isSelected;
                       setState(() {
                         if (val)
                           selectedDays.add(index);
@@ -98,14 +99,16 @@ class _MultiSelectionState extends State<MultiSelection> {
             //     borderRadius: new BorderRadius.circular(15)),
             padding: EdgeInsets.zero,
             onPressed: () {
-              addDays(selectedDays);
-              Navigator.of(context, rootNavigator: true).pop();
+              if (selectedDays.isNotEmpty) {
+                addDays(selectedDays);
+                Navigator.of(context, rootNavigator: true).pop();
+              }
             },
             child: Text(
-              'Ok',
+              'OK',
               style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
-            color: Colors.redAccent,
+            color: Color(0xff3196ae),
             textColor: Colors.white,
           ), //your original button
         ),
