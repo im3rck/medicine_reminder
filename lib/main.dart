@@ -7,8 +7,8 @@ import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 // import 'package:medicine_reminder/timer/SelectTime.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 // import 'package:medicine_reminder/navigation.dart';
-// import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
-import 'package:medicine_reminder/enhancements/PreviewAuth.dart';
+import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 
 
 void main() async {
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-       home: AuthPage(),
+       home: SelectDay(),
     );
   }
 }
