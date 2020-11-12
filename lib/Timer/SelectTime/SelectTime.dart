@@ -5,6 +5,10 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:intl/intl.dart';
 
 class Timer extends StatefulWidget {
+  final List<int> updateIndices;
+
+  Timer(this.updateIndices);
+
   @override
   _TimerState createState() => _TimerState();
 }
@@ -48,7 +52,9 @@ class _TimerState extends State<Timer> {
                       color: Colors.white,
                       size: 30,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print(widget.updateIndices);
+                    },
                   )
                 ],
               ),
@@ -147,7 +153,7 @@ class _TimerState extends State<Timer> {
                                 onChanged: (value) {
                                   setState(() {
                                     isSwitched = value;
-                                    print(isSwitched);
+                                    // print(isSwitched);
                                   });
                                 },
                                 activeTrackColor: Colors.grey,
