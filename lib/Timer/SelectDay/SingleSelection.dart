@@ -35,7 +35,6 @@ class _SingleSelectionState extends State<SingleSelection> {
 
   void openDialog(int index) {
     showDialog(
-        barrierDismissible: false,
         context: context,
         builder: (ctx) {
           return WillPopScope(
