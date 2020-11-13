@@ -1,9 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:medicine_reminder/Widgets/variables.dart';
 
-class SignUp2 extends StatelessWidget {
+bool _passwordVisible;
+
+class SignUp2 extends StatefulWidget {
+  @override
+  _SignUp2State createState() => _SignUp2State();
+}
+
+class _SignUp2State extends State<SignUp2> {
+  void initState() {
+    _passwordVisible = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,14 +127,33 @@ class SignUp2 extends StatelessWidget {
         ),
 
         TextFormField(
-          obscureText: true,
           validator: (val){
-            return val.length < 6 ? "Enter a stronger Password" : null;
+            if(val.length<6){
+              return "Enter a stronger Password";
+            }
+            else {
+              return null;
+            }
           },
+          keyboardType: TextInputType.text,
           controller: passwordController,
+          obscureText: !_passwordVisible,
           decoration: InputDecoration(
             hintText: 'Password',
-            prefixIcon: Icon(Icons.lock, color: Color(0xFF1C1C1C).withOpacity(0.7),),
+            prefixIcon: Icon(Icons.lock, color: Color(0xFF1C1C1C).withOpacity(0.8),),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: Color(0xFF1C1C1C).withOpacity(0.6),
+              ),
+              onPressed: (){
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
             hintStyle: TextStyle(
               fontSize: 16,
               color: Color(0xFF1C1C1C).withOpacity(0.6),

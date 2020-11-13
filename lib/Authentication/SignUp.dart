@@ -57,7 +57,7 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 16,),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
@@ -77,7 +77,7 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 16,),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
@@ -96,7 +96,6 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 16,),
 
               SizedBox(height: 40,),
               InkWell(
