@@ -1,16 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/PhasePage.dart';
 
 class Login2 extends StatefulWidget {
   @override
   _Login2State createState() => _Login2State();
 }
+bool _passwordVisible;
 
 class _Login2State extends State<Login2> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
-
+  void initState() {
+    _passwordVisible = false;
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +29,7 @@ class _Login2State extends State<Login2> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xffBB86FC),
             height: 2,
           ),
         ),
@@ -34,7 +38,7 @@ class _Login2State extends State<Login2> {
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xffBB86FC),
             letterSpacing: 2,
             height: 1,
           ),
@@ -45,54 +49,71 @@ class _Login2State extends State<Login2> {
         TextField(
           controller: emailController,
           decoration: InputDecoration(
-            hintText: 'Email',
+            labelText: 'Email',
             prefixIcon: Icon(
               Icons.email,
-              color: Color(0xFF1C1C1C).withOpacity(0.8),
+              color: Color(0xffF2E7FE),
             ),
-            hintStyle: TextStyle(
+            labelStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              color: Color(0xffF2E7FE),
               fontWeight: FontWeight.bold,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
             filled: true,
-            fillColor: Color(0xffECECEA),
+            fillColor: Color(0x292929),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffBB86fc)),
+                //  when the TextFormField in focused
+              ) ,
+              border: UnderlineInputBorder(
+              )
           ),
         ),
         SizedBox(
           height: 20,
         ),
         TextField(
+          keyboardType: TextInputType.text,
+          obscureText: !_passwordVisible,
           controller: passwordController,
           decoration: InputDecoration(
-            hintText: 'Password',
+            labelText: 'Password',
             prefixIcon: Icon(
               Icons.lock,
-              color: Color(0xFF1C1C1C).withOpacity(0.8),
+              color: Color(0xffF2E7FE),
             ),
-            hintStyle: TextStyle(
+            labelStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              color: Color(0xffF2E7FE),
               fontWeight: FontWeight.bold,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
             filled: true,
-            fillColor: Color(0xffECECEA),
+            fillColor: Color(0xff292929),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+                color: Color(0xFFf2e7fe),
+              ),
+              onPressed: (){
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffBB86fc)),
+                //  when the TextFormField in focused
+              ) ,
+              border: UnderlineInputBorder(
+              )
           ),
         ),
         SizedBox(
@@ -104,6 +125,8 @@ class _Login2State extends State<Login2> {
               FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: emailController.text,
                   password: passwordController.text);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => PhasePage()));
             } catch (e) {
               SnackBar snackBar =
                   SnackBar(content: Text("Invalid Credentials"));
@@ -113,13 +136,17 @@ class _Login2State extends State<Login2> {
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Color(0xFF1C1C1C),
+              color: Color(0xff292929),
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
               ),
+              border: Border.all(
+                color: Color(0xffBB86FC),
+                width: 1
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xff515151).withOpacity(0.2),
+                  color: Color(0xffF292929).withOpacity(0.2),
                   spreadRadius: 3,
                   blurRadius: 4,
                   offset: Offset(0, 3),
@@ -132,7 +159,7 @@ class _Login2State extends State<Login2> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFF3D657),
+                  color: Color(0xffF2E7FE),
                 ),
               ),
             ),
@@ -146,7 +173,7 @@ class _Login2State extends State<Login2> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xFFF2E7FE),
             height: 1,
           ),
         ),

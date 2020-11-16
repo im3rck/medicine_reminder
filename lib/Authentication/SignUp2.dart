@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 
 bool _passwordVisible;
@@ -34,7 +34,8 @@ class _SignUp2State extends State<SignUp2> {
           'uid': signeduser.user.uid,
         });
       });
-      Navigator.pop(context);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AuthPage()));
     }
 
     return Column(
@@ -47,7 +48,7 @@ class _SignUp2State extends State<SignUp2> {
           style: TextStyle(
             fontSize: 16,
               fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xffBB86FC),
             height: 2,
           ),
         ),
@@ -57,7 +58,7 @@ class _SignUp2State extends State<SignUp2> {
           style: TextStyle(
             fontSize: 36,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xffBB86FC),
             letterSpacing: 2,
             height: 1,
           ),
@@ -66,28 +67,30 @@ class _SignUp2State extends State<SignUp2> {
           height: 16,
         ),
         TextFormField(
-            validator: (val){
+
+          validator: (val){
               return val.isEmpty || val.length < 4 ? "Invalid Username":null;
             },
             controller: userNameController,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.person, color: Color(0xFF1C1C1C).withOpacity(0.7),),
-            hintText: 'Username',
-            hintStyle: TextStyle(
+            prefixIcon: Icon(Icons.person, color: Color(0xFFf2e7fe),),
+            labelText: 'Username',
+            labelStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              color: Color(0xfff2e7fe),
               fontWeight: FontWeight.bold,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
             filled: true,
-            fillColor: Color(0xffECECEA),
+            fillColor: Color(0xff121212),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+            enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffBB86fc)),
+                //  when the TextFormField in focused
+              ) ,
+              border: UnderlineInputBorder(
+              )
           ),
         ),
         SizedBox(
@@ -95,6 +98,7 @@ class _SignUp2State extends State<SignUp2> {
         ),
 
         TextFormField(
+          keyboardType: TextInputType.emailAddress,
           validator: (val){
             return RegExp(
                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -102,23 +106,24 @@ class _SignUp2State extends State<SignUp2> {
           },
           controller: emailController,
           decoration: InputDecoration(
-            hintText: 'Email',
-            prefixIcon: Icon(Icons.email, color: Color(0xFF1C1C1C).withOpacity(0.7),),
-            hintStyle: TextStyle(
+            labelText: 'you@example.com',
+            prefixIcon: Icon(Icons.email, color: Color(0xFFf2e7fe)),
+            labelStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              color: Color(0xFFf2e7fe),
               fontWeight: FontWeight.bold,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
             filled: true,
-            fillColor: Color(0xffECECEA),
+            fillColor: Color(0xff121212),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffBB86fc)),
+                //  when the TextFormField in focused
+              ) ,
+              border: UnderlineInputBorder(
+              )
           ),
         ),
 
@@ -139,14 +144,14 @@ class _SignUp2State extends State<SignUp2> {
           controller: passwordController,
           obscureText: !_passwordVisible,
           decoration: InputDecoration(
-            hintText: 'Password',
-            prefixIcon: Icon(Icons.lock, color: Color(0xFF1C1C1C).withOpacity(0.8),),
+            labelText: 'Password',
+            prefixIcon: Icon(Icons.lock, color: Color(0xFFf2e7fe),),
             suffixIcon: IconButton(
               icon: Icon(
                 _passwordVisible
                     ? Icons.visibility
                     : Icons.visibility_off,
-                color: Color(0xFF1C1C1C).withOpacity(0.6),
+                color: Color(0xFFf2e7fe),
               ),
               onPressed: (){
                 setState(() {
@@ -154,21 +159,22 @@ class _SignUp2State extends State<SignUp2> {
                 });
               },
             ),
-            hintStyle: TextStyle(
+            labelStyle: TextStyle(
               fontSize: 16,
-              color: Color(0xFF1C1C1C).withOpacity(0.6),
+              color: Color(0xFFf2e7fe),
               fontWeight: FontWeight.bold,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(25),
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-            ),
             filled: true,
-            fillColor: Color(0xffECECEA),
+            fillColor: Color(0xff121212),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffBB86fc)),
+                //  when the TextFormField in focused
+              ) ,
+              border: UnderlineInputBorder(
+              )
           ),
         ),
 
@@ -182,13 +188,17 @@ class _SignUp2State extends State<SignUp2> {
             child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Color(0xFF1C1C1C),
+              color: Color(0xFF121212),
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
               ),
+              border: Border.all(
+                  color: Color(0xffBB86FC),
+                  width: 1
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xffBE95C4).withOpacity(0.2),
+                  color: Color(0xff121212).withOpacity(0.2),
                   spreadRadius: 3,
                   blurRadius: 4,
                   offset: Offset(0, 3),
@@ -201,7 +211,7 @@ class _SignUp2State extends State<SignUp2> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFF3D657),
+                  color: Color(0xFFF2e7fe),
                 ),
               ),
             ),

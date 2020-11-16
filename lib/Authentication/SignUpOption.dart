@@ -27,13 +27,16 @@ class SignUpOption extends StatelessWidget {
         Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Color(0xFF1C1C1C),
+            color: Color(0xFF121212),
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
+            border: Border.all(
+              color: Color(0xffBB86FC)
+            ),
             boxShadow: [
               BoxShadow(
-                color: Color(0xffBE95C4).withOpacity(0.2),
+                color: Color(0xff121212).withOpacity(0.2),
                 spreadRadius: 3,
                 blurRadius: 4,
                 offset: Offset(0, 3),
@@ -46,7 +49,7 @@ class SignUpOption extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF3D657),
+                color: Color(0xFFF2E7FE),
               ),
             ),
           ),
