@@ -27,6 +27,7 @@ dependencies:
   table_calendar: ^2.2.3
   syncfusion_flutter_datepicker: ^18.3.44-beta
   lite_rolling_switch: ^0.1.1
+  font_awesome_flutter: 8.10.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -63,6 +64,14 @@ flutter:
   assets:
      - assets/images/
   #   - images/a_dot_ham.jpeg
+  fonts:
+    - family: Circular
+      fonts:
+        - asset: assets/fonts/CircularStd-Medium.ttf
+        - asset: assets/fonts/CircularAir-Light.ttf
+          weight: 100
+        - asset: assets/fonts/CircularStd-Bold.ttf
+          weight: 500
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

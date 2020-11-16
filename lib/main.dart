@@ -1,17 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Authentication/Login.dart';
-import 'package:medicine_reminder/NewPatient.dart';
+import 'package:medicine_reminder/PatientList/NewPatient.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
-// import 'package:medicine_reminder/2NewPatient.dart';
+// import 'package:medicine_reminder/NewMedicine.dart';
 // import 'package:medicine_reminder/timer/SelectTime.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 // import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-       home: PatientAddPage(),
+      home: PhasePage(),
+      theme: ThemeData(fontFamily: 'Circular'),
     );
   }
 }
