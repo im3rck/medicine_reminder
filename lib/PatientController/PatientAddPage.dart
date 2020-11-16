@@ -9,7 +9,7 @@ class _PatientAddPageState extends State<PatientAddPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff77f00),
+      backgroundColor: Color(0xff121212),
       body: ListView(
       children: <Widget>[
         Padding(
@@ -46,14 +46,22 @@ class _PatientAddPageState extends State<PatientAddPage>{
             ],
           ),
         ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 16.0),
         Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(75.0)),
+                color: Color(0xff292929),
+              boxShadow: [
+            BoxShadow(
+              color: Color(0xffbb86fe).withOpacity(0.2),
+              spreadRadius: 3,
+              blurRadius: 4,
+              offset: Offset(0, 3),
+              ),
+                ],
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
               ),
             ),
             Cards(),
