@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/NewPatient.dart';
+import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
+
 
 class Cards extends StatelessWidget{
   final double appBarHeight = 50.0;
@@ -11,18 +13,18 @@ class Cards extends StatelessWidget{
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            InkWell(
-              onTap:() {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => NewPatient(),
-              )) ;
-          },
-              child: Container(
-                  height: 175.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: customCard(Icons.person,"Details","Patient Bio")
+
+                InkWell(
+                onTap:() {
+                  PatientDetails();
+                },
+                child: Container(
+                    height: 175.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: customCard(Icons.person,"Details","Patient Bio")
+                ),
               ),
-            ),
+
           ],
         ),
         Row(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+
 class SignUpOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color baseColor = Color(0xFFF2F2F2);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -17,7 +19,7 @@ class SignUpOption extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1C1C1C),
+            color: Color(0xfff2e7fe),
             height: 1,
           ),
         ),

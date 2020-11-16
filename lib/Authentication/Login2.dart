@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PhasePage.dart';
 
+
 class Login2 extends StatefulWidget {
   @override
   _Login2State createState() => _Login2State();
@@ -119,7 +120,7 @@ class _Login2State extends State<Login2> {
         SizedBox(
           height: 26,
         ),
-        InkWell(
+       InkWell(
           onTap: () {
             try {
               FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -133,6 +134,7 @@ class _Login2State extends State<Login2> {
               Scaffold.of(context).showSnackBar(snackBar);
             }
           },
+
           child: Container(
             height: 40,
             decoration: BoxDecoration(
@@ -165,6 +167,7 @@ class _Login2State extends State<Login2> {
             ),
           ),
         ),
+
         SizedBox(
           height: 16,
         ),
