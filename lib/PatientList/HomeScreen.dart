@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/configuration.dart';
@@ -16,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<int> patientList = [];
-  var age = 80;
 
   double xOffset = 0;
   double yOffset = 0;
@@ -117,8 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => FullPatientDetails()));
+                          MaterialPageRoute(builder: (context) => FullPatientDetails()));
                     },
                     child: Container(
                       height: 200,
@@ -134,74 +130,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius: BorderRadius.circular(20),
                                     boxShadow: shadowList,
                                   ),
+                                  // margin: EdgeInsets.only(top: 10),
                                 ),
                                 Align(
                                   child: Hero(
                                       tag: 1,
-                                      child: FlareActor(
-                                          "assets/animations/ProviderBounce.flr",
-                                          animation: "Bounce")),
+                                      child: Image.asset(
+                                          'assets/images/cat.png')),
                                 )
                               ],
                             ),
                           ),
                           Flexible(
                               child: Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                child: Column(
                                   children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 5),
-                                      child: Text(
-                                        "Name",
-                                        style: new TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30.0),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 5, 20),
-                                      child: Text(
-                                        "$age years",
-                                        style: new TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20.0),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 20, 20),
-                                      child: SvgPicture.asset(
-                                        'assets/images/male.svg',
-                                        height: 25.0,
-                                        width: 20.0,
-                                        allowDrawingOutsideViewBox: true,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text("Name"),
+                                        ),
+                                        Container(
+                                          // child: Icon(Icons.)
+                                        )
+                                      ],
                                     )
                                   ],
                                 ),
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
-                                  child: Text(
-                                    "Relationship",
-                                    style: new TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
-                                  ),
-                                ),
-                              ],
-                            ),
                             margin: EdgeInsets.only(top: 20, bottom: 20),
                             decoration: BoxDecoration(
                                 color: Colors.white,

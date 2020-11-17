@@ -17,23 +17,9 @@ class FullPatientDetails extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  width: double.infinity,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(20, 70, 50, 0),
-                    child: Text(
-                      "Health record of the person goes here ....",
-                      style: new TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
-                    ),
-                  ),
                   color: Colors.white,
                 ),
-              ),
-              // Flexible(
-              //   child: Container(
-              //     color: Colors.grey,
-              //   ),
-              // ),
+              )
             ],
           )),
           Container(
@@ -54,30 +40,22 @@ class FullPatientDetails extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 50),
+            margin: EdgeInsets.only(top: 20),
             child: Align(
               alignment: Alignment.topCenter,
-              child: Hero(tag: 1, child: Image.asset('assets/images/cat.png')),
+              child: Hero(
+                  tag: 1, child: Image.asset('assets/images/pet-cat2.png')),
             ),
           ),
           Align(
             alignment: Alignment.center,
             child: Container(
               height: 100,
-              width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: shadowList,
                   borderRadius: BorderRadius.circular(20)),
-              child: Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 50, 0),
-                child: Text(
-                  "Remarks if any ...",
-                  style: new TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20.0),
-                ),
-              ),
             ),
           ),
           Align(
@@ -94,15 +72,9 @@ class FullPatientDetails extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: primaryGreen,
                         borderRadius: BorderRadius.circular(20)),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context,
-                            SlideRightRoute(page: FullPatientDetails()));
-                      },
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
                     ),
                   ),
                   SizedBox(
@@ -116,31 +88,11 @@ class FullPatientDetails extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                           child: Text(
-                        'Medicine',
+                        'Adoption',
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       )),
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    height: 60,
-                    width: 70,
-                    decoration: BoxDecoration(
-                        color: primaryGreen,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context,
-                            SlideLeftRoute(page: FullPatientDetails()));
-                      },
-                    ),
-                  ),
+                  )
                 ],
               ),
               decoration: BoxDecoration(
@@ -155,57 +107,4 @@ class FullPatientDetails extends StatelessWidget {
       ),
     );
   }
-}
-class SlideLeftRoute extends PageRouteBuilder {
-  final Widget page;
-
-  SlideLeftRoute({this.page})
-      : super(
-    pageBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        ) =>
-    page,
-    transitionsBuilder: (
-        BuildContext context,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-        Widget child,
-        ) =>
-        SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(1, 0),
-            end: Offset.zero,
-          ).animate(animation),
-          child: child,
-        ),
-  );
-}
-
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-
-  SlideRightRoute({this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(-1, 0),
-              end: Offset.zero,
-            ).animate(animation),
-            child: child,
-          ),
-        );
 }

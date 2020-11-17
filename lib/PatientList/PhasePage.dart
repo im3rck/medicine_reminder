@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:medicine_reminder/PatientList/NewPatient.dart';
 import 'package:medicine_reminder/PatientList/HomeScreen.dart';
 import 'package:medicine_reminder/PatientList/DrawerScreen.dart';
 
