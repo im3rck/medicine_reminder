@@ -13,10 +13,9 @@ class Cards extends StatelessWidget{
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
                 InkWell(
                 onTap:() {
-                  PatientDetails();
+                 // FoldingCellSimpleDemo();
                 },
                 child: Container(
                     height: 175.0,
@@ -40,11 +39,16 @@ class Cards extends StatelessWidget{
                   ),
                 ),
 
-                Container
-                  (
-                    height: ((MediaQuery.of(context).size.height)-appBarHeight-175.0)*.45,
-                    width: (MediaQuery.of(context).size.width)*.5,
-                    child: customCard(Icons.calendar_today,"Schedule","Days and Range",))],
+                InkWell(
+                onTap:() {
+                    ScheduleCell();
+                  },
+                  child: Container
+                    (
+                      height: ((MediaQuery.of(context).size.height)-appBarHeight-175.0)*.45,
+                      width: (MediaQuery.of(context).size.width)*.5,
+                      child: customCard(Icons.calendar_today,"Schedule","Days and Range",)),
+                )],
             ),
             Column(
               children: <Widget>[
