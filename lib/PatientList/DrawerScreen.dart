@@ -20,7 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               CircleAvatar(
                 radius: 25.0,
                 backgroundImage:
-                NetworkImage('https://via.placeholder.com/150'),
+                    NetworkImage('https://via.placeholder.com/150'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
@@ -76,8 +76,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               Text(
                 'Settings',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
               SizedBox(
                 width: 10,
@@ -92,8 +94,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               Text(
                 'Log out',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               )
             ],
           )
