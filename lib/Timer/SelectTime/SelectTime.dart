@@ -38,27 +38,6 @@ class _TimerState extends State<Timer> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // AppBar(
-              //   backgroundColor: Color(0xff3196ae),
-              //   elevation: 0,
-              //   centerTitle: true,
-              //   title: Text(
-              //     "Set a Time",
-              //     style: TextStyle(fontSize: 30),
-              //   ),
-              //   actions: [
-              //     IconButton(
-              //       icon: Icon(
-              //         Icons.short_text,
-              //         color: Colors.white,
-              //         size: 30,
-              //       ),
-              //       onPressed: () {
-              //         // print(widget.updateIndices);
-              //       },
-              //     )
-              //   ],
-              // ),
               Container(
                 height: 70,
                 color: Color(0xff3196ae),
