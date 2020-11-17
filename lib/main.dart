@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Authentication/Login.dart';
-import 'package:medicine_reminder/NewPatient.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
