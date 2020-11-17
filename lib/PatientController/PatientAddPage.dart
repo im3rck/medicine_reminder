@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientController/Cards.dart';
 
+
 class PatientAddPage extends StatefulWidget{
   @override
   _PatientAddPageState createState() => _PatientAddPageState();
@@ -34,9 +35,10 @@ class _PatientAddPageState extends State<PatientAddPage>{
             children: <Widget>[
               Text('New',
                   style: TextStyle(
+                    color: Color(0xfff2e7fe),
                       fontFamily: 'Montserrat',
-                      color: Colors.white,
-                      fontSize: 25.0)),
+                      fontSize: 25.0)//customize color here
+                  ),
               SizedBox(width: 10.0),
               Text('Patient',
                   style: TextStyle(
