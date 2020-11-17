@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/configuration.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<int> patientList = [];
+  var age = 80;
 
   double xOffset = 0;
   double yOffset = 0;
@@ -72,7 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         formattedDate,
                         textAlign: TextAlign.center,
                         style: new TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25.0),
+                            fontFamily: 'Circular',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0),
                       ),
                     ],
                   ),
@@ -97,7 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.settings),
                     onPressed: () {},
                   ),
-                  Text('Search my list'),
+                  Text('Search my list',
+                    style: new TextStyle(
+                        fontFamily: 'Circular',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0),),
                   IconButton(
                     icon: Icon(Icons.search),
                     onPressed: () {},
@@ -114,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FullPatientDetails()));
+                          MaterialPageRoute(
+                              builder: (context) => FullPatientDetails()));
                     },
                     child: Container(
                       height: 200,
@@ -135,29 +144,64 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Align(
                                   child: Hero(
                                       tag: 1,
-                                      child: Image.asset(
-                                          'assets/images/cat.png')),
+                                      child:
+                                          Image.asset('assets/images/cat.png')),
                                 )
                               ],
                             ),
                           ),
                           Flexible(
                               child: Container(
-                                child: Column(
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                                  child: Text(
+                                    "Name",
+                                    style: new TextStyle(
+                                        fontFamily: 'Circular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 28.0),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          child: Text("Name"),
-                                        ),
-                                        Container(
-                                          // child: Icon(Icons.)
-                                        )
-                                      ],
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                      child: Text(
+                                        "$age years",
+                                        style: new TextStyle(
+                                            fontFamily: 'Circular',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.fromLTRB(10, 0, 10, 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/male.svg',
+                                        height: 25.0,
+                                        width: 25.0,
+                                        allowDrawingOutsideViewBox: true,
+                                      ),
                                     )
                                   ],
                                 ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                                  child: Text(
+                                    "Relationship",
+                                    style: new TextStyle(
+                                        fontFamily: 'Circular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  ),
+                                ),
+                              ],
+                            ),
                             margin: EdgeInsets.only(top: 20, bottom: 20),
                             decoration: BoxDecoration(
                                 color: Colors.white,

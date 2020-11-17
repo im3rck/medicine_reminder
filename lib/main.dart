@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Authentication/Login.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 // import 'package:medicine_reminder/2NewPatient.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-       home: PatientAddPage(),
+       home: PhasePage(),
     );
   }
 }
