@@ -61,7 +61,7 @@ class _Login2State extends State<Login2> {
               fontWeight: FontWeight.bold,
             ),
             filled: true,
-            fillColor: Colors.grey[900],
+            fillColor: Color(0xff292929),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
@@ -92,7 +92,7 @@ class _Login2State extends State<Login2> {
               fontWeight: FontWeight.bold,
             ),
             filled: true,
-            fillColor: Colors.grey[900],
+            fillColor: Color(0xff292929),
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             suffixIcon: IconButton(
               icon: Icon(
@@ -138,26 +138,20 @@ class _Login2State extends State<Login2> {
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.grey[900],
+              color: Color(0xff292929),
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
               ),
-            /*  border: Border.all(
+              border: Border.all(
                 color: Color(0xffBB86FC),
                 width: 1
-              ),*/
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey[900],
-                  spreadRadius: 1.0,
-                  blurRadius: 5.0,
-                  offset: Offset(5.0, 5.0),
-                ),
-                BoxShadow(
-                  color: Colors.grey[800],
-                  spreadRadius: 1.0,
-                  blurRadius: 5.0,
-                  offset: Offset(-5.0, -5.0),
+                  color: Color(0xffF292929).withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
                 ),
               ],
             ),

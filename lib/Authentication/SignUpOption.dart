@@ -29,25 +29,19 @@ class SignUpOption extends StatelessWidget {
         Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Colors.grey[850],//Color(0xFF121212),
+            color: Color(0xFF121212),
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
-           /* border: Border.all(
+            border: Border.all(
               color: Color(0xffBB86FC)
-            ),*/
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black54,
-                spreadRadius: 1.0,
-                blurRadius: 5.0,
-                offset: Offset(5.0, 5.0),
-              ),
-              BoxShadow(
-                color: Colors.grey[800],
-                spreadRadius: 1.0,
-                blurRadius: 5.0,
-                offset: Offset(-5.0, -5.0),
+                color: Color(0xffF292929).withOpacity(0.2),
+                spreadRadius: 3,
+                blurRadius: 4,
+                offset: Offset(0, 3),
               ),
 
             ],
