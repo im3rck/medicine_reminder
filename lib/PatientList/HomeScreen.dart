@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ..rotateY(isDrawerOpen ? -0.5 : 0),
       duration: Duration(milliseconds: 250),
       decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: Colors.grey[850],
           borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0)),
       child: SingleChildScrollView(
         child: Column(

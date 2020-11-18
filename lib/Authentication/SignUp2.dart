@@ -81,7 +81,7 @@ class _SignUp2State extends State<SignUp2> {
               fontWeight: FontWeight.bold,
             ),
             filled: true,
-            fillColor: Color(0xff121212),
+            fillColor: Colors.grey[850],
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
             enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
@@ -114,7 +114,7 @@ class _SignUp2State extends State<SignUp2> {
               fontWeight: FontWeight.bold,
             ),
             filled: true,
-            fillColor: Color(0xff121212),
+            fillColor: Colors.grey[850],
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
@@ -165,7 +165,7 @@ class _SignUp2State extends State<SignUp2> {
               fontWeight: FontWeight.bold,
             ),
             filled: true,
-            fillColor: Color(0xff121212),
+            fillColor: Colors.grey[850] ,
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
@@ -188,20 +188,27 @@ class _SignUp2State extends State<SignUp2> {
             child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Color(0xFF121212),
+
+              color: Colors.grey[850],
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
               ),
-              border: Border.all(
+              /*border: Border.all(
                   color: Color(0xffBB86FC),
                   width: 1
-              ),
+              ),*/
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xff121212).withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 4,
-                  offset: Offset(0, 3),
+                  color: Colors.black54,
+                  spreadRadius: 1.0,
+                  blurRadius: 5.0,
+                  offset: Offset(5.0, 5.0),
+                ),
+                BoxShadow(
+                  color: Colors.grey[800],
+                  spreadRadius: 1.0,
+                  blurRadius: 5.0,
+                  offset: Offset(-5.0, -5.0),
                 ),
               ],
             ),
