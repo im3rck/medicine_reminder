@@ -28,6 +28,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^18.3.44-beta
   lite_rolling_switch: ^0.1.1
   font_awesome_flutter: 8.10.0
+  flutter_svg: ^0.19.1
 
 
   # The following adds the Cupertino Icons font to your application.
