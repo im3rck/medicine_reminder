@@ -17,12 +17,13 @@ class Cards extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0)),
                   builder: (context) {
                     return Container(
                         margin: EdgeInsets.all(1.0),
-                        // height: (MediaQuery.of(context).size.height)*.85,
+                         height: (MediaQuery.of(context).size.height)*.80,
                         decoration: BoxDecoration(
                           border:
                               Border.all(color: Color(0xffBB86FC), width: 1),
@@ -50,6 +51,7 @@ class Cards extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                    // crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
+                                      SizedBox(height: 24,),
                                       Container(
                                       width: MediaQuery.of(context).size.width / 4,
                                       height: MediaQuery.of(context).size.width / 4,
@@ -159,35 +161,40 @@ class Cards extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(height: 36,),
-                                      Container(
-                                        height: 40,
-                                        width: (MediaQuery.of(context).size.width)*.8,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xff292929),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(25),
-                                          ),
-                                          border: Border.all(
-                                              color: Color(0xffBB86FC),
-                                              width: 1
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xffF292929).withOpacity(0.2),
-                                              spreadRadius: 3,
-                                              blurRadius: 4,
-                                              offset: Offset(0, 3),
+                                      SizedBox(height: 56,),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                    },
+                                        child: Container(
+                                          height: 40,
+                                          width: (MediaQuery.of(context).size.width)*.8,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25),
                                             ),
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            "Confirm",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffF2E7FE),
+                                            border: Border.all(
+                                                color: Color(0xffBB86FC),
+                                                width: 1
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xffF292929).withOpacity(0.2),
+                                                spreadRadius: 3,
+                                                blurRadius: 4,
+                                                offset: Offset(0, 3),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Confirm",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xffF2E7FE),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -200,7 +207,7 @@ class Cards extends StatelessWidget {
 
                     ],),);
                   },
-                  isScrollControlled: true,
+
                 );
               },
               child: Container(
