@@ -12,6 +12,9 @@ class LoginOption extends StatelessWidget {
           "Existing user?",
           style: TextStyle(
             fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFF2E7Fe),
+            height: 1,
           ),
         ),
 
@@ -22,26 +25,30 @@ class LoginOption extends StatelessWidget {
         Container(
           height: 40,
           decoration: BoxDecoration(
-            color: Color(0xFF1C1C1C),
+            color: Color(0xff292929),
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
+            border: Border.all(
+                color: Color(0xffBB86FC),
+                width: 1
+            ),
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF1C1C1C).withOpacity(0.2),
+                color: Color(0xffF292929).withOpacity(0.2),
                 spreadRadius: 3,
                 blurRadius: 4,
                 offset: Offset(0, 3),
               ),
             ],
           ),
-          child:  Center(
+          child: Center(
             child: Text(
-              "LOGIN",
+              "Log In",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF3D657),
+                color: Color(0xffF2E7FE),
               ),
             ),
           ),

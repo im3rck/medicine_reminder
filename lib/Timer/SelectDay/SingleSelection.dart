@@ -4,11 +4,12 @@ import 'package:medicine_reminder/Timer/SelectDay/MultiSelection.dart';
 
 class SingleSelection extends StatefulWidget {
   final List<String> optionList = [
-    'Daily',
-    'Custom',
+    'DAILY',
+    'CUSTOM',
   ];
+  final updateIndices;
 
-  SingleSelection();
+  SingleSelection({Key key, this.updateIndices}) : super(key: key);
 
   @override
   _SingleSelectionState createState() => _SingleSelectionState();
@@ -24,26 +25,32 @@ class _SingleSelectionState extends State<SingleSelection> {
     selectedValue = widget.optionList.first;
   }
 
-  String selectedDays = ' Mon '
-      ' Tue '
-      ' Wed '
-      ' Thu '
-      ' Fri '
-      ' Sat '
-      ' Sun ';
+  String selectedDays = '    MON '
+      ' TUE '
+      ' WED '
+      ' THU '
+      ' FRI '
+      ' SAT '
+      ' SUN ';
 
   void openDialog(int index) {
     showDialog(
         context: context,
         builder: (ctx) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(15)),
-            title: Text('Days'),
-            content: Container(
-                width: 250,
-                height: 380,
-                child: MultiSelection(customFunction: listChange)),
+          return WillPopScope(
+            onWillPop: () async {
+              return false;
+            },
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(15)),
+              title: Text('DAYS'),
+              content: Container(
+                  width: 250,
+                  height: 340,
+                  child: MultiSelection(
+                      updateDays: listChange, updateIndices: getIndices)),
+            ),
           );
         });
   }
@@ -55,19 +62,22 @@ class _SingleSelectionState extends State<SingleSelection> {
         children: <Widget>[
           OutlineButton(
             onPressed: () {
+
               changeIndex(index);
               if (index == 1) {
                 openDialog(index);
-                selectedDays = '';
+                selectedDays = '   ';
+              } else {
+                var list = Iterable<int>.generate(7).toList();
+                getIndices(list);
+                selectedDays = '    MON '
+                    ' TUE '
+                    ' WED '
+                    ' THU '
+                    ' FRI '
+                    ' SAT '
+                    ' SUN ';
               }
-              else
-                selectedDays = ' Mon '
-                    ' Tue '
-                    ' Wed '
-                    ' Thu '
-                    ' Fri '
-                    ' Sat '
-                    ' Sun ';
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
@@ -80,7 +90,7 @@ class _SingleSelectionState extends State<SingleSelection> {
             ),
           ),
           Container(
-            width: 225,
+            width: 250,
             child: showDailyMsg(index),
           )
         ],
@@ -102,9 +112,13 @@ class _SingleSelectionState extends State<SingleSelection> {
       });
   }
 
+  void getIndices(List<int> list) {
+    widget.updateIndices(list);
+  }
+
   Widget showDailyMsg(int index) {
     List<TextSpan> _getSelected() {
-      final String daily = ' Remind me Everyday ';
+      final String daily = '    REMIND ME EVERYDAY ';
 
       List<TextSpan> selected = [];
 
@@ -131,21 +145,22 @@ class _SingleSelectionState extends State<SingleSelection> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemBuilder: (ctx, index) {
-        // return a row with container and another widget if you want to add
-        // something else
-        return Container(
-          padding: EdgeInsets.all(20),
-          color:
-              selectedValue == widget.optionList[index] ? Colors.white : null,
-          child: Row(
-            children: <Widget>[
-              customRadioString(widget.optionList[index], index),
-            ],
-          ),
-        );
-      },
-      itemCount: widget.optionList.length,
-    );
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) {
+          // return a row with container and another widget if you want to add
+          // something else
+          return Container(
+            padding: EdgeInsets.all(20),
+            color:
+                selectedValue == widget.optionList[index] ? Colors.white : null,
+            child: Row(
+              children: <Widget>[
+                customRadioString(widget.optionList[index], index),
+              ],
+            ),
+          );
+        },
+        itemCount: widget.optionList.length,
+      );
   }
 }

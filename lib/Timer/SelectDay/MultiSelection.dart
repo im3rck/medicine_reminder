@@ -12,9 +12,11 @@ class MultiSelection extends StatefulWidget {
     Days('Saturday'),
     Days('Sunday'),
   ];
-  final customFunction;
+  final updateDays;
+  final updateIndices;
 
-  MultiSelection({Key key, this.customFunction}) : super(key: key);
+  MultiSelection({Key key, this.updateDays, this.updateIndices})
+      : super(key: key);
 
   @override
   _MultiSelectionState createState() => _MultiSelectionState();
@@ -25,34 +27,33 @@ class _MultiSelectionState extends State<MultiSelection> {
 
   void addDays(List<int> list) {
     list.sort();
+    widget.updateIndices(list);
     list.forEach((element) {
       switch (element) {
         case 0:
-          widget.customFunction(' Mon ');
+          widget.updateDays(' MON ');
           break;
         case 1:
-          widget.customFunction(' Tue ');
+          widget.updateDays(' TUE ');
           break;
         case 2:
-          widget.customFunction(' Wed ');
+          widget.updateDays(' WED ');
           break;
         case 3:
-          widget.customFunction(' Thu ');
+          widget.updateDays(' THU ');
           break;
         case 4:
-          widget.customFunction(' Fri ');
+          widget.updateDays(' FRI ');
           break;
         case 5:
-          widget.customFunction(' Sat ');
+          widget.updateDays(' SAT ');
           break;
         case 6:
-          widget.customFunction(' Sun ');
+          widget.updateDays(' SUN ');
           break;
       }
     });
   }
-
-  bool _selected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,38 +62,24 @@ class _MultiSelectionState extends State<MultiSelection> {
         Expanded(
           child: ListView.builder(
             itemBuilder: (ctx, index) {
-              return GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  widget.wantedDays[index].isSelected =
-                      !widget.wantedDays[index].isSelected;
-                  _selected = !_selected;
-                  setState(() {
-                    if (_selected)
-                      selectedDays.add(index);
-                    else
-                      selectedDays.remove(index);
-                  });
-                },
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Checkbox(
-                          value: widget.wantedDays[index].isSelected,
-                          onChanged: (val) {
-                            widget.wantedDays[index].isSelected =
-                                !widget.wantedDays[index].isSelected;
-                            setState(() {
-                              if (val)
-                                selectedDays.add(index);
-                              else
-                                selectedDays.remove(index);
-                            });
-                          }),
-                      Text(widget.wantedDays[index].day),
-                    ],
-                  ),
-                ),
+              return SizedBox(
+                height: 40.0,
+                width: 40.0,
+                child: CheckboxListTile(
+                    title: Text(widget.wantedDays[index].day),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.all(0),
+                    value: widget.wantedDays[index].isSelected,
+                    onChanged: (val) {
+                      widget.wantedDays[index].isSelected =
+                          !widget.wantedDays[index].isSelected;
+                      setState(() {
+                        if (val)
+                          selectedDays.add(index);
+                        else
+                          selectedDays.remove(index);
+                      });
+                    }),
               );
             },
             itemCount: widget.wantedDays.length,
@@ -108,18 +95,18 @@ class _MultiSelectionState extends State<MultiSelection> {
           height: 35,
           //wraps child's height
           child: FlatButton(
-            // shape: RoundedRectangleBorder(
-            //     borderRadius: new BorderRadius.circular(15)),
             padding: EdgeInsets.zero,
             onPressed: () {
-              addDays(selectedDays);
-              Navigator.of(context, rootNavigator: true).pop();
+              if (selectedDays.isNotEmpty) {
+                addDays(selectedDays);
+                Navigator.of(context, rootNavigator: true).pop();
+              }
             },
             child: Text(
-              'Ok',
+              'OK',
               style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
-            color: Colors.redAccent,
+            color: Color(0xff3196ae),
             textColor: Colors.white,
           ), //your original button
         ),

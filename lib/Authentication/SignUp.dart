@@ -16,12 +16,13 @@ class _SignUpState extends State<SignUp>{
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(
         email: emailController.text, password: passwordController.text)
-        .then((signeduser) {
-      userCollection.doc(signeduser.user.uid).set({
+        // ignore: non_constant_identifier_names
+        .then((SignedUser) {
+      userCollection.doc(SignedUser.user.uid).set({
         'username': userNameController.text,
         'password': passwordController.text,
         'email': emailController.text,
-        'uid': signeduser.user.uid,
+        'uid': SignedUser.user.uid,
       });
     });
   Navigator.pop(context);
@@ -56,7 +57,7 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 16,),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
@@ -76,7 +77,7 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 16,),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
@@ -95,7 +96,6 @@ class _SignUpState extends State<SignUp>{
                     )
                 ),
               ),
-              SizedBox(height: 16,),
 
               SizedBox(height: 40,),
               InkWell(

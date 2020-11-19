@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medicine_reminder/Timer/SelectTime/SelectTime.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 
 
@@ -147,7 +146,7 @@ class _NewPatient2State extends State<NewPatient2>{
             SizedBox(height: 40,),
             GestureDetector(
               onTap: (){
-                navigateToTimer(context);
+                //navigateToTimer(context);
               },
               child: Container(
                 alignment: Alignment.center,
@@ -285,7 +284,7 @@ class _MedicineTypeState extends State<MedicineType>{
   }
 }
 
-Future navigateToTimer(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
-}
+// Future navigateToTimer(context) async {
+//   Navigator.push(context, MaterialPageRoute(builder: (context) => Timer()));
+// }
 
