@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:medicine_reminder/Authentication/Login.dart';
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 import 'package:medicine_reminder/navigation2.dart';
 
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
 
 Future navigateToSignIn(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => Navigation2Page()));
+      context, MaterialPageRoute(builder: (context) => AuthPage()));
 }
 
 Future navigateToSignUp(context) async {
