@@ -11,22 +11,73 @@ bool _passwordVisible;
 
 
 class _Login2State extends State<Login2> {
-  String _email;
-  String _password;
-  Future<void> _loginUser() async{
-    try{
-        UserCredential userCredential = await FirebaseAuth
-            .instance
-            .signInWithEmailAndPassword(email: _email, password: _password);
-    } on FirebaseAuthException catch (e){
-      print("Error: $e");
-    } catch (e){
-      print("Error: $e");
-      SnackBar snackBar =
-      SnackBar(content: Text("Invalid Credentials"));
-      Scaffold.of(context).showSnackBar(snackBar);
+
+
+
+  Future<void> _alertDialogBuilder(String e) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Container(
+              child: Text(e),
+            ),
+            actions: [
+              FlatButton(
+                  child: Text("Close"),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  }
+              )
+            ],
+          );
+        }
+    );
+  }
+  Future<String> _loginAccount() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _loginEmail, password: _loginPassword);
+      return null;
+    } on FirebaseAuthException catch(e) {
+      if (e.code == 'weak-password') {
+        return 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        return 'The account already exists for that email.';
+      }
+      return e.message;
+    } catch (e) {
+      return e.toString();
     }
   }
+
+  void _submitForm() async {
+    // Set the form to loading state
+ /*   setState(() {
+      _loginFormLoading = true;
+    });*/
+
+    // Run the create account method
+    String _loginFeedback = await _loginAccount();
+
+    // If the string is not null, we got error while create account.
+    if(_loginFeedback != null) {
+      _alertDialogBuilder(_loginFeedback);
+
+      // Set the form to regular state [not loading].
+      /*setState(() {
+        _loginFormLoading = false;
+      });*/
+    }
+  }
+
+
+
+  // Form Input Field Values
+  String _loginEmail = "";
+  String _loginPassword = "";
+
  // TextEditingController emailController;
 
  // TextEditingController passwordController;
@@ -88,7 +139,7 @@ class _Login2State extends State<Login2> {
         ),
         TextFormField(
           onChanged: (value){
-            _email=value;
+            _loginEmail=value;
           },
           //controller: emailController,
           keyboardType: TextInputType.emailAddress,
@@ -123,7 +174,7 @@ class _Login2State extends State<Login2> {
         ),
         TextFormField(
           onChanged: (value){
-            _password=value;
+            _loginPassword=value;
           },
           validator: pwdValidator,
           keyboardType: TextInputType.text,
@@ -172,7 +223,7 @@ class _Login2State extends State<Login2> {
           height: 26,
         ),
        InkWell(
-         onTap: _loginUser,
+         onTap: _submitForm,
           /*onTap: () {
             try {
               FirebaseAuth.instance.signInWithEmailAndPassword(

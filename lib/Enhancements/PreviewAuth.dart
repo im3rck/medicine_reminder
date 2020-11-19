@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Authentication/Login2.dart';
 import 'package:medicine_reminder/Authentication/LoginOption.dart';
@@ -105,11 +106,7 @@ class _AuthPageState extends State<AuthPage>{
                   }
 
                 }
-                return Scaffold(
-                    body: Center(
-                        child: Text("Connecting to the app...")
-                    )
-                );
+                return Container();
             }
           );
         }
