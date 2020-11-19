@@ -9,14 +9,53 @@ class Login2 extends StatefulWidget {
 }
 bool _passwordVisible;
 
-class _Login2State extends State<Login2> {
-  TextEditingController emailController = TextEditingController();
 
-  TextEditingController passwordController = TextEditingController();
+class _Login2State extends State<Login2> {
+  String _email;
+  String _password;
+  Future<void> _loginUser() async{
+    try{
+        UserCredential userCredential = await FirebaseAuth
+            .instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+    } on FirebaseAuthException catch (e){
+      print("Error: $e");
+    } catch (e){
+      print("Error: $e");
+      SnackBar snackBar =
+      SnackBar(content: Text("Invalid Credentials"));
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+ // TextEditingController emailController;
+
+ // TextEditingController passwordController;
+  @override
   void initState() {
     _passwordVisible = false;
+  // emailController = new TextEditingController();
+  //  passwordController = new TextEditingController();
+    super.initState();
   }
-  @override
+
+  String emailValidator(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Email format is invalid';
+    } else {
+      return null;
+    }
+  }
+
+  String pwdValidator(String value) {
+    if (value.length < 8) {
+      return 'Password must be longer than 8 characters';
+    } else {
+      return null;
+    }
+  }
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,8 +86,14 @@ class _Login2State extends State<Login2> {
         SizedBox(
           height: 46,
         ),
-        TextField(
-          controller: emailController,
+        TextFormField(
+          onChanged: (value){
+            _email=value;
+          },
+          //controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          validator: emailValidator,
+          style: TextStyle(color: Color(0xfff2e7fe)),
           decoration: InputDecoration(
             labelText: 'Email',
             prefixIcon: Icon(
@@ -76,11 +121,17 @@ class _Login2State extends State<Login2> {
         SizedBox(
           height: 20,
         ),
-        TextField(
+        TextFormField(
+          onChanged: (value){
+            _password=value;
+          },
+          validator: pwdValidator,
           keyboardType: TextInputType.text,
           obscureText: !_passwordVisible,
-          controller: passwordController,
+         // controller: passwordController,
+          style: TextStyle(color: Color(0xfff2e7fe)),
           decoration: InputDecoration(
+
             labelText: 'Password',
             prefixIcon: Icon(
               Icons.lock,
@@ -121,19 +172,21 @@ class _Login2State extends State<Login2> {
           height: 26,
         ),
        InkWell(
-          onTap: () {
+         onTap: _loginUser,
+          /*onTap: () {
             try {
               FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: emailController.text,
                   password: passwordController.text);
+
+            } catch (e) {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => PhasePage()));
-            } catch (e) {
-              SnackBar snackBar =
+              /*SnackBar snackBar =
                   SnackBar(content: Text("Invalid Credentials"));
-              Scaffold.of(context).showSnackBar(snackBar);
+              Scaffold.of(context).showSnackBar(snackBar);*/
             }
-          },
+          },*/
 
           child: Container(
             height: 40,

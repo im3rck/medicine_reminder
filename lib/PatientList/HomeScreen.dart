@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -101,9 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    CircleAvatar(
-                      radius: 25.0,
-                      backgroundColor: Color(0xff121212),
+                    MaterialButton(
+                      color: Color(0xff121212),
+                      onPressed:() async {
+                        await FirebaseAuth.instance.signOut();
+                      },
+                      child: Text("Out", style: TextStyle(color: Colors.white))
                     ),
                   ],
                 ),

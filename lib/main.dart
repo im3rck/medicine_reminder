@@ -15,8 +15,8 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  /*WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();*/
   Paint.enableDithering = true;
   runApp(MyApp());
 }
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-       home: PhasePage(),
+       home: AuthPage(),
     );
   }
 }
