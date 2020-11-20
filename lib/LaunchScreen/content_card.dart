@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flare_flutter/flare_actor.dart';
 
 import 'package:flutter/scheduler.dart';
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+import 'package:medicine_reminder/HomePage.dart';
 
 import 'Launch.dart';
 
@@ -114,7 +116,11 @@ class _ContentCardState extends State<ContentCard> {
             opacity: 1.0,//_changeOpacity(),
             child: InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AuthPage()));
+                //Navigator.pop(context);
               },
               child: Container(
                 height: 40,
