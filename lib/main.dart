@@ -6,13 +6,15 @@ import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
-
+//import 'package:medicine_reminder/LaunchScreen/gooey_edge/lib/demo.dart';
 // import 'package:medicine_reminder/2NewPatient.dart';
 // import 'package:medicine_reminder/timer/SelectTime.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 // import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+
+import 'LaunchScreen/Launch.dart';
 
 
 void main() async {
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
-       home: HomePage(),
+       home: App(),//HomePage(),
     );
   }
 }
