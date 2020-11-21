@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'content_card.dart';
@@ -29,15 +28,13 @@ class _GooeyEdgeDemoState extends State<GooeyEdgeDemo> {
             color: 'Yellow',
             altColor: Color(0xFF121212),
             title: "Med-Reminder",
-            subtitle:
-            '',
+            subtitle: '',
           ),
           ContentCard(
             color: 'Blue',
             altColor: Color(0xFFFFB138),
             title: "Caregiver",
-            subtitle:
-            'Take care of your loved ones conveniently',
+            subtitle: 'Take care of your loved ones conveniently',
           ),
         ],
       ),
