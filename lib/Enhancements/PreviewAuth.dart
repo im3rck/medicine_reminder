@@ -102,7 +102,7 @@ class _AuthPageState extends State<AuthPage>{
                     );
                   }
                   else {
-                    return Container();
+                    return PhasePage();
                   }
 
                 }

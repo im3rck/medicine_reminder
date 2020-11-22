@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/PatientController/MedicineList/Constructor/Constructor.dart';
+import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
 
@@ -13,10 +16,13 @@ class Cards extends StatefulWidget {
   _CardsState createState() => _CardsState();
 }
 
+
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
 class _CardsState extends State<Cards> {
+
+
   final double appBarHeight = 55.0;
 
   @override
@@ -29,12 +35,14 @@ class _CardsState extends State<Cards> {
 
             InkWell(
               onTap: () {
-                //yOffset = -250;
                 _popupCard(context);
               },
               child: Container(
                   height: 180.0,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   child: customCard(Icons.person, "Details", "Patient Bio")),
             ),
           ],
@@ -46,11 +54,17 @@ class _CardsState extends State<Cards> {
               children: <Widget>[
                 InkWell(
                   child: Container(
-                      height: ((MediaQuery.of(context).size.height) -
-                              appBarHeight -
-                              175.0) *
+                      height: ((MediaQuery
+                          .of(context)
+                          .size
+                          .height) -
+                          appBarHeight -
+                          175.0) *
                           .35,
-                      width: (MediaQuery.of(context).size.width) * .5,
+                      width: (MediaQuery
+                          .of(context)
+                          .size
+                          .width) * .5,
                       child: customCard(
                           Icons.description, "Medicine", "Dosage Details")),
                 ),
@@ -62,11 +76,17 @@ class _CardsState extends State<Cards> {
                             builder: (context) => ScheduleCell()));
                   },
                   child: Container(
-                      height: ((MediaQuery.of(context).size.height) -
-                              appBarHeight -
-                              175.0) *
+                      height: ((MediaQuery
+                          .of(context)
+                          .size
+                          .height) -
+                          appBarHeight -
+                          175.0) *
                           .45,
-                      width: (MediaQuery.of(context).size.width) * .5,
+                      width: (MediaQuery
+                          .of(context)
+                          .size
+                          .width) * .5,
                       child: customCard(
                         Icons.calendar_today,
                         "Schedule",
@@ -78,20 +98,37 @@ class _CardsState extends State<Cards> {
             Column(
               children: <Widget>[
                 Container(
-                    height: ((MediaQuery.of(context).size.height) -
-                            appBarHeight -
-                            175.0) *
+                    height: ((MediaQuery
+                        .of(context)
+                        .size
+                        .height) -
+                        appBarHeight -
+                        175.0) *
                         .45,
-                    width: (MediaQuery.of(context).size.width) * .5,
+                    width: (MediaQuery
+                        .of(context)
+                        .size
+                        .width) * .5,
                     child: customCard(
                         Icons.alarm_add, "Time", "Intervals and Timings")),
-                Container(
-                    height: ((MediaQuery.of(context).size.height) -
-                            appBarHeight -
-                            175.0) *
-                        .35,
-                    width: (MediaQuery.of(context).size.width) * .5,
-                    child: customCard(Icons.assignment, "Medicine", "List")),
+                InkWell(
+                  child: Container(
+                      height: ((MediaQuery
+                          .of(context)
+                          .size
+                          .height) -
+                          appBarHeight -
+                          175.0) *
+                          .35,
+                      width: (MediaQuery
+                          .of(context)
+                          .size
+                          .width) * .5,
+                      child: customCard(Icons.assignment, "Medicine", "List")),
+                  onTap: () {
+                    _medicineList();
+                  },
+                ),
               ],
             )
           ],
@@ -99,6 +136,8 @@ class _CardsState extends State<Cards> {
       ],
     );
   }
+
+  // Patient Details
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -141,7 +180,7 @@ class _CardsState extends State<Cards> {
   }
 
   _imgFromGallery() async {
-    PickedFile image = await  _picker.getImage(
+    PickedFile image = await _picker.getImage(
         source: ImageSource.gallery, imageQuality: 50
     );
 
@@ -152,7 +191,6 @@ class _CardsState extends State<Cards> {
 
   void _popupCard(context) {
     double xOffset = 0;
-    //double yOffset = 0;
     double scaleFactor = 1;
 
     showModalBottomSheet(
@@ -222,7 +260,8 @@ class _CardsState extends State<Cards> {
                                           : Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius: BorderRadius.circular(
+                                              12),
                                         ),
                                         width: 100,
                                         height: 100,
@@ -235,35 +274,14 @@ class _CardsState extends State<Cards> {
                                   ),
                                 )
                             ),
-                            /* Container(
-                            child: Image.asset('assets/images/cat.png'),
-                            // child: CircleAvatar(
-                            //   radius: 30,
-                            //   backgroundImage:
-                            //       NetworkImage('https://via.placeholder.com/150'),
-                            //   backgroundColor: Colors.transparent,
-                            // ),
-                            width: MediaQuery.of(context).size.width / 4,
-                            height: MediaQuery.of(context).size.width / 4,
-                            padding: EdgeInsets.all(10.0),
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 20),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color(0xffbb86fe), width: 1),
-                              shape: BoxShape.circle,
-                              color: Colors.white,
-                              // image: DecorationImage(
-                              //   fit: BoxFit.cover,
-                              //   image: AssetImage('images/cat.png'),
-                              // ),
-                            ),
-                          ),*/
                             SizedBox(
                               height: 24,
                             ),
                             Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
+                              width: (MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width) * .9,
                               child: TextField(
                                 onTap: () {
                                   yOffset = 0;
@@ -302,7 +320,10 @@ class _CardsState extends State<Cards> {
                               height: 16,
                             ),
                             Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
+                              width: (MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width) * .9,
                               child: TextField(
                                 onTap: () {
                                   yOffset = -210;
@@ -344,7 +365,10 @@ class _CardsState extends State<Cards> {
                               height: 16,
                             ),
                             Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
+                              width: (MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width) * .9,
                               child: TextField(
                                 onTap: () {
                                   yOffset = -210;
@@ -391,7 +415,10 @@ class _CardsState extends State<Cards> {
                               },
                               child: Container(
                                 height: 40,
-                                width: (MediaQuery.of(context).size.width) * .8,
+                                width: (MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width) * .8,
                                 decoration: BoxDecoration(
                                   color: Color(0xff292929),
                                   borderRadius: BorderRadius.all(
@@ -401,7 +428,8 @@ class _CardsState extends State<Cards> {
                                       color: Color(0xffBB86FC), width: 1),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0xffF292929).withOpacity(0.2),
+                                      color: Color(0xffF292929).withOpacity(
+                                          0.2),
                                       spreadRadius: 3,
                                       blurRadius: 4,
                                       offset: Offset(0, 3),
@@ -432,8 +460,18 @@ class _CardsState extends State<Cards> {
         );
       },
     );
-
   }
+  void _medicineList(){
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Color(0xff292929),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
+        ),
+        builder: (context) {
+          return PatientMedicineList();
+        },
 
+        );
+  }
 }
-

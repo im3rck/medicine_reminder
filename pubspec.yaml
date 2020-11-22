@@ -48,6 +48,7 @@ dependencies:
   folding_cell:
   flare_flutter:
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
