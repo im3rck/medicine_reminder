@@ -15,7 +15,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xff121212),
-      padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
+      padding: EdgeInsets.only(top: 50, bottom: 20, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,7 +24,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               CircleAvatar(
                 radius: 25.0,
                 backgroundImage:
-                NetworkImage('https://via.placeholder.com/150'),
+                    NetworkImage('https://via.placeholder.com/150'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
@@ -45,96 +45,97 @@ class _DrawerScreenState extends State<DrawerScreen> {
               )
             ],
           ),
-          InkWell(
-            onTap: (){
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-            },
-            child: Container(
-              alignment: Alignment.centerLeft,
-                height: ((MediaQuery.of(context).size.height) -
-                    50.0 -
-                    175.0) *
-                    .35,
-                width: (MediaQuery.of(context).size.width) *.85,
-                child: Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  margin: EdgeInsets.all(5.0),
-                  color: Color(0xffbb86fc),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xff121212),
-                      border: Border.all(
-                          color: Color(0xffBB86FC),
-                          width: 1
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xff121212).withOpacity(0.2),
-                          spreadRadius: 3,
-                          blurRadius: 4,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Icon(FontAwesomeIcons.plus, color: Color(0xfff2e7fe), size: 30.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Add",style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xfff2e7fe),
-                                height: 2,
-                              ),),
-                              SizedBox(height: 1.0,),
-                              Text("New Patient", style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xfff2e7fe).withOpacity(0.6),
-                                height: 2,
-                              ),)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
 
+          // InkWell(
+          //   onTap: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => PatientAddPage()));
+          //   },
+          //   child: Container(
+          //     // alignment: Alignment.centerLeft,
+          //     // height:
+          //     //     ((MediaQuery.of(context).size.height) - 50.0 - 175.0) * .35,
+          //
+          //     // width: (MediaQuery.of(context).size.width) * .85,
+          //     margin: EdgeInsets.fromLTRB(10, 50, 45, 110),
+          //     child: Card(
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(20.0)),
+          //       margin: EdgeInsets.all(5.0),
+          //       // color: Color(0xffbb86fc),
+          //       // color: Colors.white,
+          //       child: Container(
+          //         height: 300,
+          //         width: 140,
+          //         decoration: BoxDecoration(
+          //           color: Color(0xff121212),
+          //           border: Border.all(color: Color(0xffBB86FC), width: 1),
+          //           borderRadius: BorderRadius.circular(20.0),
+          //           boxShadow: [
+          //             BoxShadow(
+          //               color: Color(0xff121212).withOpacity(0.2),
+          //               spreadRadius: 3,
+          //               blurRadius: 4,
+          //               offset: Offset(0, 3),
+          //             ),
+          //           ],
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(24.0),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //             children: <Widget>[
+          //               Icon(FontAwesomeIcons.plus,
+          //                   color: Color(0xfff2e7fe), size: 30.0),
+          //               Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.start,
+          //                 children: <Widget>[
+          //                   Text(
+          //                     "Add",
+          //                     style: TextStyle(
+          //                       fontSize: 16,
+          //                       fontWeight: FontWeight.bold,
+          //                       color: Color(0xfff2e7fe),
+          //                       height: 2,
+          //                     ),
+          //                   ),
+          //                   SizedBox(
+          //                     height: 1.0,
+          //                   ),
+          //                   Text(
+          //                     "New Patient",
+          //                     style: TextStyle(
+          //                       fontSize: 14,
+          //                       color: Color(0xfff2e7fe).withOpacity(0.6),
+          //                       height: 2,
+          //                     ),
+          //                   )
+          //                 ],
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
+          Column(
+            children: drawerItems.map((element) => Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                children: [
+                  Icon(element['icon'],color: Colors.white,size: 30,),
+                  SizedBox(width: 10,),
+                  Text(element['title'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20))
+                ],
 
-                ),),
+              ),
+            )).toList(),
           ),
-         /* Column(
-            children: drawerItems
-                .map((element) => Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            element['icon'],
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(element['title'],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20))
-                        ],
-                      ),
-                    ))
-                .toList(),
-          ),*/
+
+
           Row(
             children: [
               Icon(
@@ -146,8 +147,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               Text(
                 'Settings',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
               SizedBox(
                 width: 10,
@@ -162,8 +165,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               Text(
                 'Log out',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               )
             ],
           )
