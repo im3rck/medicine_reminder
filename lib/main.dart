@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Digital Medical Assistant',
-       home: PhasePage(),
+      title: 'Digital Medical Assistant'
+       home: PatientAddPage(),//App(),//HomePage(),
     );
   }
 }

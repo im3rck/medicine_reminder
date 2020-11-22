@@ -1,9 +1,22 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
 
-class Cards extends StatelessWidget {
+double yOffset = 0;
+
+// ignore: must_be_immutable
+class Cards extends StatefulWidget {
+  @override
+  _CardsState createState() => _CardsState();
+}
+
+PickedFile _image;
+final ImagePicker _picker = ImagePicker();
+
+class _CardsState extends State<Cards> {
   final double appBarHeight = 55.0;
 
   @override
@@ -13,13 +26,14 @@ class Cards extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
             InkWell(
               onTap: () {
+                //yOffset = -250;
                 _popupCard(context);
               },
               child: Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
-                  height: 175.0,
+                  height: 180.0,
                   width: MediaQuery.of(context).size.width,
                   child: customCard(Icons.person, "Details", "Patient Bio")),
             ),
@@ -85,59 +99,143 @@ class Cards extends StatelessWidget {
       ],
     );
   }
-}
-
-void _popupCard(context) {
-  double xOffset = 0;
-  double yOffset = 0;
-  double scaleFactor = 1;
-
-  showModalBottomSheet(
-    context: context,
-    backgroundColor: Colors.transparent,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-    builder: (context) {
-      return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Stack(
-          children: <Widget>[
-            AnimatedContainer(
-              transform: Matrix4.translationValues(xOffset, yOffset, 0)
-                ..scale(scaleFactor),
-              duration: Duration(milliseconds: 250),
-              margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
-              padding: EdgeInsets.all(20.0),
-              // height: (MediaQuery.of(context).size.height) * .80,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xffBB86FC), width: 1),
-                color: Color(0xff121212),
-                borderRadius: BorderRadius.circular(15.0),
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
               ),
-              child: Wrap(
-                children: [
-                  Stack(
-                    // alignment: Alignment.center,
-                    children: [
-                      // CustomPaint(
-                      //   child: Container(
-                      //     child: Center(
-                      //       child: Column(
-                      //         mainAxisAlignment: MainAxisAlignment.end,
-                      //         children: [],
-                      //       ),
-                      //     ),
-                      //     height: (MediaQuery.of(context).size.height) * .57,
-                      //     width: MediaQuery.of(context).size.width,
-                      //   ),
-                      // ),
-                      Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
+            ),
+          );
+        }
+    );
+  }
+
+  _imgFromCamera() async {
+    final PickedFile image = await _picker.getImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    PickedFile image = await  _picker.getImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  void _popupCard(context) {
+    double xOffset = 0;
+    //double yOffset = 0;
+    double scaleFactor = 1;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Stack(
+            children: <Widget>[
+              AnimatedContainer(
+                transform: Matrix4.translationValues(xOffset, yOffset, 0)
+                  ..scale(scaleFactor),
+                duration: Duration(milliseconds: 250),
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                padding: EdgeInsets.all(20.0),
+                // height: (MediaQuery.of(context).size.height) * .80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffBB86FC), width: 1),
+                  color: Color(0xff121212),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Wrap(
+                  children: [
+                    Stack(
+                      // alignment: Alignment.center,
+                      children: [
+                        // CustomPaint(
+                        //   child: Container(
+                        //     child: Center(
+                        //       child: Column(
+                        //         mainAxisAlignment: MainAxisAlignment.end,
+                        //         children: [],
+                        //       ),
+                        //     ),
+                        //     height: (MediaQuery.of(context).size.height) * .57,
+                        //     width: MediaQuery.of(context).size.width,
+                        //   ),
+                        // ),
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                                child: Center(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      yOffset = 0;
+                                      _showPicker(context);
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      child: _image != null
+                                          ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.file(
+                                          File(_image.path),
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      )
+                                          : Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        width: 100,
+                                        height: 100,
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.grey[800],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                            ),
+                            /* Container(
                             child: Image.asset('assets/images/cat.png'),
                             // child: CircleAvatar(
                             //   radius: 30,
@@ -160,172 +258,182 @@ void _popupCard(context) {
                               //   image: AssetImage('images/cat.png'),
                               // ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 24,
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width) * .9,
-                            child: TextField(
-                              onTap: () {
-                                yOffset = -250;
-                              },
-                              // controller: emailController,
-                              style: TextStyle(color: Color(0xfff2e7fe)),
-                              decoration: InputDecoration(
-                                  labelText: 'Username',
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Circular',
-                                    fontSize: 16,
-                                    color: Color(0xffF2E7FE),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xff121212),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 0),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xfff2e7fe)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffBB86fc)),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder()),
+                          ),*/
+                            SizedBox(
+                              height: 24,
                             ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width) * .9,
-                            child: TextField(
-                              onTap: () {
-                                yOffset = -250;
-                              },
-                              // controller: emailController,
-                              style: TextStyle(color: Color(0xfff2e7fe)),
-                              decoration: InputDecoration(
-                                  labelText: 'Age',
-                                  prefixIcon: Icon(
-                                    Icons.calendar_view_day,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Circular',
-                                    fontSize: 16,
-                                    color: Color(0xffF2E7FE),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xff121212),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 0),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xfff2e7fe)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffBB86fc)),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder()),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width) * .9,
-                            child: TextField(
-                              onTap: () {
-                                yOffset = -250;
-                              },
-                              // controller: emailController,
-                              style: TextStyle(color: Color(0xfff2e7fe)),
-                              decoration: InputDecoration(
-                                  labelText: 'Contact',
-                                  prefixIcon: Icon(
-                                    Icons.phone,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Circular',
-                                    fontSize: 16,
-                                    color: Color(0xffF2E7FE),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xff121212),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 0),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xfff2e7fe)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffBB86fc)),
-                                  ),
-                                  border: UnderlineInputBorder()),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                              yOffset = 0;
-                            },
-                            child: Container(
-                              height: 40,
-                              width: (MediaQuery.of(context).size.width) * .8,
-                              decoration: BoxDecoration(
-                                color: Color(0xff292929),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(25),
-                                ),
-                                border: Border.all(
-                                    color: Color(0xffBB86FC), width: 1),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xffF292929).withOpacity(0.2),
-                                    spreadRadius: 3,
-                                    blurRadius: 4,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Confirm",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onTap: () {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Username',
+                                    prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
+                                      color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onTap: () {
+                                  yOffset = -210;
+                                },
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Age',
+                                    prefixIcon: Icon(
+                                      Icons.calendar_view_day,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
+                                      color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onTap: () {
+                                  yOffset = -210;
+                                },
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Contact',
+                                    prefixIcon: Icon(
+                                      Icons.phone,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
+                                      color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBB86fc)),
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                yOffset = 0;
+                              },
+                              child: Container(
+                                height: 40,
+                                width: (MediaQuery.of(context).size.width) * .8,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff292929),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                  border: Border.all(
+                                      color: Color(0xffBB86FC), width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0xffF292929).withOpacity(0.2),
+                                      spreadRadius: 3,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      );
-    },
-  );
+            ],
+          ),
+        );
+      },
+    );
+
+  }
+
 }
+
