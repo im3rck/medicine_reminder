@@ -15,17 +15,17 @@ List<Map> categories = [
 ];
 
 List<Map> drawerItems=[
-  {
-    'icon': FontAwesomeIcons.paw,
-    'title' : 'Adoption'
-  },
+  // {
+  //   'icon': FontAwesomeIcons.paw,
+  //   'title' : 'Adoption'
+  // },
   {
     'icon': Icons.mail,
     'title' : 'Donation'
   },
   {
     'icon': FontAwesomeIcons.plus,
-    'title' : 'Add pet'
+    'title' : 'Add Patient'
   },
   {
     'icon': Icons.favorite,

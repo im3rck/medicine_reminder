@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
@@ -138,38 +140,55 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
           Row(
             children: [
-              Icon(
-                Icons.settings,
-                color: Colors.white,
+              // SvgPicture.asset(
+              //   'assets/images/logout.svg',
+              //   height: 25.0,
+              //   width: 25.0,
+              //   allowDrawingOutsideViewBox: true,
+              // ),
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: Color(0xFFbb86fe),
+                ),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Settings',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 2,
-                height: 20,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 10,
-              ),
+
+              // Icon(
+              //   Icons.settings,
+              //   color: Colors.white,
+              // ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              // Text(
+              //   'Settings',
+              //   style: TextStyle(
+              //       color: Colors.white,
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 20),
+              // ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              // Container(
+              //   width: 2,
+              //   height: 20,
+              //   color: Colors.white,
+              // ),
+              // SizedBox(
+              //   width: 10,
+              // ),
               Text(
                 'Log out',
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Color(0xFFbb86fe),
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               )
+
             ],
           )
         ],

@@ -55,8 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: SingleChildScrollView(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 50,
@@ -95,21 +94,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             }),
                     Container(
                       alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          Text(
-                            formattedDate,
-                            textAlign: TextAlign.center,
-                            style: new TextStyle(
-                                color: (isDrawerOpen
-                                    ? Color(0xff292929)
-                                    : Color(0xFFf2e7fe)),
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25.0),
-                          ),
-                        ],
+                      child: Text(
+                        formattedDate,
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            color: (isDrawerOpen
+                                ? Color(0xff292929)
+                                : Colors.white),
+                            fontFamily: 'Circular',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25.0),
                       ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
                     ),
                     // MaterialButton(
                     //     color: Color(0xff121212),
