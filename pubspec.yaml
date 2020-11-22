@@ -47,6 +47,7 @@ dependencies:
   flutter_icons:
   folding_cell:
   flare_flutter:
+  backdrop: ^0.4.7
 
 
 dev_dependencies:
