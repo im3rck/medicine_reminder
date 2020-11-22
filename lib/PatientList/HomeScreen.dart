@@ -110,14 +110,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 50,
                       width: 50,
                     ),
-                    // MaterialButton(
-                    //     color: Color(0xff121212),
-                    //     onPressed: () async {
-                    //       await FirebaseAuth.instance.signOut();
-                    //     },
-                    //     child:
-                    //         Text("Out", style: TextStyle(color: Colors.white))
-                    // ),
                   ],
                 ),
               ),
