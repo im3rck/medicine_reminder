@@ -52,7 +52,7 @@ class _CardsState extends State<Cards> {
                           .35,
                       width: (MediaQuery.of(context).size.width) * .5,
                       child: customCard(
-                          Icons.description, "Pills", "Dosage Details")),
+                          Icons.description, "Medicine", "Dosage Details")),
                 ),
                 InkWell(
                   onTap: () {
@@ -91,7 +91,7 @@ class _CardsState extends State<Cards> {
                             175.0) *
                         .35,
                     width: (MediaQuery.of(context).size.width) * .5,
-                    child: customCard(Icons.assignment, "Log", "Records")),
+                    child: customCard(Icons.assignment, "Medicine", "List")),
               ],
             )
           ],
