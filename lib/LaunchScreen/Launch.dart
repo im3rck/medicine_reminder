@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:medicine_reminder/LaunchScreen/_shared/lib/env.dart';
-import 'package:medicine_reminder/LaunchScreen/env.dart';
+import 'file:///C:/Users/user/IdeaProjects/medicine_reminder/lib/env.dart';
 import 'demo.dart';
 
 
