@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
@@ -11,20 +13,29 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  Future navigateToSubPage(context, int index) async {
+    switch (index) {
+      case 0:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       color: Color(0xff121212),
-      padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
+      padding: EdgeInsets.only(top: 50, left: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(
                 radius: 25.0,
                 backgroundImage:
-                NetworkImage('https://via.placeholder.com/150'),
+                    NetworkImage('https://via.placeholder.com/150'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
@@ -45,76 +56,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
               )
             ],
           ),
-          InkWell(
-            onTap: (){
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-            },
-            child: Container(
-              alignment: Alignment.centerLeft,
-                height: ((MediaQuery.of(context).size.height) -
-                    50.0 -
-                    175.0) *
-                    .35,
-                width: (MediaQuery.of(context).size.width) *.85,
-                child: Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  margin: EdgeInsets.all(5.0),
-                  color: Color(0xffbb86fc),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xff121212),
-                      border: Border.all(
-                          color: Color(0xffBB86FC),
-                          width: 1
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xff121212).withOpacity(0.2),
-                          spreadRadius: 3,
-                          blurRadius: 4,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Icon(FontAwesomeIcons.plus, color: Color(0xfff2e7fe), size: 30.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text("Add",style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xfff2e7fe),
-                                height: 2,
-                              ),),
-                              SizedBox(height: 1.0,),
-                              Text("New Patient", style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xfff2e7fe).withOpacity(0.6),
-                                height: 2,
-                              ),)
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-
-
-
-                ),),
+          SizedBox(
+            width: 10,
+            height: 120,
           ),
-         /* Column(
+          Column(
             children: drawerItems
                 .map((element) => Padding(
-                      padding: const EdgeInsets.all(18.0),
+                    padding: const EdgeInsets.all(18.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        navigateToSubPage(context, element['index']);
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -128,43 +81,53 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           Text(element['title'],
                               style: TextStyle(
                                   color: Colors.white,
+                                  fontFamily: 'Circular',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20))
                         ],
                       ),
-                    ))
+                    )))
                 .toList(),
-          ),*/
+          ),
+          SizedBox(
+            width: 10,
+            height: 180,
+          ),
           Row(
             children: [
-              Icon(
-                Icons.settings,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Settings',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                width: 2,
-                height: 20,
-                color: Colors.white,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                'Log out',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 20),
-              )
+              GestureDetector(
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                        height: 20,
+                      ),
+                      // Icon(
+                      //   Icons.settings,
+                      //   color: Colors.white,
+                      // ),
+                      SvgPicture.asset(
+                        'assets/images/logout.svg',
+                        height: 25.0,
+                        width: 25.0,
+                        // allowDrawingOutsideViewBox: true,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Log out',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Circular',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28),
+                      )
+                    ],
+                  )),
             ],
           )
         ],

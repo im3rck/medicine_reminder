@@ -2,18 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
-
 class Login2 extends StatefulWidget {
   @override
   _Login2State createState() => _Login2State();
 }
+
 bool _passwordVisible;
 
-
 class _Login2State extends State<Login2> {
-
-
-
   Future<void> _alertDialogBuilder(String e) async {
     return showDialog(
         context: context,
@@ -26,21 +22,20 @@ class _Login2State extends State<Login2> {
             actions: [
               FlatButton(
                   child: Text("Close"),
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.pop(context);
-                  }
-              )
+                  })
             ],
           );
-        }
-    );
+        });
   }
+
   Future<String> _loginAccount() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _loginEmail, password: _loginPassword);
       return null;
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
@@ -54,7 +49,7 @@ class _Login2State extends State<Login2> {
 
   void _submitForm() async {
     // Set the form to loading state
- /*   setState(() {
+    /*   setState(() {
       _loginFormLoading = true;
     });*/
 
@@ -62,7 +57,7 @@ class _Login2State extends State<Login2> {
     String _loginFeedback = await _loginAccount();
 
     // If the string is not null, we got error while create account.
-    if(_loginFeedback != null) {
+    if (_loginFeedback != null) {
       _alertDialogBuilder(_loginFeedback);
 
       // Set the form to regular state [not loading].
@@ -72,20 +67,18 @@ class _Login2State extends State<Login2> {
     }
   }
 
-
-
   // Form Input Field Values
   String _loginEmail = "";
   String _loginPassword = "";
 
- // TextEditingController emailController;
+  // TextEditingController emailController;
 
- // TextEditingController passwordController;
+  // TextEditingController passwordController;
   @override
   void initState() {
     _passwordVisible = false;
-  // emailController = new TextEditingController();
-  //  passwordController = new TextEditingController();
+    // emailController = new TextEditingController();
+    //  passwordController = new TextEditingController();
     super.initState();
   }
 
@@ -107,6 +100,7 @@ class _Login2State extends State<Login2> {
       return null;
     }
   }
+
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -138,92 +132,87 @@ class _Login2State extends State<Login2> {
           height: 46,
         ),
         TextFormField(
-          onChanged: (value){
-            _loginEmail=value;
+          onChanged: (value) {
+            _loginEmail = value;
           },
           //controller: emailController,
           keyboardType: TextInputType.emailAddress,
           validator: emailValidator,
           style: TextStyle(color: Color(0xfff2e7fe)),
           decoration: InputDecoration(
-            labelText: 'Email',
-            prefixIcon: Icon(
-              Icons.email,
-              color: Color(0xffF2E7FE),
-            ),
-            labelStyle: TextStyle(
-              fontSize: 16,
-              color: Color(0xffF2E7FE),
-              fontWeight: FontWeight.bold,
-            ),
-            filled: true,
-            fillColor: Color(0xff292929),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              labelText: 'Email',
+              prefixIcon: Icon(
+                Icons.email,
+                color: Color(0xffF2E7FE),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 16,
+                color: Color(0xffF2E7FE),
+                fontWeight: FontWeight.bold,
+              ),
+              filled: true,
+              fillColor: Color(0xff292929),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+                borderSide: BorderSide(color: Color(0xfff2e7fe)),
+              ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffBB86fc)),
                 //  when the TextFormField in focused
-              ) ,
-              border: UnderlineInputBorder(
-              )
-          ),
+              ),
+              border: UnderlineInputBorder()),
         ),
         SizedBox(
           height: 20,
         ),
         TextFormField(
-          onChanged: (value){
-            _loginPassword=value;
+          onChanged: (value) {
+            _loginPassword = value;
           },
           validator: pwdValidator,
           keyboardType: TextInputType.text,
           obscureText: !_passwordVisible,
-         // controller: passwordController,
+          // controller: passwordController,
           style: TextStyle(color: Color(0xfff2e7fe)),
           decoration: InputDecoration(
-
-            labelText: 'Password',
-            prefixIcon: Icon(
-              Icons.lock,
-              color: Color(0xffF2E7FE),
-            ),
-            labelStyle: TextStyle(
-              fontSize: 16,
-              color: Color(0xffF2E7FE),
-              fontWeight: FontWeight.bold,
-            ),
-            filled: true,
-            fillColor: Color(0xff292929),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            suffixIcon: IconButton(
-              icon: Icon(
-                _passwordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off,
-                color: Color(0xFFf2e7fe),
+              labelText: 'Password',
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Color(0xffF2E7FE),
               ),
-              onPressed: (){
-                setState(() {
-                  _passwordVisible = !_passwordVisible;
-                });
-              },
-            ),
+              labelStyle: TextStyle(
+                fontSize: 16,
+                color: Color(0xffF2E7FE),
+                fontWeight: FontWeight.bold,
+              ),
+              filled: true,
+              fillColor: Color(0xff292929),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Color(0xFFf2e7fe),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xfff2e7fe)), ),
+                borderSide: BorderSide(color: Color(0xfff2e7fe)),
+              ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffBB86fc)),
                 //  when the TextFormField in focused
-              ) ,
-              border: UnderlineInputBorder(
-              )
-          ),
+              ),
+              border: UnderlineInputBorder()),
         ),
         SizedBox(
           height: 26,
         ),
-       InkWell(
-         onTap: _submitForm,
+        InkWell(
+          onTap: _submitForm,
           /*onTap: () {
             try {
               FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -246,10 +235,7 @@ class _Login2State extends State<Login2> {
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
               ),
-              border: Border.all(
-                color: Color(0xffBB86FC),
-                width: 1
-              ),
+              border: Border.all(color: Color(0xffBB86FC), width: 1),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xffF292929).withOpacity(0.2),
@@ -271,7 +257,6 @@ class _Login2State extends State<Login2> {
             ),
           ),
         ),
-
         SizedBox(
           height: 16,
         ),
