@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 // import 'package:medicine_reminder/Authentication/Login.dart';
 // import 'package:medicine_reminder/HomePage.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
@@ -14,13 +15,18 @@ import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'LaunchScreen/Launch.dart';
 
+//Todo : Permissions
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();*/
+  //FirebaseMessaging fM = FirebaseMessaging();
+  //Future<String> token = fM.getToken();
+  //print('Token : $token');
   Paint.enableDithering = true;
   runApp(MyApp());
 }
@@ -33,7 +39,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
 
-       home: PatientAddPage(),//App(),//HomePage(),
+       home: GooeyEdgeDemo()//PhasePage()//PatientAddPage(),//App(),//HomePage(),
 
     );
   }
