@@ -1,17 +1,26 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
 
 double yOffset = 0;
 String _selected = '';
+List<String> IntervalItems = [];
+List<String> ScheduleItems = [];
 
 // ignore: must_be_immutable
 class Cards extends StatefulWidget {
   @override
   _CardsState createState() => _CardsState();
+}
+
+Future navigateToSubPage(context) async {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => Connection()));
 }
 
 PickedFile _image;
@@ -22,52 +31,84 @@ class _CardsState extends State<Cards> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
+      alignment: Alignment.topRight,
       children: [
-        SizedBox(height: 14.0),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InkWell(
-              onTap: () {
-                _popupCard(context);
-              },
-              child: Container(
-                  height: 185.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: customCard(Icons.person, "Details", "Patient Bio")),
+          children: [
+            SizedBox(height: 14.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    _popupCard(context);
+                  },
+                  child: Container(
+                      height: 185.0,
+                      width: MediaQuery.of(context).size.width,
+                      child:
+                          customCard(Icons.person, "Details", "Patient Bio")),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    _medicineChoice(context);
+                  },
+                  child: Container(
+                      height: 185,
+                      width: MediaQuery.of(context).size.width,
+                      child: customCard(
+                          Icons.description, "Medicine", "Dosage Details")),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    _medicineList();
+                  },
+                  child: Container(
+                      height: 185.0,
+                      width: (MediaQuery.of(context).size.width) * .5,
+                      child: customCard(Icons.assignment, "Medicine", "List")),
+                ),
+                InkWell(
+                  onTap: () {
+                    _medicineList();
+                  },
+                  child: Container(
+                      height: 185.0,
+                      width: (MediaQuery.of(context).size.width) * .5,
+                      child: customCard(Icons.assignment, "Schedule", "List")),
+                ),
+              ],
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InkWell(
-              onTap: () {
-                _medicineChoice(context);
-              },
-              child: Container(
-                  height: 185,
-                  width: MediaQuery.of(context).size.width,
-                  child: customCard(
-                      Icons.description, "Medicine", "Dosage Details")),
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0xff292929),
+            borderRadius: BorderRadius.all(
+              Radius.circular(25),
             ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InkWell(
-              onTap: () {
-                _medicineList();
-              },
-              child: Container(
-                  height: 185.0,
-                  width: MediaQuery.of(context).size.width,
-                  child: customCard(Icons.assignment, "Medicine", "List")),
-            ),
-          ],
+            border: Border.all(color: Color(0xffBB86FC), width: 1),
+          ),
+          child: FloatingActionButton(
+            child: Icon(Icons.navigation),
+            backgroundColor: Color(0xff121212),
+            foregroundColor: Color(0xffbb86fe),
+            onPressed: () {
+              navigateToSubPage(context);
+            },
+          ),
         ),
       ],
     );
@@ -85,7 +126,7 @@ class _CardsState extends State<Cards> {
               _byMedicine();
             },
             child: Container(
-                height: (MediaQuery.of(context).size.height) * .25,
+                height: (MediaQuery.of(context).size.height) * .30,
                 width: (MediaQuery.of(context).size.width) * .5,
                 child: customCard(
                   Icons.description,
@@ -94,11 +135,11 @@ class _CardsState extends State<Cards> {
                 )),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               _bySchedule();
             },
             child: Container(
-                height: (MediaQuery.of(context).size.height) * .25,
+                height: (MediaQuery.of(context).size.height) * .30,
                 width: (MediaQuery.of(context).size.width) * .5,
                 child: customCard(
                   Icons.calendar_today,
@@ -114,13 +155,11 @@ class _CardsState extends State<Cards> {
   void _byMedicine() {
     _newMedicine(context);
   }
-  void _bySchedule(){
-    _newSchedule(context);
+
+  void _bySchedule() {
+    _newSchedule();
   }
 
-  void _newSchedule(context){
-
-  }
   // Patient Details
   void _showPicker(context) {
     showModalBottomSheet(
@@ -203,21 +242,7 @@ class _CardsState extends State<Cards> {
                     Stack(
                       // alignment: Alignment.center,
                       children: [
-                        // CustomPaint(
-                        //   child: Container(
-                        //     child: Center(
-                        //       child: Column(
-                        //         mainAxisAlignment: MainAxisAlignment.end,
-                        //         children: [],
-                        //       ),
-                        //     ),
-                        //     height: (MediaQuery.of(context).size.height) * .57,
-                        //     width: MediaQuery.of(context).size.width,
-                        //   ),
-                        // ),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                                 child: Center(
@@ -453,6 +478,421 @@ class _CardsState extends State<Cards> {
     );
   }
 
+  void _newSchedule() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter mystate) {
+            return Container(
+              padding: EdgeInsets.all(20.0),
+              // height: (MediaQuery.of(context).size.height) * .80,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Set The Schedule",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  ),
+                  new Expanded(
+                      child: InkWell(
+                    onTap: () {
+                      _scheduledNewMedicine(context);
+                    },
+                    child: new ListView.builder(
+                        itemCount: ScheduleItems.length,
+                        itemBuilder: (BuildContext ctxt, int Index) {
+                          return new Container(
+                            alignment: Alignment.center,
+                            child: Card(
+                              elevation: 10.0,
+                              margin: new EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 10.0),
+                              child: Slidable(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff292929),
+                                  ),
+                                  child: ListTile(
+                                    leading: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10.0),
+                                      height: 20,
+                                      width: 20,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xff292929),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Color(0xffbb86fe),
+                                              width: 4)),
+                                    ),
+                                    title: Text(
+                                      ScheduleItems[Index],
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xfff2e7fe),
+                                        height: 2,
+                                      ),
+                                    ),
+                                    /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xfff2e7fe),
+                                        height: 2,
+                                      ),),*/
+                                    trailing: Container(
+                                      height: 50,
+                                      width: 5,
+                                      color: Color(0xffbb86fe),
+                                    ),
+                                  ),
+                                ),
+                                actionPane: SlidableBehindActionPane(),
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'MedList',
+                                    color: Color(0xff121212),
+                                    icon: Icons.list,
+                                    onTap: () => print('log'),
+                                  ),
+                                ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Delete',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () {
+                                      ScheduleItems.removeAt(Index);
+                                      Navigator.pop(context);
+                                      _newSchedule();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                          /*Text(IntervalItems[Index],style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),);*/
+                        }),
+                  )),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _selectTimeSchedule(context);
+                    },
+                    icon: Icon(Icons.add),
+                    backgroundColor: Color(0xff292929),
+                    foregroundColor: Color(0xffbb86fe),
+                    label: Text(
+                      "Schedule",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _scheduledNewMedicine(context) {
+    double xOffset = 0;
+    double scaleFactor = 1;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Stack(
+            children: <Widget>[
+              AnimatedContainer(
+                transform: Matrix4.translationValues(xOffset, yOffset, 0)
+                  ..scale(scaleFactor),
+                duration: Duration(milliseconds: 250),
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                padding: EdgeInsets.all(20.0),
+                // height: (MediaQuery.of(context).size.height) * .80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffBB86FC), width: 1),
+                  color: Color(0xff121212),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Wrap(
+                  children: [
+                    Stack(
+                      // alignment: Alignment.center,
+                      children: [
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Medicine Name',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              child: MedicineType(),
+                            ),
+                            SizedBox(width: 10.0),
+                            TextField(
+                              onSubmitted: (value) {
+                                yOffset = 0;
+                              },
+                              // controller: emailController,
+                              style: TextStyle(color: Color(0xfff2e7fe)),
+                              decoration: InputDecoration(
+                                  labelText: _check(),
+                                  /*prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Color(0xffF2E7FE),
+                                  ),*/
+                                  labelStyle: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xfff2e7fe).withOpacity(0.6),
+                                    height: 2,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xff121212),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xfff2e7fe)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffBB86fc)),
+                                  ),
+                                  border: UnderlineInputBorder()),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Initial Quantity',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 26,
+                            ),
+                            Container(
+                                child: Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  yOffset = 0;
+                                  _showPicker(context);
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: _image != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.file(
+                                            File(_image.path),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25),
+                                            ),
+                                            border: Border.all(
+                                                color: Color(0xffBB86FC),
+                                                width: 1),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xffbb86fe)
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 3,
+                                                blurRadius: 4,
+                                                offset: Offset(5.0, 5.0),
+                                              ),
+                                            ],
+                                          ),
+                                          width: 100,
+                                          height: 100,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Color(0xfff2e7fe),
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Center(
+                                  child: Container(
+                                      height:
+                                          (MediaQuery.of(context).size.height) *
+                                              .25,
+                                      width:
+                                          (MediaQuery.of(context).size.width) *
+                                              .86,
+                                      child: customCard(
+                                        Icons.calendar_today,
+                                        "Schedule",
+                                        "Days & Range",
+                                      )),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _clicked = false;
+                                Navigator.pop(context);
+                                yOffset = 0;
+                              },
+                              child: Container(
+                                height: 40,
+                                width: (MediaQuery.of(context).size.width) * .8,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff292929),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                  border: Border.all(
+                                      color: Color(0xffBB86FC), width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          Color(0xffF292929).withOpacity(0.2),
+                                      spreadRadius: 3,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _newMedicine(context) {
     double xOffset = 0;
     double scaleFactor = 1;
@@ -675,9 +1115,7 @@ class _CardsState extends State<Cards> {
                                               .43,
                                           child: customCard(
                                             Icons.alarm_add,
-                                            _clicked == false
-                                                ? "Time"
-                                                : "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}",
+                                            "Time",
                                             "Timing & Intervals",
                                           )),
                                     ],
@@ -750,51 +1188,164 @@ class _CardsState extends State<Cards> {
       },
     );
   }
-  void _timeInterval()
-  {
+
+  void _timeInterval() {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      builder: (context) {
-        return Container(
-            padding: EdgeInsets.all(20.0),
-            // height: (MediaQuery.of(context).size.height) * .80,
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xffBB86FC), width: 1),
-              color: Color(0xff292929),
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Column(
-              children: [
-                Center(
-                  child: Text("Set Time Intervals", style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xffF2E7FE),
-                  ),),
-                ),
-                Container(
-                  height: (MediaQuery.of(context).size.height)*.40,
-                ),
-                FloatingActionButton.extended(
-                  onPressed: (){
-                    _selectTime(context);
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter mystate) {
+            return Container(
+              padding: EdgeInsets.all(20.0),
+              // height: (MediaQuery.of(context).size.height) * .80,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Set Time Intervals",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  ),
+                  new Expanded(
+                      child: new ListView.builder(
+                          itemCount: IntervalItems.length,
+                          itemBuilder: (BuildContext ctxt, int Index) {
+                            return new Container(
+                              alignment: Alignment.center,
+                              child: Card(
+                                elevation: 10.0,
+                                margin: new EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                                child: Slidable(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff292929),
+                                    ),
+                                    child: ListTile(
+                                      leading: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10.0),
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: Color(0xffbb86fe),
+                                                width: 4)),
+                                      ),
+                                      title: Text(
+                                        IntervalItems[Index],
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xfff2e7fe),
+                                          height: 2,
+                                        ),
+                                      ),
+                                      /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xfff2e7fe),
+                                      height: 2,
+                                    ),),*/
+                                      trailing: Container(
+                                        height: 50,
+                                        width: 5,
+                                        color: Color(0xffbb86fe),
+                                      ),
+                                    ),
+                                  ),
+                                  actionPane: SlidableBehindActionPane(),
+                                  secondaryActions: <Widget>[
+                                    IconSlideAction(
+                                      caption: 'Delete',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () {
+                                        IntervalItems.removeAt(Index);
+                                        Navigator.pop(context);
+                                        _timeInterval();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                            /*Text(IntervalItems[Index],style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffF2E7FE),
+                          ),);*/
+                          })),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _selectTime(context);
                     },
-                  icon: Icon(Icons.add),
-                  backgroundColor: Color(0xff292929),
-                  foregroundColor: Color(0xffbb86fe),
-                  label: Text("Interval",style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xffF2E7FE),
-                ),),
-                )
-              ],
-            ));
+                    icon: Icon(Icons.add),
+                    backgroundColor: Color(0xff292929),
+                    foregroundColor: Color(0xffbb86fe),
+                    label: Text(
+                      "Interval",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }
+
+  Future<TimeOfDay> _selectTimeSchedule(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+        context: context,
+        initialTime: _time,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(
+                  primary: Color(0xffbb86fe),
+                  onPrimary: Color(0xff121212),
+                  surface: Color(0xff121212),
+                  onSurface: Color(0xfff2e7fe),
+                ),
+                buttonTheme:
+                    ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                dialogBackgroundColor: Color(0xffbb86fe)),
+            child: child,
+          );
+        });
+    if (picked != null && picked != _time) {
+      setState(() {
+        _time = picked;
+        _clicked = true;
+        ScheduleItems.add(
+            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        _newSchedule();
+      });
+    }
+    return picked;
+  }
+
   Future<TimeOfDay> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(
         context: context,
@@ -818,6 +1369,9 @@ class _CardsState extends State<Cards> {
       setState(() {
         _time = picked;
         _clicked = true;
+        IntervalItems.add(
+            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        _timeInterval();
       });
     }
     return picked;
