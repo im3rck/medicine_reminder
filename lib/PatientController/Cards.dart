@@ -26,7 +26,9 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(height: 14.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -36,7 +38,7 @@ class _CardsState extends State<Cards> {
                 _popupCard(context);
               },
               child: Container(
-                  height: 180.0,
+                  height: 185.0,
                   width: MediaQuery
                       .of(context)
                       .size
@@ -46,6 +48,43 @@ class _CardsState extends State<Cards> {
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            InkWell(
+              onTap: () {
+                _medicineChoice(context);
+              },
+              child: Container(
+                  height: 185,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  child: customCard(
+                      Icons.description, "Medicine", "Dosage Details")),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            InkWell(
+              onTap: () {
+                _medicineList();
+              },
+              child: Container(
+                  height: 185.0,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  child: customCard(Icons.assignment, "Medicine", "List")),
+            ),
+          ],
+        ),
+       /* Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Column(
@@ -95,8 +134,8 @@ class _CardsState extends State<Cards> {
                       )),
                 )
               ],
-            ),
-            Column(
+            ),*/
+           /* Column(
               children: <Widget>[
                 Container(
                     height: ((MediaQuery
@@ -131,13 +170,125 @@ class _CardsState extends State<Cards> {
                   },
                 ),
               ],
-            )
+            )*/
           ],
-        )
-      ],
-    );
+        );
   }
+ void  _medicineChoice(context){
+   showModalBottomSheet(
+     context: context,
+     backgroundColor: Colors.transparent,
+     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+     builder: (context) {
+       return Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+           InkWell(
+             onTap: (){
+               _byPill();
+       },
+             child: Container(
+                 height: (MediaQuery
+                     .of(context)
+                     .size
+                     .height)*.25,
+                 width: (MediaQuery
+                     .of(context)
+                     .size
+                     .width) * .5,
+                 child: customCard(
+                   Icons.description,
+                   "By Medicine",
+                   "Set Schedule for Medicines",
+                 )),
+           ),
+           Container(
+               height: (MediaQuery
+                   .of(context)
+                   .size
+                   .height)*.25,
+               width: (MediaQuery
+                   .of(context)
+                   .size
+                   .width) * .5,
+               child: customCard(
+                 Icons.calendar_today,
+                 "By Schedule",
+                 "Set Medicines for Schedules",
+               )),
+         ]
+       );
+     },
 
+   );
+  }
+void _byPill()
+{
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+    builder: (context) {
+      return Column(
+        children: [
+          InkWell(
+            onTap: (){
+              _byPill();
+            },
+            child: Container(
+                height: (MediaQuery
+                    .of(context)
+                    .size
+                    .height)*.25,
+                width: (MediaQuery
+                    .of(context)
+                    .size
+                    .width),
+                child: customCard(
+                  Icons.description,
+                  "Medicine",
+                  "Dosage and Details",
+                )),
+          ),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    height: (MediaQuery
+                        .of(context)
+                        .size
+                        .height)*.30,
+                    width: (MediaQuery
+                        .of(context)
+                        .size
+                        .width) * .5,
+                    child: customCard(
+                      Icons.alarm_add,
+                      "Time",
+                      "Timings and Intervals",
+                    )),
+                Container(
+                    height: (MediaQuery
+                        .of(context)
+                        .size
+                        .height)*.30,
+                    width: (MediaQuery
+                        .of(context)
+                        .size
+                        .width) * .5,
+                    child: customCard(
+                      Icons.calendar_today,
+                      "Schedule",
+                      "Days and Range",
+                    )),
+              ]
+          ),
+        ],
+      );
+    },
+
+  );
+}
   // Patient Details
   void _showPicker(context) {
     showModalBottomSheet(
