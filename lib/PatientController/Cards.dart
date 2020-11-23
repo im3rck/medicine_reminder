@@ -224,70 +224,7 @@ class _CardsState extends State<Cards> {
   }
 void _byPill()
 {
-  showModalBottomSheet(
-    context: context,
-    backgroundColor: Colors.transparent,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-    builder: (context) {
-      return Column(
-        children: [
-          InkWell(
-            onTap: (){
-              _byPill();
-            },
-            child: Container(
-                height: (MediaQuery
-                    .of(context)
-                    .size
-                    .height)*.25,
-                width: (MediaQuery
-                    .of(context)
-                    .size
-                    .width),
-                child: customCard(
-                  Icons.description,
-                  "Medicine",
-                  "Dosage and Details",
-                )),
-          ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    height: (MediaQuery
-                        .of(context)
-                        .size
-                        .height)*.30,
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width) * .5,
-                    child: customCard(
-                      Icons.alarm_add,
-                      "Time",
-                      "Timings and Intervals",
-                    )),
-                Container(
-                    height: (MediaQuery
-                        .of(context)
-                        .size
-                        .height)*.30,
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width) * .5,
-                    child: customCard(
-                      Icons.calendar_today,
-                      "Schedule",
-                      "Days and Range",
-                    )),
-              ]
-          ),
-        ],
-      );
-    },
-
-  );
+  _newMedicine(context);
 }
   // Patient Details
   void _showPicker(context) {
@@ -772,25 +709,70 @@ void _byPill()
                                           fit: BoxFit.fitHeight,
                                         ),
                                       )
-                                          : Container(
+                                          : Column(
+                                            children: [
+                                              Text("Sample",style: TextStyle(
+                                                fontSize: 16,
+                                                color: Color(0xfff2e7fe),
+                                                height: 2,)),
+                                              SizedBox(height: 10.0,),
+                                              Container(
                                         decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(
-                                              12),
+                                              color: Colors.grey[200],
+                                              borderRadius: BorderRadius.circular(
+                                                  12),
                                         ),
                                         width: 100,
                                         height: 100,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
+                                         child: Icon(
+                                              Icons.camera_alt,
+                                              color: Colors.grey[800],
                                         ),
+
                                       ),
+                                            ],
+                                          ),
                                     ),
                                   ),
                                 )
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    height: (MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height)*.25,
+                                    width: (MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width) * .43,
+                                    child: customCard(
+                                      Icons.alarm_add,
+                                      "Time",
+                                      "Timing & Intervals",
+                                    )),
+                                Container(
+                                    height: (MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height)*.25,
+                                    width: (MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width) * .43,
+                                    child: customCard(
+                                      Icons.calendar_today,
+                                      "Schedule",
+                                      "Days & Range",
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             InkWell(
                               onTap: () {
@@ -854,7 +836,6 @@ void _byPill()
          return 'mL';
     else
       return 'Dosage Format';
-
   }
 }
 class MedicineType extends StatefulWidget{
@@ -872,13 +853,15 @@ class _MedicineTypeState extends State<MedicineType>{
       child: Container(
         child: Row(
           children: <Widget>[
-            Text(
-              "Medicine Type:  ", style: TextStyle(
-              fontFamily: 'Circular',
-              fontSize: 16,
-              color: Color(0xffF2E7FE),
-              fontWeight: FontWeight.bold,
-            ),
+            Container(
+              child: Text(
+                "Medicine Type:  ", style: TextStyle(
+                fontFamily: 'Circular',
+                fontSize: 16,
+                color: Color(0xffF2E7FE).withOpacity(0.6),
+                fontWeight: FontWeight.bold,
+              ),
+              ),
             ),
             DropdownButton(
               iconEnabledColor: Color(0xFF3EB16F),
