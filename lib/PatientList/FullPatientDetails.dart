@@ -96,7 +96,7 @@ class FullPatientDetails extends StatelessWidget {
                     child: Container(
                       height: 60,
                       decoration: BoxDecoration(
-                          color: primaryGreen,
+                          color: Color(0xffbb86fe),
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                           child: Text(
