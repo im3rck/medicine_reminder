@@ -73,7 +73,6 @@ flutter:
      - images/pill.png
      - images/
      - images/App_logo_plain.png
-     -
   #   - images/a_dot_ham.jpeg
   fonts:
     - family: Circular
