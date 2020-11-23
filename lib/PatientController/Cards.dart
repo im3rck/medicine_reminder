@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
+import 'package:medicine_reminder/PatientController/MedicineList/Schedule/Timer.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
 
@@ -688,8 +689,46 @@ void _byPill()
                                   border: UnderlineInputBorder()),
                             ),
                             SizedBox(
-                              height: 24,
+                              height: 16,
                             ),
+                            Container(
+                              width: (MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Initial Quantity',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(height: 16,),
                             Container(
                                 child: Center(
                                   child: GestureDetector(
@@ -709,29 +748,20 @@ void _byPill()
                                           fit: BoxFit.fitHeight,
                                         ),
                                       )
-                                          : Column(
-                                            children: [
-                                              Text("Sample",style: TextStyle(
-                                                fontSize: 16,
-                                                color: Color(0xfff2e7fe),
-                                                height: 2,)),
-                                              SizedBox(height: 10.0,),
-                                              Container(
+                                          : Container(
                                         decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              borderRadius: BorderRadius.circular(
-                                                  12),
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(
+                                              12),
                                         ),
                                         width: 100,
                                         height: 100,
                                          child: Icon(
-                                              Icons.camera_alt,
-                                              color: Colors.grey[800],
+                                          Icons.camera_alt,
+                                          color: Colors.grey[800],
                                         ),
 
                                       ),
-                                            ],
-                                          ),
                                     ),
                                   ),
                                 )
@@ -741,20 +771,25 @@ void _byPill()
                             ),
                             Row(
                               children: [
-                                Container(
-                                    height: (MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height)*.25,
-                                    width: (MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width) * .43,
-                                    child: customCard(
-                                      Icons.alarm_add,
-                                      "Time",
-                                      "Timing & Intervals",
-                                    )),
+                                InkWell(
+                                  onTap: (){
+                                    _selectTime();
+                                  },
+                                  child: Container(
+                                      height: (MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height)*.25,
+                                      width: (MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width) * .43,
+                                      child: customCard(
+                                        Icons.alarm_add,
+                                        "Time",
+                                        "Timing & Intervals",
+                                      )),
+                                ),
                                 Container(
                                     height: (MediaQuery
                                         .of(context)
@@ -828,6 +863,29 @@ void _byPill()
     );
 
   }
+  void _selectTime(){
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return Container(
+            padding: EdgeInsets.all(20.0),
+            // height: (MediaQuery.of(context).size.height) * .80,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xffBB86FC), width: 1),
+              color: Color(0xff292929),
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+
+            child: Timer(),
+        );
+      },
+
+    );
+
+  }
+
   String _check(){
     if (_selected == 'Pill' || _selected == 'Tablet')
     return "numbers";
