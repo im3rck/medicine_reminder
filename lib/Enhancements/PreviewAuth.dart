@@ -106,7 +106,13 @@ class _AuthPageState extends State<AuthPage>{
                   }
 
                 }
-                return Container();
+                return AnimatedContainer(duration: Duration(seconds: 3));
+                //return Text("");//"Randombs";// Scaffold(
+                    //body: Center(
+                      //  child: Text("Connecting to the app...")
+                    //)
+                //);
+                //return Container();
             }
           );
         }

@@ -13,13 +13,18 @@ import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 // import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'LaunchScreen/Launch.dart';
 
+//Todo : Permissions
 
 void main() async {
   /*WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();*/
+  //FirebaseMessaging fM = FirebaseMessaging();
+  //Future<String> token = fM.getToken();
+  //print('Token : $token');
   Paint.enableDithering = true;
   runApp(MyApp());
 }
