@@ -13,13 +13,22 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  Future navigateToSubPage(context, int index) async {
+    switch (index) {
+      case 0:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       color: Color(0xff121212),
-      padding: EdgeInsets.only(top: 50, bottom: 20, left: 10),
+      padding: EdgeInsets.only(top: 50, left: 10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
@@ -47,148 +56,78 @@ class _DrawerScreenState extends State<DrawerScreen> {
               )
             ],
           ),
-
-          // InkWell(
-          //   onTap: () {
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => PatientAddPage()));
-          //   },
-          //   child: Container(
-          //     // alignment: Alignment.centerLeft,
-          //     // height:
-          //     //     ((MediaQuery.of(context).size.height) - 50.0 - 175.0) * .35,
-          //
-          //     // width: (MediaQuery.of(context).size.width) * .85,
-          //     margin: EdgeInsets.fromLTRB(10, 50, 45, 110),
-          //     child: Card(
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(20.0)),
-          //       margin: EdgeInsets.all(5.0),
-          //       // color: Color(0xffbb86fc),
-          //       // color: Colors.white,
-          //       child: Container(
-          //         height: 300,
-          //         width: 140,
-          //         decoration: BoxDecoration(
-          //           color: Color(0xff121212),
-          //           border: Border.all(color: Color(0xffBB86FC), width: 1),
-          //           borderRadius: BorderRadius.circular(20.0),
-          //           boxShadow: [
-          //             BoxShadow(
-          //               color: Color(0xff121212).withOpacity(0.2),
-          //               spreadRadius: 3,
-          //               blurRadius: 4,
-          //               offset: Offset(0, 3),
-          //             ),
-          //           ],
-          //         ),
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(24.0),
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.start,
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: <Widget>[
-          //               Icon(FontAwesomeIcons.plus,
-          //                   color: Color(0xfff2e7fe), size: 30.0),
-          //               Column(
-          //                 crossAxisAlignment: CrossAxisAlignment.start,
-          //                 children: <Widget>[
-          //                   Text(
-          //                     "Add",
-          //                     style: TextStyle(
-          //                       fontSize: 16,
-          //                       fontWeight: FontWeight.bold,
-          //                       color: Color(0xfff2e7fe),
-          //                       height: 2,
-          //                     ),
-          //                   ),
-          //                   SizedBox(
-          //                     height: 1.0,
-          //                   ),
-          //                   Text(
-          //                     "New Patient",
-          //                     style: TextStyle(
-          //                       fontSize: 14,
-          //                       color: Color(0xfff2e7fe).withOpacity(0.6),
-          //                       height: 2,
-          //                     ),
-          //                   )
-          //                 ],
-          //               )
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-
-          Column(
-            children: drawerItems.map((element) => Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                children: [
-                  Icon(element['icon'],color: Colors.white,size: 30,),
-                  SizedBox(width: 10,),
-                  Text(element['title'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20))
-                ],
-
-              ),
-            )).toList(),
+          SizedBox(
+            width: 10,
+            height: 120,
           ),
-
-
+          Column(
+            children: drawerItems
+                .map((element) => Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        navigateToSubPage(context, element['index']);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            element['icon'],
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(element['title'],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Circular',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20))
+                        ],
+                      ),
+                    )))
+                .toList(),
+          ),
+          SizedBox(
+            width: 10,
+            height: 180,
+          ),
           Row(
             children: [
-              // SvgPicture.asset(
-              //   'assets/images/logout.svg',
-              //   height: 25.0,
-              //   width: 25.0,
-              //   allowDrawingOutsideViewBox: true,
-              // ),
-              IconButton(
-                icon: Icon(
-                  Icons.settings,
-                  color: Color(0xFFbb86fe),
-                ),
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                },
-              ),
-
-              // Icon(
-              //   Icons.settings,
-              //   color: Colors.white,
-              // ),
-              // SizedBox(
-              //   width: 10,
-              // ),
-              // Text(
-              //   'Settings',
-              //   style: TextStyle(
-              //       color: Colors.white,
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 20),
-              // ),
-              // SizedBox(
-              //   width: 10,
-              // ),
-              // Container(
-              //   width: 2,
-              //   height: 20,
-              //   color: Colors.white,
-              // ),
-              // SizedBox(
-              //   width: 10,
-              // ),
-              Text(
-                'Log out',
-                style: TextStyle(
-                    color: Color(0xFFbb86fe),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              )
-
+              GestureDetector(
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                        height: 20,
+                      ),
+                      // Icon(
+                      //   Icons.settings,
+                      //   color: Colors.white,
+                      // ),
+                      SvgPicture.asset(
+                        'assets/images/logout.svg',
+                        height: 25.0,
+                        width: 25.0,
+                        // allowDrawingOutsideViewBox: true,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Log out',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Circular',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28),
+                      )
+                    ],
+                  )),
             ],
           )
         ],
