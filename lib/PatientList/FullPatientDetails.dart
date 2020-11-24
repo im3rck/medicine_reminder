@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/configuration.dart';
 
@@ -17,7 +18,7 @@ class FullPatientDetails extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Hero(
-                          tag: 1, child: Image.asset('assets/images/cat.png')),
+                          tag: 1, child: FlareActor("assets/animations/user.flr",animation:"Bounce"))
                     ),
                   ),
                   color: Colors.blueGrey[300],
@@ -70,7 +71,7 @@ class FullPatientDetails extends StatelessWidget {
                   boxShadow: shadowList,
                   borderRadius: BorderRadius.circular(20)),
               child: Text(
-                "Important notes go here ...",
+                "Important details go here ...",
                 style: new TextStyle(
                     fontFamily: 'Circular',
                     fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class FullPatientDetails extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                           child: Text(
-                        'Adoption',
+                        'Medicines',
                         style: TextStyle(color: Colors.white, fontSize: 24),
                       )),
                     ),

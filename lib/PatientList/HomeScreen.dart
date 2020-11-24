@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -193,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Hero(
                                       tag: 1,
                                       child:
-                                          Image.asset('assets/images/cat.png')),
+                                          FlareActor("assets/animations/user.flr",animation:"Bounce"))
                                 )
                               ],
                             ),

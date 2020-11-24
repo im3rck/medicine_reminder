@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
@@ -138,7 +139,7 @@ void _popupCard(context) {
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            child: Image.asset('assets/images/cat.png'),
+                            child: FlareActor("assets/animations/user.flr",animation:"Bounce"),
                             // child: CircleAvatar(
                             //   radius: 30,
                             //   backgroundImage:
