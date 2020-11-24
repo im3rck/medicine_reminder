@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
-import 'package:medicine_reminder/PatientList/configuration.dart';
-
-import 'NewPatient.dart';
+import 'configuration.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -67,7 +65,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     child: GestureDetector(
                       onTap: () {
                         navigateToSubPage(context, element['index']);
-
                       },
                       child: Row(
                         children: [
