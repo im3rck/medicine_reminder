@@ -7,29 +7,18 @@ import 'package:rive/rive.dart';
 
 
 class QrGen extends StatefulWidget {
-  QrGen(token);
-  String token;
-
-
-
-
-
   @override
-  _QrGenState createState() => _QrGenState(token);
+  _QrGenState createState() => _QrGenState();
 }
 
 class _QrGenState extends State<QrGen> {
-  String qrData;
-
-  _QrGenState(String qrData);
   String F;
- Future<String> dataToken() async{
-   String Q = await Token();
 
-   F=Q.substring(0);
-   print(F);
-
-   return(null);
+  Future<String> dataToken() async{
+    String Q = await Token();
+    F=Q.substring(0);
+    print(F);
+    return(null);
  }
 
   @override

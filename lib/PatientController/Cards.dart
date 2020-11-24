@@ -1,313 +1,256 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
-import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
+import 'package:medicine_reminder/PatientList/datafile.dart';
 
 double yOffset = 0;
-String _selected='';
+String _selected = '';
+List<String> IntervalItems = [];
+List<String> ScheduleItems = [];
+
 // ignore: must_be_immutable
 class Cards extends StatefulWidget {
   @override
   _CardsState createState() => _CardsState();
 }
 
+Future navigateToSubPage(context) async {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => Connection()));
+}
 
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
 class _CardsState extends State<Cards> {
-
-
   final double appBarHeight = 55.0;
+
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController relController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+
+  String _value;
+
+  void _setText() {
+    Map map = {
+      'index': patientData.length + 1,
+      'name': fnameController.text,
+      'age': ageController.text,
+      'gender': genderController.text,
+      'rel': relController.text
+    };
+    patientData.add(map);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
+      alignment: Alignment.topRight,
       children: [
-        SizedBox(height: 14.0),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            InkWell(
-              onTap: () {
-                _popupCard(context);
-              },
-              child: Container(
-                  height: 185.0,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  child: customCard(Icons.person, "Details", "Patient Bio")),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            InkWell(
-              onTap: () {
-                _medicineChoice(context);
-              },
-              child: Container(
-                  height: 185,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  child: customCard(
-                      Icons.description, "Medicine", "Dosage Details")),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            InkWell(
-              onTap: () {
-                _medicineList();
-              },
-              child: Container(
-                  height: 185.0,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  child: customCard(Icons.assignment, "Medicine", "List")),
-            ),
-          ],
-        ),
-       /* Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Column(
+          children: [
+            SizedBox(height: 14.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 InkWell(
-                  onTap: (){
-                      _newMedicine(context);
+                  onTap: () {
+                    _popupCard(context);
                   },
                   child: Container(
-                      height: ((MediaQuery
-                          .of(context)
-                          .size
-                          .height) -
-                          appBarHeight -
-                          175.0) *
-                          .35,
-                      width: (MediaQuery
-                          .of(context)
-                          .size
-                          .width) * .5,
+                      height: 185.0,
+                      width: MediaQuery.of(context).size.width,
+                      child:
+                          customCard(Icons.person, "Details", "Patient Bio")),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    _medicineChoice(context);
+                  },
+                  child: Container(
+                      height: 185,
+                      width: MediaQuery.of(context).size.width,
                       child: customCard(
                           Icons.description, "Medicine", "Dosage Details")),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ScheduleCell()));
-                  },
-                  child: Container(
-                      height: ((MediaQuery
-                          .of(context)
-                          .size
-                          .height) -
-                          appBarHeight -
-                          175.0) *
-                          .45,
-                      width: (MediaQuery
-                          .of(context)
-                          .size
-                          .width) * .5,
-                      child: customCard(
-                        Icons.calendar_today,
-                        "Schedule",
-                        "Days and Range",
-                      )),
-                )
               ],
-            ),*/
-           /* Column(
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                    height: ((MediaQuery
-                        .of(context)
-                        .size
-                        .height) -
-                        appBarHeight -
-                        175.0) *
-                        .45,
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width) * .5,
-                    child: customCard(
-                        Icons.alarm_add, "Time", "Intervals and Timings")),
                 InkWell(
-                  child: Container(
-                      height: ((MediaQuery
-                          .of(context)
-                          .size
-                          .height) -
-                          appBarHeight -
-                          175.0) *
-                          .35,
-                      width: (MediaQuery
-                          .of(context)
-                          .size
-                          .width) * .5,
-                      child: customCard(Icons.assignment, "Medicine", "List")),
                   onTap: () {
                     _medicineList();
                   },
+                  child: Container(
+                      height: 185.0,
+                      width: (MediaQuery.of(context).size.width) * .5,
+                      child: customCard(Icons.assignment, "Medicine", "List")),
+                ),
+                InkWell(
+                  onTap: () {
+                    _medicineList();
+                  },
+                  child: Container(
+                      height: 185.0,
+                      width: (MediaQuery.of(context).size.width) * .5,
+                      child: customCard(Icons.assignment, "Schedule", "List")),
                 ),
               ],
-            )*/
+            ),
+            SizedBox(
+              width: 20,
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: (MediaQuery.of(context).size.width) * .8,
+              decoration: BoxDecoration(
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
+                ),
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF292929).withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 4,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  "Confirm",
+                  style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Color(0xffF2E7FE),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
-        );
+        ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: Color(0xff292929),
+        //     borderRadius: BorderRadius.all(
+        //       Radius.circular(25),
+        //     ),
+        //     border: Border.all(color: Color(0xffBB86FC), width: 1),
+        //   ),
+        //   child: FloatingActionButton(
+        //     child: Icon(Icons.navigation),
+        //     backgroundColor: Color(0xff121212),
+        //     foregroundColor: Color(0xffbb86fe),
+        //     onPressed: () {
+        //       navigateToSubPage(context);
+        //     },
+        //   ),
+        // ),
+      ],
+    );
   }
- void  _medicineChoice(context){
-   showModalBottomSheet(
-     context: context,
-     backgroundColor: Colors.transparent,
-     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-     builder: (context) {
-       return Row(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-           InkWell(
-             onTap: (){
-               _byPill();
-       },
-             child: Container(
-                 height: (MediaQuery
-                     .of(context)
-                     .size
-                     .height)*.25,
-                 width: (MediaQuery
-                     .of(context)
-                     .size
-                     .width) * .5,
-                 child: customCard(
-                   Icons.description,
-                   "By Medicine",
-                   "Set Schedule for Medicines",
-                 )),
-           ),
-           Container(
-               height: (MediaQuery
-                   .of(context)
-                   .size
-                   .height)*.25,
-               width: (MediaQuery
-                   .of(context)
-                   .size
-                   .width) * .5,
-               child: customCard(
-                 Icons.calendar_today,
-                 "By Schedule",
-                 "Set Medicines for Schedules",
-               )),
-         ]
-       );
-     },
 
-   );
-  }
-void _byPill()
-{
-  showModalBottomSheet(
-    context: context,
-    backgroundColor: Colors.transparent,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-    builder: (context) {
-      return Column(
-        children: [
+  void _medicineChoice(context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           InkWell(
-            onTap: (){
-              _byPill();
+            onTap: () {
+              _byMedicine();
             },
             child: Container(
-                height: (MediaQuery
-                    .of(context)
-                    .size
-                    .height)*.25,
-                width: (MediaQuery
-                    .of(context)
-                    .size
-                    .width),
+                height: (MediaQuery.of(context).size.height) * .30,
+                width: (MediaQuery.of(context).size.width) * .5,
                 child: customCard(
                   Icons.description,
-                  "Medicine",
-                  "Dosage and Details",
+                  "By Medicine",
+                  "Set Schedule for Medicines",
                 )),
           ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    height: (MediaQuery
-                        .of(context)
-                        .size
-                        .height)*.30,
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width) * .5,
-                    child: customCard(
-                      Icons.alarm_add,
-                      "Time",
-                      "Timings and Intervals",
-                    )),
-                Container(
-                    height: (MediaQuery
-                        .of(context)
-                        .size
-                        .height)*.30,
-                    width: (MediaQuery
-                        .of(context)
-                        .size
-                        .width) * .5,
-                    child: customCard(
-                      Icons.calendar_today,
-                      "Schedule",
-                      "Days and Range",
-                    )),
-              ]
+          InkWell(
+            onTap: () {
+              _bySchedule();
+            },
+            child: Container(
+                height: (MediaQuery.of(context).size.height) * .30,
+                width: (MediaQuery.of(context).size.width) * .5,
+                child: customCard(
+                  Icons.calendar_today,
+                  "By Schedule",
+                  "Set Medicines for Schedules",
+                )),
           ),
-        ],
-      );
-    },
+        ]);
+      },
+    );
+  }
 
-  );
-}
+  void _byMedicine() {
+    _newMedicine(context);
+  }
+
+  void _bySchedule() {
+    _newSchedule();
+  }
+
   // Patient Details
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
+        backgroundColor: Color(0xff292929),
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
               child: new Wrap(
                 children: <Widget>[
                   new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      leading: new Icon(Icons.photo_library,
+                          color: Color(0xfff2e7fe)),
+                      title: new Text(
+                        'Photo Library',
+                        style: TextStyle(
+                          fontFamily: 'Circular',
+                          fontSize: 16,
+                          color: Color(0xffF2E7FE),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    leading:
+                        new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
+                    title: new Text(
+                      'Camera',
+                      style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 16,
+                        color: Color(0xffF2E7FE),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
@@ -317,14 +260,12 @@ void _byPill()
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   _imgFromCamera() async {
-    final PickedFile image = await _picker.getImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+    final PickedFile image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       _image = image;
@@ -332,9 +273,8 @@ void _byPill()
   }
 
   _imgFromGallery() async {
-    PickedFile image = await _picker.getImage(
-        source: ImageSource.gallery, imageQuality: 50
-    );
+    PickedFile image =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
 
     setState(() {
       _image = image;
@@ -374,66 +314,49 @@ void _byPill()
                     Stack(
                       // alignment: Alignment.center,
                       children: [
-                        // CustomPaint(
-                        //   child: Container(
-                        //     child: Center(
-                        //       child: Column(
-                        //         mainAxisAlignment: MainAxisAlignment.end,
-                        //         children: [],
-                        //       ),
-                        //     ),
-                        //     height: (MediaQuery.of(context).size.height) * .57,
-                        //     width: MediaQuery.of(context).size.width,
-                        //   ),
-                        // ),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                                 child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      yOffset = 0;
-                                      _showPicker(context);
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: _image != null
-                                          ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.file(
-                                          File(_image.path),
+                              child: GestureDetector(
+                                onTap: () {
+                                  yOffset = 0;
+                                  _showPicker(context);
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: _image != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.file(
+                                            File(_image.path),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
                                           width: 100,
                                           height: 100,
-                                          fit: BoxFit.fitHeight,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey[800],
+                                          ),
                                         ),
-                                      )
-                                          : Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(
-                                              12),
-                                        ),
-                                        width: 100,
-                                        height: 100,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                            ),
+                                ),
+                              ),
+                            )),
                             SizedBox(
                               height: 24,
                             ),
                             Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width) * .9,
+                              width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
                                 onTap: () {
                                   yOffset = -210;
@@ -441,10 +364,10 @@ void _byPill()
                                 onSubmitted: (value) {
                                   yOffset = 0;
                                 },
-                                // controller: emailController,
+                                controller: fnameController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
-                                    labelText: 'Username',
+                                    labelText: 'Name',
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Color(0xffF2E7FE),
@@ -461,11 +384,11 @@ void _byPill()
                                         horizontal: 16, vertical: 0),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xfff2e7fe)),
+                                          BorderSide(color: Color(0xfff2e7fe)),
                                     ),
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xffBB86fc)),
+                                          BorderSide(color: Color(0xffBB86fc)),
                                       //  when the TextFormField in focused
                                     ),
                                     border: UnderlineInputBorder()),
@@ -474,56 +397,87 @@ void _byPill()
                             SizedBox(
                               height: 16,
                             ),
-                            Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width) * .9,
-                              child: TextField(
-                                onTap: () {
-                                  yOffset = -210;
-                                },
-                                onSubmitted: (value) {
-                                  yOffset = 0;
-                                },
-                                // controller: emailController,
-                                style: TextStyle(color: Color(0xfff2e7fe)),
-                                decoration: InputDecoration(
-                                    labelText: 'Age',
-                                    prefixIcon: Icon(
-                                      Icons.calendar_view_day,
-                                      color: Color(0xffF2E7FE),
-                                    ),
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xff121212),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 0),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Color(0xfff2e7fe)),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Color(0xffBB86fc)),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder()),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              // width: (MediaQuery.of(context).size.width) * .9,
+                              // width: (MediaQuery.of(context).size.width) * .9,
+                              children: [
+                                Container(
+                                  width: 250,
+                                  child: TextField(
+                                    onTap: () {
+                                      yOffset = -210;
+                                    },
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    controller: ageController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: 'Age',
+                                        prefixIcon: Icon(
+                                          Icons.calendar_view_day,
+                                          color: Color(0xffF2E7FE),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
+                                          //  when the TextFormField in focused
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
+                                ),
+                                Container(
+                                  height: 63,
+                                  child: DropdownButton(
+                                    hint: Text("Gender",
+                                        style: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    value: _value,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _value = newValue;
+                                      });
+                                    },
+                                    items: ['Male', 'Female', 'Other'].map((valueItem) {
+                                      return new DropdownMenuItem(
+                                        value: valueItem,
+                                        child: new Text(valueItem,
+                                            style: TextStyle(
+                                              fontFamily: 'Circular',
+                                              fontSize: 16,
+                                              color: Color(0xffF2E7FE),
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      );
+                                    }).toList(),
+                                  ),
+                                )
+                              ],
                             ),
                             SizedBox(
                               height: 16,
                             ),
                             Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width) * .9,
+                              width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
                                 onTap: () {
                                   yOffset = -210;
@@ -551,11 +505,52 @@ void _byPill()
                                         horizontal: 16, vertical: 0),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xfff2e7fe)),
+                                          BorderSide(color: Color(0xfff2e7fe)),
                                     ),
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xffBB86fc)),
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onTap: () {
+                                  yOffset = -210;
+                                },
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                controller: relController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Relationship',
+                                    prefixIcon: Icon(
+                                      Icons.people_outline_rounded,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
+                                      color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
                                     ),
                                     border: UnderlineInputBorder()),
                               ),
@@ -565,15 +560,13 @@ void _byPill()
                             ),
                             InkWell(
                               onTap: () {
+                                _setText();
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },
                               child: Container(
                                 height: 40,
-                                width: (MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width) * .8,
+                                width: (MediaQuery.of(context).size.width) * .8,
                                 decoration: BoxDecoration(
                                   color: Color(0xff292929),
                                   borderRadius: BorderRadius.all(
@@ -583,8 +576,8 @@ void _byPill()
                                       color: Color(0xffBB86FC), width: 1),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0xffF292929).withOpacity(
-                                          0.2),
+                                      color:
+                                          Color(0xffF292929).withOpacity(0.2),
                                       spreadRadius: 3,
                                       blurRadius: 4,
                                       offset: Offset(0, 3),
@@ -595,9 +588,10 @@ void _byPill()
                                   child: Text(
                                     "Confirm",
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
                                       color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -616,13 +610,35 @@ void _byPill()
       },
     );
   }
-  void _medicineList(){
+
+  void _medicineList() {
     showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        builder: (context) {
-          return Container(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return Container(
+            padding: EdgeInsets.all(20.0),
+            // height: (MediaQuery.of(context).size.height) * .80,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xffBB86FC), width: 1),
+              color: Color(0xff292929),
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: PatientMedicineList());
+      },
+    );
+  }
+
+  void _newSchedule() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter mystate) {
+            return Container(
               padding: EdgeInsets.all(20.0),
               // height: (MediaQuery.of(context).size.height) * .80,
               decoration: BoxDecoration(
@@ -630,13 +646,130 @@ void _byPill()
                 color: Color(0xff292929),
                 borderRadius: BorderRadius.circular(15.0),
               ),
-
-              child: PatientMedicineList());
-        },
-
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Set The Schedule",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  ),
+                  new Expanded(
+                      child: InkWell(
+                    onTap: () {
+                      _scheduledNewMedicine(context);
+                    },
+                    child: new ListView.builder(
+                        itemCount: ScheduleItems.length,
+                        itemBuilder: (BuildContext ctxt, int Index) {
+                          return new Container(
+                            alignment: Alignment.center,
+                            child: Card(
+                              elevation: 10.0,
+                              margin: new EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 10.0),
+                              child: Slidable(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff292929),
+                                  ),
+                                  child: ListTile(
+                                    leading: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10.0),
+                                      height: 20,
+                                      width: 20,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xff292929),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Color(0xffbb86fe),
+                                              width: 4)),
+                                    ),
+                                    title: Text(
+                                      ScheduleItems[Index],
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xfff2e7fe),
+                                        height: 2,
+                                      ),
+                                    ),
+                                    /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xfff2e7fe),
+                                        height: 2,
+                                      ),),*/
+                                    trailing: Container(
+                                      height: 50,
+                                      width: 5,
+                                      color: Color(0xffbb86fe),
+                                    ),
+                                  ),
+                                ),
+                                actionPane: SlidableBehindActionPane(),
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'MedList',
+                                    color: Color(0xff121212),
+                                    icon: Icons.list,
+                                    onTap: () => print('log'),
+                                  ),
+                                ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Delete',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () {
+                                      ScheduleItems.removeAt(Index);
+                                      Navigator.pop(context);
+                                      _newSchedule();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                          /*Text(IntervalItems[Index],style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),);*/
+                        }),
+                  )),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _selectTimeSchedule(context);
+                    },
+                    icon: Icon(Icons.add),
+                    backgroundColor: Color(0xff292929),
+                    foregroundColor: Color(0xffbb86fe),
+                    label: Text(
+                      "Schedule",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
         );
+      },
+    );
   }
-  void _newMedicine(context){
+
+  void _scheduledNewMedicine(context) {
     double xOffset = 0;
     double scaleFactor = 1;
 
@@ -673,13 +806,8 @@ void _byPill()
                           // mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-
-
                             Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width) * .9,
+                              width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
                                 onSubmitted: (value) {
                                   yOffset = 0;
@@ -688,25 +816,26 @@ void _byPill()
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
                                     labelText: 'Medicine Name',
-                                   /* prefixIcon: Icon(
+                                    /* prefixIcon: Icon(
                                       Icons.person,
                                       color: Color(0xffF2E7FE),
                                     ),*/
                                     labelStyle: TextStyle(
-                                        fontSize: 14,
-                                        color: Color(0xfff2e7fe).withOpacity(0.6),
-                                        height: 2,),
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
                                     filled: true,
                                     fillColor: Color(0xff121212),
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 0),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xfff2e7fe)),
+                                          BorderSide(color: Color(0xfff2e7fe)),
                                     ),
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Color(0xffBB86fc)),
+                                          BorderSide(color: Color(0xffBB86fc)),
                                       //  when the TextFormField in focused
                                     ),
                                     border: UnderlineInputBorder()),
@@ -718,8 +847,7 @@ void _byPill()
                             Container(
                               child: MedicineType(),
                             ),
-                            SizedBox(width:10.0),
-
+                            SizedBox(width: 10.0),
                             TextField(
                               onSubmitted: (value) {
                                 yOffset = 0;
@@ -733,76 +861,147 @@ void _byPill()
                                     color: Color(0xffF2E7FE),
                                   ),*/
                                   labelStyle: TextStyle(
-                                  fontSize: 14,
-                                   color: Color(0xfff2e7fe).withOpacity(0.6),
-                                  height: 2,),
+                                    fontSize: 14,
+                                    color: Color(0xfff2e7fe).withOpacity(0.6),
+                                    height: 2,
+                                  ),
                                   filled: true,
                                   fillColor: Color(0xff121212),
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 0),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide:
-                                    BorderSide(color: Color(0xfff2e7fe)),
+                                        BorderSide(color: Color(0xfff2e7fe)),
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide:
-                                    BorderSide(color: Color(0xffBB86fc)),
+                                        BorderSide(color: Color(0xffBB86fc)),
                                   ),
                                   border: UnderlineInputBorder()),
                             ),
                             SizedBox(
-                              height: 24,
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Initial Quantity',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 26,
                             ),
                             Container(
                                 child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      yOffset = 0;
-                                      _showPicker(context);
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: _image != null
-                                          ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.file(
-                                          File(_image.path),
+                              child: GestureDetector(
+                                onTap: () {
+                                  yOffset = 0;
+                                  _showPicker(context);
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: _image != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.file(
+                                            File(_image.path),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25),
+                                            ),
+                                            border: Border.all(
+                                                color: Color(0xffBB86FC),
+                                                width: 1),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xffbb86fe)
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 3,
+                                                blurRadius: 4,
+                                                offset: Offset(5.0, 5.0),
+                                              ),
+                                            ],
+                                          ),
                                           width: 100,
                                           height: 100,
-                                          fit: BoxFit.fitHeight,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Color(0xfff2e7fe),
+                                          ),
                                         ),
-                                      )
-                                          : Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(
-                                              12),
-                                        ),
-                                        width: 100,
-                                        height: 100,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
+                                ),
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Center(
+                                  child: Container(
+                                      height:
+                                          (MediaQuery.of(context).size.height) *
+                                              .25,
+                                      width:
+                                          (MediaQuery.of(context).size.width) *
+                                              .86,
+                                      child: customCard(
+                                        Icons.calendar_today,
+                                        "Schedule",
+                                        "Days & Range",
+                                      )),
+                                ),
+                              ],
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             InkWell(
                               onTap: () {
+                                _clicked = false;
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },
                               child: Container(
                                 height: 40,
-                                width: (MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width) * .8,
+                                width: (MediaQuery.of(context).size.width) * .8,
                                 decoration: BoxDecoration(
                                   color: Color(0xff292929),
                                   borderRadius: BorderRadius.all(
@@ -812,8 +1011,8 @@ void _byPill()
                                       color: Color(0xffBB86FC), width: 1),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Color(0xffF292929).withOpacity(
-                                          0.2),
+                                      color:
+                                          Color(0xffF292929).withOpacity(0.2),
                                       spreadRadius: 3,
                                       blurRadius: 4,
                                       offset: Offset(0, 3),
@@ -844,27 +1043,511 @@ void _byPill()
         );
       },
     );
-
   }
-  String _check(){
+
+  void _newMedicine(context) {
+    double xOffset = 0;
+    double scaleFactor = 1;
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: Stack(
+            children: <Widget>[
+              AnimatedContainer(
+                transform: Matrix4.translationValues(xOffset, yOffset, 0)
+                  ..scale(scaleFactor),
+                duration: Duration(milliseconds: 250),
+                margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                padding: EdgeInsets.all(20.0),
+                // height: (MediaQuery.of(context).size.height) * .80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffBB86FC), width: 1),
+                  color: Color(0xff121212),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Wrap(
+                  children: [
+                    Stack(
+                      // alignment: Alignment.center,
+                      children: [
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Medicine Name',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              child: MedicineType(),
+                            ),
+                            SizedBox(width: 10.0),
+                            TextField(
+                              onSubmitted: (value) {
+                                yOffset = 0;
+                              },
+                              // controller: emailController,
+                              style: TextStyle(color: Color(0xfff2e7fe)),
+                              decoration: InputDecoration(
+                                  labelText: _check(),
+                                  /*prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Color(0xffF2E7FE),
+                                  ),*/
+                                  labelStyle: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xfff2e7fe).withOpacity(0.6),
+                                    height: 2,
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xff121212),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xfff2e7fe)),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Color(0xffBB86fc)),
+                                  ),
+                                  border: UnderlineInputBorder()),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                // controller: emailController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Initial Quantity',
+                                    /* prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Color(0xffF2E7FE),
+                                    ),*/
+                                    labelStyle: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xfff2e7fe).withOpacity(0.6),
+                                      height: 2,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                      //  when the TextFormField in focused
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 26,
+                            ),
+                            Container(
+                                child: Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  yOffset = 0;
+                                  _showPicker(context);
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: _image != null
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.file(
+                                            File(_image.path),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(25),
+                                            ),
+                                            border: Border.all(
+                                                color: Color(0xffBB86FC),
+                                                width: 1),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0xffbb86fe)
+                                                    .withOpacity(0.2),
+                                                spreadRadius: 3,
+                                                blurRadius: 4,
+                                                offset: Offset(5.0, 5.0),
+                                              ),
+                                            ],
+                                          ),
+                                          width: 100,
+                                          height: 100,
+                                          child: Icon(
+                                            Icons.camera_alt,
+                                            color: Color(0xfff2e7fe),
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            )),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _timeInterval(); //_selectTime();
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                          height: (MediaQuery.of(context)
+                                                  .size
+                                                  .height) *
+                                              .25,
+                                          width: (MediaQuery.of(context)
+                                                  .size
+                                                  .width) *
+                                              .43,
+                                          child: customCard(
+                                            Icons.alarm_add,
+                                            "Time",
+                                            "Timing & Intervals",
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                    height:
+                                        (MediaQuery.of(context).size.height) *
+                                            .25,
+                                    width: (MediaQuery.of(context).size.width) *
+                                        .43,
+                                    child: customCard(
+                                      Icons.calendar_today,
+                                      "Schedule",
+                                      "Days & Range",
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _clicked = false;
+                                Navigator.pop(context);
+                                yOffset = 0;
+                              },
+                              child: Container(
+                                height: 40,
+                                width: (MediaQuery.of(context).size.width) * .8,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff292929),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(25),
+                                  ),
+                                  border: Border.all(
+                                      color: Color(0xffBB86FC), width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          Color(0xffF292929).withOpacity(0.2),
+                                      spreadRadius: 3,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _timeInterval() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter mystate) {
+            return Container(
+              padding: EdgeInsets.all(20.0),
+              // height: (MediaQuery.of(context).size.height) * .80,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text(
+                      "Set Time Intervals",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  ),
+                  new Expanded(
+                      child: new ListView.builder(
+                          itemCount: IntervalItems.length,
+                          itemBuilder: (BuildContext ctxt, int Index) {
+                            return new Container(
+                              alignment: Alignment.center,
+                              child: Card(
+                                elevation: 10.0,
+                                margin: new EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 10.0),
+                                child: Slidable(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff292929),
+                                    ),
+                                    child: ListTile(
+                                      leading: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10.0),
+                                        height: 20,
+                                        width: 20,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff292929),
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: Color(0xffbb86fe),
+                                                width: 4)),
+                                      ),
+                                      title: Text(
+                                        IntervalItems[Index],
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xfff2e7fe),
+                                          height: 2,
+                                        ),
+                                      ),
+                                      /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xfff2e7fe),
+                                      height: 2,
+                                    ),),*/
+                                      trailing: Container(
+                                        height: 50,
+                                        width: 5,
+                                        color: Color(0xffbb86fe),
+                                      ),
+                                    ),
+                                  ),
+                                  actionPane: SlidableBehindActionPane(),
+                                  secondaryActions: <Widget>[
+                                    IconSlideAction(
+                                      caption: 'Delete',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () {
+                                        IntervalItems.removeAt(Index);
+                                        Navigator.pop(context);
+                                        _timeInterval();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                            /*Text(IntervalItems[Index],style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xffF2E7FE),
+                          ),);*/
+                          })),
+                  FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _selectTime(context);
+                    },
+                    icon: Icon(Icons.add),
+                    backgroundColor: Color(0xff292929),
+                    foregroundColor: Color(0xffbb86fe),
+                    label: Text(
+                      "Interval",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffF2E7FE),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<TimeOfDay> _selectTimeSchedule(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+        context: context,
+        initialTime: _time,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(
+                  primary: Color(0xffbb86fe),
+                  onPrimary: Color(0xff121212),
+                  surface: Color(0xff121212),
+                  onSurface: Color(0xfff2e7fe),
+                ),
+                buttonTheme:
+                    ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                dialogBackgroundColor: Color(0xffbb86fe)),
+            child: child,
+          );
+        });
+    if (picked != null && picked != _time) {
+      setState(() {
+        _time = picked;
+        _clicked = true;
+        ScheduleItems.add(
+            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        _newSchedule();
+      });
+    }
+    return picked;
+  }
+
+  Future<TimeOfDay> _selectTime(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+        context: context,
+        initialTime: _time,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(
+                  primary: Color(0xffbb86fe),
+                  onPrimary: Color(0xff121212),
+                  surface: Color(0xff121212),
+                  onSurface: Color(0xfff2e7fe),
+                ),
+                buttonTheme:
+                    ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                dialogBackgroundColor: Color(0xffbb86fe)),
+            child: child,
+          );
+        });
+    if (picked != null && picked != _time) {
+      setState(() {
+        _time = picked;
+        _clicked = true;
+        IntervalItems.add(
+            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        _timeInterval();
+      });
+    }
+    return picked;
+  }
+
+  String _check() {
     if (_selected == 'Pill' || _selected == 'Tablet')
-    return "numbers";
-    else
-    if (_selected == 'Bottle' || _selected == 'Syringe')
-         return 'mL';
+      return "numbers";
+    else if (_selected == 'Bottle' || _selected == 'Syringe')
+      return 'mL';
     else
       return 'Dosage Format';
-
   }
 }
-class MedicineType extends StatefulWidget{
+
+class MedicineType extends StatefulWidget {
   @override
   _MedicineTypeState createState() => _MedicineTypeState();
 }
 
-class _MedicineTypeState extends State<MedicineType>{
+class _MedicineTypeState extends State<MedicineType> {
   List<String> _type = ['Pill', 'Bottle', 'Syringe', 'Tablet'];
   String _selectedType = '0';
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -872,49 +1555,66 @@ class _MedicineTypeState extends State<MedicineType>{
       child: Container(
         child: Row(
           children: <Widget>[
-            Text(
-              "Medicine Type:  ", style: TextStyle(
-              fontFamily: 'Circular',
-              fontSize: 16,
-              color: Color(0xffF2E7FE),
-              fontWeight: FontWeight.bold,
-            ),
+            Container(
+              child: Text(
+                "Medicine Type:  ",
+                style: TextStyle(
+                  fontFamily: 'Circular',
+                  fontSize: 16,
+                  color: Color(0xffF2E7FE).withOpacity(0.6),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             DropdownButton(
               iconEnabledColor: Color(0xFF3EB16F),
               dropdownColor: Color(0xff292929),
-              hint: _selectedType == '0' ? Text (
-                "Type", style: TextStyle(
-                fontFamily: 'Circular',
-                fontSize: 16,
-                color: Color(0xffF2E7FE),
-                fontWeight: FontWeight.bold,
-              ),
-              ) : null,
+              hint: _selectedType == '0'
+                  ? Text(
+                      "Type",
+                      style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 16,
+                        color: Color(0xffF2E7FE),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : null,
               elevation: 4,
               value: _selectedType == '0' ? null : _selectedType,
-              items: _type.map((String value){
+              items: _type.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(
-                    value, style: TextStyle(
-                    fontFamily: 'Circular',
-                    fontSize: 16,
-                    color: Color(0xffF2E7FE),
-                    fontWeight: FontWeight.bold,
-                  ),
+                    value,
+                    style: TextStyle(
+                      fontFamily: 'Circular',
+                      fontSize: 16,
+                      color: Color(0xffF2E7FE),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 );
               }).toList(),
-              onChanged: (newVal){
+              onChanged: (newVal) {
                 _selectedType = newVal;
                 _selected = newVal;
               },
             ),
-
           ],
         ),
       ),
     );
+  }
+}
+
+bool _clicked = false;
+TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
+
+String convertTime(String minutes) {
+  if (minutes.length == 1) {
+    return "0" + minutes;
+  } else {
+    return minutes;
   }
 }

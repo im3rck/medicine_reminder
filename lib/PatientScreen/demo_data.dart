@@ -78,7 +78,7 @@ class DemoData {
         flightClass: 'Economy',
         flightNumber: 'AC237'),
 
-    /*
+
 
     BoardingPassData(
         passengerName: 'Mr/Ms.PatientName',
@@ -94,7 +94,33 @@ class DemoData {
         flightClass: 'Economy',
         flightNumber: 'AC237'),
 
-    */
+    BoardingPassData(
+        passengerName: 'Mr/Ms.PatientName',
+        origin: _Airport(code: 'YEG', city: 'Edmonton'),
+        destination: _Airport(code: 'MEX', city: 'Mexico'),
+        duration: _Duration(hours: 4, minutes: 15),
+        boardingTime: TimeOfDay(hour: 16, minute: 45),
+        departs: DateTime(2019, 10, 17, 23, 45),
+        arrives: DateTime(2019, 10, 18, 02, 15),
+        gate: '30',
+        zone: 2,
+        seat: '22B',
+        flightClass: 'Economy',
+        flightNumber: 'AC237'),
+
+    BoardingPassData(
+        passengerName: 'Mr/Ms.PatientName',
+        origin: _Airport(code: 'YEG', city: 'Edmonton'),
+        destination: _Airport(code: 'MEX', city: 'Mexico'),
+        duration: _Duration(hours: 4, minutes: 15),
+        boardingTime: TimeOfDay(hour: 16, minute: 45),
+        departs: DateTime(2019, 10, 17, 23, 45),
+        arrives: DateTime(2019, 10, 18, 02, 15),
+        gate: '30',
+        zone: 2,
+        seat: '22B',
+        flightClass: 'Economy',
+        flightNumber: 'AC237'),
 
     BoardingPassData(
         passengerName: 'Mr/Ms.PatientName',

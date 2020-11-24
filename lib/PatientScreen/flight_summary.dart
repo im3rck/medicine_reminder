@@ -31,7 +31,7 @@ class FlightSummary extends StatelessWidget {
 
   Color get separatorColor {
     Color color;
-    if (theme == SummaryTheme.light) color = Color(0xffeaeaea);
+    if (theme == SummaryTheme.light) color = Color(0xff292929);
     if (theme == SummaryTheme.dark) color = Color(0xff396583);
     return color;
   }
@@ -78,7 +78,7 @@ class FlightSummary extends StatelessWidget {
     if (theme == SummaryTheme.light)
       return BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: Colors.white,
+        color: Color(0xff292929),
       );
     if (theme == SummaryTheme.dark)
       return BoxDecoration(
@@ -99,12 +99,12 @@ class FlightSummary extends StatelessWidget {
           ),
           Text('MedReminder'.toUpperCase(),
               style: TextStyle(
-                  color: mainTextColor,
-                  fontFamily: 'OpenSans',
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
-                  package: App.pkg))
+                fontFamily: 'Circular',
+                fontSize: 16,
+                color: Color(0xffF2E7FE),
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.bold,
+              ),)
         ],
       );
     if (theme == SummaryTheme.dark)

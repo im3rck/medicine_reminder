@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -211,13 +212,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Container(
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
-                                            child: Text(
+                                            child: AutoSizeText(
                                               element['name'],
+                                              maxLines: 1,
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 28.0),
+                                                  fontSize: 30
+                                                ),
                                             ),
                                           ),
                                           Divider(

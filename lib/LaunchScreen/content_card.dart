@@ -15,19 +15,17 @@ class ContentCard extends StatefulWidget {
   final Color altColor;
   final String title;
   final String subtitle;
-  final String token;
 
-  ContentCard({this.color, this.title = "", this.subtitle, this.altColor,this.token}) : super();
+
+  ContentCard({this.color, this.title = "", this.subtitle, this.altColor}) : super();
 
   @override
-  _ContentCardState createState() => _ContentCardState(token);
+  _ContentCardState createState() => _ContentCardState();
 }
 
 class _ContentCardState extends State<ContentCard> {
   Ticker _ticker;
   double opacityLevel = 1.0;
-
-  _ContentCardState(String token);
   String token;
 
   double _changeOpacity() {
@@ -125,7 +123,7 @@ class _ContentCardState extends State<ContentCard> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => (widget.color=='Red'?QrGen(this.token)/*TicketFoldDemo()*/:AuthPage())));
+                        builder: (context) => (widget.color=='Red'?QrGen()/*TicketFoldDemo()*/:AuthPage())));
                 //Navigator.pop(context);
               },
               child: Container(

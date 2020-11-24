@@ -28,7 +28,7 @@ class _TicketState extends State<Ticket> {
   bool _isOpen;
 
   Widget get backCard =>
-      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: Color(0xffdce6ef)));
+      Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: Color(0xff292929)));
 
   @override
   void initState() {

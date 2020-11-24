@@ -54,7 +54,7 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
       height: closedHeight + (openHeight - closedHeight) * Curves.easeOut.transform(_ratio),
       child: Container(
           decoration: BoxDecoration(
-            boxShadow: [BoxShadow(color: Colors.black.withOpacity(.1), blurRadius: 10, spreadRadius: 1)],
+            boxShadow: [BoxShadow(/*color: Color(0xff292929)*/ blurRadius: 10, spreadRadius: 1)],
           ),
           child: _buildEntry(0)),
     );
