@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+import 'package:medicine_reminder/HomePage.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
 // import 'package:medicine_reminder/Authentication/Login.dart';
 // import 'package:medicine_reminder/HomePage.dart';
@@ -39,8 +40,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
 
-       home: PatientAddPage()//GooeyEdgeDemo()//PhasePage()//,//App(),//HomePage(),
+       home: GooeyEdgeDemo()//PatientAddPage()//GooeyEdgeDemo()//PhasePage()//,//App(),//HomePage(),
 
     );
   }
-}
+} 
