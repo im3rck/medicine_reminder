@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
 
-       home: TicketFoldDemo()//GooeyEdgeDemo()//PhasePage()//,//App(),//HomePage(),
+       home: GooeyEdgeDemo()//TicketFoldDemo()//PhasePage()//,//App(),//HomePage(),
 
     );
   }
