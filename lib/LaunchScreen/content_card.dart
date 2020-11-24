@@ -5,6 +5,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/HomePage.dart';
+import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/PatientScreen/demo.dart';
 
 import 'Launch.dart';
@@ -15,6 +16,7 @@ class ContentCard extends StatefulWidget {
   final String title;
   final String subtitle;
 
+
   ContentCard({this.color, this.title = "", this.subtitle, this.altColor}) : super();
 
   @override
@@ -24,6 +26,7 @@ class ContentCard extends StatefulWidget {
 class _ContentCardState extends State<ContentCard> {
   Ticker _ticker;
   double opacityLevel = 1.0;
+  String token;
 
   double _changeOpacity() {
     setState(() => opacityLevel = opacityLevel == 1 ? 0.0 : 1.0);
@@ -120,7 +123,7 @@ class _ContentCardState extends State<ContentCard> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => (widget.color=='Red'?TicketFoldDemo():AuthPage())));
+                        builder: (context) => (widget.color=='Red'?QrGen()/*TicketFoldDemo()*/:AuthPage())));
                 //Navigator.pop(context);
               },
               child: Container(
