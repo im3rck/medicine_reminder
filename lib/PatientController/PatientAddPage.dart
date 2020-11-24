@@ -52,6 +52,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
           Stack(
             children: [
               Container(
+                width: double.infinity,
                 height: MediaQuery.of(context).size.height-10,
                 decoration: BoxDecoration(
                   color: Color(0xff292929),

@@ -35,6 +35,8 @@ class _CardsState extends State<Cards> {
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
 
+  String _value;
+
   void _setText() {
     Map map = {
       'index': patientData.length + 1,
@@ -108,25 +110,59 @@ class _CardsState extends State<Cards> {
                 ),
               ],
             ),
+            SizedBox(
+              width: 20,
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: (MediaQuery.of(context).size.width) * .8,
+              decoration: BoxDecoration(
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
+                ),
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF292929).withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 4,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  "Confirm",
+                  style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Color(0xffF2E7FE),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Color(0xff292929),
-            borderRadius: BorderRadius.all(
-              Radius.circular(25),
-            ),
-            border: Border.all(color: Color(0xffBB86FC), width: 1),
-          ),
-          child: FloatingActionButton(
-            child: Icon(Icons.navigation),
-            backgroundColor: Color(0xff121212),
-            foregroundColor: Color(0xffbb86fe),
-            onPressed: () {
-              navigateToSubPage(context);
-            },
-          ),
-        ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: Color(0xff292929),
+        //     borderRadius: BorderRadius.all(
+        //       Radius.circular(25),
+        //     ),
+        //     border: Border.all(color: Color(0xffBB86FC), width: 1),
+        //   ),
+        //   child: FloatingActionButton(
+        //     child: Icon(Icons.navigation),
+        //     backgroundColor: Color(0xff121212),
+        //     foregroundColor: Color(0xffbb86fe),
+        //     onPressed: () {
+        //       navigateToSubPage(context);
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
@@ -361,71 +397,79 @@ class _CardsState extends State<Cards> {
                             SizedBox(
                               height: 16,
                             ),
-                            Column(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              // width: (MediaQuery.of(context).size.width) * .9,
                               // width: (MediaQuery.of(context).size.width) * .9,
                               children: [
-                                TextField(
-                                  onTap: () {
-                                    yOffset = -210;
-                                  },
-                                  onSubmitted: (value) {
-                                    yOffset = 0;
-                                  },
-                                  controller: ageController,
-                                  style: TextStyle(color: Color(0xfff2e7fe)),
-                                  decoration: InputDecoration(
-                                      labelText: 'Age',
-                                      prefixIcon: Icon(
-                                        Icons.calendar_view_day,
-                                        color: Color(0xffF2E7FE),
-                                      ),
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Circular',
-                                        fontSize: 16,
-                                        color: Color(0xffF2E7FE),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      filled: true,
-                                      fillColor: Color(0xff121212),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 0),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xfff2e7fe)),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xffBB86fc)),
-                                        //  when the TextFormField in focused
-                                      ),
-                                      border: UnderlineInputBorder()),
+                                Container(
+                                  width: 250,
+                                  child: TextField(
+                                    onTap: () {
+                                      yOffset = -210;
+                                    },
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    controller: ageController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: 'Age',
+                                        prefixIcon: Icon(
+                                          Icons.calendar_view_day,
+                                          color: Color(0xffF2E7FE),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
+                                          //  when the TextFormField in focused
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
                                 ),
-                                DropdownButton<String>(
-                                  hint: Text("Gender",
-                                      style: TextStyle(
-                                        fontFamily: 'Circular',
-                                        fontSize: 16,
-                                        color: Color(0xffF2E7FE),
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  items: <String>['Male', 'Female']
-                                      .map((String value) {
-                                    return new DropdownMenuItem<String>(
-                                      value: value,
-                                      child: new Text(value,
-                                          style: TextStyle(
-                                            fontFamily: 'Circular',
-                                            fontSize: 16,
-                                            color: Color(0xffF2E7FE),
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      value = value;
-                                    });
-                                  },
+                                Container(
+                                  height: 63,
+                                  child: DropdownButton(
+                                    hint: Text("Gender",
+                                        style: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    value: _value,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _value = newValue;
+                                      });
+                                    },
+                                    items: ['Male', 'Female', 'Other'].map((valueItem) {
+                                      return new DropdownMenuItem(
+                                        value: valueItem,
+                                        child: new Text(valueItem,
+                                            style: TextStyle(
+                                              fontFamily: 'Circular',
+                                              fontSize: 16,
+                                              color: Color(0xffF2E7FE),
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      );
+                                    }).toList(),
+                                  ),
                                 )
                               ],
                             ),
@@ -487,7 +531,7 @@ class _CardsState extends State<Cards> {
                                 decoration: InputDecoration(
                                     labelText: 'Relationship',
                                     prefixIcon: Icon(
-                                      Icons.phone,
+                                      Icons.people_outline_rounded,
                                       color: Color(0xffF2E7FE),
                                     ),
                                     labelStyle: TextStyle(
