@@ -1,4 +1,3 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/configuration.dart';
 
@@ -10,38 +9,38 @@ class FullPatientDetails extends StatelessWidget {
         children: [
           Positioned.fill(
               child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 50),
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: Hero(
-                          tag: 1, child: FlareActor("assets/animations/user.flr",animation:"Bounce"))
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 50),
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Hero(
+                              tag: 1, child: Image.asset('assets/images/cat.png')),
+                        ),
+                      ),
+                      color: Colors.blueGrey[300],
                     ),
                   ),
-                  color: Colors.blueGrey[300],
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.fromLTRB(20, 70, 20, 150),
-                    child: Text(
-                      "Full Patient Details ...",
-                      style: new TextStyle(
-                          fontFamily: 'Circular',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                  Expanded(
+                    child: Container(
+                      child: Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.fromLTRB(20, 70, 20, 150),
+                        child: Text(
+                          "Full Patient Details ...",
+                          style: new TextStyle(
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0),
+                        ),
+                      ),
+                      color: Colors.white,
                     ),
-                  ),
-                  color: Colors.white,
-                ),
-              )
-            ],
-          )),
+                  )
+                ],
+              )),
           Container(
             margin: EdgeInsets.only(top: 40),
             child: Align(
@@ -71,7 +70,7 @@ class FullPatientDetails extends StatelessWidget {
                   boxShadow: shadowList,
                   borderRadius: BorderRadius.circular(20)),
               child: Text(
-                "Important details go here ...",
+                "Important notes go here ...",
                 style: new TextStyle(
                     fontFamily: 'Circular',
                     fontWeight: FontWeight.bold,
@@ -97,13 +96,13 @@ class FullPatientDetails extends StatelessWidget {
                     child: Container(
                       height: 60,
                       decoration: BoxDecoration(
-                          color: primaryGreen,
+                          color: Color(0xffbb86fe),
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                           child: Text(
-                        'Medicines',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      )),
+                            'Adoption',
+                            style: TextStyle(color: Colors.white, fontSize: 24),
+                          )),
                     ),
                   ),
                   SizedBox(

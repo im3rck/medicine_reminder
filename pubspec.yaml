@@ -38,6 +38,8 @@ dependencies:
   firebase_auth:
   firebase_core:
   firebase_storage:
+  permission_handler: ^5.0.1+1
+  firebase_messaging: ^7.0.3
   google_fonts:
   intl:
   timeago:
@@ -47,6 +49,8 @@ dependencies:
   flutter_icons:
   folding_cell:
   flare_flutter:
+  backdrop: ^0.4.7
+
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +70,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
-     - assets/animations/
+     - images/pill.png
+     - images/
+     - images/App_logo_plain.png
   #   - images/a_dot_ham.jpeg
   fonts:
     - family: Circular

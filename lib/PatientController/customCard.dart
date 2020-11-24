@@ -4,8 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget customCard(icon,String _title, String _subtitle){
   return Card(
+    elevation: 10.0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-    margin: EdgeInsets.all(5.0),
+    margin: EdgeInsets.all(10.0),
     color: Color(0xffbb86fc),
     child: Container(
       decoration: BoxDecoration(

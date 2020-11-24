@@ -12,6 +12,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
     return Scaffold(
       backgroundColor: Color(0xff121212),
       body: ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0),
@@ -26,7 +27,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
               ],
             ),
           ),
-          // SizedBox(height: 20.0),
+           SizedBox(height: 10.0),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 120),
             child: Row(
@@ -47,14 +48,11 @@ class _PatientAddPageState extends State<PatientAddPage> {
               ],
             ),
           ),
-          SizedBox(height: 10.0),
+          SizedBox(height: 26.0),
           Stack(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                margin: EdgeInsets.only(top: 10.0),
-                height: 620,
-                width: double.infinity,
+                height: MediaQuery.of(context).size.height-10,
                 decoration: BoxDecoration(
                   color: Color(0xff292929),
                   boxShadow: [
