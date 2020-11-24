@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
-import 'package:medicine_reminder/PatientController/customCard.dart';
 import 'package:medicine_reminder/PatientList/configuration.dart';
+
+import 'NewPatient.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -67,6 +67,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     child: GestureDetector(
                       onTap: () {
                         navigateToSubPage(context, element['index']);
+
                       },
                       child: Row(
                         children: [
