@@ -13,7 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: GooeyEdgeDemo(title: 'Gooey Edge Demo'),
+      home: GooeyEdgeDemo(),
     );
   }
 }
