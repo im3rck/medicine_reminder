@@ -24,7 +24,7 @@ class FlightDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xff292929),
           borderRadius: BorderRadius.circular(4.0),
         ),
         width: double.infinity,
@@ -58,16 +58,50 @@ class FlightDetails extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Medicine Name : '.toUpperCase(), style: titleTextStyle),
-                  Text('Paracetamol'/*boardingPass.flightNumber*/, style: contentTextStyle),
+                  Text('Medicine Name : '.toUpperCase(), style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 14,
+                    color: Color(0xffF2E7FE).withOpacity(0.6),
+                    fontWeight: FontWeight.w600,
+                  ),),//titleTextStyle),
+                  Text('Paracetamol'/*boardingPass.flightNumber*/, style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
+                    height: 2, letterSpacing: .5,
+                  ),),//contentTextStyle),
                 ]),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Quantity : '.toUpperCase(), style: titleTextStyle),
-                  Text('2 units'/*DateFormat('MMM d, H:mm').format(boardingPass.departs).toUpperCase()*/, style: contentTextStyle),
+                  Text('Quantity : '.toUpperCase(), style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 14,
+                    color: Color(0xffF2E7FE).withOpacity(0.6),
+                    fontWeight: FontWeight.w700,
+                  ),),//titleTextStyle),
+                  Text('2 units'/*DateFormat('MMM d, H:mm').format(boardingPass.departs).toUpperCase()*/, style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    height: 2, letterSpacing: .5,
+                  ),),//contentTextStyle),
                 ]),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Consume At'.toUpperCase(), style: titleTextStyle),
-                  Text(DateFormat('MMM d, H:mm').format(boardingPass.arrives).toUpperCase(), style: contentTextStyle)
+                  Text('Consume At'.toUpperCase(), style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 14,
+                    color: Color(0xffF2E7FE).withOpacity(0.6),
+                    fontWeight: FontWeight.w600,
+                  ),),//titleTextStyle),
+                  Text(DateFormat('MMM d, H:mm').format(boardingPass.arrives).toUpperCase(), style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    height: 2, letterSpacing: .5,
+                  ),),//contentTextStyle)
                 ]),
               ],
             ),
