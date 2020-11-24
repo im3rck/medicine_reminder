@@ -10,10 +10,11 @@ String iurl;
 
 String uploadImage(){
   imageUpload();
-  return(iurl);
+
   FirebaseMessaging fM = FirebaseMessaging();
   Future<String> token = fM.getToken();
-  print('Token : $token');
+  String sToken = token.toString();
+  print('Token : $sToken');
 
 }
 

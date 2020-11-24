@@ -54,16 +54,16 @@ class FlightSummary extends StatelessWidget {
             //_buildTicketHeader(context),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              /*
+
               child: Stack(
                 children: <Widget>[
                   Align(alignment: Alignment.centerLeft, child: _buildTicketOrigin()),
-                  Align(alignment: Alignment.center, child: _buildTicketDuration()),
+                  //Align(alignment: Alignment.center, child: _buildTicketDuration()),
                   Align(alignment: Alignment.centerRight, child: _buildTicketDestination())
                 ],
               ),
 
-              */
+
 
 
             ),
@@ -139,10 +139,10 @@ class FlightSummary extends StatelessWidget {
     return Column(
       children: <Widget>[
         Text(
-          boardingPass.origin.code.toUpperCase(),
-          style: bodyTextStyle.copyWith(fontSize: 42),
+          '\n\nParacetamol',
+          style: bodyTextStyle.copyWith(fontSize: 14),
         ),
-        Text(boardingPass.origin.city, style: bodyTextStyle.copyWith(color: secondaryTextColor)),
+        //Text(boardingPass.origin.city, style: bodyTextStyle.copyWith(color: secondaryTextColor)),
       ],
     );
   }

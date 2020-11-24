@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
@@ -22,16 +23,18 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 //Todo : Permissions
 
 void main() async {
-  /*WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();*/
-  //FirebaseMessaging fM = FirebaseMessaging();
-  //Future<String> token = fM.getToken();
-  //print('Token : $token');
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Paint.enableDithering = true;
-  runApp(MyApp());
+  String token = await Token();
+  print('New token : ');
+  print(token);
+  runApp(MyApp(token));
 }
 
 class MyApp extends StatelessWidget {
+  MyApp(String token);
+  String token;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -39,8 +42,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Digital Medical Assistant',
 
-       home: GooeyEdgeDemo()//PhasePage()//PatientAddPage(),//App(),//HomePage(),
+       home: GooeyEdgeDemo(token)//PhasePage()//PatientAddPage(),//App(),//HomePage(),
 
     );
   }
+}
+
+Future<String> Token (){
+  Future<String> fcmToken = FirebaseMessaging().getToken();
+  return(fcmToken);
 }
