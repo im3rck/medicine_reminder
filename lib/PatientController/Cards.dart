@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
 import 'package:medicine_reminder/PatientController/customCard.dart';
+import 'package:medicine_reminder/PatientList/datafile.dart';
 
 double yOffset = 0;
 String _selected = '';
@@ -28,6 +29,24 @@ final ImagePicker _picker = ImagePicker();
 
 class _CardsState extends State<Cards> {
   final double appBarHeight = 55.0;
+
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController relController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+
+  String _value;
+
+  void _setText() {
+    Map map = {
+      'index': patientData.length + 1,
+      'name': fnameController.text,
+      'age': ageController.text,
+      'gender': genderController.text,
+      'rel': relController.text
+    };
+    patientData.add(map);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,25 +110,59 @@ class _CardsState extends State<Cards> {
                 ),
               ],
             ),
+            SizedBox(
+              width: 20,
+              height: 10,
+            ),
+            Container(
+              height: 50,
+              width: (MediaQuery.of(context).size.width) * .8,
+              decoration: BoxDecoration(
+                color: Color(0xff292929),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
+                ),
+                border: Border.all(color: Color(0xffBB86FC), width: 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffF292929).withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 4,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  "Confirm",
+                  style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Color(0xffF2E7FE),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Color(0xff292929),
-            borderRadius: BorderRadius.all(
-              Radius.circular(25),
-            ),
-            border: Border.all(color: Color(0xffBB86FC), width: 1),
-          ),
-          child: FloatingActionButton(
-            child: Icon(Icons.navigation),
-            backgroundColor: Color(0xff121212),
-            foregroundColor: Color(0xffbb86fe),
-            onPressed: () {
-              navigateToSubPage(context);
-            },
-          ),
-        ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     color: Color(0xff292929),
+        //     borderRadius: BorderRadius.all(
+        //       Radius.circular(25),
+        //     ),
+        //     border: Border.all(color: Color(0xffBB86FC), width: 1),
+        //   ),
+        //   child: FloatingActionButton(
+        //     child: Icon(Icons.navigation),
+        //     backgroundColor: Color(0xff121212),
+        //     foregroundColor: Color(0xffbb86fe),
+        //     onPressed: () {
+        //       navigateToSubPage(context);
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
@@ -171,25 +224,33 @@ class _CardsState extends State<Cards> {
               child: new Wrap(
                 children: <Widget>[
                   new ListTile(
-                      leading: new Icon(Icons.photo_library, color: Color(0xfff2e7fe)),
-                      title: new Text('Photo Library',style: TextStyle(
-                        fontFamily: 'Circular',
-                        fontSize: 16,
-                        color: Color(0xffF2E7FE),
-                        fontWeight: FontWeight.bold,
-                      ),),
+                      leading: new Icon(Icons.photo_library,
+                          color: Color(0xfff2e7fe)),
+                      title: new Text(
+                        'Photo Library',
+                        style: TextStyle(
+                          fontFamily: 'Circular',
+                          fontSize: 16,
+                          color: Color(0xffF2E7FE),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
-                    leading: new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
-                    title: new Text('Camera',style: TextStyle(
-                      fontFamily: 'Circular',
-                      fontSize: 16,
-                      color: Color(0xffF2E7FE),
-                      fontWeight: FontWeight.bold,
-                    ),),
+                    leading:
+                        new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
+                    title: new Text(
+                      'Camera',
+                      style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 16,
+                        color: Color(0xffF2E7FE),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
@@ -303,10 +364,10 @@ class _CardsState extends State<Cards> {
                                 onSubmitted: (value) {
                                   yOffset = 0;
                                 },
-                                // controller: emailController,
+                                controller: fnameController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
-                                    labelText: 'Username',
+                                    labelText: 'Name',
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Color(0xffF2E7FE),
@@ -336,44 +397,81 @@ class _CardsState extends State<Cards> {
                             SizedBox(
                               height: 16,
                             ),
-                            Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
-                              child: TextField(
-                                onTap: () {
-                                  yOffset = -210;
-                                },
-                                onSubmitted: (value) {
-                                  yOffset = 0;
-                                },
-                                // controller: emailController,
-                                style: TextStyle(color: Color(0xfff2e7fe)),
-                                decoration: InputDecoration(
-                                    labelText: 'Age',
-                                    prefixIcon: Icon(
-                                      Icons.calendar_view_day,
-                                      color: Color(0xffF2E7FE),
-                                    ),
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xff121212),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 0),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder()),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              // width: (MediaQuery.of(context).size.width) * .9,
+                              // width: (MediaQuery.of(context).size.width) * .9,
+                              children: [
+                                Container(
+                                  width: 250,
+                                  child: TextField(
+                                    onTap: () {
+                                      yOffset = -210;
+                                    },
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    controller: ageController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: 'Age',
+                                        prefixIcon: Icon(
+                                          Icons.calendar_view_day,
+                                          color: Color(0xffF2E7FE),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
+                                          //  when the TextFormField in focused
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
+                                ),
+                                Container(
+                                  height: 63,
+                                  child: DropdownButton(
+                                    hint: Text("Gender",
+                                        style: TextStyle(
+                                          fontFamily: 'Circular',
+                                          fontSize: 16,
+                                          color: Color(0xffF2E7FE),
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                    value: _value,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        _value = newValue;
+                                      });
+                                    },
+                                    items: ['Male', 'Female', 'Other'].map((valueItem) {
+                                      return new DropdownMenuItem(
+                                        value: valueItem,
+                                        child: new Text(valueItem,
+                                            style: TextStyle(
+                                              fontFamily: 'Circular',
+                                              fontSize: 16,
+                                              color: Color(0xffF2E7FE),
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      );
+                                    }).toList(),
+                                  ),
+                                )
+                              ],
                             ),
                             SizedBox(
                               height: 16,
@@ -417,10 +515,52 @@ class _CardsState extends State<Cards> {
                               ),
                             ),
                             SizedBox(
+                              height: 16,
+                            ),
+                            Container(
+                              width: (MediaQuery.of(context).size.width) * .9,
+                              child: TextField(
+                                onTap: () {
+                                  yOffset = -210;
+                                },
+                                onSubmitted: (value) {
+                                  yOffset = 0;
+                                },
+                                controller: relController,
+                                style: TextStyle(color: Color(0xfff2e7fe)),
+                                decoration: InputDecoration(
+                                    labelText: 'Relationship',
+                                    prefixIcon: Icon(
+                                      Icons.people_outline_rounded,
+                                      color: Color(0xffF2E7FE),
+                                    ),
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
+                                      color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Color(0xff121212),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 0),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                    ),
+                                    border: UnderlineInputBorder()),
+                              ),
+                            ),
+                            SizedBox(
                               height: 30,
                             ),
                             InkWell(
                               onTap: () {
+                                _setText();
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },

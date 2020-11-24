@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 import 'demo_data.dart';
 import 'patientMain.dart';
 import 'ticket.dart';
@@ -76,10 +74,11 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
   }
 
   Widget _buildAppBar() {
-    Color appBarIconsColor = Color(0xFF212121);
+    Color appBarIconsColor = Color(0xFF292929);
     return AppBar(
+      shadowColor: Color(0xffbb86fe),
       leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xffBB86FC)),
+          icon: Icon(Icons.arrow_back_ios, color: Color(0xffBB86Fe)),
           onPressed: (){
             Navigator.pop(context);
         },
@@ -87,11 +86,11 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 18.0),
-          child: Icon(Icons.more_horiz, color: Color(0xffBB86FC), size: 28),
+          child: Icon(Icons.more_horiz, color: Color(0xffBB86Fe), size: 28),
         )
       ],
       brightness: Brightness.light,
-      backgroundColor: Color(0xFF121212),
+      backgroundColor: Color(0xFF292929),
       elevation: 0,
       title: Container(
         width: double.infinity,
@@ -100,14 +99,15 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
         child:
 
         Text(
-            'Medicines For Today : '.toUpperCase(), textAlign: TextAlign.center,
+            'Medicines For Today'.toUpperCase(), textAlign: TextAlign.center,
             style:
-            TextStyle(fontSize: 15,
-                letterSpacing: 0.5,
-                color: Color(0xffBB86FC),
-                fontFamily: 'OpenSans',
-                fontWeight: FontWeight.bold,
-                package: App.pkg)),
+            TextStyle(
+              fontFamily: 'Circular',
+              fontSize: 16,
+              letterSpacing: 0.5,
+              color: Color(0xffbb86fe),
+              fontWeight: FontWeight.bold,
+            ),),
 
       ),
     );
