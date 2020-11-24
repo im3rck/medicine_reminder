@@ -40,26 +40,6 @@ class MedicineList extends StatelessWidget{
                 child: Container(
                   decoration: BoxDecoration(
                   color: Color(0xff292929),
-                 // borderRadius: BorderRadius.all(Radius.circular(40)),
-                  /*boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[900],
-                      offset: Offset(5.0,5.0),
-                      blurRadius: 3.0,
-                      spreadRadius: 1.0,
-                    ),
-                    BoxShadow(
-                      color: Colors.grey[800],
-                      offset: Offset(-5.0,-5.0),
-                      blurRadius: 3.0,
-                      spreadRadius: 1.0,
-                    ),
-                  ]
-                  border: Border.all(
-                  color: Color(0xffBB86FC),
-                  width: 1
-                ),*/
-
                 ),
                   child: ListTile(
                     leading: Container(
