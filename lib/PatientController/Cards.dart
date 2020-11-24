@@ -164,21 +164,32 @@ class _CardsState extends State<Cards> {
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
+        backgroundColor: Color(0xff292929),
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
               child: new Wrap(
                 children: <Widget>[
                   new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                      leading: new Icon(Icons.photo_library, color: Color(0xfff2e7fe)),
+                      title: new Text('Photo Library',style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 16,
+                        color: Color(0xffF2E7FE),
+                        fontWeight: FontWeight.bold,
+                      ),),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
+                    leading: new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
+                    title: new Text('Camera',style: TextStyle(
+                      fontFamily: 'Circular',
+                      fontSize: 16,
+                      color: Color(0xffF2E7FE),
+                      fontWeight: FontWeight.bold,
+                    ),),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
@@ -437,9 +448,10 @@ class _CardsState extends State<Cards> {
                                   child: Text(
                                     "Confirm",
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Circular',
+                                      fontSize: 16,
                                       color: Color(0xffF2E7FE),
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
