@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
+
 // import 'package:medicine_reminder/Authentication/Login.dart';
 // import 'package:medicine_reminder/HomePage.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
@@ -10,6 +11,7 @@ import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
+
 // import 'package:medicine_reminder/LaunchScreen/gooey_edge/lib/demo.dart';
 // import 'package:medicine_reminder/2NewPatient.dart';
 // import 'package:medicine_reminder/timer/SelectTime.dart';
@@ -34,21 +36,20 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   MyApp(String token);
+
   String token;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Digital Medical Assistant',
-
-       home: GooeyEdgeDemo()//PhasePage()//PatientAddPage(),//App(),//HomePage(),
-
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Digital Medical Assistant',
+        home: PhasePage());
   }
 }
 
-Future<String> Token (){
+Future<String> Token() {
   Future<String> fcmToken = FirebaseMessaging().getToken();
-  return(fcmToken);
+  return (fcmToken);
 }

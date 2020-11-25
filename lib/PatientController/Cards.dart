@@ -13,8 +13,10 @@ String _selected = '';
 List<String> IntervalItems = [];
 List<String> ScheduleItems = [];
 
+
 // ignore: must_be_immutable
 class Cards extends StatefulWidget {
+
   @override
   _CardsState createState() => _CardsState();
 }
@@ -36,13 +38,15 @@ class _CardsState extends State<Cards> {
   TextEditingController genderController = TextEditingController();
 
   String _value;
+  String valueItem;
 
   void _setText() {
+    print(_value);
     Map map = {
       'index': patientData.length + 1,
       'name': fnameController.text,
       'age': ageController.text,
-      'gender': genderController.text,
+      'gender': _value,
       'rel': relController.text
     };
     patientData.add(map);
@@ -444,6 +448,7 @@ class _CardsState extends State<Cards> {
                                 Container(
                                   height: 63,
                                   child: DropdownButton(
+
                                     hint: Text("Gender",
                                         style: TextStyle(
                                           fontFamily: 'Circular',
@@ -452,6 +457,8 @@ class _CardsState extends State<Cards> {
                                           fontWeight: FontWeight.bold,
                                         )),
                                     value: _value,
+                                    dropdownColor: Color(0xff292929),
+                                    iconEnabledColor: Color(0xFF3EB16F),
                                     onChanged: (newValue) {
                                       setState(() {
                                         _value = newValue;
@@ -1597,8 +1604,11 @@ class _MedicineTypeState extends State<MedicineType> {
                 );
               }).toList(),
               onChanged: (newVal) {
-                _selectedType = newVal;
-                _selected = newVal;
+                setState(() {
+                  _selectedType = newVal;
+                  _selected = newVal;
+                });
+
               },
             ),
           ],
