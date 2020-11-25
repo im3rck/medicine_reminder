@@ -219,8 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 30
-                                                ),
+                                                  fontSize: 30),
                                             ),
                                           ),
                                           Divider(
@@ -235,7 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 margin: EdgeInsets.fromLTRB(
                                                     10, 0, 0, 10),
                                                 child: Text(
-                                                  (element['age']).toString() + " years",
+                                                  (element['age']).toString() +
+                                                      " years",
                                                   style: new TextStyle(
                                                       color: Color(0xff292929),
                                                       fontFamily: 'Circular',
@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   margin: EdgeInsets.fromLTRB(
                                                       10, 0, 10, 10),
                                                   child: (element['gender'] ==
-                                                          'male'
+                                                          'Male'
                                                       ? SvgPicture.asset(
                                                           'assets/images/male.svg',
                                                           height: 25.0,
@@ -256,13 +256,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           allowDrawingOutsideViewBox:
                                                               true,
                                                         )
-                                                      : SvgPicture.asset(
-                                                          'assets/images/female.svg',
-                                                          height: 25.0,
-                                                          width: 25.0,
-                                                          allowDrawingOutsideViewBox:
-                                                              true,
-                                                        )))
+                                                      : element['gender'] ==
+                                                              'Female'
+                                                          ? SvgPicture.asset(
+                                                              'assets/images/female.svg',
+                                                              height: 25.0,
+                                                              width: 25.0,
+                                                              allowDrawingOutsideViewBox:
+                                                                  true,
+                                                            )
+                                                          : SvgPicture.asset(
+                                                              'assets/images/other.svg',
+                                                              height: 25.0,
+                                                              width: 25.0,
+                                                              allowDrawingOutsideViewBox:
+                                                                  true,
+                                                            )))
                                             ],
                                           ),
                                           Container(
