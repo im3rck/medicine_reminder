@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Widget customCard(icon,String _title, String _subtitle){
   return Card(
@@ -37,6 +36,7 @@ Widget customCard(icon,String _title, String _subtitle){
               children: <Widget>[
                 Text(_title,style: TextStyle(
                   fontSize: 16,
+                  fontFamily: 'Circular',
                   fontWeight: FontWeight.bold,
                   color: Color(0xfff2e7fe),
                   height: 2,
@@ -44,6 +44,7 @@ Widget customCard(icon,String _title, String _subtitle){
                 SizedBox(height: 1.0,),
                 Text(_subtitle, style: TextStyle(
                   fontSize: 12,
+                  fontFamily: 'Circular',
                   color: Color(0xfff2e7fe).withOpacity(0.6),
                   height: 2,
                 ),)

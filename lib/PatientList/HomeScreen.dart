@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       'Search my list',
                       style: new TextStyle(
-                          color: Color(0xffffffff).withOpacity(0.6),
+                          color: Color(0xffffffff),
                           fontFamily: 'Circular',
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0),
