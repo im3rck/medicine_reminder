@@ -19,7 +19,7 @@ class _QrGenState extends State<QrGen> {
     F=Q.substring(0);
     print(F);
     return(null);
- }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _QrGenState extends State<QrGen> {
           Image.asset('assets/images/Name_text.png',fit: BoxFit.contain),
           Container(margin: EdgeInsets.only(left: 20.0,right: 20.0),
             padding: EdgeInsets.only(left: 20.0,right: 20.0),
-            child: QrImage(data: (dataToken() == null ? 'Q' : F),foregroundColor: Color(0xffBB86FC),backgroundColor: Colors.black,),
+            child: QrImage(data: (dataToken() == null ? 'Q' : ' eXouN6qdSheb8_bAoDHjZY:APA91bGrW8wnHfEroVdunm8oQfqcP39J4muB6xDf-MIGhPMI2_MPwBck6IkHNzJZApzcpK6rCuF7vBvoTfBuYrFX4BvAYdNDauGNVCM1Tv_-fClgO4xA0JCcoZ6UEdn6djFLp1MhHtCL'),foregroundColor: Color(0xffBB86FC),backgroundColor: Colors.black,),
           ),
         ],
       ),
