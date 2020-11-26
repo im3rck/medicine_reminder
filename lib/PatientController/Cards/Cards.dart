@@ -1,14 +1,10 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/details.dart';
 import 'package:medicine_reminder/PatientController/Cards/medicine.dart';
 import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
-import 'package:medicine_reminder/PatientList/datafile.dart';
 
 double yOffset = 0;
 String _selected = '';
