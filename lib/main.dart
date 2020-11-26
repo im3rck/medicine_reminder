@@ -29,8 +29,8 @@ void main() async {
   await Firebase.initializeApp();
   Paint.enableDithering = true;
   String token = await Token();
-  print('New token : ');
-  print(token);
+  // print('New token : ');
+  // print(token);
   runApp(MyApp(token));
 }
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage());
+        home: PatientAddPage());
   }
 }
 
