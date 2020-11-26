@@ -4,7 +4,7 @@ import 'package:medicine_reminder/Timer/SelectDay/MultiSelection.dart';
 
 class SingleSelection extends StatefulWidget {
   final List<String> optionList = [
-    'DAILY',
+    '   DAILY   ',
     'CUSTOM',
   ];
   final updateIndices;
@@ -25,13 +25,7 @@ class _SingleSelectionState extends State<SingleSelection> {
     selectedValue = widget.optionList.first;
   }
 
-  String selectedDays = '    MON '
-      ' TUE '
-      ' WED '
-      ' THU '
-      ' FRI '
-      ' SAT '
-      ' SUN ';
+  String selectedDays = '';
 
   void openDialog(int index) {
     showDialog(
@@ -42,10 +36,22 @@ class _SingleSelectionState extends State<SingleSelection> {
               return false;
             },
             child: AlertDialog(
+              backgroundColor: Color(0xff292929),
               shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(15)),
-              title: Text('DAYS'),
+                  borderRadius: BorderRadius.circular(15)),
+              title: Center(
+                child: Text('DAYS',
+                    style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
               content: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xff292929),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                   width: 250,
                   height: 340,
                   child: MultiSelection(
@@ -56,46 +62,50 @@ class _SingleSelectionState extends State<SingleSelection> {
   }
 
   Widget customRadioString(String txt, int index) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
+    return Column(children: [
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
           OutlineButton(
             onPressed: () {
-
               changeIndex(index);
               if (index == 1) {
                 openDialog(index);
-                selectedDays = '   ';
-              } else {
-                var list = Iterable<int>.generate(7).toList();
-                getIndices(list);
-                selectedDays = '    MON '
-                    ' TUE '
-                    ' WED '
-                    ' THU '
-                    ' FRI '
-                    ' SAT '
-                    ' SUN ';
+                selectedDays = '';
               }
+              // else {
+              //   var list = Iterable<int>.generate(7).toList();
+              //   getIndices(list);
+              //   selectedDays = '';
+              // }
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
             borderSide: BorderSide(
-                color: selectedIndex == index ? Colors.cyan : Colors.grey),
-            child: Text(
-              txt,
-              style: TextStyle(
-                  color: selectedIndex == index ? Colors.cyan : Colors.grey),
+                color:
+                    selectedIndex == index ? Color(0xffBB86FC) : Colors.grey),
+            child: Expanded(
+              child: Text(
+                txt,
+                style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: selectedIndex == index
+                        ? Color(0xffBB86FC)
+                        : Colors.grey,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-          Container(
-            width: 250,
-            child: showDailyMsg(index),
-          )
+          SizedBox(
+            height: 20,
+            width: 10,
+          ),
+          showMsg(index),
         ],
       ),
-    );
+      SizedBox(height: 40),
+    ]);
   }
 
   void changeIndex(int index) {
@@ -116,9 +126,9 @@ class _SingleSelectionState extends State<SingleSelection> {
     widget.updateIndices(list);
   }
 
-  Widget showDailyMsg(int index) {
+  Widget showMsg(int index) {
     List<TextSpan> _getSelected() {
-      final String daily = '    REMIND ME EVERYDAY ';
+      final String daily = ' REMIND ME EVERYDAY ';
 
       List<TextSpan> selected = [];
 
@@ -130,7 +140,9 @@ class _SingleSelectionState extends State<SingleSelection> {
     }
 
     final style = TextStyle(
-      color: selectedIndex == index ? Colors.cyan : Colors.grey,
+      fontFamily: 'Circular',
+      fontSize: 16,
+      color: selectedIndex == index ? Color(0xffBB86FC) : Colors.grey,
     );
     final selected = _getSelected();
 
@@ -145,22 +157,12 @@ class _SingleSelectionState extends State<SingleSelection> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) {
-          // return a row with container and another widget if you want to add
-          // something else
-          return Container(
-            padding: EdgeInsets.all(20),
-            color:
-                selectedValue == widget.optionList[index] ? Colors.white : null,
-            child: Row(
-              children: <Widget>[
-                customRadioString(widget.optionList[index], index),
-              ],
-            ),
-          );
-        },
-        itemCount: widget.optionList.length,
-      );
+      shrinkWrap: true,
+      itemBuilder: (ctx, index) {
+        return Row(
+            children: [customRadioString(widget.optionList[index], index)]);
+      },
+      itemCount: widget.optionList.length,
+    );
   }
 }

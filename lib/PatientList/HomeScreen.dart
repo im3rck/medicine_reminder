@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
           border: Border.all(
             color: (isDrawerOpen ? Color(0xffBB86FC) : Color(0xFF292929)),
-            // width: ( isDrawerOpen ? 5: 1)
           ),
         ),
         child: SingleChildScrollView(
