@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/PatientList/datafile.dart';
 
 import 'package:medicine_reminder/Timer/SelectDay/SingleSelection.dart';
-import 'package:medicine_reminder/Timer/SelectTime/DayList.dart';
-import 'package:medicine_reminder/Timer/SelectTime/constructor.dart';
 
 class SelectDay extends StatefulWidget {
   @override
@@ -12,41 +11,41 @@ class SelectDay extends StatefulWidget {
 class _SelectDayState extends State<SelectDay> {
   List<int> returnedIndices = [0, 1, 2, 3, 4, 5, 6];
 
-  List<DayDetails> returnedDays = <DayDetails>[
-    DayDetails(dayNumber: 1, dayName: 'MONDAY'),
-    DayDetails(dayNumber: 2, dayName: 'TUESDAY'),
-    DayDetails(dayNumber: 3, dayName: 'WEDNESDAY'),
-    DayDetails(dayNumber: 4, dayName: 'THURSDAY'),
-    DayDetails(dayNumber: 5, dayName: 'FRIDAY'),
-    DayDetails(dayNumber: 6, dayName: 'SATURDAY'),
-    DayDetails(dayNumber: 7, dayName: 'SUNDAY')
-  ];
-
-  Future navigateToSubPage(context) async {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => DayList(returnedDays)));
-  }
-
   void getIndices(List<int> list) {
     setState(() {
       returnedIndices = list;
     });
-    print(returnedIndices);
+  }
+
+  void _setText() {
+    Map map = {'days': returnedIndices};
+    scheduleDays.add(map);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(child: SingleSelection(updateIndices: getIndices)),
-            ],
-          ),
+          Flexible(child: SingleSelection(updateIndices: getIndices)),
+          FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.pop(context);
+              _setText();
+            },
+            backgroundColor: Color(0xff292929),
+            foregroundColor: Color(0xffbb86fe),
+            label: Text(
+              "Done",
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Circular',
+                fontWeight: FontWeight.bold,
+                color: Color(0xffF2E7FE),
+              ),
+            ),
+          )
         ],
-      ),
     );
   }
 }

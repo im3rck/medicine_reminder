@@ -73,11 +73,6 @@ class _SingleSelectionState extends State<SingleSelection> {
                 openDialog(index);
                 selectedDays = '';
               }
-              // else {
-              //   var list = Iterable<int>.generate(7).toList();
-              //   getIndices(list);
-              //   selectedDays = '';
-              // }
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
