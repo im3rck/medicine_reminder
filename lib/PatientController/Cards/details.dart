@@ -14,6 +14,7 @@ class Details extends StatefulWidget {
 }
 
 class _Details extends State<Details> {
+  double yOffset = 0;
   TextEditingController fnameController = TextEditingController();
   TextEditingController relController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -23,7 +24,6 @@ class _Details extends State<Details> {
   String valueItem;
 
   void _setText() {
-    print(_value);
     Map map = {
       'index': patientData.length + 1,
       'name': fnameController.text,
