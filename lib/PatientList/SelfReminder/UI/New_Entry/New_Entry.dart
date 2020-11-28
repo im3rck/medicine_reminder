@@ -384,7 +384,7 @@ class _IntervalSelectionState extends State<IntervalSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context);
+    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context, listen: false);
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Container(
@@ -457,7 +457,7 @@ class _SelectTimeState extends State<SelectTime> {
   bool _clicked = false;
 
   Future<TimeOfDay> _selectTime(BuildContext context) async {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context);
+    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context,listen: false);
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: _time,
@@ -519,7 +519,7 @@ class MedicineTypeColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context);
+    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context, listen: false);
     return GestureDetector(
       onTap: () {
         _newEntryBloc.updateSelectedMedicine(type);
