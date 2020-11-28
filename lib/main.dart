@@ -10,6 +10,7 @@ import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/PatientScreen/Onboarding.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 // import 'package:medicine_reminder/LaunchScreen/gooey_edge/lib/demo.dart';
@@ -21,6 +22,7 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'LaunchScreen/Launch.dart';
+
 
 //Todo : Permissions
 
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage());
+        home: Onboarding());
   }
 }
 
