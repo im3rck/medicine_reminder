@@ -88,7 +88,9 @@ flutter:
           weight: 100
         - asset: assets/fonts/CircularStd-Bold.ttf
           weight: 500
-
+    - family: Ic
+      fonts:
+        - asset: assets/fonts/ic_medicine.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
