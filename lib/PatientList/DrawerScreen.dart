@@ -3,19 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'configuration.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class DrawerScreen extends StatefulWidget {
+
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  String _fcmToken = null;
+  _scan() async {
+    String temp = await scanner.scan();
+    //String temp = await BarcodeScanner.scan();
+    setState(() {
+      _fcmToken = temp;
+    });
+    if (_fcmToken != null) {
+      print("Valid");
+      print(_fcmToken);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+    }else{
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => QrGen()));
+    }
+  }
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+        _scan();
+
     }
   }
 
