@@ -654,7 +654,26 @@ class _Details extends State<Medicines> {
                     ),
                   ),
                   SizedBox(height: 50),
-                  Container(child: SelectDay()),
+                  Expanded(child: SelectDay()),
+                  Center(
+                      child: Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            backgroundColor: Color(0xff292929),
+                            foregroundColor: Color(0xffbb86fe),
+                            label: Text(
+                              "Done",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffF2E7FE),
+                              ),
+                            ),
+                          )))
                 ],
               ),
             );
