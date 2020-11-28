@@ -11,7 +11,6 @@ import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientController/PatientDetails/PatientDetails.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
-import 'package:medicine_reminder/Widgets/test.dart';
 
 // import 'package:medicine_reminder/LaunchScreen/gooey_edge/lib/demo.dart';
 // import 'package:medicine_reminder/2NewPatient.dart';
