@@ -53,6 +53,7 @@ dependencies:
   provider:
   shared_preferences:
   flutter_local_notifications:
+  qrscan: ^0.2.19
 
 
 dev_dependencies:
