@@ -79,7 +79,7 @@ class _SingleSelectionState extends State<SingleSelection> {
             borderSide: BorderSide(
                 color:
                     selectedIndex == index ? Color(0xffBB86FC) : Colors.grey),
-            child: Expanded(
+
               child: Text(
                 txt,
                 style: TextStyle(
@@ -90,7 +90,7 @@ class _SingleSelectionState extends State<SingleSelection> {
                         : Colors.grey,
                     fontWeight: FontWeight.bold),
               ),
-            ),
+
           ),
           SizedBox(
             height: 20,

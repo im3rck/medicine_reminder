@@ -654,7 +654,7 @@ class _Details extends State<Medicines> {
                     ),
                   ),
                   SizedBox(height: 50),
-                  Flexible(child: SelectDay()),
+                  Container(child: SelectDay()),
                 ],
               ),
             );
