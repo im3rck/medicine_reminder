@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/PatientController/Cards.dart';
+import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
 
 class PatientAddPage extends StatefulWidget {
   @override

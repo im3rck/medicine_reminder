@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
           border: Border.all(
             color: (isDrawerOpen ? Color(0xffBB86FC) : Color(0xFF292929)),
-            // width: ( isDrawerOpen ? 5: 1)
           ),
         ),
         child: SingleChildScrollView(
@@ -141,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       'Search my list',
                       style: new TextStyle(
-                          color: Color(0xffffffff).withOpacity(0.6),
+                          color: Color(0xffffffff),
                           fontFamily: 'Circular',
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0),
