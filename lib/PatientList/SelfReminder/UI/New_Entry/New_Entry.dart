@@ -48,21 +48,23 @@ class _NewEntryState extends State<NewEntry> {
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff121212),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff292929),
+        elevation: 4.0,
         iconTheme: IconThemeData(
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
         ),
         centerTitle: true,
         title: Text(
-          "Add New Mediminder",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
+          "Add New Reminder",
+          style:  TextStyle(
+            fontFamily: 'Circular',
+            fontSize: 16,
+            color: Color(0xffF2E7FE),
+            fontWeight: FontWeight.bold,
           ),
         ),
-        elevation: 0.0,
       ),
       body: Container(
         child: Provider<NewEntryBloc>.value(
@@ -79,14 +81,23 @@ class _NewEntryState extends State<NewEntry> {
               TextFormField(
                 maxLength: 12,
                 style: TextStyle(
+                  fontFamily: 'Circular',
                   fontSize: 16,
+                  color: Color(0xffF2E7FE),
+                  //fontWeight: FontWeight.bold,
                 ),
                 controller: nameController,
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xfff2e7fe)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffBB86fc)),
+                      //  when the TextFormField in focused
+                    ),
+                    border: UnderlineInputBorder()),
                 ),
-              ),
               PanelTitle(
                 title: "Dosage in mg",
                 isRequired: false,
@@ -95,13 +106,22 @@ class _NewEntryState extends State<NewEntry> {
                 controller: dosageController,
                 keyboardType: TextInputType.number,
                 style: TextStyle(
+                  fontFamily: 'Circular',
                   fontSize: 16,
+                  color: Color(0xffF2E7FE),
+                 // fontWeight: FontWeight.bold,
                 ),
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
-                  border: UnderlineInputBorder(),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xfff2e7fe)),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffBB86fc)),
+                      //  when the TextFormField in focused
+                    ),
+                    border: UnderlineInputBorder()),
                 ),
-              ),
               SizedBox(
                 height: 15,
               ),
@@ -174,24 +194,22 @@ class _NewEntryState extends State<NewEntry> {
                   width: 220,
                   height: 70,
                   child: FlatButton(
-                    color: Color(0xFF3EB16F),
+                    color: Color(0xff292929),
                     shape: StadiumBorder(),
                     child: Center(
                       child: Text(
                         "Confirm",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Circular',
+                          fontSize: 20,
+                          color: Color(0xffF2E7FE),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     onPressed: () {
                       String medicineName;
                       int dosage;
-                      //--------------------Error Checking------------------------
-                      //Had to do error checking in UI
-                      //Due to unoptimized BLoC value-grabbing architecture
                       if (nameController.text == "") {
                         _newEntryBloc.submitError(EntryError.NameNull);
                         return;
@@ -292,7 +310,7 @@ class _NewEntryState extends State<NewEntry> {
   void displayError(String error) {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Color(0xffbb86fe),
         content: Text(error),
         duration: Duration(milliseconds: 2000),
       ),
@@ -339,7 +357,7 @@ class _NewEntryState extends State<NewEntry> {
       'repeatDailyAtTime description',
       importance: Importance.max,
       //sound: 'sound',
-      ledColor: Color(0xFF3EB16F),
+      ledColor: Color(0xFFbb86fe),
       ledOffMs: 1000,
       ledOnMs: 1000,
       enableLights: true,
@@ -356,7 +374,7 @@ class _NewEntryState extends State<NewEntry> {
       }
       await flutterLocalNotificationsPlugin.showDailyAtTime(
           int.parse(medicine.notificationIDs[i]),
-          'Mediminder: ${medicine.medicineName}',
+          'Self Reminder: ${medicine.medicineName}',
           medicine.medicineType.toString() != MedicineType.None.toString()
               ? 'It is time to take your ${medicine.medicineType.toLowerCase()}, according to schedule'
               : 'It is time to take your medicine, according to schedule',
@@ -375,6 +393,7 @@ class IntervalSelection extends StatefulWidget {
 
 class _IntervalSelectionState extends State<IntervalSelection> {
   var _intervals = [
+    4,
     6,
     8,
     12,
@@ -394,20 +413,23 @@ class _IntervalSelectionState extends State<IntervalSelection> {
             Text(
               "Remind me every  ",
               style: TextStyle(
-                color: Colors.black,
+                fontFamily: 'Circular',
                 fontSize: 18,
+                color: Color(0xffF2E7FE),
                 fontWeight: FontWeight.w500,
               ),
             ),
             DropdownButton<int>(
-              iconEnabledColor: Color(0xFF3EB16F),
+              iconEnabledColor: Color(0xFFbb86fe),
               hint: _selected == 0
                   ? Text(
                 "Select an Interval",
                 style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400),
+                  fontFamily: 'Circular',
+                  fontSize: 10,
+                  color: Color(0xffF2E7FE),
+                  fontWeight: FontWeight.w400,
+                ),
               )
                   : null,
               elevation: 4,
@@ -435,8 +457,9 @@ class _IntervalSelectionState extends State<IntervalSelection> {
             Text(
               _selected == 1 ? " hour" : " hours",
               style: TextStyle(
-                color: Colors.black,
+                fontFamily: 'Circular',
                 fontSize: 18,
+                color: Color(0xffF2E7FE),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -480,7 +503,7 @@ class _SelectTimeState extends State<SelectTime> {
       child: Padding(
         padding: EdgeInsets.only(top: 10.0, bottom: 4),
         child: FlatButton(
-          color: Color(0xFF3EB16F),
+          color: Color(0xFF292929),
           shape: StadiumBorder(),
           onPressed: () {
             _selectTime(context);
@@ -491,8 +514,9 @@ class _SelectTimeState extends State<SelectTime> {
                   ? "Pick Time"
                   : "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}",
               style: TextStyle(
-                color: Colors.white,
+                fontFamily: 'Circular',
                 fontSize: 20,
+                color: Color(0xffF2E7FE),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -527,18 +551,18 @@ class MedicineTypeColumn extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            width: 85,
+            width: 65,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSelected ? Color(0xFF3EB16F) : Colors.white,
+              color: isSelected ? Colors.grey[850] : Color(0xff292929).withOpacity(0.5),
             ),
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(top: 14.0),
                 child: Icon(
                   IconData(iconValue, fontFamily: "Ic"),
-                  size: 75,
-                  color: isSelected ? Colors.white : Color(0xFF3EB16F),
+                  size: 55,
+                  color: isSelected ? Color(0xffbb86fe) : Color(0xFFf2e7fe).withOpacity(0.7),
                 ),
               ),
             ),
@@ -546,10 +570,10 @@ class MedicineTypeColumn extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 8.0),
             child: Container(
-              width: 80,
+              width: 70,
               height: 30,
               decoration: BoxDecoration(
-                color: isSelected ? Color(0xFF3EB16F) : Colors.transparent,
+                color: isSelected ? Color(0xFF292929) : Colors.transparent,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -557,7 +581,7 @@ class MedicineTypeColumn extends StatelessWidget {
                   name,
                   style: TextStyle(
                     fontSize: 16,
-                    color: isSelected ? Colors.white : Color(0xFF3EB16F),
+                    color: isSelected ? Color(0xffbb86fe) : Color(0xFFf2e7fe).withOpacity(0.7),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -588,11 +612,15 @@ class PanelTitle extends StatelessWidget {
           TextSpan(
             text: title,
             style: TextStyle(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
+              fontFamily: 'Circular',
+              fontSize: 14,
+              color: Color(0xffF2E7FE),
+              fontWeight: FontWeight.w500,
+            ),
           ),
           TextSpan(
             text: isRequired ? " *" : "",
-            style: TextStyle(fontSize: 14, color: Color(0xFF3EB16F)),
+            style: TextStyle(fontSize: 14, color: Color(0xFFbb86fe)),
           ),
         ]),
       ),

@@ -20,11 +20,11 @@ class _HomePageState extends State<HomePage> {
     final GlobalBloc _globalBloc = Provider.of<GlobalBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF3EB16F),
+        backgroundColor: Color(0xff292929),
         elevation: 0.0,
       ),
       body: Container(
-        color: Color(0xFFF6F8FC),
+        color: Color(0xFF121212),
         child: Column(
           children: <Widget>[
             Flexible(
@@ -45,10 +45,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 4,
-        backgroundColor: Color(0xFF3EB16F),
+        elevation: 10,
+        backgroundColor: Color(0xFF292929),
         child: Icon(
           Icons.add,
+          color: Color(0xffbb86fe),
         ),
         onPressed: () {
           Navigator.push(
@@ -76,11 +77,11 @@ class TopContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 5,
-            color: Colors.grey[400],
+            color: Color(0xffbb86fe),
             offset: Offset(0, 3.5),
           )
         ],
-        color: Color(0xFF3EB16F),
+        color: Color(0xFf292929),
       ),
       width: double.infinity,
       child: Column(
@@ -90,25 +91,27 @@ class TopContainer extends StatelessWidget {
               bottom: 10,
             ),
             child: Text(
-              "Mediminder",
-              style: TextStyle(
-                fontFamily: "Angel",
-                fontSize: 64,
-                color: Colors.white,
+              "Self Reminder",
+              style:  TextStyle(
+                fontFamily: 'Circular',
+                fontSize: 36,
+                color: Color(0xffF2E7FE),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
           Divider(
-            color: Color(0xFFB0F3CB),
+            color: Color(0xFFBb86fe),
           ),
           Padding(
             padding: EdgeInsets.only(top: 12.0),
             child: Center(
               child: Text(
-                "Number of Mediminders",
-                style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.white,
+                "Number of Reminders",
+                style:  TextStyle(
+                  fontFamily: 'Circular',
+                  fontSize: 16,
+                  color: Color(0xffF2E7FE),
                 ),
               ),
             ),
@@ -121,11 +124,11 @@ class TopContainer extends StatelessWidget {
                 child: Center(
                   child: Text(
                     !snapshot.hasData ? '0' : snapshot.data.length.toString(),
-                    style: TextStyle(
-                      fontFamily: "Neu",
+                    style:  TextStyle(
+                      fontFamily: 'Circular',
                       fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Color(0xffF2E7FE),
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -149,15 +152,17 @@ class BottomContainer extends StatelessWidget {
           return Container();
         } else if (snapshot.data.length == 0) {
           return Container(
-            color: Color(0xFFF6F8FC),
+            color: Color(0xFF121212),
             child: Center(
               child: Text(
-                "Press + to add a Mediminder",
+                "Press + to add a Reminder",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 24,
-                    color: Color(0xFFC9C9C9),
-                    fontWeight: FontWeight.bold),
+                style:  TextStyle(
+                  fontFamily: 'Circular',
+                  fontSize: 20,
+                  color: Color(0xffF2E7FE).withOpacity(0.5),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           );
