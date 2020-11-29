@@ -34,9 +34,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-        _scan();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+        // _scan();
     }
   }
 
@@ -77,10 +77,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
               )
             ],
           ),
-          // SizedBox(
-          //   width: 10,
-          //   height: 120,
-          // ),
+          SizedBox(
+            width: 10,
+            height: 30,
+          ),
           Flexible(
             child: FractionallySizedBox(
               heightFactor: 0.8,

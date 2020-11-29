@@ -23,7 +23,6 @@ class _Details extends State<Medicines> {
   double yOffset = 0;
   TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
 
-
   void _medicineChoice(context) {
     showModalBottomSheet(
       context: context,
@@ -46,7 +45,7 @@ class _Details extends State<Medicines> {
           ),
           InkWell(
             onTap: () {
-              _bySchedule();
+              _newSchedule();
             },
             child: Container(
                 height: (MediaQuery.of(context).size.height) * .30,
@@ -601,7 +600,6 @@ class _Details extends State<Medicines> {
                       setState(() {
                         _selectTime(context);
                       });
-
                     },
                     icon: Icon(Icons.add),
                     backgroundColor: Color(0xff292929),
@@ -775,10 +773,6 @@ class _Details extends State<Medicines> {
                               style: TextStyle(color: Color(0xfff2e7fe)),
                               decoration: InputDecoration(
                                   labelText: _check(),
-                                  /*prefixIcon: Icon(
-                                    Icons.phone,
-                                    color: Color(0xffF2E7FE),
-                                  ),*/
                                   labelStyle: TextStyle(
                                     fontSize: 14,
                                     color: Color(0xfff2e7fe).withOpacity(0.6),
@@ -887,7 +881,7 @@ class _Details extends State<Medicines> {
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
+                            InkWell(child: Row(
                               children: [
                                 Center(
                                   child: Container(
@@ -904,6 +898,10 @@ class _Details extends State<Medicines> {
                                       )),
                                 ),
                               ],
+                            ),
+                              onTap: () {
+                                _dayInterval();
+                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -938,6 +936,7 @@ class _Details extends State<Medicines> {
                                   child: Text(
                                     "Confirm",
                                     style: TextStyle(
+                                      fontFamily: 'Circular',
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffF2E7FE),
@@ -958,10 +957,6 @@ class _Details extends State<Medicines> {
         );
       },
     );
-  }
-
-  void _bySchedule() {
-    _newSchedule();
   }
 
   void _newSchedule() {
@@ -986,6 +981,7 @@ class _Details extends State<Medicines> {
                     child: Text(
                       "Set The Schedule",
                       style: TextStyle(
+                        fontFamily: 'Circular',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xffF2E7FE),
@@ -1033,12 +1029,6 @@ class _Details extends State<Medicines> {
                                         height: 2,
                                       ),
                                     ),
-                                    /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xfff2e7fe),
-                                        height: 2,
-                                      ),),*/
                                     trailing: Container(
                                       height: 50,
                                       width: 5,
@@ -1123,6 +1113,7 @@ class _Details extends State<Medicines> {
         // _clicked = true;
         scheduleItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        print(scheduleItems);
         _newSchedule();
       });
     }

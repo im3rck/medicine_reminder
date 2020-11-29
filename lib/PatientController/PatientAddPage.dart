@@ -12,7 +12,6 @@ class _PatientAddPageState extends State<PatientAddPage> {
     return Scaffold(
       backgroundColor: Color(0xff121212),
       body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0),
@@ -27,7 +26,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
               ],
             ),
           ),
-           SizedBox(height: 10.0),
+          SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -43,34 +42,34 @@ class _PatientAddPageState extends State<PatientAddPage> {
                   style: TextStyle(
                       fontFamily: 'Circular',
                       color: Colors.white,
-
                       fontSize: 25.0))
             ],
           ),
           SizedBox(height: 26.0),
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: (MediaQuery.of(context).size.height)*.9,
-                decoration: BoxDecoration(
-                  color: Color(0xff292929),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffbb86fe).withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 4,
-                      offset: Offset(0, 3),
+          FractionallySizedBox(
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    // height: (MediaQuery.of(context).size.height) * .9,
+                    decoration: BoxDecoration(
+                      color: Color(0xff292929),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //     color: Color(0xffbb86fe).withOpacity(0.2),
+                      //     spreadRadius: 3,
+                      //     blurRadius: 4,
+                      //     offset: Offset(0, 3),
+                      //   ),
+                      // ],
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0)),
                     ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0)),
-                ),
-              ),
-              Cards()
-            ],
-          )
+                  ),
+                  Cards()
+                ],
+          ))
         ],
       ),
     );
