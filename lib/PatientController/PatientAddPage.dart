@@ -28,32 +28,31 @@ class _PatientAddPageState extends State<PatientAddPage> {
             ),
           ),
            SizedBox(height: 10.0),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 120),
-            child: Row(
-              children: <Widget>[
-                Text('New',
-                    style: TextStyle(
-                        color: Color(0xfff2e7fe),
-                        fontFamily: 'Circular',
-                        fontSize: 25.0) //customize color here
-                    ),
-                SizedBox(width: 10.0),
-                Text('Patient',
-                    style: TextStyle(
-                        fontFamily: 'Circular',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0))
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('New',
+                  style: TextStyle(
+                      color: Color(0xfff2e7fe),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Circular',
+                      fontSize: 25.0) //customize color here
+                  ),
+              SizedBox(width: 10.0),
+              Text('Patient',
+                  style: TextStyle(
+                      fontFamily: 'Circular',
+                      color: Colors.white,
+
+                      fontSize: 25.0))
+            ],
           ),
           SizedBox(height: 26.0),
           Stack(
             children: [
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height-10,
+                height: (MediaQuery.of(context).size.height)*.9,
                 decoration: BoxDecoration(
                   color: Color(0xff292929),
                   boxShadow: [
