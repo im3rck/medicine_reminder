@@ -83,7 +83,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           // ),
           Flexible(
             child: FractionallySizedBox(
-              heightFactor: 0.6,
+              heightFactor: 0.7,
               child: Column(
                 children: drawerItems
                     .map((element) => Padding(
