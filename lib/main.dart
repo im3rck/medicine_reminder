@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: MedicineReminder());
+        home: PatientAddPage());
   }
 }
 

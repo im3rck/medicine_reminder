@@ -26,11 +26,11 @@ class _CardsState extends State<Cards> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 14.0),
+            //SizedBox(height: 14.0),
             Details(),
             Medicines(),
             AddedList(),
-            Container(
+           /* Container(
               height: 50,
               width: (MediaQuery.of(context).size.width) * .8,
               margin: EdgeInsets.only(top: 10, bottom: 10),
@@ -60,7 +60,7 @@ class _CardsState extends State<Cards> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ],

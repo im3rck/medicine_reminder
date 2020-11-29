@@ -218,12 +218,10 @@ class _Details extends State<Details> {
                               height: 16,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              // width: (MediaQuery.of(context).size.width) * .9,
-                              // width: (MediaQuery.of(context).size.width) * .9,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 250,
+                                  width: (MediaQuery.of(context).size.width)*.5,
                                   child: TextField(
                                     onTap: () {
                                       yOffset = -210;
@@ -444,7 +442,7 @@ class _Details extends State<Details> {
             _popupCard(context);
           },
           child: Container(
-              height: 185.0,
+              height: (MediaQuery.of(context).size.height) * .25,
               width: MediaQuery.of(context).size.width,
               child: customCard(Icons.person, "Details", "Patient Bio")),
         ),

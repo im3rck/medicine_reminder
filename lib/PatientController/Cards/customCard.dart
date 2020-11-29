@@ -5,7 +5,7 @@ Widget customCard(icon,String _title, String _subtitle){
   return Card(
     elevation: 10.0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-    margin: EdgeInsets.all(10.0),
+    margin: EdgeInsets.all(7.0),
     color: Color(0xffbb86fc),
     child: Container(
       decoration: BoxDecoration(
