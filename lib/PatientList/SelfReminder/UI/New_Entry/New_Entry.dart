@@ -9,6 +9,7 @@ import 'package:medicine_reminder/PatientList/SelfReminder/UI/HomePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/UI/New_Entry/New_Entry_Bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:medicine_reminder/Enhancements/SuccessScreen/SuccessScreen.dart';
 
 class NewEntry extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _NewEntryState extends State<NewEntry> {
         centerTitle: true,
         title: Text(
           "Add New Reminder",
-          style:  TextStyle(
+          style: TextStyle(
             fontFamily: 'Circular',
             fontSize: 16,
             color: Color(0xffF2E7FE),
@@ -97,7 +98,7 @@ class _NewEntryState extends State<NewEntry> {
                       //  when the TextFormField in focused
                     ),
                     border: UnderlineInputBorder()),
-                ),
+              ),
               PanelTitle(
                 title: "Dosage in mg",
                 isRequired: false,
@@ -109,7 +110,7 @@ class _NewEntryState extends State<NewEntry> {
                   fontFamily: 'Circular',
                   fontSize: 16,
                   color: Color(0xffF2E7FE),
-                 // fontWeight: FontWeight.bold,
+                  // fontWeight: FontWeight.bold,
                 ),
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
@@ -121,7 +122,7 @@ class _NewEntryState extends State<NewEntry> {
                       //  when the TextFormField in focused
                     ),
                     border: UnderlineInputBorder()),
-                ),
+              ),
               SizedBox(
                 height: 15,
               ),
@@ -190,88 +191,101 @@ class _NewEntryState extends State<NewEntry> {
                   left: MediaQuery.of(context).size.height * 0.08,
                   right: MediaQuery.of(context).size.height * 0.08,
                 ),
-                child: Container(
-                  width: 220,
-                  height: 70,
-                  child: FlatButton(
-                    color: Color(0xff292929),
-                    shape: StadiumBorder(),
+                child: InkWell(
+                  onTap: () {
+                    String medicineName;
+                    int dosage;
+                    if (nameController.text == "") {
+                      _newEntryBloc.submitError(EntryError.NameNull);
+                      return;
+                    }
+                    if (nameController.text != "") {
+                      medicineName = nameController.text;
+                    }
+                    if (dosageController.text == "") {
+                      dosage = 0;
+                    }
+                    if (dosageController.text != "") {
+                      dosage = int.parse(dosageController.text);
+                    }
+                    for (var medicine in _globalBloc.medicineList$.value) {
+                      if (medicineName == medicine.medicineName) {
+                        _newEntryBloc.submitError(EntryError.NameDuplicate);
+                        return;
+                      }
+                    }
+                    if (_newEntryBloc.selectedInterval$.value == 0) {
+                      _newEntryBloc.submitError(EntryError.Interval);
+                      return;
+                    }
+                    if (_newEntryBloc.selectedTimeOfDay$.value == "None") {
+                      _newEntryBloc.submitError(EntryError.StartTime);
+                      return;
+                    }
+                    //---------------------------------------------------------
+                    String medicineType = _newEntryBloc
+                        .selectedMedicineType.value
+                        .toString()
+                        .substring(13);
+                    int interval = _newEntryBloc.selectedInterval$.value;
+                    String startTime = _newEntryBloc.selectedTimeOfDay$.value;
+
+                    List<int> intIDs =
+                        makeIDs(24 / _newEntryBloc.selectedInterval$.value);
+                    List<String> notificationIDs = intIDs
+                        .map((i) => i.toString())
+                        .toList(); //for Shared preference
+
+                    Medicine newEntryMedicine = Medicine(
+                      notificationIDs: notificationIDs,
+                      medicineName: medicineName,
+                      dosage: dosage,
+                      medicineType: medicineType,
+                      interval: interval,
+                      startTime: startTime,
+                    );
+
+                    _globalBloc.updateMedicineList(newEntryMedicine);
+                    scheduleNotification(newEntryMedicine);
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return SuccessScreen();
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: (MediaQuery.of(context).size.height)*.06,
+                    width: (MediaQuery.of(context).size.width) * .8,
+                    decoration: BoxDecoration(
+                      color: Color(0xff121212),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                      border: Border.all(color: Color(0xffBB86FC), width: 1),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xffF292929).withOpacity(0.2),
+                          spreadRadius: 3,
+                          blurRadius: 4,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
                     child: Center(
                       child: Text(
                         "Confirm",
                         style: TextStyle(
-                          fontFamily: 'Circular',
                           fontSize: 20,
-                          color: Color(0xffF2E7FE),
+                          fontFamily: 'Circular',
                           fontWeight: FontWeight.bold,
+                          color: Color(0xffF2E7FE),
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      String medicineName;
-                      int dosage;
-                      if (nameController.text == "") {
-                        _newEntryBloc.submitError(EntryError.NameNull);
-                        return;
-                      }
-                      if (nameController.text != "") {
-                        medicineName = nameController.text;
-                      }
-                      if (dosageController.text == "") {
-                        dosage = 0;
-                      }
-                      if (dosageController.text != "") {
-                        dosage = int.parse(dosageController.text);
-                      }
-                      for (var medicine in _globalBloc.medicineList$.value) {
-                        if (medicineName == medicine.medicineName) {
-                          _newEntryBloc.submitError(EntryError.NameDuplicate);
-                          return;
-                        }
-                      }
-                      if (_newEntryBloc.selectedInterval$.value == 0) {
-                        _newEntryBloc.submitError(EntryError.Interval);
-                        return;
-                      }
-                      if (_newEntryBloc.selectedTimeOfDay$.value == "None") {
-                        _newEntryBloc.submitError(EntryError.StartTime);
-                        return;
-                      }
-                      //---------------------------------------------------------
-                      String medicineType = _newEntryBloc
-                          .selectedMedicineType.value
-                          .toString()
-                          .substring(13);
-                      int interval = _newEntryBloc.selectedInterval$.value;
-                      String startTime = _newEntryBloc.selectedTimeOfDay$.value;
-
-                      List<int> intIDs =
-                      makeIDs(24 / _newEntryBloc.selectedInterval$.value);
-                      List<String> notificationIDs = intIDs
-                          .map((i) => i.toString())
-                          .toList(); //for Shared preference
-
-                      Medicine newEntryMedicine = Medicine(
-                        notificationIDs: notificationIDs,
-                        medicineName: medicineName,
-                        dosage: dosage,
-                        medicineType: medicineType,
-                        interval: interval,
-                        startTime: startTime,
-                      );
-
-                      _globalBloc.updateMedicineList(newEntryMedicine);
-                      scheduleNotification(newEntryMedicine);
-
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return Container();//SuccessScreen();
-                          },
-                        ),
-                      );
-                    },
                   ),
                 ),
               ),
@@ -284,7 +298,7 @@ class _NewEntryState extends State<NewEntry> {
 
   void initializeErrorListen() {
     _newEntryBloc.errorState$.listen(
-          (EntryError error) {
+      (EntryError error) {
         switch (error) {
           case EntryError.NameNull:
             displayError("Please enter the medicine's name");
@@ -328,7 +342,7 @@ class _NewEntryState extends State<NewEntry> {
 
   initializeNotifications() async {
     var initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/launcher_icon');
+        AndroidInitializationSettings('@mipmap/launcher_icon');
     var initializationSettingsIOS = IOSInitializationSettings();
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
@@ -364,7 +378,8 @@ class _NewEntryState extends State<NewEntry> {
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
 
     for (int i = 0; i < (24 / medicine.interval).floor(); i++) {
       if ((hour + (medicine.interval * i) > 23)) {
@@ -403,7 +418,8 @@ class _IntervalSelectionState extends State<IntervalSelection> {
 
   @override
   Widget build(BuildContext context) {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context, listen: false);
+    final NewEntryBloc _newEntryBloc =
+        Provider.of<NewEntryBloc>(context, listen: false);
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Container(
@@ -421,16 +437,17 @@ class _IntervalSelectionState extends State<IntervalSelection> {
             ),
             DropdownButton<int>(
               iconEnabledColor: Color(0xFFbb86fe),
+              dropdownColor: Color(0xff292929),
               hint: _selected == 0
                   ? Text(
-                "Select an Interval",
-                style: TextStyle(
-                  fontFamily: 'Circular',
-                  fontSize: 10,
-                  color: Color(0xffF2E7FE),
-                  fontWeight: FontWeight.w400,
-                ),
-              )
+                      "Select an Interval",
+                      style: TextStyle(
+                        fontFamily: 'Circular',
+                        fontSize: 10,
+                        color: Color(0xffF2E7FE),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
                   : null,
               elevation: 4,
               value: _selected == 0 ? null : _selected,
@@ -440,8 +457,8 @@ class _IntervalSelectionState extends State<IntervalSelection> {
                   child: Text(
                     value.toString(),
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                      color: Color(0xfff2e7fe),
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -480,10 +497,26 @@ class _SelectTimeState extends State<SelectTime> {
   bool _clicked = false;
 
   Future<TimeOfDay> _selectTime(BuildContext context) async {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context,listen: false);
+    final NewEntryBloc _newEntryBloc =
+        Provider.of<NewEntryBloc>(context, listen: false);
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: _time,
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(
+                  primary: Color(0xffbb86fe),
+                  onPrimary: Color(0xff121212),
+                  surface: Color(0xff121212),
+                  onSurface: Color(0xfff2e7fe),
+                ),
+                buttonTheme:
+                ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                dialogBackgroundColor: Color(0xffbb86fe)),
+            child: child,
+          );
+        }
     );
     if (picked != null && picked != _time) {
       setState(() {
@@ -502,22 +535,42 @@ class _SelectTimeState extends State<SelectTime> {
       height: 60,
       child: Padding(
         padding: EdgeInsets.only(top: 10.0, bottom: 4),
-        child: FlatButton(
-          color: Color(0xFF292929),
-          shape: StadiumBorder(),
-          onPressed: () {
+        child: InkWell(
+          onTap: () {
             _selectTime(context);
           },
-          child: Center(
-            child: Text(
-              _clicked == false
-                  ? "Pick Time"
-                  : "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}",
-              style: TextStyle(
-                fontFamily: 'Circular',
-                fontSize: 20,
-                color: Color(0xffF2E7FE),
-                fontWeight: FontWeight.w500,
+          child: Container(
+            height: 40,
+            width: (MediaQuery.of(context).size.width) * .6,
+            decoration: BoxDecoration(
+              color: Color(0xff121212),
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+              border: Border.all(
+                  color: Color(0xffBB86FC), width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                  Color(0xffF292929).withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                _clicked == false
+                    ? "Pick Time"
+                    : "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Circular',
+                  letterSpacing: 3.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xffF2E7FE),
+                ),
               ),
             ),
           ),
@@ -535,15 +588,16 @@ class MedicineTypeColumn extends StatelessWidget {
 
   MedicineTypeColumn(
       {Key key,
-        @required this.type,
-        @required this.name,
-        @required this.iconValue,
-        @required this.isSelected})
+      @required this.type,
+      @required this.name,
+      @required this.iconValue,
+      @required this.isSelected})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final NewEntryBloc _newEntryBloc = Provider.of<NewEntryBloc>(context, listen: false);
+    final NewEntryBloc _newEntryBloc =
+        Provider.of<NewEntryBloc>(context, listen: false);
     return GestureDetector(
       onTap: () {
         _newEntryBloc.updateSelectedMedicine(type);
@@ -554,7 +608,9 @@ class MedicineTypeColumn extends StatelessWidget {
             width: 65,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSelected ? Colors.grey[850] : Color(0xff292929).withOpacity(0.5),
+              color: isSelected
+                  ? Colors.grey[850]
+                  : Color(0xff292929).withOpacity(0.5),
             ),
             child: Center(
               child: Padding(
@@ -562,7 +618,9 @@ class MedicineTypeColumn extends StatelessWidget {
                 child: Icon(
                   IconData(iconValue, fontFamily: "Ic"),
                   size: 55,
-                  color: isSelected ? Color(0xffbb86fe) : Color(0xFFf2e7fe).withOpacity(0.7),
+                  color: isSelected
+                      ? Color(0xffbb86fe)
+                      : Color(0xFFf2e7fe).withOpacity(0.7),
                 ),
               ),
             ),
@@ -581,7 +639,9 @@ class MedicineTypeColumn extends StatelessWidget {
                   name,
                   style: TextStyle(
                     fontSize: 16,
-                    color: isSelected ? Color(0xffbb86fe) : Color(0xFFf2e7fe).withOpacity(0.7),
+                    color: isSelected
+                        ? Color(0xffbb86fe)
+                        : Color(0xFFf2e7fe).withOpacity(0.7),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -597,6 +657,7 @@ class MedicineTypeColumn extends StatelessWidget {
 class PanelTitle extends StatelessWidget {
   final String title;
   final bool isRequired;
+
   PanelTitle({
     Key key,
     @required this.title,
