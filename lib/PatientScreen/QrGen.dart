@@ -13,6 +13,8 @@ class QrGen extends StatefulWidget {
 }
 
 class _QrGenState extends State<QrGen> {
+
+
   String _fcmToken = null;
   final FirebaseMessaging _fcm = FirebaseMessaging();
   void initState(){
@@ -24,6 +26,7 @@ class _QrGenState extends State<QrGen> {
     setState(() {
       _fcmToken = result;
     });
+
   }
 
   @override
@@ -37,7 +40,11 @@ class _QrGenState extends State<QrGen> {
           Image.asset('assets/images/Name_text.png',fit: BoxFit.contain),
           Container(margin: EdgeInsets.only(left: 20.0,right: 20.0),
             padding: EdgeInsets.only(left: 20.0,right: 20.0),
+
+          
+
             child: QrImage(data: _fcmToken,foregroundColor: Color(0xffBB86FC),backgroundColor: Colors.black,),
+
           ),
         ],
       ),
