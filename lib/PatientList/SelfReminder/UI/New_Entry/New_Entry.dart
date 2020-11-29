@@ -9,6 +9,7 @@ import 'package:medicine_reminder/PatientList/SelfReminder/UI/HomePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/UI/New_Entry/New_Entry_Bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:medicine_reminder/Enhancements/SuccessScreen/SuccessScreen.dart';
 
 class NewEntry extends StatefulWidget {
   @override
@@ -251,7 +252,7 @@ class _NewEntryState extends State<NewEntry> {
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) {
-                          return Container(); //SuccessScreen();
+                          return SuccessScreen();
                         },
                       ),
                     );
@@ -436,6 +437,7 @@ class _IntervalSelectionState extends State<IntervalSelection> {
             ),
             DropdownButton<int>(
               iconEnabledColor: Color(0xFFbb86fe),
+              dropdownColor: Color(0xff292929),
               hint: _selected == 0
                   ? Text(
                       "Select an Interval",
@@ -565,6 +567,7 @@ class _SelectTimeState extends State<SelectTime> {
                 style: TextStyle(
                   fontSize: 20,
                   fontFamily: 'Circular',
+                  letterSpacing: 3.0,
                   fontWeight: FontWeight.bold,
                   color: Color(0xffF2E7FE),
                 ),

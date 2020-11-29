@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
+import 'package:medicine_reminder/Enhancements/SuccessScreen/SuccessScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage());
+        home: MedicineReminder());
   }
 }
 
