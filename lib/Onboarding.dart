@@ -100,7 +100,7 @@ class _onboardingState extends State<onboarding> {
                           isEnabled: true,
                           color: Color(0xff292929)
                         ),
-                        depth: 7,
+                        depth: 8,
                         boxShape: NeumorphicBoxShape.stadium(),
                         color: Color(0xff292929),
                         shadowDarkColor: Color(0xff121212),
