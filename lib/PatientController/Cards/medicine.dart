@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
-import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 PickedFile _image;
@@ -22,7 +20,6 @@ class _Details extends State<Medicines> {
   String _selectedType = '0';
   double yOffset = 0;
   TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
-
 
   void _medicineChoice(context) {
     showModalBottomSheet(
@@ -46,7 +43,7 @@ class _Details extends State<Medicines> {
           ),
           InkWell(
             onTap: () {
-              _bySchedule();
+              _newSchedule();
             },
             child: Container(
                 height: (MediaQuery.of(context).size.height) * .30,
@@ -151,11 +148,11 @@ class _Details extends State<Medicines> {
                                       _showPicker(context);
                                     },
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                      borderRadius: BorderRadius.circular(25.0),
                                       child: _image != null
                                           ? ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(12),
+                                                  BorderRadius.circular(25),
                                               child: Image.file(
                                                 File(_image.path),
                                                 width: 100,
@@ -293,6 +290,7 @@ class _Details extends State<Medicines> {
                               height: 50,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -308,7 +306,7 @@ class _Details extends State<Medicines> {
                                           width: (MediaQuery.of(context)
                                                   .size
                                                   .width) *
-                                              .43,
+                                              .42,
                                           child: customCard(
                                             Icons.alarm_add,
                                             "Time",
@@ -331,7 +329,7 @@ class _Details extends State<Medicines> {
                                           width: (MediaQuery.of(context)
                                                   .size
                                                   .width) *
-                                              .43,
+                                              .42,
                                           child: customCard(
                                             Icons.calendar_today,
                                             "Schedule",
@@ -601,7 +599,6 @@ class _Details extends State<Medicines> {
                       setState(() {
                         _selectTime(context);
                       });
-
                     },
                     icon: Icon(Icons.add),
                     backgroundColor: Color(0xff292929),
@@ -689,7 +686,7 @@ class _Details extends State<Medicines> {
     else if (_selected == 'Bottle' || _selected == 'Syringe')
       return 'mL';
     else
-      return 'Dosage Format';
+      return 'Dosage';
   }
 
   void _scheduledNewMedicine(context) {
@@ -767,144 +764,160 @@ class _Details extends State<Medicines> {
                             //   child: MedicineType(),
                             // ),
                             SizedBox(width: 10.0),
-                            TextField(
-                              onSubmitted: (value) {
-                                yOffset = 0;
-                              },
-                              // controller: emailController,
-                              style: TextStyle(color: Color(0xfff2e7fe)),
-                              decoration: InputDecoration(
-                                  labelText: _check(),
-                                  /*prefixIcon: Icon(
-                                    Icons.phone,
-                                    color: Color(0xffF2E7FE),
-                                  ),*/
-                                  labelStyle: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xfff2e7fe).withOpacity(0.6),
-                                    height: 2,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xff121212),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 0),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xfff2e7fe)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffBB86fc)),
-                                  ),
-                                  border: UnderlineInputBorder()),
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
-                              child: TextField(
-                                onSubmitted: (value) {
-                                  yOffset = 0;
-                                },
-                                // controller: emailController,
-                                style: TextStyle(color: Color(0xfff2e7fe)),
-                                decoration: InputDecoration(
-                                    labelText: 'Initial Quantity',
-                                    labelStyle: TextStyle(
-                                      fontSize: 14,
-                                      color: Color(0xfff2e7fe).withOpacity(0.6),
-                                      height: 2,
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xff121212),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 0),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder()),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 26,
-                            ),
-                            Container(
-                                child: Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  yOffset = 0;
-                                  _showPicker(context);
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  child: _image != null
-                                      ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: Image.file(
-                                            File(_image.path),
-                                            width: 100,
-                                            height: 100,
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0xff292929),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(25),
-                                            ),
-                                            border: Border.all(
-                                                color: Color(0xffBB86FC),
-                                                width: 1),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Color(0xffbb86fe)
-                                                    .withOpacity(0.2),
-                                                spreadRadius: 3,
-                                                blurRadius: 4,
-                                                offset: Offset(5.0, 5.0),
-                                              ),
-                                            ],
-                                          ),
-                                          width: 100,
-                                          height: 100,
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: Color(0xfff2e7fe),
-                                          ),
-                                        ),
-                                ),
-                              ),
-                            )),
-                            SizedBox(
-                              height: 20,
-                            ),
+
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Center(
-                                  child: Container(
-                                      height:
-                                          (MediaQuery.of(context).size.height) *
-                                              .25,
-                                      width:
-                                          (MediaQuery.of(context).size.width) *
-                                              .86,
-                                      child: customCard(
-                                        Icons.calendar_today,
-                                        "Schedule",
-                                        "Days & Range",
-                                      )),
+                                Container(
+                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  child: TextField(
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    // controller: emailController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: _check(),
+                                        labelStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          height: 2,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Color(0xffBB86fc)),
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
+                                ),
+                                Container(
+                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  child: TextField(
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    // controller: emailController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: 'Initial Quantity',
+                                        labelStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          height: 2,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                          //  when the TextFormField in focused
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
                                 ),
                               ],
                             ),
+                            // SizedBox(
+                            //   height: 16,
+                            // ),
+
+                            SizedBox(
+                              height: 26,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    child: Center(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      yOffset = 0;
+                                      _showPicker(context);
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      child: _image != null
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              child: Image.file(
+                                                File(_image.path),
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            )
+                                          : Container(
+                                              decoration: BoxDecoration(
+                                                color: Color(0xff292929),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(25),
+                                                ),
+                                                border: Border.all(
+                                                    color: Color(0xffBB86FC),
+                                                    width: 1),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0xffbb86fe)
+                                                        .withOpacity(0.2),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 4,
+                                                    offset: Offset(5.0, 5.0),
+                                                  ),
+                                                ],
+                                              ),
+                                              width: 100,
+                                              height: 100,
+                                              child: Icon(
+                                                Icons.camera_alt,
+                                                color: Color(0xfff2e7fe),
+                                              ),
+                                            ),
+                                    ),
+                                  ),
+                                )),
+                                InkWell(child: Row(
+                                  children: [
+                                    Center(
+                                      child: Container(
+                                          height:
+                                          (MediaQuery.of(context).size.height) *
+                                              .25,
+                                          width:
+                                          (MediaQuery.of(context).size.width) *
+                                              .5,
+                                          child: customCard(
+                                            Icons.calendar_today,
+                                            "Schedule",
+                                            "Days & Range",
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                  onTap: () {
+                                    _dayInterval();
+                                  },
+                                ),
+                              ],
+                            ),
+                            // SizedBox(
+                            //   height: 20,
+                            // ),
+
                             SizedBox(
                               height: 20,
                             ),
@@ -938,6 +951,7 @@ class _Details extends State<Medicines> {
                                   child: Text(
                                     "Confirm",
                                     style: TextStyle(
+                                      fontFamily: 'Circular',
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffF2E7FE),
@@ -958,10 +972,6 @@ class _Details extends State<Medicines> {
         );
       },
     );
-  }
-
-  void _bySchedule() {
-    _newSchedule();
   }
 
   void _newSchedule() {
@@ -986,6 +996,7 @@ class _Details extends State<Medicines> {
                     child: Text(
                       "Set The Schedule",
                       style: TextStyle(
+                        fontFamily: 'Circular',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xffF2E7FE),
@@ -1033,12 +1044,6 @@ class _Details extends State<Medicines> {
                                         height: 2,
                                       ),
                                     ),
-                                    /*subtitle: Text('Age : '+(pats.age).toString(), style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xfff2e7fe),
-                                        height: 2,
-                                      ),),*/
                                     trailing: Container(
                                       height: 50,
                                       width: 5,
@@ -1123,6 +1128,7 @@ class _Details extends State<Medicines> {
         // _clicked = true;
         scheduleItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        print(scheduleItems);
         _newSchedule();
       });
     }
@@ -1139,7 +1145,7 @@ class _Details extends State<Medicines> {
             _medicineChoice(context);
           },
           child: Container(
-              height: 185,
+              height: (MediaQuery.of(context).size.height) * .25,
               width: MediaQuery.of(context).size.width,
               child:
                   customCard(Icons.description, "Medicine", "Dosage Details")),

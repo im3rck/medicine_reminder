@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
 
 class PatientAddPage extends StatefulWidget {
@@ -12,7 +13,6 @@ class _PatientAddPageState extends State<PatientAddPage> {
     return Scaffold(
       backgroundColor: Color(0xff121212),
       body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 15.0, left: 10.0),
@@ -20,56 +20,55 @@ class _PatientAddPageState extends State<PatientAddPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
+                  icon: Icon(Icons.arrow_back_ios, color: Color(0xffbb86fe),),
                   color: Colors.white,
                   onPressed: () {},
                 ),
+                IconButton(
+                    icon: FaIcon(FontAwesomeIcons.qrcode, color: Color(0xffbb86fe),),
+                    splashColor: Color(0xfff2e7fe),
+                    onPressed: null)
               ],
             ),
           ),
-           SizedBox(height: 10.0),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 120),
-            child: Row(
-              children: <Widget>[
-                Text('New',
-                    style: TextStyle(
-                        color: Color(0xfff2e7fe),
-                        fontFamily: 'Circular',
-                        fontSize: 25.0) //customize color here
-                    ),
-                SizedBox(width: 10.0),
-                Text('Patient',
-                    style: TextStyle(
-                        fontFamily: 'Circular',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0))
-              ],
-            ),
+          //SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('New',
+                  style: TextStyle(
+                      color: Color(0xfff2e7fe),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Circular',
+                      fontSize: 25.0) //customize color here
+                  ),
+              SizedBox(width: 10.0),
+              Text('Patient',
+                  style: TextStyle(
+                      fontFamily: 'Circular',
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25.0))
+            ],
           ),
-          SizedBox(height: 26.0),
+          SizedBox(height: 30.0),
           Stack(
             children: [
+
               Container(
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height-10,
+                 height: (MediaQuery.of(context).size.height) * .8,
                 decoration: BoxDecoration(
                   color: Color(0xff292929),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffbb86fe).withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 4,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
+
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0)),
                 ),
               ),
-              Cards()
+              Container(
+                  height: (MediaQuery.of(context).size.height)*.8,
+                  child: Cards())
             ],
           )
         ],

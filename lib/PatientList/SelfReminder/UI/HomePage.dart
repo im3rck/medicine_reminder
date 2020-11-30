@@ -168,7 +168,7 @@ class BottomContainer extends StatelessWidget {
           );
         } else {
           return Container(
-            color: Color(0xFFF6F8FC),
+            color: Color(0xFF121212),
             child: GridView.builder(
               padding: EdgeInsets.only(top: 12),
               gridDelegate:
@@ -196,7 +196,7 @@ class MedicineCard extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe900, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -205,7 +205,7 @@ class MedicineCard extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe901, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -214,7 +214,7 @@ class MedicineCard extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe902, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -223,7 +223,7 @@ class MedicineCard extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe903, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -243,8 +243,8 @@ class MedicineCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: InkWell(
-        highlightColor: Colors.white,
-        splashColor: Colors.grey,
+        highlightColor: Color(0xff121212),
+        splashColor: Color(0xff121212),
         onTap: () {
           Navigator.of(context).push(
             PageRouteBuilder<Null>(
@@ -263,39 +263,46 @@ class MedicineCard extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                makeIcon(50.0),
-                Hero(
-                  tag: medicine.medicineName,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      medicine.medicineName,
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: Color(0xFF3EB16F),
-                          fontWeight: FontWeight.w500),
+        child: Card(
+          elevation: 10.0,
+          color: Color(0xff121212),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xff292929),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  makeIcon(50.0),
+                  Hero(
+                    tag: medicine.medicineName,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        medicine.medicineName,
+                        style: TextStyle(
+                          fontFamily: 'Circular',
+                          fontSize: 20,
+                          color: Color(0xffF2E7FE),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Text(
-                  medicine.interval == 1
-                      ? "Every " + medicine.interval.toString() + " hour"
-                      : "Every " + medicine.interval.toString() + " hours",
-                  style: TextStyle(
+                  Text(
+                    medicine.interval == 1
+                        ? "Every " + medicine.interval.toString() + " hour"
+                        : "Every " + medicine.interval.toString() + " hours",
+                    style: TextStyle(
+                      fontFamily: 'Circular',
                       fontSize: 16,
-                      color: Color(0xFFC9C9C9),
-                      fontWeight: FontWeight.w400),
-                )
-              ],
+                      color: Color(0xffF2E7FE).withOpacity(0.7),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

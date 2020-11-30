@@ -8,13 +8,13 @@ import 'configuration.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 class DrawerScreen extends StatefulWidget {
-
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
   String _fcmToken = null;
+
   _scan() async {
     String temp = await scanner.scan();
     //String temp = await BarcodeScanner.scan();
@@ -26,18 +26,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
       print(_fcmToken);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-    }else{
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => QrGen()));
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
     }
   }
+
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-        _scan();
-
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+        // _scan();
     }
   }
 
@@ -48,7 +47,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       color: Color(0xff121212),
       padding: EdgeInsets.only(top: 50, left: 10),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
@@ -67,10 +66,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Text(
                     'Care Giver Name',
                     style: TextStyle(
+                        fontFamily: 'Circular',
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   Text('Active Status',
                       style: TextStyle(
+                          fontFamily: 'Circular',
                           color: Colors.white, fontWeight: FontWeight.bold))
                 ],
               )
@@ -78,41 +79,47 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ),
           SizedBox(
             width: 10,
-            height: 120,
+            height: 30,
           ),
-          Column(
-            children: drawerItems
-                .map((element) => Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        navigateToSubPage(context, element['index']);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            element['icon'],
-                            color: Colors.white,
-                            size: 30,
+          Flexible(
+            child: FractionallySizedBox(
+              heightFactor: 0.8,
+              child: Column(
+                children: drawerItems
+                    .map((element) => Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            navigateToSubPage(context, element['index']);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                element['icon'],
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(element['title'],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Circular',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20))
+                            ],
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(element['title'],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Circular',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20))
-                        ],
-                      ),
-                    )))
-                .toList(),
+                        )))
+                    .toList(),
+              ),
+            ),
           ),
-          SizedBox(
-            width: 10,
-            height: 180,
-          ),
+
+          // SizedBox(
+          //   width: 10,
+          //   height: 180,
+          // ),
           Row(
             children: [
               GestureDetector(
@@ -125,10 +132,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         width: 10,
                         height: 20,
                       ),
-                      // Icon(
-                      //   Icons.settings,
-                      //   color: Colors.white,
-                      // ),
                       SvgPicture.asset(
                         'assets/images/logout.svg',
                         height: 25.0,
@@ -148,8 +151,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       )
                     ],
                   )),
+              SizedBox(
+                width: 10,
+                height: 80,
+              ),
             ],
-          )
+          ),
+          // Flexible(
+          //     child: FractionallySizedBox(
+          //       heightFactor: 0.00000000001,
+          //     )
         ],
       ),
     );

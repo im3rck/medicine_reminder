@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientController/Cards/addedList.dart';
 import 'package:medicine_reminder/PatientController/Cards/details.dart';
@@ -15,7 +16,7 @@ Future navigateToSubPage(context) async {
 }
 
 class _CardsState extends State<Cards> {
-  final double appBarHeight = 55.0;
+  final double appBarHeight = 50.0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +26,14 @@ class _CardsState extends State<Cards> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 14.0),
+            //SizedBox(height: 14.0),
             Details(),
             Medicines(),
             AddedList(),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
+           /* Container(
               height: 50,
               width: (MediaQuery.of(context).size.width) * .8,
+              margin: EdgeInsets.only(top: 10, bottom: 10),
               decoration: BoxDecoration(
                 color: Color(0xff121212),
                 borderRadius: BorderRadius.all(
@@ -61,7 +60,7 @@ class _CardsState extends State<Cards> {
                   ),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ],

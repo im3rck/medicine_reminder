@@ -15,64 +15,87 @@ class MedicineDetails extends StatelessWidget {
     final GlobalBloc _globalBloc = Provider.of<GlobalBloc>(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff121212),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff292929),
         iconTheme: IconThemeData(
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
         ),
         centerTitle: true,
         title: Text(
-          "Mediminder Details",
+          "Reminder Details",
           style: TextStyle(
-            color: Colors.black,
+            fontFamily: 'Circular',
             fontSize: 18,
+            color: Color(0xffF2E7FE),
+            fontWeight: FontWeight.bold,
           ),
         ),
-        elevation: 0.0,
+        elevation: 5.0,
       ),
-      body: Container(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              MainSection(medicine: medicine),
-              SizedBox(
-                height: 15,
-              ),
-              ExtendedSection(medicine: medicine),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.height * 0.06,
-                  right: MediaQuery.of(context).size.height * 0.06,
-                  top: 25,
-                ),
-                child: Container(
-                  width: 280,
-                  height: 70,
-                  child: FlatButton(
-                    color: Color(0xFF3EB16F),
-                    shape: StadiumBorder(),
-                    onPressed: () {
-                      openAlertBox(context, _globalBloc);
-                    },
-                    child: Center(
-                      child: Text(
-                        "Delete Mediminder",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width) * .05, vertical: (MediaQuery.of(context).size.width) * .05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  MainSection(medicine: medicine),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  ExtendedSection(medicine: medicine),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.height * 0.06,
+                      right: MediaQuery.of(context).size.height * 0.06,
+                      top: 25,
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        openAlertBox(context, _globalBloc);
+                      },
+                      child: Container(
+                        height: (MediaQuery.of(context).size.width) * .2,
+                        width: (MediaQuery.of(context).size.width) * .8,
+                        decoration: BoxDecoration(
+                          color: Color(0xff121212),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                          border: Border.all(
+                              color: Color(0xffBB86FC), width: 1),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                              Color(0xffF292929).withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 4,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Delete",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                    ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -82,6 +105,7 @@ class MedicineDetails extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: Color(0xff292929),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(30.0),
@@ -89,7 +113,7 @@ class MedicineDetails extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.only(top: 10.0),
             content: Container(
-              width: 300.0,
+              width: (MediaQuery.of(context).size.width)*.5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -99,10 +123,14 @@ class MedicineDetails extends StatelessWidget {
                     padding: EdgeInsets.all(18),
                     child: Center(
                       child: Text(
-                        "Delete this Mediminder?",
+                        "Delete this Reminder?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontFamily: 'Circular',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffF2E7FE),
+                        ),
                       ),
                     ),
                   ),
@@ -112,9 +140,11 @@ class MedicineDetails extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           _globalBloc.removeMedicine(medicine);
+
                           Navigator.popUntil(
                             context,
                             ModalRoute.withName('/'),
+
                           );
                         },
                         child: InkWell(
@@ -122,7 +152,7 @@ class MedicineDetails extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.743,
                             padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                             decoration: BoxDecoration(
-                              color: Color(0xFF3EB16F),
+                              color: Color(0xFF292929),
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(30.0),
                               ),
@@ -130,8 +160,10 @@ class MedicineDetails extends StatelessWidget {
                             child: Text(
                               "Yes",
                               style: TextStyle(
-                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Circular',
                                 fontWeight: FontWeight.bold,
+                                color: Color(0xffbb86fe),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -147,15 +179,17 @@ class MedicineDetails extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 2.743,
                             padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
                             decoration: BoxDecoration(
-                              color: Colors.red[700],
+                              color: Color(0xff292929),
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(30.0)),
                             ),
                             child: Text(
                               "No",
                               style: TextStyle(
-                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Circular',
                                 fontWeight: FontWeight.bold,
+                                color: Color(0xffbb86fe),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -188,7 +222,7 @@ class MainSection extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe900, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -197,7 +231,7 @@ class MainSection extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe901, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -206,7 +240,7 @@ class MainSection extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe902, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -215,7 +249,7 @@ class MainSection extends StatelessWidget {
         tag: medicine.medicineName + medicine.medicineType,
         child: Icon(
           IconData(0xe903, fontFamily: "Ic"),
-          color: Color(0xFF3EB16F),
+          color: Color(0xFFbb86fe),
           size: size,
         ),
       );
@@ -224,7 +258,7 @@ class MainSection extends StatelessWidget {
       tag: medicine.medicineName + medicine.medicineType,
       child: Icon(
         Icons.local_hospital,
-        color: Color(0xFF3EB16F),
+        color: Color(0xFFbb86fe),
         size: size,
       ),
     );
@@ -284,16 +318,20 @@ class MainInfoTab extends StatelessWidget {
           Text(
             fieldTitle,
             style: TextStyle(
-                fontSize: 17,
-                color: Color(0xFFC9C9C9),
-                fontWeight: FontWeight.bold),
+              fontFamily: 'Circular',
+              fontSize: 16,
+              color: Color(0xffbb86fe),
+              fontWeight: FontWeight.w600,
+            ),
           ),
           Text(
             fieldInfo,
             style: TextStyle(
-                fontSize: 24,
-                color: Color(0xFF3EB16F),
-                fontWeight: FontWeight.bold),
+              fontFamily: 'Circular',
+              fontSize: 20,
+              color: Color(0xffF2E7FE),
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
@@ -358,18 +396,20 @@ class ExtendedInfoTab extends StatelessWidget {
               child: Text(
                 fieldTitle,
                 style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Circular',
+                  fontSize: 16,
+                  color: Color(0xffbb86fe),
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
             Text(
               fieldInfo,
               style: TextStyle(
-                fontSize: 18,
-                color: Color(0xFFC9C9C9),
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Circular',
+                fontSize: 16,
+                color: Color(0xffF2E7FE),
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
