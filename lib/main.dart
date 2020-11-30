@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
+
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
-import 'package:medicine_reminder/PatientScreen/Onboarding.dart';
+
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 // import 'package:medicine_reminder/LaunchScreen/gooey_edge/lib/demo.dart';
@@ -12,6 +14,10 @@ import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+
+import 'Onboarding.dart';
+
+
 //import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'LaunchScreen/Launch.dart';
@@ -35,7 +41,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: Onboarding());
+        home: onboarding());
   }
 }
 
