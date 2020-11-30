@@ -54,6 +54,7 @@ dependencies:
   shared_preferences:
   flutter_local_notifications:
   qrscan: ^0.2.19
+  flutter_neumorphic: ^3.0.3
 
 
 dev_dependencies:
