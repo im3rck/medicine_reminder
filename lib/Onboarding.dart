@@ -9,7 +9,7 @@ class Onboarding extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'CircularStd-Medium'
+          fontFamily: 'Circular'
       ),
       home: onboarding(),
     );
