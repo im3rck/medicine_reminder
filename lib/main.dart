@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/FrontOnboarding/FrontMainOnboarding.dart';
+import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: App());
+        home: PatientAddPage());
   }
 }
 

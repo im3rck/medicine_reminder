@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
+import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 
 PickedFile _image;
@@ -637,10 +638,11 @@ class _Details extends State<Medicines> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
+              height: (MediaQuery.of(context).size.height)*.30,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffBB86FC), width: 1),
-                color: Color(0xff292929),
+                color: Color(0xff121212),
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Column(
@@ -656,8 +658,8 @@ class _Details extends State<Medicines> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
-                  Expanded(child: SelectDay()),
+                  SizedBox(height: 25),
+                  Expanded(child: SelectedDaysUpdateExample()),
                   Center(
                       child: Container(
                           padding: EdgeInsets.only(bottom: 10),

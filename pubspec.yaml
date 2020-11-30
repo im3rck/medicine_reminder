@@ -55,6 +55,7 @@ dependencies:
   flutter_local_notifications:
   qrscan: ^0.2.19
   flutter_neumorphic: ^3.0.3
+  weekday_selector: ^0.4.0
 
 
 dev_dependencies:
