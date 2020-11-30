@@ -224,67 +224,73 @@ class _Details extends State<Medicines> {
                               ),
                             ),
                             SizedBox(height: 16),
-                            TextField(
-                              onSubmitted: (value) {
-                                yOffset = 0;
-                              },
-                              style: TextStyle(color: Color(0xfff2e7fe)),
-                              decoration: InputDecoration(
-                                  labelText: _check(),
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Circular',
-                                    fontSize: 14,
-                                    color: Color(0xfff2e7fe).withOpacity(0.6),
-                                    height: 2,
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xff121212),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 0),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xfff2e7fe)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xffBB86fc)),
-                                  ),
-                                  border: UnderlineInputBorder()),
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
-                              child: TextField(
-                                onSubmitted: (value) {
-                                  yOffset = 0;
-                                },
-                                // controller: emailController,
-                                style: TextStyle(color: Color(0xfff2e7fe)),
-                                decoration: InputDecoration(
-                                    labelText: 'Initial Quantity',
-                                    labelStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Circular',
-                                      color: Color(0xfff2e7fe).withOpacity(0.6),
-                                      height: 2,
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xff121212),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 0),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    // controller: emailController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: _check(),
+                                        labelStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          height: 2,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide:
                                           BorderSide(color: Color(0xfff2e7fe)),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
                                           BorderSide(color: Color(0xffBB86fc)),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder()),
-                              ),
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
+                                ),
+                                Container(
+                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    onSubmitted: (value) {
+                                      yOffset = 0;
+                                    },
+                                    // controller: emailController,
+                                    style: TextStyle(color: Color(0xfff2e7fe)),
+                                    decoration: InputDecoration(
+                                        labelText: 'Initial Quantity',
+                                        labelStyle: TextStyle(
+                                          fontSize: 14,
+                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          height: 2,
+                                        ),
+                                        filled: true,
+                                        fillColor: Color(0xff121212),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 0),
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide:
+                                          BorderSide(color: Color(0xfff2e7fe)),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                          BorderSide(color: Color(0xffBB86fc)),
+                                          //  when the TextFormField in focused
+                                        ),
+                                        border: UnderlineInputBorder()),
+                                  ),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 50,
@@ -726,6 +732,103 @@ class _Details extends State<Medicines> {
                           // mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Flexible(
+                                  child: DropdownButton(
+                                    iconEnabledColor: Color(0xFF3EB16F),
+                                    dropdownColor: Color(0xff292929),
+                                    hint: Text(
+                                      "Type",
+                                      style: TextStyle(
+                                        fontFamily: 'Circular',
+                                        fontSize: 16,
+                                        color: Color(0xffF2E7FE),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    elevation: 4,
+                                    value: _selectedType == '0'
+                                        ? null
+                                        : _selectedType,
+                                    items: [
+                                      'Pill',
+                                      'Bottle',
+                                      'Syringe',
+                                      'Tablet'
+                                    ].map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
+                                          style: TextStyle(
+                                            fontFamily: 'Circular',
+                                            fontSize: 16,
+                                            color: Color(0xffF2E7FE),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newVal) {
+                                      setState(() {
+                                        _selectedType = newVal;
+                                        _selected = newVal;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      yOffset = 0;
+                                      _showPicker(context);
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      child: _image != null
+                                          ? ClipRRect(
+                                        borderRadius:
+                                        BorderRadius.circular(25),
+                                        child: Image.file(
+                                          File(_image.path),
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      )
+                                          : Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xff121212),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(25),
+                                          ),
+                                          border: Border.all(
+                                              color: Color(0xffBB86FC),
+                                              width: 1),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0xffbb86fe)
+                                                  .withOpacity(0.2),
+                                              spreadRadius: 3,
+                                              blurRadius: 4,
+                                              offset: Offset(5.0, 5.0),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: Color(0xfff2e7fe),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             Container(
                               width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
@@ -839,57 +942,8 @@ class _Details extends State<Medicines> {
                               height: 26,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                    child: Center(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      yOffset = 0;
-                                      _showPicker(context);
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      child: _image != null
-                                          ? ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                              child: Image.file(
-                                                File(_image.path),
-                                                width: 100,
-                                                height: 100,
-                                                fit: BoxFit.fitHeight,
-                                              ),
-                                            )
-                                          : Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xff292929),
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(25),
-                                                ),
-                                                border: Border.all(
-                                                    color: Color(0xffBB86FC),
-                                                    width: 1),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0xffbb86fe)
-                                                        .withOpacity(0.2),
-                                                    spreadRadius: 3,
-                                                    blurRadius: 4,
-                                                    offset: Offset(5.0, 5.0),
-                                                  ),
-                                                ],
-                                              ),
-                                              width: 100,
-                                              height: 100,
-                                              child: Icon(
-                                                Icons.camera_alt,
-                                                color: Color(0xfff2e7fe),
-                                              ),
-                                            ),
-                                    ),
-                                  ),
-                                )),
                                 InkWell(child: Row(
                                   children: [
                                     Center(
@@ -899,7 +953,7 @@ class _Details extends State<Medicines> {
                                               .25,
                                           width:
                                           (MediaQuery.of(context).size.width) *
-                                              .5,
+                                              .85,
                                           child: customCard(
                                             Icons.calendar_today,
                                             "Schedule",

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
 class PatientAddPage extends StatefulWidget {
   @override
@@ -19,10 +21,14 @@ class _PatientAddPageState extends State<PatientAddPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+
                 IconButton(
                   icon: Icon(Icons.arrow_back_ios, color: Color(0xffbb86fe),),
-                  color: Colors.white,
-                  onPressed: () {},
+                  color: Color(0xffbb86fe),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => PhasePage()));
+                  },
                 ),
                 IconButton(
                     icon: FaIcon(FontAwesomeIcons.qrcode, color: Color(0xffbb86fe),),
@@ -46,15 +52,14 @@ class _PatientAddPageState extends State<PatientAddPage> {
               Text('Patient',
                   style: TextStyle(
                       fontFamily: 'Circular',
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+                      color: Color(0xfff2e7fe),
+                      fontWeight: FontWeight.w500,
                       fontSize: 25.0))
             ],
           ),
           SizedBox(height: 30.0),
           Stack(
             children: [
-
               Container(
                 width: double.infinity,
                  height: (MediaQuery.of(context).size.height) * .8,
