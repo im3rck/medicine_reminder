@@ -19,17 +19,21 @@ class TextColumn extends StatelessWidget {
       children: <Widget>[
         Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .headline5
-              .copyWith(color: Color(0xfff2e7fe), fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
+          style: TextStyle(
+            fontSize: 20,
+            fontFamily: 'Circular',
+            fontWeight: FontWeight.bold,
+            color: Color(0xffF2E7FE),
+        ),),
         const SizedBox(height: kSpaceS),
         Text(
           text,
-          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Color(0xfff2e7fe)),
-          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Circular',
+            fontWeight: FontWeight.w500,
+            color: Color(0xffF2E7FE),
+          ),
         ),
       ],
     );

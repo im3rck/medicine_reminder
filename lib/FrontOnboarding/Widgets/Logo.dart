@@ -40,7 +40,7 @@ class _LogoState extends State<Logo> {
           final artboard = file.mainArtboard;
           // Add a controller to play back a known animation on the main/default
           // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('SpinLoad'));
+          artboard.addController(_controller = SimpleAnimation('Bounce Load'));
           setState(() => _riveArtboard = artboard);
         }
       },
@@ -50,8 +50,8 @@ class _LogoState extends State<Logo> {
   Widget build(BuildContext context) {
     return Container(
       //color: Color(0xffbb86fe),
-      height: (MediaQuery.of(context).size.height)*.06,
-      width: (MediaQuery.of(context).size.width)*.08,
+      height: (MediaQuery.of(context).size.height)*.05,
+      width: (MediaQuery.of(context).size.width)*.1,
       child: _riveArtboard == null
           ? const SizedBox()
           : Rive(artboard: _riveArtboard),

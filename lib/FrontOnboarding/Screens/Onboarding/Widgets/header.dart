@@ -27,7 +27,11 @@ class Header extends StatelessWidget {
           child: Text(
             'Skip',
             style:
-            Theme.of(context).textTheme.subtitle1.copyWith(color: Color(0xfff2e7fe).withOpacity(0.5)),
+            TextStyle(
+              fontSize: 16,
+              fontFamily: 'Circular',
+              color: Color(0xffF2E7FE).withOpacity(0.5),
+            ),
           ),
         ),
       ],
