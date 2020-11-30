@@ -8,6 +8,8 @@ import 'package:medicine_reminder/LaunchScreen/demo.dart';
 
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
+import 'package:medicine_reminder/PatientScreen/CountDownTimer/CountDown.dart';
+import 'package:medicine_reminder/PatientScreen/demo.dart';
 
 // import 'package:medicine_reminder/PatientScreen/Onboarding.dart';
 
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: App());
+        home: TicketFoldDemo());
   }
 }
 

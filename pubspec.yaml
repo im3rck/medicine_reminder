@@ -56,7 +56,7 @@ dependencies:
   qrscan: ^0.2.19
   flutter_neumorphic: ^3.0.3
   weekday_selector: ^0.4.0
-
+  slide_countdown_clock: ^1.0.3
 
 dev_dependencies:
   flutter_test:
