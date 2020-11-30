@@ -38,13 +38,15 @@ class _onboardingState extends State<onboarding> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
+                padding: EdgeInsets.all(5.0),
                 color: Color(0xff292929),
+                
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: PageView(
                   controller: _pageController,
                   //scrollDirection: Axis.vertical,
                   children: [
-                    onBoardPage("obm", "Welcome to MedReminder", 1),
+                    onBoardPage("obm", "Welcome", 1),
                     onBoardPage("obc", "Custodian", 2),
                     onBoardPage("obp", "Convalescent", 3),
                   ],
@@ -111,47 +113,6 @@ class _onboardingState extends State<onboarding> {
                                ),
                         ),
                     ),
-                    // child: GestureDetector(
-                    //   onTap: openLoginPage,
-                    //   child: Container(
-                    //     height: (MediaQuery.of(context).size.height) * .06,
-                    //     width: (MediaQuery.of(context).size.width) * .5,
-                    //     decoration: BoxDecoration(
-                    //         color: Color(0xff292929),
-                    //
-                    //         borderRadius: BorderRadius.all(
-                    //           Radius.circular(25),
-                    //         ),
-                    //         boxShadow: [
-                    //           BoxShadow(
-                    //               color: Color(0xff121212),
-                    //               offset: Offset(5.0, 5.0),
-                    //               blurRadius: 15.0,
-                    //               spreadRadius: 1.0),
-                    //           BoxShadow(
-                    //               color: Colors.grey[800],
-                    //               offset: Offset(-5.0, -5.0),
-                    //               blurRadius: 15.0,
-                    //               spreadRadius: 1.0)
-                    //         ]
-                    //         // border: Border.all(color: Color(0xffBB86FC), width: 1),
-                    //         ),
-                    //     child: Center(
-                    //       child: Text(
-                    //         "Get Started",
-                    //         style: TextStyle(
-                    //             color: Color(0xffBB86FC), fontSize: 16),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-
-                  /*SizedBox(height: 30),
-                  Text("Login", style: TextStyle(
-                      color: Color(0xffBB86FC),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold
-                  ),)*/
                 ],
               ),
             ),
