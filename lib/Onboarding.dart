@@ -9,7 +9,7 @@ class Onboarding extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          fontFamily: 'CircularStd-Medium'
+          fontFamily: 'Circular'
       ),
       home: onboarding(),
     );
@@ -42,6 +42,7 @@ class _onboardingState extends State<onboarding> {
                 height: MediaQuery.of(context).size.height*0.6,
                 child: PageView(
                   controller: _pageController,
+                  physics: BouncingScrollPhysics(),
                   //scrollDirection: Axis.vertical,
                   children: [
                     onBoardPage("obm", "Welcome to MedReminder",1),
@@ -63,9 +64,9 @@ class _onboardingState extends State<onboarding> {
             left: 0,
             right: 0,
             child: Container(           //bottom half
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 0),
               height: 290,  // from bottom of page
-             // color: Color(0xff292929),
+              // color: Color(0xff292929),
               //width: MediaQuery.of(context).size.width,
               /*decoration: BoxDecoration(
                   image: DecorationImage(
@@ -113,8 +114,7 @@ class _onboardingState extends State<onboarding> {
   AnimatedContainer getIndicator(int pageNo)
   {
 
-    //return Scaffold(
-        return AnimatedContainer(
+    return AnimatedContainer(
 
           duration: Duration(milliseconds: 100),   //the number controls speed
           height: 10,
@@ -127,7 +127,7 @@ class _onboardingState extends State<onboarding> {
               color: (currentPage == pageNo) ? Color(0xffBB86FC) : Color(0xffF2E7FE)
           ),
         );
-    //);
+
   }
   Column onBoardPage(String img, String title , int num)
   {
@@ -137,7 +137,7 @@ class _onboardingState extends State<onboarding> {
         SizedBox(
           height: 20,
         ),
-        Container(
+        Container(           // top half for image
           height: 200,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.all(50),
@@ -148,16 +148,16 @@ class _onboardingState extends State<onboarding> {
           ),
         ),
         SizedBox(height: 50,),
-        Container(
+        Container(              // heading  of the page
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Text(title, style: TextStyle(
-              color: Color(0xffBB86FC),
+              color:Color(0xffBB86FC),
               fontSize: 30,
               fontWeight: FontWeight.w500
 
           ),),
         ),
-        Container(
+        Container(            // abt the page
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
           child:
 
