@@ -1,11 +1,132 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/PatientList/configuration.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/Details/PatientInfo.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/Lists/MedicineLists.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/AddMedicine/AddMedicine.dart';
 
-class FullPatientDetails extends StatelessWidget {
+class BottomNavBar extends StatefulWidget {
+  @override
+  _BottomNavBarState createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _page = 0;
+  final List<Widget> _children = [
+    PatientInfo(),
+    MedicineList(),
+    AddMedicine(),
+  ];
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 55.0,
+          items: <Widget>[
+            Icon(Icons.perm_identity, color: Color(0xffbb86fe), size: 30),
+            Icon(Icons.list,color: Color(0xffbb86fe), size: 30),
+            Icon(Icons.add, color: Color(0xffbb86fe), size: 30),
+            // Icon(Icons.call_split, size: 30),
+            // Icon(Icons.perm_identity, size: 30),
+          ],
+          color: Color(0xff292929),
+          buttonBackgroundColor: Color(0xff323232),
+          backgroundColor: Color(0xff121212),
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+        ),
+        body: _children[_page],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// class FullPatientDetails extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: Container());
+//   }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*  Stack(
         children: [
           Positioned.fill(
               child: Column(
@@ -180,4 +301,4 @@ class SlideRightRoute extends PageRouteBuilder {
           child: child,
         ),
   );
-}
+}*/

@@ -10,7 +10,7 @@ class Header extends StatelessWidget {
   final VoidCallback onSkip;
 
   const Header({
-    @required this.onSkip,
+    @required this.onSkip, Animation<double> animation,
   }) : assert(onSkip != null);
 
   @override
