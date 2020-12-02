@@ -12,6 +12,8 @@ import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 // import 'package:medicine_reminder/enhancements/FirstPage.dart';
 import 'package:medicine_reminder/navigation.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+
+import 'PatientController/PatientAddPage.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'LaunchScreen/Launch.dart';
