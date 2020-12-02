@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
+import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'configuration.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -35,7 +36,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+            context, MaterialPageRoute(builder: (context) => Search()));
         break;// _scan();
       case  1:
         Navigator.push(

@@ -50,7 +50,7 @@ dependencies:
   folding_cell:
   flare_flutter:
   rxdart:
-  provider:
+  provider: ^4.3.2+2
   shared_preferences:
   flutter_local_notifications:
   qrscan: ^0.2.19
@@ -59,6 +59,12 @@ dependencies:
   slide_countdown_clock: ^1.0.3
   curved_navigation_bar: ^0.3.4
   fab_circular_menu: ^1.0.0
+
+  google_maps_flutter: ^1.0.6
+  geolocator: ^6.1.9
+  url_launcher: ^5.4.2
+  http: ^0.12.2
+  flutter_rating_bar: ^3.2.0+1
 
 dev_dependencies:
   flutter_test:
