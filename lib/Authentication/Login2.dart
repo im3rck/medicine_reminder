@@ -213,21 +213,6 @@ class _Login2State extends State<Login2> {
         ),
         InkWell(
           onTap: _submitForm,
-          /*onTap: () {
-            try {
-              FirebaseAuth.instance.signInWithEmailAndPassword(
-                  email: emailController.text,
-                  password: passwordController.text);
-
-            } catch (e) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => PhasePage()));
-              /*SnackBar snackBar =
-                  SnackBar(content: Text("Invalid Credentials"));
-              Scaffold.of(context).showSnackBar(snackBar);*/
-            }
-          },*/
-
           child: Container(
             height: 40,
             decoration: BoxDecoration(
@@ -260,14 +245,35 @@ class _Login2State extends State<Login2> {
         SizedBox(
           height: 16,
         ),
-        Text(
-          "Forgot Password?",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFF2E7FE),
-            height: 1,
-          ),
+        Row(
+          children: [
+            Text(
+              "Forgot ",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFF2E7FE),
+                height: 1,
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                print("Test");
+                // Future<void> resetPassword(String email) async {
+                //   await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                // }
+              },
+              child: Text(
+                "Password?",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFF2E7FE),
+                  height: 1,
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

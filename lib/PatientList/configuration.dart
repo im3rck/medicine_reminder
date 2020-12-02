@@ -17,8 +17,8 @@ List<Map> drawerItems=[
     'index': 1,
   },
   {
-    'icon': Icons.mail,
-    'title' : 'Messages',
+    'icon': FontAwesomeIcons.clinicMedical,
+    'title' : 'Stores Nearby',
     'index': 2,
   },
   {

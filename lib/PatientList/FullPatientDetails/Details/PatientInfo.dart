@@ -681,7 +681,7 @@ class _PatientInfoState extends State<PatientInfo>
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(18),
+                    padding: EdgeInsets.all(16),
                     child: Center(
                       child: Text(
                         "Remove this Patient?",

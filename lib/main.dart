@@ -50,9 +50,17 @@
 // }
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:medicine_reminder/FrontOnboarding/FrontMainOnboarding.dart';
+
+import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
+import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
+
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
 import 'package:medicine_reminder/StoreLocator/models/place.dart';

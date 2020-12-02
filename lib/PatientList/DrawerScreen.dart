@@ -36,12 +36,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Search()));
+            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
         break;// _scan();
       case  1:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MedicineReminder()));
         break;
+      case 2:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Search()));
+
     }
   }
 
