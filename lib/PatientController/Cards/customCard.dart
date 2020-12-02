@@ -11,7 +11,7 @@ Widget customCard(icon,String _title, String _subtitle){
       decoration: BoxDecoration(
         color: Color(0xff121212),
           border: Border.all(
-              color: Color(0xffBB86FC),
+              color: Color(0xffbb86fe),
               width: 1
           ),
           borderRadius: BorderRadius.circular(10.0),

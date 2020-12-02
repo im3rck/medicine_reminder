@@ -37,6 +37,7 @@ class _SingleSelectionState extends State<SingleSelection> {
             },
             child: AlertDialog(
               backgroundColor: Color(0xff292929),
+
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               title: Center(

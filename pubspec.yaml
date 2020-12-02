@@ -55,7 +55,10 @@ dependencies:
   flutter_local_notifications:
   qrscan: ^0.2.19
   flutter_neumorphic: ^3.0.3
-
+  weekday_selector: ^0.4.0
+  slide_countdown_clock: ^1.0.3
+  curved_navigation_bar: ^0.3.4
+  fab_circular_menu: ^1.0.0
 
 dev_dependencies:
   flutter_test:

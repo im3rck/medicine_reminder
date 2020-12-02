@@ -13,7 +13,7 @@ List<Map> drawerItems=[
   },
   {
     'icon': Icons.favorite,
-    'title' : 'Favorites',
+    'title' : 'Self Reminder',
     'index': 1,
   },
   {

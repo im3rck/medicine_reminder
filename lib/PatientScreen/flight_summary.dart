@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
 //file data before folding out
 
@@ -7,6 +8,8 @@ import 'demo_data.dart';
 import 'patientMain.dart';
 
 enum SummaryTheme { dark, light }
+
+Duration _duration = Duration(seconds: 10);
 
 class FlightSummary extends StatelessWidget {
   final BoardingPassData boardingPass;
@@ -90,21 +93,47 @@ class FlightSummary extends StatelessWidget {
 
   _buildLogoHeader() {
     if (theme == SummaryTheme.light)
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Image.asset('images/pill.png', width: 8, package: App.pkg),
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: Image.asset('images/pill.png', width: 8, package: App.pkg),
+              ),
+              Text('MedReminder'.toUpperCase(),
+                  style: TextStyle(
+                    fontFamily: 'Circular',
+                    fontSize: 16,
+                    color: Color(0xffF2E7FE),
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.bold,
+                  ),)
+            ],
           ),
-          Text('MedReminder'.toUpperCase(),
-              style: TextStyle(
-                fontFamily: 'Circular',
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: SlideCountdownClock(
+              duration: _duration,
+              slideDirection: SlideDirection.Down,
+              separator: "-",
+              textStyle: TextStyle(
                 fontSize: 16,
-                color: Color(0xffF2E7FE),
-                letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
-              ),)
+                color: Color(0xffbb86fe),
+              ),
+              separatorTextStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xfff2e7fe),
+              ),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(color: Color(0xff292929), shape: BoxShape.rectangle),
+              onDone: () {
+              },
+            ),
+          ),
         ],
       );
     if (theme == SummaryTheme.dark)
