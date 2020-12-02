@@ -42,6 +42,7 @@ class _onboardingState extends State<onboarding> {
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: PageView(
                   controller: _pageController,
+                  
                   //scrollDirection: Axis.vertical,
                   children: [
                     onBoardPage("obm", "Welcome to MedReminder", 1),
