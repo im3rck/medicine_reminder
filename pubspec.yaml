@@ -61,8 +61,14 @@ dependencies:
   fab_circular_menu: ^1.0.0
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.8.0"
+
   flutter_test:
     sdk: flutter
+flutter_icons:
+    android: true
+    ios: true
+    image_path: "assets/images/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
