@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
 class PatientAddPage extends StatefulWidget {
   @override
@@ -18,15 +21,23 @@ class _PatientAddPageState extends State<PatientAddPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
-                  color: Colors.white,
-                  onPressed: () {},
+                  icon: Icon(Icons.arrow_back_ios, color: Color(0xffbb86fe),),
+                  color: Color(0xffbb86fe),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => PhasePage()));
+                  },
                 ),
+                IconButton(
+                    icon: FaIcon(FontAwesomeIcons.qrcode, color: Color(0xffbb86fe),),
+                    splashColor: Color(0xfff2e7fe),
+                    onPressed: null)
               ],
             ),
           ),
-          SizedBox(height: 10.0),
+          //SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -41,35 +52,30 @@ class _PatientAddPageState extends State<PatientAddPage> {
               Text('Patient',
                   style: TextStyle(
                       fontFamily: 'Circular',
-                      color: Colors.white,
+                      color: Color(0xfff2e7fe),
+                      fontWeight: FontWeight.w500,
                       fontSize: 25.0))
             ],
           ),
-          SizedBox(height: 26.0),
-          FractionallySizedBox(
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    // height: (MediaQuery.of(context).size.height) * .9,
-                    decoration: BoxDecoration(
-                      color: Color(0xff292929),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Color(0xffbb86fe).withOpacity(0.2),
-                      //     spreadRadius: 3,
-                      //     blurRadius: 4,
-                      //     offset: Offset(0, 3),
-                      //   ),
-                      // ],
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.0),
-                          topRight: Radius.circular(20.0)),
-                    ),
-                  ),
-                  Cards()
-                ],
-          ))
+          SizedBox(height: 30.0),
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                 height: (MediaQuery.of(context).size.height) * .8,
+                decoration: BoxDecoration(
+                  color: Color(0xff292929),
+
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0)),
+                ),
+              ),
+              Container(
+                  height: (MediaQuery.of(context).size.height)*.8,
+                  child: Cards())
+            ],
+          )
         ],
       ),
     );

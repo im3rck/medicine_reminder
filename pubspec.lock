@@ -106,6 +106,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  curved_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: curved_navigation_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.4"
+  fab_circular_menu:
+    dependency: "direct main"
+    description:
+      name: fab_circular_menu
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -237,6 +251,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0+1"
+  flutter_neumorphic:
+    dependency: "direct main"
+    description:
+      name: flutter_neumorphic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.3"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -595,6 +616,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_countdown_clock:
+    dependency: "direct main"
+    description:
+      name: slide_countdown_clock
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   source_span:
     dependency: transitive
     description:
@@ -707,6 +735,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.3"
+  weekday_selector:
+    dependency: "direct main"
+    description:
+      name: weekday_selector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   win32:
     dependency: transitive
     description:

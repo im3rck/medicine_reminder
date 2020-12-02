@@ -1,15 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
-import 'package:medicine_reminder/PatientList/configuration.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
-import 'package:medicine_reminder/PatientList/FullPatientDetails.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -172,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FullPatientDetails()));
+                                              BottomNavBar()));
                                 }
                               },
                               child: Container(

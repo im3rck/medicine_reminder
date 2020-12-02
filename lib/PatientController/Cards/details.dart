@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Cards.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -137,47 +137,60 @@ class _Details extends State<Details> {
                         Column(
                           children: [
                             Container(
-                                child: Center(
                               child: GestureDetector(
                                 onTap: () {
                                   yOffset = 0;
                                   _showPicker(context);
                                 },
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(25.0),
                                   child: _image != null
                                       ? ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: Image.file(
-                                            File(_image.path),
-                                            width: 100,
-                                            height: 100,
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        )
+                                    borderRadius:
+                                    BorderRadius.circular(25),
+                                    child: Image.file(
+                                      File(_image.path),
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  )
                                       : Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          width: 100,
-                                          height: 100,
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            color: Colors.grey[800],
-                                          ),
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff121212),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(25),
+                                      ),
+                                      border: Border.all(
+                                          color: Color(0xffBB86FC),
+                                          width: 1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xffbb86fe)
+                                              .withOpacity(0.2),
+                                          spreadRadius: 3,
+                                          blurRadius: 4,
+                                          offset: Offset(5.0, 5.0),
                                         ),
+                                      ],
+                                    ),
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Color(0xfff2e7fe),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            )),
+                            ),
                             SizedBox(
                               height: 24,
                             ),
                             Container(
                               width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
+                                keyboardType: TextInputType.name,
                                 onTap: () {
                                   yOffset = -210;
                                 },
@@ -218,13 +231,12 @@ class _Details extends State<Details> {
                               height: 16,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              // width: (MediaQuery.of(context).size.width) * .9,
-                              // width: (MediaQuery.of(context).size.width) * .9,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 250,
+                                  width: (MediaQuery.of(context).size.width)*.5,
                                   child: TextField(
+                                    keyboardType: TextInputType.number,
                                     onTap: () {
                                       yOffset = -210;
                                     },
@@ -262,7 +274,8 @@ class _Details extends State<Details> {
                                   ),
                                 ),
                                 Container(
-                                  height: 63,
+                                  height: (MediaQuery.of(context).size.height)*.08,
+
                                   child: DropdownButton(
                                     hint: Text("Gender",
                                         style: TextStyle(
@@ -302,6 +315,7 @@ class _Details extends State<Details> {
                             Container(
                               width: (MediaQuery.of(context).size.width) * .9,
                               child: TextField(
+                                keyboardType: TextInputType.phone,
                                 onTap: () {
                                   yOffset = -210;
                                 },
@@ -444,7 +458,7 @@ class _Details extends State<Details> {
             _popupCard(context);
           },
           child: Container(
-              height: 185.0,
+              height: (MediaQuery.of(context).size.height) * .25,
               width: MediaQuery.of(context).size.width,
               child: customCard(Icons.person, "Details", "Patient Bio")),
         ),

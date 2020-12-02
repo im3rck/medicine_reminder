@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'configuration.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -36,7 +36,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
       case 0:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-        // _scan();
+        break;// _scan();
+      case  1:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MedicineReminder()));
+        break;
     }
   }
 
@@ -96,7 +100,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                             children: [
                               Icon(
                                 element['icon'],
-                                color: Colors.white,
+                                color: Color(0xffbb86fe),
                                 size: 30,
                               ),
                               SizedBox(
@@ -104,7 +108,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               ),
                               Text(element['title'],
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Color(0xfff2e7fe),
                                       fontFamily: 'Circular',
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20))
@@ -144,7 +148,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       Text(
                         'Log out',
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xfff2e7fe),
                             fontFamily: 'Circular',
                             fontWeight: FontWeight.bold,
                             fontSize: 28),
