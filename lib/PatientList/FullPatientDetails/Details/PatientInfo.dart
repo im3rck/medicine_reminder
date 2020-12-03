@@ -117,6 +117,7 @@ class _PatientInfoState extends State<PatientInfo>
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Card(
+                              //Image
                               elevation: 20.0,
                               child: Container(
                                 height:

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
-import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         duration: Duration(milliseconds: 250),
         // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
-          color: (isDrawerOpen ? Colors.white60 : Color(0xFF121212)),
+          color: (isDrawerOpen ? Colors.grey[850] : Color(0xFF121212)),
           borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
           border: Border.all(
             color: (isDrawerOpen ? Color(0xffBB86FC) : Color(0xFF292929)),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: (isDrawerOpen
-                                  ? Color(0xff292929)
+                                  ? Color(0xffbb86fe)
                                   : Color(0xFFbb86fe)),
                             ),
                             onPressed: () {
@@ -95,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         textAlign: TextAlign.center,
                         style: new TextStyle(
                             color: (isDrawerOpen
-                                ? Color(0xff292929)
-                                : Colors.white),
+                                ? Color(0xfff2e7fe).withOpacity(0.6)
+                                : Color(0xfff2e7fe)),
                             fontFamily: 'Circular',
                             fontWeight: FontWeight.bold,
                             fontSize: 25.0),
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       'Search my list',
                       style: new TextStyle(
-                          color: Color(0xffffffff),
+                          color: Color(0xfff2e7fe),
                           fontFamily: 'Circular',
                           fontWeight: FontWeight.bold,
                           fontSize: 15.0),
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             // margin: EdgeInsets.only(top: 10),
                                           ),
-                                          Align(
+                                         Align(
                                             child: Hero(
                                                 tag: element['index'],
                                                 child: Image.asset(

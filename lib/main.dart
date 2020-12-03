@@ -64,7 +64,6 @@ import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDeta
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
-import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -90,7 +89,7 @@ class MyApp extends StatelessWidget {
         FutureProvider(create: (context) => locatorService.getLocation()),
         FutureProvider(create: (context) {
           ImageConfiguration configuration = createLocalImageConfiguration(context);
-          return BitmapDescriptor.fromAssetImage(configuration, 'assets/images/parking-icon.png');
+          return BitmapDescriptor.fromAssetImage(configuration, 'assets/images/maps.png');
         }),
         ProxyProvider2<Position,BitmapDescriptor,Future<List<Place>>>(
           update: (context,position,icon,places){
