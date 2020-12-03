@@ -50,10 +50,16 @@
 // }
 
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
+
+
 import 'package:medicine_reminder/FrontOnboarding/FrontMainOnboarding.dart';
 
 import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
@@ -62,14 +68,14 @@ import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
-
+import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
 
-// void main() => runApp(StoreLocator());
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -100,7 +106,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage()
+        home: ImageCapture(
+          newFile: (File imageFile){
+              ImageService _instanceImageService = ImageService.MedicineImage(imageFile,"Panadol650");
+          }
+      ),
       ),
     );
   }

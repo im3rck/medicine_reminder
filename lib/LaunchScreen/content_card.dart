@@ -4,7 +4,6 @@ import 'package:flare_flutter/flare_actor.dart';
 
 import 'package:flutter/scheduler.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
-import 'package:medicine_reminder/HomePage.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/PatientScreen/demo.dart';
 

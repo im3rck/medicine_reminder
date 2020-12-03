@@ -1,34 +1,79 @@
 {
   "project_info": {
-    "project_number": "1084094588375",
-    "firebase_url": "https://medreminder-dd91d.firebaseio.com",
-    "project_id": "medreminder-dd91d",
-    "storage_bucket": "medreminder-dd91d.appspot.com"
+    "project_number": "145485577103",
+    "firebase_url": "https://medicine-reminder-406a5.firebaseio.com",
+    "project_id": "medicine-reminder-406a5",
+    "storage_bucket": "medicine-reminder-406a5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1084094588375:android:05a77059d3b87de40e1792",
+        "mobilesdk_app_id": "1:145485577103:android:43d316f25d7a76728469fa",
         "android_client_info": {
           "package_name": "com.example.medicine_reminder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1084094588375-8r8ihhailoscn7dg21sm6at1cv18lk0b.apps.googleusercontent.com",
+          "client_id": "145485577103-7p6vo3vle6n0k1tirmqi0u7i4tq0lc23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicine_reminder",
+            "certificate_hash": "2cfe0c7b225ad5a07b52723b920df9123ef5a861"
+          }
+        },
+        {
+          "client_id": "145485577103-ctpleisodmg4g58h0675l473137daiam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicine_reminder",
+            "certificate_hash": "b628f648585e2894a0d97cac8ba9f7e3d1ce10f2"
+          }
+        },
+        {
+          "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDHM1AzLdB4SuXGPKp9HgJOgNynAU38ds"
+          "current_key": "AIzaSyCVWZSnQfXgrjYFeLDxtpythacQenE481o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1084094588375-8r8ihhailoscn7dg21sm6at1cv18lk0b.apps.googleusercontent.com",
+              "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145485577103:android:1b62d03e2d0feab48469fa",
+        "android_client_info": {
+          "package_name": "com.karthik.backendTestingProject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVWZSnQfXgrjYFeLDxtpythacQenE481o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145485577103-pf32064en79cmf0na46gg2n0lble4cvq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
