@@ -77,6 +77,7 @@ import 'package:provider/provider.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
 import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
+import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

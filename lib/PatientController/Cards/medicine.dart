@@ -5,7 +5,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
 import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
-
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
@@ -229,7 +231,8 @@ class _Details extends State<Medicines> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  width:
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
@@ -241,7 +244,8 @@ class _Details extends State<Medicines> {
                                         labelText: _check(),
                                         labelStyle: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          color: Color(0xfff2e7fe)
+                                              .withOpacity(0.6),
                                           height: 2,
                                         ),
                                         filled: true,
@@ -249,18 +253,19 @@ class _Details extends State<Medicines> {
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 0),
                                         enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
                                         ),
                                         border: UnderlineInputBorder()),
                                   ),
                                 ),
                                 Container(
-                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  width:
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
@@ -272,7 +277,8 @@ class _Details extends State<Medicines> {
                                         labelText: 'Initial Quantity',
                                         labelStyle: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          color: Color(0xfff2e7fe)
+                                              .withOpacity(0.6),
                                           height: 2,
                                         ),
                                         filled: true,
@@ -280,12 +286,12 @@ class _Details extends State<Medicines> {
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 0),
                                         enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
                                           //  when the TextFormField in focused
                                         ),
                                         border: UnderlineInputBorder()),
@@ -629,6 +635,8 @@ class _Details extends State<Medicines> {
     );
   }
 
+  BorderRadius borderRadius = BorderRadius.circular(12.0);
+
   void _dayInterval() {
     showModalBottomSheet(
       context: context,
@@ -638,7 +646,7 @@ class _Details extends State<Medicines> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
-              height: (MediaQuery.of(context).size.height)*.30,
+              height: (MediaQuery.of(context).size.height) * .5,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffBB86FC), width: 1),
@@ -660,6 +668,195 @@ class _Details extends State<Medicines> {
                   ),
                   SizedBox(height: 25),
                   Expanded(child: SelectedDaysUpdateExample()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          customSetDates(context);
+                        },
+                        child: Card(
+                          elevation: 20.0,
+                          color: Color(0xff292929),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          margin: EdgeInsets.all(7.0),
+                          child: Container(
+                            height: (MediaQuery.of(context).size.height) * .15,
+                            width: (MediaQuery.of(context).size.width) * .25,
+                            decoration: BoxDecoration(
+                              color: Color(0xff121212),
+                              border:
+                                  Border.all(color: Color(0xffbb86fe), width: 1),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff121212).withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Custom",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                                Text(
+                                  "Set Of",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                                Text(
+                                  "Dates",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          rangeOfDates(context);
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          margin: EdgeInsets.all(7.0),
+                          color: Color(0xff292929),
+                          elevation: 20.0,
+                          child: Container(
+                            height: (MediaQuery.of(context).size.height) * .15,
+                            width: (MediaQuery.of(context).size.width) * .25,
+                            decoration: BoxDecoration(
+                              color: Color(0xff121212),
+                              border: Border.all(
+                                  color: Color(0xffbb86fe), width: 1),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff121212).withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Select",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                                Text(
+                                  "Range Of",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                                Text(
+                                  "Dates",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        elevation: 20.0,
+                        color: Color(0xff292929),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        margin: EdgeInsets.all(7.0),
+                        child: Container(
+                          height: (MediaQuery.of(context).size.height) * .15,
+                          width: (MediaQuery.of(context).size.width) * .25,
+                          decoration: BoxDecoration(
+                            color: Color(0xff121212),
+                            border:
+                                Border.all(color: Color(0xffbb86fe), width: 1),
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xff121212).withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 4,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Repeat",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Circular',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffF2E7FE),
+                                ),
+                              ),
+                              Text(
+                                "Till",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Circular',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffF2E7FE),
+                                ),
+                              ),
+                              Text(
+                                "Cancelled",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Circular',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xffF2E7FE),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
                   Center(
                       child: Container(
                           padding: EdgeInsets.only(bottom: 10),
@@ -678,10 +875,146 @@ class _Details extends State<Medicines> {
                                 color: Color(0xffF2E7FE),
                               ),
                             ),
-                          )))
+                          ))),
                 ],
               ),
             );
+          },
+        );
+      },
+    );
+  }
+  void customSetDates(context){
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter myState) {
+            return Container(
+                height: (MediaQuery.of(context).size.height) * .5,
+                padding: EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffBB86FC), width: 1),
+                  color: Color(0xff121212),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Container(
+                    margin: const EdgeInsets.all(6.0),
+                    padding: const EdgeInsets.all(30.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xff121212),
+                    ),
+                    child: SfDateRangePickerTheme(
+                        data: SfDateRangePickerThemeData(
+                          brightness: Brightness.dark,
+                          backgroundColor: Color(0xff121212),
+                        ),
+                        child: SfDateRangePicker(
+                          backgroundColor: Color(0xff121212),
+                          endRangeSelectionColor: Color(0xfff2e7fe),
+                          rangeSelectionColor: Color(0xfff2e7fe),
+                          view: DateRangePickerView.month,
+                          monthViewSettings: DateRangePickerMonthViewSettings(
+                            firstDayOfWeek: 1,
+                            dayFormat: 'EEE',
+                            enableSwipeSelection: true,
+                          ),
+                          selectionMode: DateRangePickerSelectionMode.multiple,
+                          selectionColor: const Color(0xffbb86fe),
+                          monthCellStyle: DateRangePickerMonthCellStyle(
+                              todayTextStyle: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffF2E7FE),
+                              ),
+                              todayCellDecoration: BoxDecoration(
+                                  color: Color(0xff323232),
+                                  border:
+                                  Border.all(color: const Color(0xffbb86fe), width: 1),
+                                  shape: BoxShape.circle),
+                              weekendTextStyle: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xffF2E7FE),
+                              ),),
+                        ))));
+          },
+        );
+      },
+    );
+  }
+
+  void rangeOfDates(context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter myState) {
+            return Container(
+                height: (MediaQuery.of(context).size.height) * .5,
+                padding: EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffBB86FC), width: 1),
+                  color: Color(0xff121212),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Container(
+                    margin: const EdgeInsets.all(6.0),
+                    padding: const EdgeInsets.all(30.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xff121212),
+                    ),
+                    child: SfDateRangePickerTheme(
+                        data: SfDateRangePickerThemeData(
+                          brightness: Brightness.dark,
+                          backgroundColor: Color(0xff121212),
+                        ),
+                        child: SfDateRangePicker(
+                          view: DateRangePickerView.month,
+                          monthViewSettings: DateRangePickerMonthViewSettings(
+                            firstDayOfWeek: 1,
+                            dayFormat: 'EEE',
+                            enableSwipeSelection: true,
+                          ),
+                          rangeTextStyle: TextStyle(color: Color(0xfff2e7fe)),
+                          backgroundColor: Color(0xff121212),
+                          selectionMode: DateRangePickerSelectionMode.range,
+                          endRangeSelectionColor: const Color(0xffbb86fe),
+                          rangeSelectionColor:
+                              const Color(0xffbb86fe).withOpacity(0.1),
+                          startRangeSelectionColor: const Color(0xffbb86fe),
+                          monthCellStyle: DateRangePickerMonthCellStyle(
+                              todayTextStyle: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffF2E7FE),
+                              ),
+                              leadingDatesTextStyle:
+                                  TextStyle(color: Color(0xfff2e7fe)),
+                              trailingDatesTextStyle:
+                                  TextStyle(color: Color(0xfff2e7fe)),
+                              todayCellDecoration: BoxDecoration(
+                                  color: Color(0xff323232),
+                                  border: Border.all(
+                                      color: const Color(0xffbb86fe), width: 1),
+                                  shape: BoxShape.circle),
+                              weekendTextStyle:
+                              TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xffF2E7FE),
+                              ),),
+                        ))));
           },
         );
       },
@@ -791,41 +1124,41 @@ class _Details extends State<Medicines> {
                                       borderRadius: BorderRadius.circular(25.0),
                                       child: _image != null
                                           ? ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                        child: Image.file(
-                                          File(_image.path),
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      )
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              child: Image.file(
+                                                File(_image.path),
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            )
                                           : Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xff121212),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(25),
-                                          ),
-                                          border: Border.all(
-                                              color: Color(0xffBB86FC),
-                                              width: 1),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xffbb86fe)
-                                                  .withOpacity(0.2),
-                                              spreadRadius: 3,
-                                              blurRadius: 4,
-                                              offset: Offset(5.0, 5.0),
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xff121212),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(25),
+                                                ),
+                                                border: Border.all(
+                                                    color: Color(0xffBB86FC),
+                                                    width: 1),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0xffbb86fe)
+                                                        .withOpacity(0.2),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 4,
+                                                    offset: Offset(5.0, 5.0),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.camera_alt,
+                                                color: Color(0xfff2e7fe),
+                                              ),
                                             ),
-                                          ],
-                                        ),
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Color(0xfff2e7fe),
-                                        ),
-                                      ),
                                     ),
                                   ),
                                 ),
@@ -874,7 +1207,8 @@ class _Details extends State<Medicines> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  width:
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     onSubmitted: (value) {
                                       yOffset = 0;
@@ -885,7 +1219,8 @@ class _Details extends State<Medicines> {
                                         labelText: _check(),
                                         labelStyle: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          color: Color(0xfff2e7fe)
+                                              .withOpacity(0.6),
                                           height: 2,
                                         ),
                                         filled: true,
@@ -893,18 +1228,19 @@ class _Details extends State<Medicines> {
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 0),
                                         enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Color(0xfff2e7fe)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Color(0xffBB86fc)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
                                         ),
                                         border: UnderlineInputBorder()),
                                   ),
                                 ),
                                 Container(
-                                  width: (MediaQuery.of(context).size.width)*.4,
+                                  width:
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     onSubmitted: (value) {
                                       yOffset = 0;
@@ -915,7 +1251,8 @@ class _Details extends State<Medicines> {
                                         labelText: 'Initial Quantity',
                                         labelStyle: TextStyle(
                                           fontSize: 14,
-                                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                                          color: Color(0xfff2e7fe)
+                                              .withOpacity(0.6),
                                           height: 2,
                                         ),
                                         filled: true,
@@ -923,12 +1260,12 @@ class _Details extends State<Medicines> {
                                         contentPadding: EdgeInsets.symmetric(
                                             horizontal: 16, vertical: 0),
                                         enabledBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xfff2e7fe)),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
-                                          borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
+                                          borderSide: BorderSide(
+                                              color: Color(0xffBB86fc)),
                                           //  when the TextFormField in focused
                                         ),
                                         border: UnderlineInputBorder()),
@@ -946,24 +1283,27 @@ class _Details extends State<Medicines> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(child: Row(
-                                  children: [
-                                    Center(
-                                      child: Container(
-                                          height:
-                                          (MediaQuery.of(context).size.height) *
-                                              .25,
-                                          width:
-                                          (MediaQuery.of(context).size.width) *
-                                              .85,
-                                          child: customCard(
-                                            Icons.calendar_today,
-                                            "Schedule",
-                                            "Days & Range",
-                                          )),
-                                    ),
-                                  ],
-                                ),
+                                InkWell(
+                                  child: Row(
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                            height: (MediaQuery.of(context)
+                                                    .size
+                                                    .height) *
+                                                .25,
+                                            width: (MediaQuery.of(context)
+                                                    .size
+                                                    .width) *
+                                                .85,
+                                            child: customCard(
+                                              Icons.calendar_today,
+                                              "Schedule",
+                                              "Days & Range",
+                                            )),
+                                      ),
+                                    ],
+                                  ),
                                   onTap: () {
                                     _dayInterval();
                                   },
