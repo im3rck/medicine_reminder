@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage(),
+        home: BottomNavBar("944368282"),
       //   ImageCapture(
       //     newFile: (File imageFile){
       //         ImageService _instanceImageService = ImageService.MedicineImage(imageFile,"Panadol650");

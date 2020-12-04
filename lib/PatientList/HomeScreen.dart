@@ -23,33 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isDrawerOpen = false;
   query()  {
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
-
-    var options = SetOptions(merge:true);
-
-    //create a new document
-
-    //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
-    // _newDb
-    //     .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
-    //     .add({
-    //   'patientToken': '1234567890',
-    //   'patientName': 'Dakini',
-    //   'age':'12',
-    //   'gender':'female',
-    //   'contactNo':'944368282',
-    //   'relationship' : 'Ammooma'
-    // }) ;
-    // .doc('tokenValue')
-
-    //     .set({
-    //   'patientToken': '1234567890',
-    //   'patientName': 'Dakini',
-    //   'age':'12',
-    //   'gender':'female',
-    //   'contactNo':'944368282',
-    //   'relationship' : 'Ammooma'
-    // },options);
-
     _newDb
         .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
         .get()
@@ -69,13 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Hello: $c");
     }) });
 
-    // .snapshots()
-    // .map((snapshot) => snapshot.docs
-    // .map((doc) => PPD.fromJson(doc.data()))
-    // .toList());
-    // var b = a.toList();
-
-  return 1;
+  return c;
   }
   @override
   Widget build(BuildContext context) {
@@ -209,8 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Column(
                   mainAxisSize: MainAxisSize.max,
-                  children: query()==1 ?
-                  c.map((element) =>
+                  children: query().map<Widget>((element) =>
                       Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: GestureDetector(
@@ -227,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              BottomNavBar()));
+                                              BottomNavBar(element['contactNo'])));
                                 }
                               },
                               child: Container(
@@ -364,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ))
-                      .toList(): [Padding(),Padding()] ),
+                      .toList()),
 
               // Container(
               //   //color: Color(0xff292929),

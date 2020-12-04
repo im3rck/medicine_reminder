@@ -5,17 +5,26 @@ import 'package:medicine_reminder/PatientList/FullPatientDetails/Lists/MedicineL
 import 'package:medicine_reminder/PatientList/FullPatientDetails/AddMedicine/AddMedicine.dart';
 
 class BottomNavBar extends StatefulWidget {
+  BottomNavBar(this.pno);
+  String pno;
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  _BottomNavBarState createState() => _BottomNavBarState(pno);
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  _BottomNavBarState(this.pno);
+  String pno;
   int _page = 0;
-  final List<Widget> _children = [
-    PatientInfo(),
-    MedicineList(),
-    AddMedicine(),
-  ];
+  @override
+  void initState() {
+    _children = [
+      PatientInfo(pno),
+      MedicineList(),
+      AddMedicine(),
+    ];
+    super.initState();
+  }
+  List<Widget> _children =[];
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override

@@ -1,11 +1,16 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
 
 class PatientInfo extends StatefulWidget {
+  PatientInfo(this.pno);
+  String pno;
   @override
   _PatientInfoState createState() => _PatientInfoState();
 }
@@ -14,6 +19,47 @@ final ImagePicker _picker = ImagePicker();
 
 class _PatientInfoState extends State<PatientInfo>
     with SingleTickerProviderStateMixin {
+  Map c = {
+    'patientToken': null,
+    'patientName': null,
+    'age': null,
+    'gender': null,
+    'contactNo': null,
+    'relationship': null,
+  };
+  String imageUrl = null;
+  fetchImageUrl(String targetPath) async {
+    var storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
+
+    String tempURL = await storage.ref(targetPath).getDownloadURL();
+      setState(() {
+        imageUrl = tempURL;
+      });
+  }
+  dataFetch()  async {
+    print("Help");
+    FirebaseFirestore _newDb = FirebaseFirestore.instance;
+    await _newDb
+        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+      querySnapshot.docs.forEach((doc) {
+        if(doc['contactNo']==widget.pno) {
+          print(doc['patientName']);
+          setState(() {
+            c = {
+              'patientToken': doc['patientToken'],
+              'patientName': doc['patientName'],
+              'age': doc['age'],
+              'gender': doc['gender'],
+              'contactNo': doc['contactNo'],
+              'relationship': doc['relationship'],
+            };
+          });
+        }
+      print(c); }) });
+
+  }
   AnimationController animationController;
   Animation degOneTranslationAnimation,
       degTwoTranslationAnimation,
@@ -45,6 +91,7 @@ class _PatientInfoState extends State<PatientInfo>
   }
   @override
   void initState() {
+    dataFetch();
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 250));
     degOneTranslationAnimation = TweenSequence([
@@ -125,6 +172,7 @@ class _PatientInfoState extends State<PatientInfo>
                                 width:
                                     (MediaQuery.of(context).size.width) * .35,
                                 color: Color(0xff323232),
+                                child: imageUrl==null? Image.asset('assets/images/usertrans.png'): Image.network(imageUrl),
                               ),
                             ),
                             // SizedBox(
@@ -191,8 +239,17 @@ class _PatientInfoState extends State<PatientInfo>
                                             color: Color(0xffbb86fe),
                                           ),
                                           onClick: () {
-                                            _showPicker(context);
-                                            print('Second button');
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                              ImageCapture(
+                                                newFile: (File imageFile){
+                                                    ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
+                                                    fetchImageUrl('PatientImages/${c['contactNo']}');
+                                                }
+                                            )
+                                            ));
 
                                           },
                                         ),
@@ -274,7 +331,7 @@ class _PatientInfoState extends State<PatientInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.11,),
-                          Text("Mr.Kutty",
+                          Text(c['patientName']==null? "": c['patientName'],
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -298,7 +355,7 @@ class _PatientInfoState extends State<PatientInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.16,),
-                          Text("60",
+                          Text(c['age']==null? "": c['age'] ,
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -323,7 +380,7 @@ class _PatientInfoState extends State<PatientInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("8134678932",
+                          Text(c['contactNo']==null? "": c['contactNo'],
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -347,7 +404,7 @@ class _PatientInfoState extends State<PatientInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("Father",
+                          Text(c['relationship']==null? "" : c['relationship'],
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
