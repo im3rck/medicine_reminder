@@ -17,33 +17,38 @@ class _HomeScreenState extends State<HomeScreen> {
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
-  var b;
-  List c = [];
-
+  // var b;
+  // List c = [];
+  // int ab = 0;
   bool isDrawerOpen = false;
-  query()  {
-    FirebaseFirestore _newDb = FirebaseFirestore.instance;
-    _newDb
-        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
-        .get()
-        .then((QuerySnapshot querySnapshot) => {
-    querySnapshot.docs.forEach((doc) {
-    print(doc['patientName']);
-    Map a = {
-      'patientToken': doc['patientToken'],
-      'patientName': doc['patientName'],
-      'age':doc['age'],
-      'gender':doc['gender'],
-      'contactNo':doc['contactNo'],
-      'relationship' : doc['relationship'],
-      'index' : 123
-    };
-    c.add(a);
-    print("Hello: $c");
-    }) });
-
-  return c;
-  }
+  // query()  {
+  //   FirebaseFirestore _newDb = FirebaseFirestore.instance;
+  //   _newDb
+  //       .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) => {
+  //   querySnapshot.docs.forEach((doc) {
+  //   if(doc['contactNo']=="944368282") {
+  //     ab = ab +1;
+  //     print(doc['patientName']);
+  //     print(doc['patientName']);
+  //     Map a = {
+  //       'patientToken': doc['patientToken'],
+  //       'patientName': doc['patientName'],
+  //       'age': doc['age'],
+  //       'gender': doc['gender'],
+  //       'contactNo': doc['contactNo'],
+  //       'relationship': doc['relationship'],
+  //       'index': doc['index']
+  //     };
+  //
+  //     c.add(a);
+  //     print(ab);
+  //     print(c);
+  //   }}) });
+  //
+  // return c;
+  // }
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -138,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 decoration: BoxDecoration(
-                  color: (isDrawerOpen ? Colors.grey : Color(0xFF292929)),
+                  color: (isDrawerOpen ? Colors.grey[800] : Color(0xFF292929)),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                       color: (isDrawerOpen
@@ -176,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Column(
                   mainAxisSize: MainAxisSize.max,
-                  children: query().map<Widget>((element) =>
+                  children: patientData.map<Widget>((element) =>
                       Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: GestureDetector(
@@ -220,20 +225,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: Hero(
                                                 tag: element['index'],
                                                 child: Image.asset(
-                                                    'assets/images/cat.png')),
+                                                    'assets/images/usertrans.png')),
                                           )
                                         ],
                                       ),
                                     ),
                                     Flexible(
                                         child: Container(
+
                                       child: Column(
                                         children: [
                                           Container(
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
                                             child: AutoSizeText(
-                                              element['patientName'],
+                                              element['name'],
                                               maxLines: 1,
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
@@ -299,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 10, 10, 20, 10),
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              element['relationship'],
+                                              element['rel'],
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',
@@ -312,8 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       margin:
                                           EdgeInsets.only(top: 20, bottom: 20),
                                       decoration: BoxDecoration(
-                                        color: Color(0xffffffffff)
-                                            .withOpacity(0.6),
+                                        color: Colors.grey[800],
                                         // boxShadow: shadowList,
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(20),

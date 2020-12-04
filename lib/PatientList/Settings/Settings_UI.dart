@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff292929),
       appBar: AppBar(
         backgroundColor: Color(0xff121212),
         elevation: 1,
@@ -26,12 +28,16 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               "Settings",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
+              style: TextStyle(
+                fontSize: 25,
+                color: Color(0xffbb86fe),
+                fontWeight: FontWeight.bold,
+              ),),
             SizedBox(
               height: 40,
             ),
@@ -39,20 +45,24 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Icon(
                   Icons.person,
-                  color: Colors.green,
+                  color: Color(0xffbb86fe),
                 ),
                 SizedBox(
                   width: 8,
                 ),
                 Text(
                   "Account",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xfff2e7fe),
+                    fontWeight: FontWeight.w600,
+                  ),),
               ],
             ),
             Divider(
               height: 15,
               thickness: 2,
+              color: Color(0xffbb86fe),
             ),
             SizedBox(
               height: 10,
@@ -64,25 +74,6 @@ class _SettingsPageState extends State<SettingsPage> {
             buildAccountOptionRow(context, "Privacy and security"),
             SizedBox(
               height: 20,
-            ),
-            Row(
-              children: [
-                Icon(
-                  Icons.volume_up_outlined,
-                  color: Colors.green,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  "Notifications",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Divider(
-              height: 15,
-              thickness: 2,
             ),
             SizedBox(
               height: 10,
@@ -108,9 +99,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: EdgeInsets.only(top: (MediaQuery.of(context).size.height)*.03, bottom: (MediaQuery.of(context).size.height)*.03,left: (MediaQuery.of(context).size.width)*.1,right: (MediaQuery.of(context).size.width)*.1),
                   pressed: true,
 
-                  onPressed: (){
-                    //openLoginPage();
-                  },
+                  onPressed: () async{
+                      await FirebaseAuth.instance.signOut();
+                    },
                   style: NeumorphicStyle(
                     border: NeumorphicBorder(
                         isEnabled: true,
@@ -126,39 +117,21 @@ class _SettingsPageState extends State<SettingsPage> {
                     "Log Out",
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0xffF2E7FE),
+                      color: Color(0xffbb86fe),
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 20.0),
           ],
         ),
       ),
     );
   }
 
-  Row buildNotificationOptionRow(String title, bool isActive) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[600]),
-        ),
-        Transform.scale(
-            scale: 0.7,
-            child: CupertinoSwitch(
-              value: isActive,
-              onChanged: (bool val) {},
-            ))
-      ],
-    );
-  }
+
 
   GestureDetector buildAccountOptionRow(BuildContext context, String title) {
     return GestureDetector(
@@ -195,13 +168,13 @@ class _SettingsPageState extends State<SettingsPage> {
               title,
               style: TextStyle(
                 fontSize: 18,
+                color: Color(0xffbbf2e7fe),
                 fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
               ),
             ),
             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.grey,
+              color: Color(0xffbb86fe),
             ),
           ],
         ),
