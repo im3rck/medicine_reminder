@@ -5,36 +5,41 @@ import 'package:flutter/widgets.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/details.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //This widget is called first wherever an image is needed to be uploaded
 //must return the file pertaining to the image to be uploaded
 typedef fileChange = File Function(File);
+
 /// Widget to capture and crop the image
 class ImageCapture extends StatefulWidget {
   // fileChange file;
   // ImageCapture(this.file);
   ImageCapture({this.newFile});
+
   final ValueChanged<File> newFile;
   File finalFile;
-  createState() => _ImageCaptureState();
 
+  createState() => _ImageCaptureState();
 }
 
 class _ImageCaptureState extends State<ImageCapture> {
   /// Active image file
   File _imageFile;
   File testfile;
+
   /// Cropper plugin
   Future<void> _cropImage() async {
     File cropped = await ImageCropper.cropImage(
-        sourcePath: _imageFile.path,
-        // ratioX: 1.0,
-        // ratioY: 1.0,
-        // maxWidth: 512,
-        // maxHeight: 512,
-        // toolbarColor: Colors.purple,
-        // toolbarWidgetColor: Colors.white,
-        // toolbarTitle: 'Crop It'
+      sourcePath: _imageFile.path,
+      // ratioX: 1.0,
+      // ratioY: 1.0,
+      // maxWidth: 512,
+      // maxHeight: 512,
+      toolbarColor: Color(0xff292929),
+      toolbarWidgetColor: Color(0xffbb86fe),
+      toolbarTitle: 'Crop It',
+      statusBarColor: Color(0xff292929),
     );
 
     setState(() {
@@ -48,7 +53,6 @@ class _ImageCaptureState extends State<ImageCapture> {
     var imgPicked = await ImagePicker().getImage(source: source);
     File selected = File(imgPicked.path);
 
-
     setState(() {
       _imageFile = selected;
       widget.finalFile = _imageFile;
@@ -60,9 +64,9 @@ class _ImageCaptureState extends State<ImageCapture> {
     setState(() {
       _imageFile = null;
       widget.finalFile = _imageFile;
-    }
-    );
+    });
   }
+
   // // getImageUrl() async {
   // //   var _storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
   // //   String a  = await _storage.ref('PatientImages/karthikDummy.png').getDownloadURL();
@@ -84,30 +88,44 @@ class _ImageCaptureState extends State<ImageCapture> {
 
   @override
   Widget build(BuildContext context) {
-    newFile: (File F){
+    newFile:
+    (File F) {
       widget.newFile(F);
     };
     return MaterialApp(
-
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Color(0xff121212),
         // Select an image from the camera or gallery
         bottomNavigationBar: BottomAppBar(
-          color: Color(0xffbb86fe),
+          color: Color(0xff292929),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.photo_camera),
-                onPressed: () => _pickImage(ImageSource.camera),
-              ),
-              IconButton(
-                icon: Icon(Icons.photo_library),
+                icon: Icon(
+                  Icons.photo_library,
+                  color: Color(0xffbb86fe),
+                ),
                 onPressed: () => _pickImage(ImageSource.gallery),
               ),
-              IconButton(icon: Icon(Icons.done), onPressed: (){
-              widget.newFile(widget.finalFile);
-              Navigator.pop(context);
-              }),
+              IconButton(
+                icon: Icon(
+                  Icons.camera_alt,
+                  color: Color(0xffbb86fe),
+                ),
+                onPressed: () => _pickImage(ImageSource.camera),
+              ),
+
+              IconButton(
+                  icon: Icon(
+                    Icons.check,
+                    color: Color(0xffbb86fe),
+                  ),
+                  onPressed: () {
+                    widget.newFile(widget.finalFile);
+                    Navigator.pop(context);
+                  }),
               // IconButton(icon: Icon(Icons.upload_file), onPressed: () {
               //   Navigator.push(
               //       context,
@@ -126,26 +144,64 @@ class _ImageCaptureState extends State<ImageCapture> {
         ),
 
         // Preview the image and crop it
-        body:
-          ListView(
-            children: [
-              Center(
-                child: _imageFile == null ? Container():Image.file(_imageFile) ,
+        body: Column(
+          children: [
+            Expanded(
+              child: Center(
+                child: _imageFile == null
+                    ? Container(
+                        color: Color(0xff121212),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Pick An Image", style: TextStyle(
+                            color: Color(0xfff2e7fe).withOpacity(0.6),
+                            fontFamily: 'Circular',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24)),
+                        Container(
+                          child: FlatButton(
+                            child: Icon(
+                              FontAwesomeIcons.arrowDown,
+                              color: Color(0xffbb86fe).withOpacity(0.5),
+                            ),
+                            onPressed: (){
+
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                      )
+                    : Image.file(_imageFile),
               ),
-              Row(
+            ),
+            Container(
+              color: Color(0xff242424),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-              FlatButton(
-                child: Icon(Icons.crop,color: Color(0xffbb86fe),),
-                onPressed: _cropImage,
+                  FlatButton(
+                    child: Icon(
+                      Icons.crop,
+                      color: Color(0xffbb86fe),
+                    ),
+                    onPressed: _cropImage,
+                  ),
+                  FlatButton(
+                    child: Icon(
+                      Icons.refresh,
+                      color: Color(0xffbb86fe),
+                    ),
+                    onPressed: _clear,
+                  ),
+                ],
               ),
-              FlatButton(
-                child: Icon(Icons.refresh,color: Color(0xffbb86fe),),
-                onPressed: _clear,
-              ),
-            ],
-          ),
-            ],
-          ),
+            ),
+          ],
+        ),
         // ListView(
         //   children: <Widget>[
         //     if (_imageFile != null) ...[
