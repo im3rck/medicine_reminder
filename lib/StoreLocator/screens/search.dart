@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/place.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class Search extends StatelessWidget {
   @override
@@ -174,7 +175,8 @@ class Search extends StatelessWidget {
                             )
                           ],
                         )
-                      : Center(child: SpinKitFadingCircle(color: Color(0xffbb86fe),));
+                      : Center(child:  SpinKitFadingCircle(color: Color(0xffbb86fe),)
+                  );
                 },
               )
             : Center(

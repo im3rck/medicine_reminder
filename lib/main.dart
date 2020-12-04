@@ -75,7 +75,7 @@ import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
-
+import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,11 +106,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: ImageCapture(
-          newFile: (File imageFile){
-              ImageService _instanceImageService = ImageService.MedicineImage(imageFile,"Panadol650");
-          }
-      ),
+        home: PhasePage(),
+      //   ImageCapture(
+      //     newFile: (File imageFile){
+      //         ImageService _instanceImageService = ImageService.MedicineImage(imageFile,"Panadol650");
+      //     }
+      // ),
       ),
     );
   }

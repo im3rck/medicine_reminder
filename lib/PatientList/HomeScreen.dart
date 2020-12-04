@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,9 +17,66 @@ class _HomeScreenState extends State<HomeScreen> {
   double xOffset = 0;
   double yOffset = 0;
   double scaleFactor = 1;
+  var b;
+  List c = [];
 
   bool isDrawerOpen = false;
+  query()  {
+    FirebaseFirestore _newDb = FirebaseFirestore.instance;
 
+    var options = SetOptions(merge:true);
+
+    //create a new document
+
+    //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
+    // _newDb
+    //     .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+    //     .add({
+    //   'patientToken': '1234567890',
+    //   'patientName': 'Dakini',
+    //   'age':'12',
+    //   'gender':'female',
+    //   'contactNo':'944368282',
+    //   'relationship' : 'Ammooma'
+    // }) ;
+    // .doc('tokenValue')
+
+    //     .set({
+    //   'patientToken': '1234567890',
+    //   'patientName': 'Dakini',
+    //   'age':'12',
+    //   'gender':'female',
+    //   'contactNo':'944368282',
+    //   'relationship' : 'Ammooma'
+    // },options);
+
+    _newDb
+        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+    querySnapshot.docs.forEach((doc) {
+    print(doc['patientName']);
+    Map a = {
+      'patientToken': doc['patientToken'],
+      'patientName': doc['patientName'],
+      'age':doc['age'],
+      'gender':doc['gender'],
+      'contactNo':doc['contactNo'],
+      'relationship' : doc['relationship'],
+      'index' : 123
+    };
+    c.add(a);
+    print("Hello: $c");
+    }) });
+
+    // .snapshots()
+    // .map((snapshot) => snapshot.docs
+    // .map((doc) => PPD.fromJson(doc.data()))
+    // .toList());
+    // var b = a.toList();
+
+  return 1;
+  }
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -152,8 +209,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Column(
                   mainAxisSize: MainAxisSize.max,
-                  children: patientData
-                      .map((element) => Padding(
+                  children: query()==1 ?
+                  c.map((element) =>
+                      Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: GestureDetector(
                               onTap: () {
@@ -209,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
                                             child: AutoSizeText(
-                                              element['name'],
+                                              element['patientName'],
                                               maxLines: 1,
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
@@ -275,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 10, 10, 20, 10),
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              element['rel'],
+                                              element['relationship'],
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',
@@ -306,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ))
-                      .toList()),
+                      .toList(): [Padding(),Padding()] ),
 
               // Container(
               //   //color: Color(0xff292929),
