@@ -2,14 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/CareGiverDetails.dart';
 import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/PatientPrimaryDetails.dart';
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/MedicineDescription.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreServices{
-
+  SM newSchedule;
   FirebaseFirestore _db = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser;
   String currentUserId;
   PPD newPatient;
   CGD newCaregiver;
+  String ImgUrl;
 
   FirestoreServices.patient(PPD patient){
     this.newPatient = patient;
@@ -27,7 +31,63 @@ class FirestoreServices{
 
   //Create CareGiver Profile :
 
+  FirestoreServices.dateSchedule(SM schedule){
+   int quantity = 0;
+   _db
+       .collection('users/${currentUserId}/Medicines')
+       .doc('${MedicineDescription.getId(schedule.medName)}')
+       .get()
+       .then((DocumentSnapshot documentSnapshot) {
+     if (documentSnapshot.exists) {
+          quantity=0;
+     } else {
+         var temp = documentSnapshot.data();
+         quantity = temp['remainingQuantity'];
+     }
+   });
+    FetchImage('MedicineImages/${MedicineDescription.getId(schedule.medName)}');
+    newSchedule= SM (schedule.medName,schedule.imageUrl,quantity,schedule.time,schedule.dosage,schedule.date);
+  }
+  // FirestoreServices.getSchedule(){
+  //   int quantity = 0;
+  //   _db
+  //       .collection('users/${currentUserId}/Medicines')
+  //       .doc('${MedicineDescription.getId(schedule.medName)}')
+  //       .get()
+  //       .then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       quantity=0;
+  //     } else {
+  //       var temp = documentSnapshot.data();
+  //       quantity = temp['remainingQuantity'];
+  //     }
+  //   });
+  //   FetchImage('MedicineImages/${MedicineDescription.getId(schedule.medName)}');
+  //   newSchedule= SM (schedule.medName,schedule.imageUrl,quantity,schedule.time,schedule.dosage,schedule.date);
+  // }
 
+  FetchImage(String ImagePath)  async{
+    var storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
+    ImgUrl = await storage.ref(ImagePath).getDownloadURL();
+
+  }
+  FirestoreServices.daySchedule(SM schedule){
+    int quantity = 0;
+    _db
+        .collection('users/${currentUserId}/Medicines')
+        .doc('${MedicineDescription.getId(schedule.medName)}')
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        quantity=0;
+      } else {
+        var temp = documentSnapshot.data();
+        quantity = temp['remainingQuantity'];
+      }
+    });
+    FetchImage('MedicineImages/${MedicineDescription.getId(schedule.medName)}');
+
+  }
   createCaregiverProfile(){
     var options = SetOptions(merge:true);
 
