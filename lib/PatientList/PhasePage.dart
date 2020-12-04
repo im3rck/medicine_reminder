@@ -10,8 +10,10 @@ class PhasePage extends StatefulWidget {
 }
 
 class _PhasePageState extends State<PhasePage> {
+  //List<Map> patientData = [];
   initState() {
     query();
+    super.initState();
   }
   query() {
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
@@ -23,24 +25,24 @@ class _PhasePageState extends State<PhasePage> {
       querySnapshot.docs.forEach((doc) {
         Map a = {
           'patientToken': doc['patientToken'],
-          'patientName': doc['patientName'],
+          'name': doc['patientName'],
           'age': doc['age'],
           'gender': doc['gender'],
           'contactNo': doc['contactNo'],
-          'relationship': doc['relationship'],
+          'rel': doc['relationship'],
           'index': doc['index']
         };
-        //print(a);
         patientData.add(a);
-        print("Test: ${patientData}");
       })});
-    //return patientData;
+    print("THIS IS NOT A TEST: ${patientData}");
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [DrawerScreen(), HomeScreen()],
+        children: [DrawerScreen(),
+         HomeScreen()
+        ],
       ),
     );
   }

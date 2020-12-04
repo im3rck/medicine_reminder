@@ -3,8 +3,12 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PatientAddPage extends StatefulWidget {
+  PatientAddPage(this.token);
+  String token;
   @override
   _PatientAddPageState createState() => _PatientAddPageState();
 }
@@ -73,7 +77,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
               ),
               Container(
                   height: (MediaQuery.of(context).size.height)*.8,
-                  child: Cards())
+                  child: Cards(widget.token))
             ],
           )
         ],

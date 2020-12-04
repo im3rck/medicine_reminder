@@ -222,10 +222,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             // margin: EdgeInsets.only(top: 10),
                                           ),
                                          Align(
-                                            child: Hero(
-                                                tag: element['index'],
-                                                child: Image.asset(
-                                                    'assets/images/usertrans.png')),
+                                            // child: Hero(
+                                            //     tag: element['index'],
+                                            //     child: Image.asset(
+                                            //         'assets/images/usertrans.png')),
                                           )
                                         ],
                                       ),

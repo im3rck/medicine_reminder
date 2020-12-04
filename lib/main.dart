@@ -76,7 +76,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
 import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
-
+import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

@@ -5,33 +5,61 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/PatientPrimaryDetails.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
 
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
 class Details extends StatefulWidget {
+  Details(this.token);
+  String token;
   _Details createState() => _Details();
 }
 
 class _Details extends State<Details> {
+  FirebaseFirestore _db = FirebaseFirestore.instance;
+  User user = FirebaseAuth.instance.currentUser;
   double yOffset = 0;
   TextEditingController fnameController = TextEditingController();
   TextEditingController relController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController = TextEditingController();
-
+  TextEditingController contactController = TextEditingController();
   String _value;
   String valueItem;
 
-  void _setText() {
-    Map map = {
-      'index': patientData.length + 1,
-      'name': fnameController.text,
-      'age': ageController.text,
-      'gender': _value,
-      'rel': relController.text
-    };
-    patientData.add(map);
+  // void _setText() {
+  //   Map map = {
+  //     'index': patientData.length + 1,
+  //     'name': fnameController.text,
+  //     'age': ageController.text,
+  //     'gender': _value,
+  //     'rel': relController.text
+  //   };
+  //   patientData.add(map);
+  // }
+  var rng = new Random();
+  void setData(){
+    String _fcmToken = widget.token;
+    print('Token value : ${_fcmToken}');
+    PPD newPatient = PPD(patientToken : _fcmToken,patientName : fnameController.text,age : ageController.text,
+        gender : _value,relationship : relController.text,contactNo : contactController.text);
+    var options = SetOptions(merge:true);
+
+    var patientDetails = newPatient.toMap();
+    patientDetails['index'] = rng.nextInt(10000);
+    patientData.add(patientDetails);
+    //create a new document
+
+    //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
+    _db
+        .collection('/users/${user.uid}/patients')
+        .doc(newPatient.patientToken)
+        .set(patientDetails,options);
+
   }
 
   _imgFromGallery() async {
@@ -322,7 +350,7 @@ class _Details extends State<Details> {
                                 onSubmitted: (value) {
                                   yOffset = 0;
                                 },
-                                // controller: emailController,
+                                controller: contactController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
                                     labelText: 'Contact',
@@ -397,7 +425,7 @@ class _Details extends State<Details> {
                             ),
                             InkWell(
                               onTap: () {
-                                _setText();
+                                setData();
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },

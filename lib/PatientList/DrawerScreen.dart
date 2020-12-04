@@ -8,6 +8,7 @@ import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'configuration.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
+
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -16,6 +17,12 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   String _fcmToken = null;
 
+  // _scan() async {
+  //   String temp = await scanner.scan();
+  //   setState(() {
+  //     _fcmToken = temp;
+  //   });
+  // }
   _scan() async {
     String temp = await scanner.scan();
     //String temp = await BarcodeScanner.scan();
@@ -26,7 +33,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       print("Valid");
       print(_fcmToken);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PatientAddPage()));
+          context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
     }
@@ -35,9 +42,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PatientAddPage()));
-        break;// _scan();
+         _scan();
+        break;//
       case  1:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MedicineReminder()));

@@ -6,6 +6,8 @@ import 'package:medicine_reminder/PatientController/Cards/medicine.dart';
 import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 
 class Cards extends StatefulWidget {
+  Cards(this.token);
+  String token;
   @override
   _CardsState createState() => _CardsState();
 }
@@ -27,7 +29,7 @@ class _CardsState extends State<Cards> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //SizedBox(height: 14.0),
-            Details(),
+            Details(widget.token),
             Medicines(),
             AddedList(),
            /* Container(
