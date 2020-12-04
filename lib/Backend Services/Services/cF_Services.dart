@@ -60,7 +60,14 @@ class FirestoreServices{
   //Update
 
   //Read
-
+  Stream<List<PPD>> getPatientList(){
+    return _db
+        .collection('entries')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => PPD.fromJson(doc.data()))
+        .toList());
+  }
   //Delete
 
   delete(){
