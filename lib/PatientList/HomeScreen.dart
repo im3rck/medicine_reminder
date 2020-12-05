@@ -17,38 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double xOffset = 230;
   double yOffset = 150;
   double scaleFactor = 0.6;
-  // var b;
-  // List c = [];
-  // int ab = 0;
   bool isDrawerOpen = true;
-  // query()  {
-  //   FirebaseFirestore _newDb = FirebaseFirestore.instance;
-  //   _newDb
-  //       .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
-  //       .get()
-  //       .then((QuerySnapshot querySnapshot) => {
-  //   querySnapshot.docs.forEach((doc) {
-  //   if(doc['contactNo']=="944368282") {
-  //     ab = ab +1;
-  //     print(doc['patientName']);
-  //     print(doc['patientName']);
-  //     Map a = {
-  //       'patientToken': doc['patientToken'],
-  //       'patientName': doc['patientName'],
-  //       'age': doc['age'],
-  //       'gender': doc['gender'],
-  //       'contactNo': doc['contactNo'],
-  //       'relationship': doc['relationship'],
-  //       'index': doc['index']
-  //     };
-  //
-  //     c.add(a);
-  //     print(ab);
-  //     print(c);
-  //   }}) });
-  //
-  // return c;
-  // }
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -202,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               },
                               child: Container(
+
                                 height: 200,
                                 margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
                                 child: Row(
@@ -215,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               border: Border.all(
-                                                  color: Color(0xffBB86FC),
+                                                  color: Color(0xffBB86Fe),
                                                   width: 1),
                                               //  boxShadow: shadowList,
                                             ),
@@ -242,15 +212,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                element['name'],
                                               maxLines: 1,
                                               style: new TextStyle(
-                                                  color: Color(0xff292929),
+                                                  color: Color(0xfff2e7fe),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 30),
+                                                  fontSize: 24),
                                             ),
                                           ),
                                           Divider(
-                                            color: Color(0xff121212),
-                                            thickness: 2.0,
+                                            color: Color(0xffbb86fe),
+                                            thickness: 1.0,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -263,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   (element['age']).toString() +
                                                       " years",
                                                   style: new TextStyle(
-                                                      color: Color(0xff292929),
+                                                      color: Color(0xfff2e7fe),
                                                       fontFamily: 'Circular',
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -307,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: Text(
                                                element['rel'],
                                               style: new TextStyle(
-                                                  color: Color(0xff292929),
+                                                  color: Color(0xfff2e7fe),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20.0),
@@ -318,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       margin:
                                           EdgeInsets.only(top: 20, bottom: 20),
                                       decoration: BoxDecoration(
-                                        color: Colors.grey[800],
+                                        color: Color(0xff292929),
                                         // boxShadow: shadowList,
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(20),
@@ -336,26 +306,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ))
                       .toList()),
-
-              // Container(
-              //   //color: Color(0xff292929),
-              //   /*decoration: BoxDecoration(
-              //
-              //   borderRadius: BorderRadius.only(
-              //       topLeft: Radius.circular(20.0),
-              //       topRight: Radius.circular(20.0)),
-              // ),*/
-              //   height: 600,
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return
-
-              //     },
-              //     itemCount: patientData.length,
-              //   ),
-              // ),
-
               SizedBox(
                 height: 30,
               ),
