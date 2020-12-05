@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
+import 'package:medicine_reminder/PatientList/DrawerScreen.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PatientAddPage extends StatefulWidget {
@@ -14,6 +16,11 @@ class PatientAddPage extends StatefulWidget {
 }
 
 class _PatientAddPageState extends State<PatientAddPage> {
+  @override
+  void initState() {
+    print('HELP!!!!!!!!!!! : ${testData}');
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

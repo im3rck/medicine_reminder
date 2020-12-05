@@ -14,13 +14,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double xOffset = 0;
-  double yOffset = 0;
-  double scaleFactor = 1;
+  double xOffset = 230;
+  double yOffset = 150;
+  double scaleFactor = 0.6;
   // var b;
   // List c = [];
   // int ab = 0;
-  bool isDrawerOpen = false;
+  bool isDrawerOpen = true;
   // query()  {
   //   FirebaseFirestore _newDb = FirebaseFirestore.instance;
   //   _newDb
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Column(
                   mainAxisSize: MainAxisSize.max,
-                  children: patientData.map<Widget>((element) =>
+                  children: testData.map((element) =>
                       Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: GestureDetector(
@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
                                             child: AutoSizeText(
-                                              element['name'],
+                                               element['name'],
                                               maxLines: 1,
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
@@ -305,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 10, 10, 20, 10),
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              element['rel'],
+                                               element['rel'],
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',

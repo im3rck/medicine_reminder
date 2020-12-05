@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/HomeScreen.dart';
 import 'package:medicine_reminder/PatientList/DrawerScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PhasePage extends StatefulWidget {
@@ -11,13 +12,14 @@ class PhasePage extends StatefulWidget {
 
 class _PhasePageState extends State<PhasePage> {
   //List<Map> patientData = [];
-  initState() {
-    query();
+  initState()  {
+     query();
     super.initState();
   }
-  query() {
+  query() async {
+    testData=[];
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
-    _newDb
+    await _newDb
         .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
         .get()
         .then((QuerySnapshot querySnapshot) =>
@@ -32,9 +34,9 @@ class _PhasePageState extends State<PhasePage> {
           'rel': doc['relationship'],
           'index': doc['index']
         };
-        patientData.add(a);
+        testData.add(a);
       })});
-    print("THIS IS NOT A TEST: ${patientData}");
+    print("THIS IS NOT A TEST: ${testData}");
   }
   @override
   Widget build(BuildContext context) {

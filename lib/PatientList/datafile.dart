@@ -1,4 +1,4 @@
-List<Map> patientData = [
+List<Map> testData = [
   // {
   //   'name' : 'Add Patient',
   //   'index': 0,

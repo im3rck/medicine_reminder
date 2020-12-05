@@ -23,6 +23,7 @@ class _Details extends State<Medicines> {
   String _selectedType = '0';
   double yOffset = 0;
   TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
+  bool flag = false;
 
   void _medicineChoice(context) {
     showModalBottomSheet(
@@ -672,7 +673,7 @@ class _Details extends State<Medicines> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           customSetDates(context);
                         },
                         child: Card(
@@ -686,8 +687,8 @@ class _Details extends State<Medicines> {
                             width: (MediaQuery.of(context).size.width) * .25,
                             decoration: BoxDecoration(
                               color: Color(0xff121212),
-                              border:
-                                  Border.all(color: Color(0xffbb86fe), width: 1),
+                              border: Border.all(
+                                  color: Color(0xffbb86fe), width: 1),
                               borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
                                 BoxShadow(
@@ -795,60 +796,70 @@ class _Details extends State<Medicines> {
                           ),
                         ),
                       ),
-                      Card(
-                        elevation: 20.0,
-                        color: Color(0xff292929),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        margin: EdgeInsets.all(7.0),
-                        child: Container(
-                          height: (MediaQuery.of(context).size.height) * .15,
-                          width: (MediaQuery.of(context).size.width) * .25,
-                          decoration: BoxDecoration(
-                            color: Color(0xff121212),
-                            border:
-                                Border.all(color: Color(0xffbb86fe), width: 1),
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xff121212).withOpacity(0.2),
-                                spreadRadius: 3,
-                                blurRadius: 4,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Repeat",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Circular',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffF2E7FE),
+
+                      InkWell(
+                        onTap: (){
+                          setState(() {
+                            flag = !flag;
+                            print(flag);
+
+                          });
+                        },
+                        child: Card(
+                          elevation: 20.0,
+                          color: flag ? Color(0xffbb86fe) : Color(0xff292929),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                          margin: EdgeInsets.all(7.0),
+                          child: Container(
+                            height: (MediaQuery.of(context).size.height) * .15,
+                            width: (MediaQuery.of(context).size.width) * .25,
+                            decoration: BoxDecoration(
+                              color: flag==false? Color(0xff121212): Color(0xffbb86fe),
+                              border:
+                                  Border.all(color: Color(0xffbb86fe), width: 1),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff121212).withOpacity(0.2),
+                                  spreadRadius: 3,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 3),
                                 ),
-                              ),
-                              Text(
-                                "Till",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Circular',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffF2E7FE),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Repeat",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Cancelled",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Circular',
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xffF2E7FE),
+                                Text(
+                                  "Till",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "Cancelled",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Circular',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffF2E7FE),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       )
@@ -884,30 +895,45 @@ class _Details extends State<Medicines> {
       },
     );
   }
-  void customSetDates(context){
+
+  void customSetDates(context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
-                height: (MediaQuery.of(context).size.height) * .5,
+                height: (MediaQuery.of(context).size.height) * .6,
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffBB86FC), width: 1),
                   color: Color(0xff121212),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                child: Container(
-                    margin: const EdgeInsets.all(6.0),
-                    padding: const EdgeInsets.all(30.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Color(0xff121212),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Custom Set of Days",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Circular',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffF2E7FE),
+                        ),
+                      ),
                     ),
-                    child: SfDateRangePickerTheme(
+                    Divider(
+                      color: Color(0xffbb86fe),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    SfDateRangePickerTheme(
                         data: SfDateRangePickerThemeData(
                           brightness: Brightness.dark,
                           backgroundColor: Color(0xff121212),
@@ -925,24 +951,47 @@ class _Details extends State<Medicines> {
                           selectionMode: DateRangePickerSelectionMode.multiple,
                           selectionColor: const Color(0xffbb86fe),
                           monthCellStyle: DateRangePickerMonthCellStyle(
-                              todayTextStyle: TextStyle(
+                            todayTextStyle: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),
+                            todayCellDecoration: BoxDecoration(
+                                color: Color(0xff323232),
+                                border: Border.all(
+                                    color: const Color(0xffbb86fe), width: 1),
+                                shape: BoxShape.circle),
+                            weekendTextStyle: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffF2E7FE),
+                            ),
+                          ),
+                        )),
+                    Center(
+                      child: Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            backgroundColor: Color(0xff292929),
+                            foregroundColor: Color(0xffbb86fe),
+                            label: Text(
+                              " Confirm ",
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Circular',
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xffF2E7FE),
+                                color: Color(0xffbb86fe),
                               ),
-                              todayCellDecoration: BoxDecoration(
-                                  color: Color(0xff323232),
-                                  border:
-                                  Border.all(color: const Color(0xffbb86fe), width: 1),
-                                  shape: BoxShape.circle),
-                              weekendTextStyle: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffF2E7FE),
-                              ),),
-                        ))));
+                            ),
+                          )),
+                    ),
+                  ],
+                ));
           },
         );
       },
@@ -953,26 +1002,40 @@ class _Details extends State<Medicines> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
-                height: (MediaQuery.of(context).size.height) * .5,
+                height: (MediaQuery.of(context).size.height) * .6,
                 padding: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffBB86FC), width: 1),
                   color: Color(0xff121212),
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                child: Container(
-                    margin: const EdgeInsets.all(6.0),
-                    padding: const EdgeInsets.all(30.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      color: Color(0xff121212),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Range of Days",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Circular',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xffF2E7FE),
+                        ),
+                      ),
                     ),
-                    child: SfDateRangePickerTheme(
+                    Divider(
+                      color: Color(0xffbb86fe),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    SfDateRangePickerTheme(
                         data: SfDateRangePickerThemeData(
                           brightness: Brightness.dark,
                           backgroundColor: Color(0xff121212),
@@ -992,29 +1055,51 @@ class _Details extends State<Medicines> {
                               const Color(0xffbb86fe).withOpacity(0.1),
                           startRangeSelectionColor: const Color(0xffbb86fe),
                           monthCellStyle: DateRangePickerMonthCellStyle(
-                              todayTextStyle: TextStyle(
+                            todayTextStyle: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),
+                            leadingDatesTextStyle:
+                                TextStyle(color: Color(0xfff2e7fe)),
+                            trailingDatesTextStyle:
+                                TextStyle(color: Color(0xfff2e7fe)),
+                            todayCellDecoration: BoxDecoration(
+                                color: Color(0xff323232),
+                                border: Border.all(
+                                    color: const Color(0xffbb86fe), width: 1),
+                                shape: BoxShape.circle),
+                            weekendTextStyle: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffF2E7FE),
+                            ),
+                          ),
+                        )),
+                    Center(
+                      child: Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            backgroundColor: Color(0xff292929),
+                            foregroundColor: Color(0xffbb86fe),
+                            label: Text(
+                              " Confirm ",
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Circular',
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xffF2E7FE),
+                                color: Color(0xffbb86fe),
                               ),
-                              leadingDatesTextStyle:
-                                  TextStyle(color: Color(0xfff2e7fe)),
-                              trailingDatesTextStyle:
-                                  TextStyle(color: Color(0xfff2e7fe)),
-                              todayCellDecoration: BoxDecoration(
-                                  color: Color(0xff323232),
-                                  border: Border.all(
-                                      color: const Color(0xffbb86fe), width: 1),
-                                  shape: BoxShape.circle),
-                              weekendTextStyle:
-                              TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xffF2E7FE),
-                              ),),
-                        ))));
+                            ),
+                          )),
+                    ),
+                  ],
+                ));
           },
         );
       },

@@ -7,9 +7,10 @@ import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
+import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 
-class PatientInfo extends StatefulWidget {
-  PatientInfo(this.pno);
+class CareGiverInfo extends StatefulWidget {
+  CareGiverInfo(this.pno);
   String pno;
   @override
   _PatientInfoState createState() => _PatientInfoState();
@@ -17,7 +18,7 @@ class PatientInfo extends StatefulWidget {
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
-class _PatientInfoState extends State<PatientInfo>
+class _PatientInfoState extends State<CareGiverInfo>
     with SingleTickerProviderStateMixin {
   Map c = {
     'patientToken': null,
@@ -32,9 +33,9 @@ class _PatientInfoState extends State<PatientInfo>
     var storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
 
     String tempURL = await storage.ref(targetPath).getDownloadURL();
-      setState(() {
-        imageUrl = tempURL;
-      });
+    setState(() {
+      imageUrl = tempURL;
+    });
   }
   dataFetch()  async {
     print("Help");
@@ -57,7 +58,7 @@ class _PatientInfoState extends State<PatientInfo>
             };
           });
         }
-      print(c); }) });
+        print(c); }) });
 
   }
   AnimationController animationController;
@@ -168,9 +169,9 @@ class _PatientInfoState extends State<PatientInfo>
                               elevation: 20.0,
                               child: Container(
                                 height:
-                                    (MediaQuery.of(context).size.height) * .2,
+                                (MediaQuery.of(context).size.height) * .2,
                                 width:
-                                    (MediaQuery.of(context).size.width) * .35,
+                                (MediaQuery.of(context).size.width) * .35,
                                 color: Color(0xff323232),
                                 child: imageUrl==null? Image.asset('assets/images/usertrans.png'): Image.network(imageUrl),
                               ),
@@ -212,7 +213,8 @@ class _PatientInfoState extends State<PatientInfo>
                                             color: Color(0xffbb86fe),
                                           ),
                                           onClick: () {
-                                            _popupCard(context);
+                                            Navigator.push(
+                                                context, MaterialPageRoute(builder: (context) => ProfilePage()));
                                             print('First Button');
                                           },
                                         ),
@@ -243,13 +245,13 @@ class _PatientInfoState extends State<PatientInfo>
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                              ImageCapture(
-                                                newFile: (File imageFile){
-                                                    ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
-                                                    fetchImageUrl('PatientImages/${c['contactNo']}');
-                                                }
-                                            )
-                                            ));
+                                                        ImageCapture(
+                                                            newFile: (File imageFile){
+                                                              ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
+                                                              fetchImageUrl('PatientImages/${c['contactNo']}');
+                                                            }
+                                                        )
+                                                ));
 
                                           },
                                         ),
@@ -274,7 +276,7 @@ class _PatientInfoState extends State<PatientInfo>
                                           icon: Icon(
                                             Icons.delete,
                                             color:
-                                                Colors.red.withOpacity(0.6),
+                                            Colors.red.withOpacity(0.6),
                                           ),
                                           onClick: () {
                                             openAlertBox(context);
@@ -669,7 +671,7 @@ class _PatientInfoState extends State<PatientInfo>
                             ),
                             InkWell(
                               onTap: () {
-                               // _setText();
+                                _setText();
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },

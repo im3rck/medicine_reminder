@@ -7,7 +7,8 @@ import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'configuration.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
-
+import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
+import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -51,6 +52,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
       case 2:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => Search()));
+        break;
+      case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProfilePage()));
+        break;
+      case 4:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SettingsPage()));
+        break;
+
 
     }
   }
