@@ -243,10 +243,13 @@ class _PatientInfoState extends State<PatientInfo>
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                              ImageCapture(
+                                              ImageCapture  (
                                                 newFile: (File imageFile){
                                                     ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
-                                                    fetchImageUrl('PatientImages/${c['contactNo']}');
+                                                    // fetchImageUrl('PatientImages/${c['contactNo']}');
+                                                   setState(()  {
+                                                     callImage();
+                                                   });
                                                 }
                                             )
                                             ));
@@ -423,6 +426,11 @@ class _PatientInfoState extends State<PatientInfo>
         ],
       ),
     );
+  }
+  callImage () async
+  {
+    imageUrl = await FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/').ref('PatientImages/${c['contactNo']}.png').getDownloadURL();
+    print("IMAGE URL ${imageUrl}");
   }
   void _popupCard(context) {
     double xOffset = 0;

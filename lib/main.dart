@@ -108,7 +108,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
         home: PhasePage(),
-
         //PatientAddPage('aaaaaaaaaa'),
         //BottomNavBar("944368282"),
       //   ImageCapture(

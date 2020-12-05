@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+String imageUrl = null;
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -170,8 +169,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
-
-
               Column(
                   mainAxisSize: MainAxisSize.max,
                   children: testData
@@ -190,8 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => BottomNavBar(
-                                              element['contactNo'])));
+                                          builder: (context) =>
+                                              BottomNavBar(element['contactNo'])));
                                 }
                               },
                               child: Container(
@@ -208,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               border: Border.all(
-                                                  color: Color(0xffBB86FC),
+                                                  color: Color(0xffBB86Fe),
                                                   width: 1),
                                               //  boxShadow: shadowList,
                                             ),
@@ -219,6 +216,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               //     child: Image.asset(
                                               //         'assets/images/usertrans.png')),
                                               )
+                                         Align(
+                                            child: Hero(
+                                                tag: element['index'],
+                                                child: imageUrl==null? Image.asset(
+                                                    'assets/images/usertrans.png') : Image.network(imageUrl),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -230,18 +234,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
                                             child: AutoSizeText(
-                                              element['name'],
+                                               element['name'],
                                               maxLines: 1,
                                               style: new TextStyle(
-                                                  color: Color(0xff292929),
+                                                  color: Color(0xfff2e7fe),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 30),
+                                                  fontSize: 24),
                                             ),
                                           ),
                                           Divider(
-                                            color: Color(0xff121212),
-                                            thickness: 2.0,
+                                            color: Color(0xffbb86fe),
+                                            thickness: 1.0,
                                           ),
                                           Row(
                                             mainAxisAlignment:
@@ -254,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   (element['age']).toString() +
                                                       " years",
                                                   style: new TextStyle(
-                                                      color: Color(0xff292929),
+                                                      color: Color(0xfff2e7fe),
                                                       fontFamily: 'Circular',
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -296,9 +300,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 10, 10, 20, 10),
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              element['rel'],
+                                               element['rel'],
                                               style: new TextStyle(
-                                                  color: Color(0xff292929),
+                                                  color: Color(0xfff2e7fe),
                                                   fontFamily: 'Circular',
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20.0),
@@ -309,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       margin:
                                           EdgeInsets.only(top: 20, bottom: 20),
                                       decoration: BoxDecoration(
-                                        color: Colors.grey[800],
+                                        color: Color(0xff292929),
                                         // boxShadow: shadowList,
                                         borderRadius: BorderRadius.only(
                                             topRight: Radius.circular(20),
@@ -326,8 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ))
-                      .toList()
-              ),
+                      .toList()),
               SizedBox(
                 height: 30,
               ),

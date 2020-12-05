@@ -149,7 +149,10 @@ class _EditProfilePageState extends State<ProfilePage> {
                       child: Text(
                         "Cancel",
                         style: TextStyle(
-                            color: Color(0xffBB86FC), fontSize: 16),
+                            fontFamily: 'Circular',
+                            color: Color(0xfff2e7fe),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.0)
                       ),
                     ),
                   ),Container(
@@ -183,10 +186,10 @@ class _EditProfilePageState extends State<ProfilePage> {
                       child: Text(
                         "  Save  ",
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xffbb86fe),
-                          fontWeight: FontWeight.w600,
-                        ),
+                            fontFamily: 'Circular',
+                            color: Color(0xfff2e7fe),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.0)
                       ),
                     ),
                   ),

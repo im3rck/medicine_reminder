@@ -62,8 +62,7 @@ class ImageService{
 
   uploadFetchImage() async {
     var snapShot = storage.ref().child(imagePath).putFile(pickedImageFile);
-    //targetUrl = await snapShot.snapshot.ref.getDownloadURL();
-    targetUrl = await storage.ref('MedicineImages/qr.PNG').getDownloadURL();
+    targetUrl = await storage.ref(imagePath).getDownloadURL();
   }
 
   fetchImageUrl() async {

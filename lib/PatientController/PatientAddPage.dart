@@ -18,7 +18,7 @@ class PatientAddPage extends StatefulWidget {
 class _PatientAddPageState extends State<PatientAddPage> {
   @override
   void initState() {
-    print('HELP!!!!!!!!!!! : ${testData}');
+    //print('HELP!!!!!!!!!!! : ${testData}');
     super.initState();
   }
   @override
