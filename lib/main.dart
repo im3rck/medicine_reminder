@@ -107,7 +107,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PatientAddPage('aaaaaaaaaa'),
+        home: PhasePage(),
+        //PatientAddPage('aaaaaaaaaa'),
         //BottomNavBar("944368282"),
       //   ImageCapture(
       //     newFile: (File imageFile){

@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+String imageUrl = null;
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -192,10 +192,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             // margin: EdgeInsets.only(top: 10),
                                           ),
                                          Align(
-                                            // child: Hero(
-                                            //     tag: element['index'],
-                                            //     child: Image.asset(
-                                            //         'assets/images/usertrans.png')),
+                                            child: Hero(
+                                                tag: element['index'],
+                                                child: imageUrl==null? Image.asset(
+                                                    'assets/images/usertrans.png') : Image.network(imageUrl),
+                                            ),
                                           )
                                         ],
                                       ),
