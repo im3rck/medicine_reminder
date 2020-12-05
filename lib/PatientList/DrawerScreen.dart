@@ -110,34 +110,36 @@ class _DrawerScreenState extends State<DrawerScreen> {
           Flexible(
             child: FractionallySizedBox(
               heightFactor: 0.8,
-              child: Column(
-                children: drawerItems
-                    .map((element) => Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            navigateToSubPage(context, element['index']);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                element['icon'],
-                                color: Color(0xffbb86fe),
-                                size: 30,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(element['title'],
-                                  style: TextStyle(
-                                      color: Color(0xfff2e7fe),
-                                      fontFamily: 'Circular',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20))
-                            ],
-                          ),
-                        )))
-                    .toList(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: drawerItems
+                      .map((element) => Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              navigateToSubPage(context, element['index']);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  element['icon'],
+                                  color: Color(0xffbb86fe),
+                                  size: 30,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(element['title'],
+                                    style: TextStyle(
+                                        color: Color(0xfff2e7fe),
+                                        fontFamily: 'Circular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20))
+                              ],
+                            ),
+                          )))
+                      .toList(),
+                ),
               ),
             ),
           ),

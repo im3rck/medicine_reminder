@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
@@ -17,38 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
   double xOffset = 230;
   double yOffset = 150;
   double scaleFactor = 0.6;
-  // var b;
-  // List c = [];
-  // int ab = 0;
   bool isDrawerOpen = true;
-  // query()  {
-  //   FirebaseFirestore _newDb = FirebaseFirestore.instance;
-  //   _newDb
-  //       .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
-  //       .get()
-  //       .then((QuerySnapshot querySnapshot) => {
-  //   querySnapshot.docs.forEach((doc) {
-  //   if(doc['contactNo']=="944368282") {
-  //     ab = ab +1;
-  //     print(doc['patientName']);
-  //     print(doc['patientName']);
-  //     Map a = {
-  //       'patientToken': doc['patientToken'],
-  //       'patientName': doc['patientName'],
-  //       'age': doc['age'],
-  //       'gender': doc['gender'],
-  //       'contactNo': doc['contactNo'],
-  //       'relationship': doc['relationship'],
-  //       'index': doc['index']
-  //     };
-  //
-  //     c.add(a);
-  //     print(ab);
-  //     print(c);
-  //   }}) });
-  //
-  // return c;
-  // }
+
+  TextEditingController searchController = TextEditingController();
+
+  Column buildColumn() {
+    return Column();
+  }
+
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -70,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ..scale(scaleFactor)
           ..rotateY(isDrawerOpen ? -0.5 : 0),
         duration: Duration(milliseconds: 250),
-        // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
           color: (isDrawerOpen ? Colors.grey[850] : Color(0xFF121212)),
           borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
@@ -108,7 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           )
                         : IconButton(
-                            icon: Icon(Icons.menu, color: Color(0xffbb86fe)),
+                            icon: Transform.rotate(
+                              angle: pi / 2,
+                              child: Icon(
+                                Feather.bar_chart_2,
+                                color: Color(0xffbb86fe),
+                                size: 30,
+                              ),
+                            ),
                             onPressed: () {
                               setState(() {
                                 xOffset = 230;
@@ -163,13 +148,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onPressed: () {},
                     ),
-                    Text(
-                      'Search my list',
-                      style: new TextStyle(
-                          color: Color(0xfff2e7fe),
-                          fontFamily: 'Circular',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0),
+                    SizedBox(
+                      width: 100,
+                      child: TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                            hintText: 'Search my list',
+                            hintStyle: TextStyle(
+                                color: Color(0xffffffff),
+                                fontFamily: 'Circular',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0),
+                            border: InputBorder.none),
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.search, color: Color(0xfff2e7fe)),
@@ -179,10 +170,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
 
+
+
               Column(
                   mainAxisSize: MainAxisSize.max,
-                  children: testData.map((element) =>
-                      Padding(
+                  children: testData
+                      .map((element) => Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: GestureDetector(
                               onTap: () {
@@ -197,8 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              BottomNavBar(element['contactNo'])));
+                                          builder: (context) => BottomNavBar(
+                                              element['contactNo'])));
                                 }
                               },
                               child: Container(
@@ -219,27 +212,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   width: 1),
                                               //  boxShadow: shadowList,
                                             ),
-                                            // margin: EdgeInsets.only(top: 10),
                                           ),
-                                         Align(
-                                            // child: Hero(
-                                            //     tag: element['index'],
-                                            //     child: Image.asset(
-                                            //         'assets/images/usertrans.png')),
-                                          )
+                                          Align(
+                                              // child: Hero(
+                                              //     tag: element['index'],
+                                              //     child: Image.asset(
+                                              //         'assets/images/usertrans.png')),
+                                              )
                                         ],
                                       ),
                                     ),
                                     Flexible(
                                         child: Container(
-
                                       child: Column(
                                         children: [
                                           Container(
                                             margin: EdgeInsets.fromLTRB(
                                                 10, 10, 20, 10),
                                             child: AutoSizeText(
-                                               element['name'],
+                                              element['name'],
                                               maxLines: 1,
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
@@ -305,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 10, 10, 20, 10),
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                               element['rel'],
+                                              element['rel'],
                                               style: new TextStyle(
                                                   color: Color(0xff292929),
                                                   fontFamily: 'Circular',
@@ -335,27 +326,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ))
-                      .toList()),
-
-              // Container(
-              //   //color: Color(0xff292929),
-              //   /*decoration: BoxDecoration(
-              //
-              //   borderRadius: BorderRadius.only(
-              //       topLeft: Radius.circular(20.0),
-              //       topRight: Radius.circular(20.0)),
-              // ),*/
-              //   height: 600,
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return
-
-              //     },
-              //     itemCount: patientData.length,
-              //   ),
-              // ),
-
+                      .toList()
+              ),
               SizedBox(
                 height: 30,
               ),

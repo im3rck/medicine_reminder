@@ -41,6 +41,7 @@ class _Details extends State<Details> {
   //   };
   //   patientData.add(map);
   // }
+
   var rng = new Random();
   void setData(){
     String _fcmToken = widget.token;
