@@ -17,7 +17,7 @@ class _PhasePageState extends State<PhasePage> {
     super.initState();
   }
   Future query() async {
-    testData = [];
+    Patientdata = [];
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
     await _newDb
         .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
@@ -34,8 +34,8 @@ class _PhasePageState extends State<PhasePage> {
           'rel': doc['relationship'],
           'index': doc['index'],
         };
-        testData.add(map);
-        print(testData);
+        Patientdata.add(map);
+        print(Patientdata);
       })});
   }
   @override

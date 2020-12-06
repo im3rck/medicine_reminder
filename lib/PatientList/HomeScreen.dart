@@ -179,19 +179,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void searchPatients() {
     List names =
-    testData.map((items) => items['name']).toList();
+    Patientdata.map((items) => items['name']).toList();
     String searchedName = searchController.text;
     int i = 0;
     for (String key in names) {
       if ((searchedName.toLowerCase()).compareTo(key.toLowerCase()) == 0) {
         Map map = {
-          'index': testData[i]['index'],
-          'name': testData[i]['name'],
-          'age': testData[i]['age'],
-          'gender': testData[i]['gender'],
-          'rel': testData[i]['rel'],
+          'index': Patientdata[i]['index'],
+          'name': Patientdata[i]['name'],
+          'age': Patientdata[i]['age'],
+          'gender': Patientdata[i]['gender'],
+          'rel': Patientdata[i]['rel'],
         };
-        test.add(map);
+        Search.add(map);
         setState(() {
           found = true;
         });
@@ -341,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 searched = false;
                                 found = false;
                               });
-                            test.clear();
+                            Search.clear();
                           },
                           controller: searchController,
                           decoration: InputDecoration(
@@ -370,14 +370,14 @@ class _HomeScreenState extends State<HomeScreen> {
               // searched ? showEmpty : buildColumn(testData),
 
               searched
-                  ? (found ? buildColumn(test) : Text('No data Found !',
+                  ? (found ? buildColumn(Search) : Text('No data Found !',
                   style: TextStyle(
                       fontFamily: 'Circular',
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.bold)
               ))
-                  : buildColumn(testData),
+                  : buildColumn(Patientdata),
 
               // Column(
               //     mainAxisSize: MainAxisSize.max,

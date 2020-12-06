@@ -41,7 +41,7 @@ class _Details extends State<Details> {
 
     var patientDetails = newPatient.toMap();
     patientDetails['index'] = rng.nextInt(10000);
-    testData.add(patientDetails);
+    Patientdata.add(patientDetails);
     //create a new document
 
     //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
