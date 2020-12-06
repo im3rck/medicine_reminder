@@ -8,5 +8,16 @@ List<Map> testData = [
   // },
 ];
 
+List<Map> test = [
+  // {
+  //   'name' : 'Patient',
+  //   'index': 0,
+  //   'age': '90',
+  //   'gender': 'Male',
+  //   'rel': 'Gramps',
+  // },
+];
+
+
 List<Map> scheduleDays = [];
 List<Map> scheduleTime = [];

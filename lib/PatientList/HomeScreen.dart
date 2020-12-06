@@ -9,7 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 String imageUrl = null;
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,11 +23,184 @@ class _HomeScreenState extends State<HomeScreen> {
   double scaleFactor = 0.6;
   bool isDrawerOpen = true;
 
+  bool searched = false;
+  bool found = false;
+
   TextEditingController searchController = TextEditingController();
 
-  Column buildColumn() {
-    return Column();
+  Column buildColumn(List<Map> list) {
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        children: list
+            .map((element) => Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      (isDrawerOpen)
+                          ? setState(() {
+                              xOffset = 0;
+                              yOffset = 0;
+                              scaleFactor = 1;
+                              isDrawerOpen = false;
+                            })
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BottomNavBar(element['contactNo'])));
+                    },
+                    child: Container(
+                      height: 200,
+                      margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff292929),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                        color: Color(0xffBB86Fe), width: 1),
+                                    //  boxShadow: shadowList,
+                                  ),
+                                ),
+                                Align(
+                                  child: Hero(
+                                    tag: element['index'] == null ? '' : element['index'],
+                                    child: imageUrl == null
+                                        ? Image.asset(
+                                            'assets/images/usertrans.png')
+                                        : Image.network(imageUrl),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Flexible(
+                              child: Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                                  child: AutoSizeText(
+                                    element['name'] == null ? '' : element['name'],
+                                    maxLines: 1,
+                                    style: new TextStyle(
+                                        color: Color(0xfff2e7fe),
+                                        fontFamily: 'Circular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24),
+                                  ),
+                                ),
+                                Divider(
+                                  color: Color(0xffbb86fe),
+                                  thickness: 1.0,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                      child: Text(
+                                        (element['age']).toString() + " years",
+                                        style: new TextStyle(
+                                            color: Color(0xfff2e7fe),
+                                            fontFamily: 'Circular',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.0),
+                                      ),
+                                    ),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.fromLTRB(10, 0, 10, 10),
+                                        child: ((element['gender'] == null ? '' : element['gender'] ) == 'Male'
+                                            ? SvgPicture.asset(
+                                                'assets/images/male.svg',
+                                                height: 25.0,
+                                                width: 25.0,
+                                                allowDrawingOutsideViewBox:
+                                                    true,
+                                              )
+                                            : (element['gender'] == null ? '' : element['gender'])  == 'Female'
+                                                ? SvgPicture.asset(
+                                                    'assets/images/female.svg',
+                                                    height: 25.0,
+                                                    width: 25.0,
+                                                    allowDrawingOutsideViewBox:
+                                                        true,
+                                                  )
+                                                : SvgPicture.asset(
+                                                    'assets/images/other.svg',
+                                                    height: 25.0,
+                                                    width: 25.0,
+                                                    allowDrawingOutsideViewBox:
+                                                        true,
+                                                  )))
+                                  ],
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    element['rel'] == null ? '' : element['rel'],
+                                    style: new TextStyle(
+                                        color: Color(0xfff2e7fe),
+                                        fontFamily: 'Circular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            margin: EdgeInsets.only(top: 20, bottom: 20),
+                            decoration: BoxDecoration(
+                              color: Color(0xff292929),
+                              // boxShadow: shadowList,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                              border: Border.all(
+                                  color: (isDrawerOpen
+                                      ? Color(0xff292929)
+                                      : Color(0xFFbb86fe)),
+                                  width: (isDrawerOpen ? 2 : 1)),
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ))
+            .toList());
   }
+
+  void searchPatients() {
+    List names =
+    testData.map((items) => items['name']).toList();
+    String searchedName = searchController.text;
+    int i = 0;
+    for (String key in names) {
+      if ((searchedName.toLowerCase()).compareTo(key.toLowerCase()) == 0) {
+        Map map = {
+          'index': testData[i]['index'],
+          'name': testData[i]['name'],
+          'age': testData[i]['age'],
+          'gender': testData[i]['gender'],
+          'rel': testData[i]['rel'],
+        };
+        test.add(map);
+        setState(() {
+          found = true;
+        });
+      }
+      i++;
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,190 +322,223 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onPressed: () {},
                     ),
-                    SizedBox(
-                      width: 100,
-                      child: TextField(
-                        controller: searchController,
-                        decoration: InputDecoration(
-                            hintText: 'Search my list',
-                            hintStyle: TextStyle(
-                                color: Color(0xffffffff),
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
-                            border: InputBorder.none),
+                    // SizedBox(width: 5),
+                    Center(
+                      child: SizedBox(
+                        width: 100,
+                        child: TextField(
+                          style: TextStyle(
+                              color: Color(0xffffffff),
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0),
+                          onChanged: (String val) {
+                            setState(() {
+                              found = false;
+                            });
+                            if (val == '')
+                              setState(() {
+                                searched = false;
+                                found = false;
+                              });
+                            test.clear();
+                          },
+                          controller: searchController,
+                          decoration: InputDecoration(
+                              hintText: 'Search my list',
+                              hintStyle: TextStyle(
+                                  color: Color(0xffffffff),
+                                  fontFamily: 'Circular',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0),
+                              border: InputBorder.none),
+                        ),
                       ),
                     ),
                     IconButton(
                       icon: Icon(Icons.search, color: Color(0xfff2e7fe)),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          searched = true;
+                        });
+                        searchPatients();
+                      },
                     ),
                   ],
                 ),
               ),
+              // searched ? showEmpty : buildColumn(testData),
 
-              Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: testData
-                      .map((element) => Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                if (isDrawerOpen) {
-                                  setState(() {
-                                    xOffset = 0;
-                                    yOffset = 0;
-                                    scaleFactor = 1;
-                                    isDrawerOpen = false;
-                                  });
-                                } else {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BottomNavBar(element['contactNo'])));
-                                }
-                              },
-                              child: Container(
-                                height: 200,
-                                margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0xff292929),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: Color(0xffBB86Fe),
-                                                  width: 1),
-                                              //  boxShadow: shadowList,
-                                            ),
-                                          ),
-                                          Align(
-                                              // child: Hero(
-                                              //     tag: element['index'],
-                                              //     child: Image.asset(
-                                              //         'assets/images/usertrans.png')),
-                                              )
-                                         Align(
-                                            child: Hero(
-                                                tag: element['index'],
-                                                child: imageUrl==null? Image.asset(
-                                                    'assets/images/usertrans.png') : Image.network(imageUrl),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Flexible(
-                                        child: Container(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                10, 10, 20, 10),
-                                            child: AutoSizeText(
-                                               element['name'],
-                                              maxLines: 1,
-                                              style: new TextStyle(
-                                                  color: Color(0xfff2e7fe),
-                                                  fontFamily: 'Circular',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 24),
-                                            ),
-                                          ),
-                                          Divider(
-                                            color: Color(0xffbb86fe),
-                                            thickness: 1.0,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    10, 0, 0, 10),
-                                                child: Text(
-                                                  (element['age']).toString() +
-                                                      " years",
-                                                  style: new TextStyle(
-                                                      color: Color(0xfff2e7fe),
-                                                      fontFamily: 'Circular',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15.0),
-                                                ),
-                                              ),
-                                              Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      10, 0, 10, 10),
-                                                  child: (element['gender'] ==
-                                                          'Male'
-                                                      ? SvgPicture.asset(
-                                                          'assets/images/male.svg',
-                                                          height: 25.0,
-                                                          width: 25.0,
-                                                          allowDrawingOutsideViewBox:
-                                                              true,
-                                                        )
-                                                      : element['gender'] ==
-                                                              'Female'
-                                                          ? SvgPicture.asset(
-                                                              'assets/images/female.svg',
-                                                              height: 25.0,
-                                                              width: 25.0,
-                                                              allowDrawingOutsideViewBox:
-                                                                  true,
-                                                            )
-                                                          : SvgPicture.asset(
-                                                              'assets/images/other.svg',
-                                                              height: 25.0,
-                                                              width: 25.0,
-                                                              allowDrawingOutsideViewBox:
-                                                                  true,
-                                                            )))
-                                            ],
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                10, 10, 20, 10),
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                               element['rel'],
-                                              style: new TextStyle(
-                                                  color: Color(0xfff2e7fe),
-                                                  fontFamily: 'Circular',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20.0),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      margin:
-                                          EdgeInsets.only(top: 20, bottom: 20),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff292929),
-                                        // boxShadow: shadowList,
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(20),
-                                            bottomRight: Radius.circular(20)),
-                                        border: Border.all(
-                                            color: (isDrawerOpen
-                                                ? Color(0xff292929)
-                                                : Color(0xFFbb86fe)),
-                                            width: (isDrawerOpen ? 2 : 1)),
-                                      ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ))
-                      .toList()),
+              searched
+                  ? (found ? buildColumn(test) : Text('No data Found !',
+                  style: TextStyle(
+                      fontFamily: 'Circular',
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold)
+              ))
+                  : buildColumn(testData),
+
+              // Column(
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: testData
+              //         .map((element) =>
+              //         Padding(
+              //           padding: const EdgeInsets.all(12.0),
+              //           child: GestureDetector(
+              //             onTap: () {
+              //               if (isDrawerOpen) {
+              //                 setState(() {
+              //                   xOffset = 0;
+              //                   yOffset = 0;
+              //                   scaleFactor = 1;
+              //                   isDrawerOpen = false;
+              //                 });
+              //               } else {
+              //                 Navigator.push(
+              //                     context,
+              //                     MaterialPageRoute(
+              //                         builder: (context) =>
+              //                             BottomNavBar(element['contactNo'])));
+              //               }
+              //             },
+              //             child: Container(
+              //               height: 200,
+              //               margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
+              //               child: Row(
+              //                 children: [
+              //                   Expanded(
+              //                     child: Stack(
+              //                       children: [
+              //                         Container(
+              //                           decoration: BoxDecoration(
+              //                             color: Color(0xff292929),
+              //                             borderRadius:
+              //                             BorderRadius.circular(20),
+              //                             border: Border.all(
+              //                                 color: Color(0xffBB86Fe),
+              //                                 width: 1),
+              //                             //  boxShadow: shadowList,
+              //                           ),
+              //                         ),
+              //                         Align(
+              //                           child: Hero(
+              //                             tag: element['index'],
+              //                             child: imageUrl == null
+              //                                 ? Image.asset(
+              //                                 'assets/images/usertrans.png')
+              //                                 : Image.network(imageUrl),
+              //                           ),
+              //                         )
+              //                       ],
+              //                     ),
+              //                   ),
+              //                   Flexible(
+              //                       child: Container(
+              //                         child: Column(
+              //                           children: [
+              //                             Container(
+              //                               margin: EdgeInsets.fromLTRB(
+              //                                   10, 10, 20, 10),
+              //                               child: AutoSizeText(
+              //                                 element['name'],
+              //                                 maxLines: 1,
+              //                                 style: new TextStyle(
+              //                                     color: Color(0xfff2e7fe),
+              //                                     fontFamily: 'Circular',
+              //                                     fontWeight: FontWeight.bold,
+              //                                     fontSize: 24),
+              //                               ),
+              //                             ),
+              //                             Divider(
+              //                               color: Color(0xffbb86fe),
+              //                               thickness: 1.0,
+              //                             ),
+              //                             Row(
+              //                               mainAxisAlignment:
+              //                               MainAxisAlignment.spaceBetween,
+              //                               children: [
+              //                                 Container(
+              //                                   margin: EdgeInsets.fromLTRB(
+              //                                       10, 0, 0, 10),
+              //                                   child: Text(
+              //                                     (element['age']).toString() +
+              //                                         " years",
+              //                                     style: new TextStyle(
+              //                                         color: Color(0xfff2e7fe),
+              //                                         fontFamily: 'Circular',
+              //                                         fontWeight:
+              //                                         FontWeight.bold,
+              //                                         fontSize: 15.0),
+              //                                   ),
+              //                                 ),
+              //                                 Container(
+              //                                     margin: EdgeInsets.fromLTRB(
+              //                                         10, 0, 10, 10),
+              //                                     child: (element['gender'] ==
+              //                                         'Male'
+              //                                         ? SvgPicture.asset(
+              //                                       'assets/images/male.svg',
+              //                                       height: 25.0,
+              //                                       width: 25.0,
+              //                                       allowDrawingOutsideViewBox:
+              //                                       true,
+              //                                     )
+              //                                         : element['gender'] ==
+              //                                         'Female'
+              //                                         ? SvgPicture.asset(
+              //                                       'assets/images/female.svg',
+              //                                       height: 25.0,
+              //                                       width: 25.0,
+              //                                       allowDrawingOutsideViewBox:
+              //                                       true,
+              //                                     )
+              //                                         : SvgPicture.asset(
+              //                                       'assets/images/other.svg',
+              //                                       height: 25.0,
+              //                                       width: 25.0,
+              //                                       allowDrawingOutsideViewBox:
+              //                                       true,
+              //                                     )))
+              //                               ],
+              //                             ),
+              //                             Container(
+              //                               margin: EdgeInsets.fromLTRB(
+              //                                   10, 10, 20, 10),
+              //                               alignment: Alignment.centerLeft,
+              //                               child: Text(
+              //                                 element['rel'],
+              //                                 style: new TextStyle(
+              //                                     color: Color(0xfff2e7fe),
+              //                                     fontFamily: 'Circular',
+              //                                     fontWeight: FontWeight.bold,
+              //                                     fontSize: 20.0),
+              //                               ),
+              //                             ),
+              //                           ],
+              //                         ),
+              //                         margin:
+              //                         EdgeInsets.only(top: 20, bottom: 20),
+              //                         decoration: BoxDecoration(
+              //                           color: Color(0xff292929),
+              //                           // boxShadow: shadowList,
+              //                           borderRadius: BorderRadius.only(
+              //                               topRight: Radius.circular(20),
+              //                               bottomRight: Radius.circular(20)),
+              //                           border: Border.all(
+              //                               color: (isDrawerOpen
+              //                                   ? Color(0xff292929)
+              //                                   : Color(0xFFbb86fe)),
+              //                               width: (isDrawerOpen ? 2 : 1)),
+              //                         ),
+              //                       ))
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ))
+              //         .toList()),
+
               SizedBox(
                 height: 30,
               ),
