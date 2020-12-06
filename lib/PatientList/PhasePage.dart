@@ -16,8 +16,8 @@ class _PhasePageState extends State<PhasePage> {
      query();
     super.initState();
   }
-  query() async {
-    testData=[];
+  Future query() async {
+    Patientdata = [];
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
     await _newDb
         .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
@@ -25,18 +25,18 @@ class _PhasePageState extends State<PhasePage> {
         .then((QuerySnapshot querySnapshot) =>
     {
       querySnapshot.docs.forEach((doc) {
-        Map a = {
+        Map map = {
           'patientToken': doc['patientToken'],
           'name': doc['patientName'],
           'age': doc['age'],
           'gender': doc['gender'],
           'contactNo': doc['contactNo'],
           'rel': doc['relationship'],
-          'index': doc['index']
+          'index': doc['index'],
         };
-        testData.add(a);
+        Patientdata.add(map);
+        print(Patientdata);
       })});
-   // print("THIS IS NOT A TEST: ${testData}");
   }
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,4 @@
-List<Map> testData = [
+List<Map> Patientdata = [
   // {
   //   'name' : 'Add Patient',
   //   'index': 0,
@@ -7,6 +7,17 @@ List<Map> testData = [
   //   'rel': '0',
   // },
 ];
+
+List<Map> Search = [
+  // {
+  //   'name' : 'Patient',
+  //   'index': 0,
+  //   'age': '90',
+  //   'gender': 'Male',
+  //   'rel': 'Gramps',
+  // },
+];
+
 
 List<Map> scheduleDays = [];
 List<Map> scheduleTime = [];

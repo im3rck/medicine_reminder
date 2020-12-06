@@ -82,13 +82,13 @@ class _PatientInfoState extends State<CareGiverInfo>
 
   void _setText() {
     Map map = {
-      'index': testData.length + 1,
+      'index': Patientdata.length + 1,
       'name': fnameController.text,
       'age': ageController.text,
       'gender': _value,
       'rel': relController.text
     };
-    testData.add(map);
+    Patientdata.add(map);
   }
   @override
   void initState() {

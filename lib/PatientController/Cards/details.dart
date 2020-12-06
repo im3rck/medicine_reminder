@@ -31,16 +31,6 @@ class _Details extends State<Details> {
   String _value;
   String valueItem;
 
-  // void _setText() {
-  //   Map map = {
-  //     'index': patientData.length + 1,
-  //     'name': fnameController.text,
-  //     'age': ageController.text,
-  //     'gender': _value,
-  //     'rel': relController.text
-  //   };
-  //   patientData.add(map);
-  // }
   var rng = new Random();
   void setData(){
     String _fcmToken = widget.token;
@@ -51,7 +41,7 @@ class _Details extends State<Details> {
 
     var patientDetails = newPatient.toMap();
     patientDetails['index'] = rng.nextInt(10000);
-    testData.add(patientDetails);
+    Patientdata.add(patientDetails);
     //create a new document
 
     //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
