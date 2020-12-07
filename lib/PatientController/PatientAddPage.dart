@@ -10,7 +10,9 @@ import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PatientAddPage extends StatefulWidget {
   PatientAddPage(this.token);
-  String token;
+
+  final String token;
+
   @override
   _PatientAddPageState createState() => _PatientAddPageState();
 }
@@ -23,12 +25,11 @@ class _PatientAddPageState extends State<PatientAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
         backgroundColor: Color(0xff121212),
         body: ListView(
           children: <Widget>[
@@ -37,17 +38,22 @@ class _PatientAddPageState extends State<PatientAddPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
                   IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Color(0xffbb86fe),),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xffbb86fe),
+                    ),
                     color: Color(0xffbb86fe),
                     onPressed: () {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => PhasePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PhasePage()));
                     },
                   ),
                   IconButton(
-                      icon: FaIcon(FontAwesomeIcons.qrcode, color: Color(0xffbb86fe),),
+                      icon: FaIcon(
+                        FontAwesomeIcons.qrcode,
+                        color: Color(0xffbb86fe),
+                      ),
                       splashColor: Color(0xfff2e7fe),
                       onPressed: null)
                 ],
@@ -78,23 +84,38 @@ class _PatientAddPageState extends State<PatientAddPage> {
               children: [
                 Container(
                   width: double.infinity,
-                   height: (MediaQuery.of(context).size.height) * .8,
+                  height: (MediaQuery.of(context).size.height) * .8,
                   decoration: BoxDecoration(
                     color: Color(0xff292929),
-
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0)),
                   ),
                 ),
                 Container(
-                    height: (MediaQuery.of(context).size.height)*.8,
+                    height: (MediaQuery.of(context).size.height) * .8,
                     child: Cards(widget.token))
               ],
             )
           ],
         ),
-    ),
-      );
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {
+        //     Navigator.pop(context);
+        //   },
+        //   backgroundColor: Color(0xff292929),
+        //   foregroundColor: Color(0xffbb86fe),
+        //   label: Text(
+        //     "Done",
+        //     style: TextStyle(
+        //       fontSize: 16,
+        //       fontFamily: 'Circular',
+        //       fontWeight: FontWeight.bold,
+        //       color: Color(0xffF2E7FE),
+        //     ),
+        //   ),
+        // )
+      ),
+    );
   }
 }

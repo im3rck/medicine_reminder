@@ -25,6 +25,37 @@ class _Details extends State<Medicines> {
   TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
   bool flag = false;
 
+  List<IconData> _icons = [
+    Icons.description,
+    Icons.calendar_today,
+    Icons.alarm_add,
+    Icons.calendar_today,
+  ];
+
+  InkWell _choice(String heading, String body, int index) {
+    return InkWell(
+        onTap: () {
+          switch (index) {
+            case 0:
+              _newMedicine(context);
+              break;
+            case 1:
+              _newSchedule(context);
+              break;
+            case 2:
+              _timeInterval(context);
+              break;
+            case 3:
+              _dayInterval(context);
+              break;
+          }
+        },
+        child: Container(
+            height: (MediaQuery.of(context).size.height) * .30,
+            width: (MediaQuery.of(context).size.width) * .5,
+            child: customCard(_icons[index], heading, body)));
+  }
+
   void _medicineChoice(context) {
     showModalBottomSheet(
       context: context,
@@ -32,32 +63,8 @@ class _Details extends State<Medicines> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (context) {
         return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          InkWell(
-            onTap: () {
-              _newMedicine(context);
-            },
-            child: Container(
-                height: (MediaQuery.of(context).size.height) * .30,
-                width: (MediaQuery.of(context).size.width) * .5,
-                child: customCard(
-                  Icons.description,
-                  "By Medicine",
-                  "Set Schedule for Medicines",
-                )),
-          ),
-          InkWell(
-            onTap: () {
-              _newSchedule();
-            },
-            child: Container(
-                height: (MediaQuery.of(context).size.height) * .30,
-                width: (MediaQuery.of(context).size.width) * .5,
-                child: customCard(
-                  Icons.calendar_today,
-                  "By Schedule",
-                  "Set Medicines for Schedules",
-                )),
-          ),
+          _choice("By Medicine", "Set Schedule for Medicines", 0),
+          _choice("By Schedule", "Set Medicines for Schedules", 1),
         ]);
       },
     );
@@ -85,7 +92,6 @@ class _Details extends State<Medicines> {
                 duration: Duration(milliseconds: 250),
                 margin: EdgeInsets.fromLTRB(5, 0, 5, 10),
                 padding: EdgeInsets.all(20.0),
-                // height: (MediaQuery.of(context).size.height) * .80,
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xffBB86FC), width: 1),
                   color: Color(0xff121212),
@@ -94,7 +100,6 @@ class _Details extends State<Medicines> {
                 child: Wrap(
                   children: [
                     Stack(
-                      // alignment: Alignment.center,
                       children: [
                         Column(
                           children: [
@@ -306,52 +311,12 @@ class _Details extends State<Medicines> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    _timeInterval();
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: (MediaQuery.of(context)
-                                                  .size
-                                                  .height) *
-                                              .25,
-                                          width: (MediaQuery.of(context)
-                                                  .size
-                                                  .width) *
-                                              .42,
-                                          child: customCard(
-                                            Icons.alarm_add,
-                                            "Time",
-                                            "Timing & Intervals",
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    _dayInterval();
-                                  },
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: (MediaQuery.of(context)
-                                                  .size
-                                                  .height) *
-                                              .25,
-                                          width: (MediaQuery.of(context)
-                                                  .size
-                                                  .width) *
-                                              .42,
-                                          child: customCard(
-                                            Icons.calendar_today,
-                                            "Schedule",
-                                            "Days & Range",
-                                          )),
-                                    ],
-                                  ),
-                                ),
+                                Expanded(
+                                    child: _choice(
+                                        "Time", "Timing & Intervals", 2)),
+                                Expanded(
+                                    child:
+                                        _choice("Schedule", "Days & Range", 3)),
                               ],
                             ),
                             SizedBox(
@@ -410,70 +375,56 @@ class _Details extends State<Medicines> {
   }
 
   void _showPicker(context) {
+    _imgFromGallery() async {
+      PickedFile image =
+          await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+
+      setState(() {
+        _image = image;
+      });
+    }
+
+    _imgFromCamera() async {
+      final PickedFile image =
+          await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+
+      setState(() {
+        _image = image;
+      });
+    }
+
+    ListTile _choice(String heading, bool option) {
+      return ListTile(
+          leading: Icon(option ? Icons.photo_library : Icons.photo_camera,
+              color: Color(0xfff2e7fe)),
+          title: new Text(
+            heading,
+            style: TextStyle(
+              fontFamily: 'Circular',
+              fontSize: 16,
+              color: Color(0xffF2E7FE),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          onTap: () {
+            option ? _imgFromGallery() : _imgFromCamera();
+            Navigator.of(context).pop();
+          });
+    }
+
     showModalBottomSheet(
         context: context,
         backgroundColor: Color(0xff292929),
         builder: (BuildContext ctx) {
           return SafeArea(
-            child: Container(
-              child: new Wrap(
-                children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library,
-                          color: Color(0xfff2e7fe)),
-                      title: new Text(
-                        'Photo Library',
-                        style: TextStyle(
-                          fontFamily: 'Circular',
-                          fontSize: 16,
-                          color: Color(0xffF2E7FE),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onTap: () {
-                        _imgFromGallery();
-                        Navigator.of(context).pop();
-                      }),
-                  new ListTile(
-                    leading:
-                        new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
-                    title: new Text(
-                      'Camera',
-                      style: TextStyle(
-                        fontFamily: 'Circular',
-                        fontSize: 16,
-                        color: Color(0xffF2E7FE),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onTap: () {
-                      _imgFromCamera();
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
+            child: new Wrap(
+              children: <Widget>[
+                _choice('Photo Library', true),
+                _choice('Camera', false)
+              ],
             ),
           );
         });
-  }
-
-  _imgFromGallery() async {
-    PickedFile image =
-        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  _imgFromCamera() async {
-    final PickedFile image =
-        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
-
-    setState(() {
-      _image = image;
-    });
   }
 
   String convertTime(String minutes) {
@@ -508,13 +459,13 @@ class _Details extends State<Medicines> {
         _time = picked;
         intervalItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
-        _timeInterval();
+        _timeInterval(context);
       });
     }
     return picked;
   }
 
-  void _timeInterval() {
+  void _timeInterval(context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -599,7 +550,7 @@ class _Details extends State<Medicines> {
                                       onTap: () {
                                         intervalItems.removeAt(index);
                                         Navigator.pop(context);
-                                        _timeInterval();
+                                        _timeInterval(context);
                                       },
                                     ),
                                   ],
@@ -638,7 +589,69 @@ class _Details extends State<Medicines> {
 
   BorderRadius borderRadius = BorderRadius.circular(12.0);
 
-  void _dayInterval() {
+  void _dayInterval(context) {
+
+    InkWell _choose(String message, int index) {
+      return InkWell(
+        onTap: () {
+          switch (index) {
+            case 0:
+              customSetDates(context);
+              break;
+            case 1:
+              rangeOfDates(context);
+              break;
+            case 2:
+              setState(() {
+                flag = !flag;
+                print(flag);
+              });
+              break;
+          }
+
+        },
+        child: Card(
+          elevation: 20.0,
+          color: Color(0xff292929),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0)),
+          margin: EdgeInsets.all(7.0),
+          child: Container(
+            height: (MediaQuery.of(context).size.height) * .15,
+            width: (MediaQuery.of(context).size.width) * .25,
+            decoration: BoxDecoration(
+              color: Color(0xff121212),
+              border: Border.all(
+                  color: Color(0xffbb86fe), width: 1),
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xff121212).withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  message,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Circular',
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffF2E7FE),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -672,197 +685,9 @@ class _Details extends State<Medicines> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          customSetDates(context);
-                        },
-                        child: Card(
-                          elevation: 20.0,
-                          color: Color(0xff292929),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          margin: EdgeInsets.all(7.0),
-                          child: Container(
-                            height: (MediaQuery.of(context).size.height) * .15,
-                            width: (MediaQuery.of(context).size.width) * .25,
-                            decoration: BoxDecoration(
-                              color: Color(0xff121212),
-                              border: Border.all(
-                                  color: Color(0xffbb86fe), width: 1),
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff121212).withOpacity(0.2),
-                                  spreadRadius: 3,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Custom",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Set Of",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Dates",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          rangeOfDates(context);
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          margin: EdgeInsets.all(7.0),
-                          color: Color(0xff292929),
-                          elevation: 20.0,
-                          child: Container(
-                            height: (MediaQuery.of(context).size.height) * .15,
-                            width: (MediaQuery.of(context).size.width) * .25,
-                            decoration: BoxDecoration(
-                              color: Color(0xff121212),
-                              border: Border.all(
-                                  color: Color(0xffbb86fe), width: 1),
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff121212).withOpacity(0.2),
-                                  spreadRadius: 3,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Select",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Range Of",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Dates",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      InkWell(
-                        onTap: (){
-                          setState(() {
-                            flag = !flag;
-                            print(flag);
-
-                          });
-                        },
-                        child: Card(
-                          elevation: 20.0,
-                          color: flag ? Color(0xffbb86fe) : Color(0xff292929),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          margin: EdgeInsets.all(7.0),
-                          child: Container(
-                            height: (MediaQuery.of(context).size.height) * .15,
-                            width: (MediaQuery.of(context).size.width) * .25,
-                            decoration: BoxDecoration(
-                              color: flag==false? Color(0xff121212): Color(0xffbb86fe),
-                              border:
-                                  Border.all(color: Color(0xffbb86fe), width: 1),
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff121212).withOpacity(0.2),
-                                  spreadRadius: 3,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Repeat",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Till",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                                Text(
-                                  "Cancelled",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Circular',
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffF2E7FE),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      _choose('Custom\nSet of\nDates', 0),
+                      _choose('Select\nRange of\nDates', 1),
+                      _choose('Repeat\nTill\nCancelled', 2),
                     ],
                   ),
                   SizedBox(
@@ -1390,7 +1215,7 @@ class _Details extends State<Medicines> {
                                     ],
                                   ),
                                   onTap: () {
-                                    _dayInterval();
+                                    _dayInterval(context);
                                   },
                                 ),
                               ],
@@ -1455,7 +1280,7 @@ class _Details extends State<Medicines> {
     );
   }
 
-  void _newSchedule() {
+  void _newSchedule(context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -1549,7 +1374,7 @@ class _Details extends State<Medicines> {
                                     onTap: () {
                                       scheduleItems.removeAt(Index);
                                       Navigator.pop(context);
-                                      _newSchedule();
+                                      _newSchedule(context);
                                     },
                                   ),
                                 ],
@@ -1610,7 +1435,7 @@ class _Details extends State<Medicines> {
         scheduleItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
         print(scheduleItems);
-        _newSchedule();
+        _newSchedule(context);
       });
     }
     return picked;

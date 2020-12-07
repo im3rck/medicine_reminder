@@ -160,8 +160,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         width: 10,
                         height: 20,
                       ),
-                      SvgPicture.asset(
-                        'assets/images/logout.svg',
+                      Image.asset(
+                        'assets/images/logout.png',
                         height: 25.0,
                         width: 25.0,
                         // allowDrawingOutsideViewBox: true,

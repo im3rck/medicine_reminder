@@ -78,6 +78,8 @@ import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageServi
 import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/Timer/SelectDay/SelectDay.dart';
+
+import 'PatientController/Cards/Cards.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

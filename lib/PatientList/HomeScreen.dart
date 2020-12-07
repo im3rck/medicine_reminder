@@ -10,7 +10,7 @@ import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDeta
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-String imageUrl = null;
+String imageUrl;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -68,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Align(
                                   child: Hero(
-                                    tag: element['index'] == null ? '' : element['index'],
+                                    tag: element['index'] == null
+                                        ? ''
+                                        : element['index'],
                                     child: imageUrl == null
                                         ? Image.asset(
                                             'assets/images/usertrans.png')
@@ -85,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Container(
                                   margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                                   child: AutoSizeText(
-                                    element['name'] == null ? '' : element['name'],
+                                    element['name'] == null
+                                        ? ''
+                                        : element['name'],
                                     maxLines: 1,
                                     style: new TextStyle(
                                         color: Color(0xfff2e7fe),
@@ -116,7 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                         margin:
                                             EdgeInsets.fromLTRB(10, 0, 10, 10),
-                                        child: ((element['gender'] == null ? '' : element['gender'] ) == 'Male'
+                                        child: ((element['gender'] == null
+                                                    ? ''
+                                                    : element['gender']) ==
+                                                'Male'
                                             ? SvgPicture.asset(
                                                 'assets/images/male.svg',
                                                 height: 25.0,
@@ -124,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 allowDrawingOutsideViewBox:
                                                     true,
                                               )
-                                            : (element['gender'] == null ? '' : element['gender'])  == 'Female'
+                                            : (element['gender'] == null
+                                                        ? ''
+                                                        : element['gender']) ==
+                                                    'Female'
                                                 ? SvgPicture.asset(
                                                     'assets/images/female.svg',
                                                     height: 25.0,
@@ -145,7 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    element['rel'] == null ? '' : element['rel'],
+                                    element['rel'] == null
+                                        ? ''
+                                        : element['rel'],
                                     style: new TextStyle(
                                         color: Color(0xfff2e7fe),
                                         fontFamily: 'Circular',
@@ -178,8 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void searchPatients() {
-    List names =
-    Patientdata.map((items) => items['name']).toList();
+    List names = Patientdata.map((items) => items['name']).toList();
     String searchedName = searchController.text;
     int i = 0;
     for (String key in names) {
@@ -199,8 +210,6 @@ class _HomeScreenState extends State<HomeScreen> {
       i++;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -370,13 +379,14 @@ class _HomeScreenState extends State<HomeScreen> {
               // searched ? showEmpty : buildColumn(testData),
 
               searched
-                  ? (found ? buildColumn(Search) : Text('No data Found !',
-                  style: TextStyle(
-                      fontFamily: 'Circular',
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)
-              ))
+                  ? (found
+                      ? buildColumn(Search)
+                      : Text('No data Found !',
+                          style: TextStyle(
+                              fontFamily: 'Circular',
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)))
                   : buildColumn(Patientdata),
 
               // Column(
