@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 
 String imageUrl;
 
@@ -25,8 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool searched = false;
   bool found = false;
-
-  TextEditingController searchController = TextEditingController();
+ // String searchText;
+ // TextEditingController searchController = TextEditingController();
 
   Column buildColumn(List<Map> list) {
     return Column(
@@ -118,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     Container(
+                                      height: (MediaQuery.of(context).size.height)*.04,
                                         margin:
                                             EdgeInsets.fromLTRB(10, 0, 10, 10),
                                         child: ((element['gender'] == null
@@ -162,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Color(0xfff2e7fe),
                                         fontFamily: 'Circular',
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20.0),
+                                        fontSize: 15.0),
                                   ),
                                 ),
                               ],
@@ -189,9 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
             .toList());
   }
 
-  void searchPatients() {
+  void searchPatients(String searchText) {
     List names = Patientdata.map((items) => items['name']).toList();
-    String searchedName = searchController.text;
+    String searchedName = searchText;//searchController.text;
     int i = 0;
     for (String key in names) {
       if ((searchedName.toLowerCase()).compareTo(key.toLowerCase()) == 0) {
@@ -329,7 +331,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? Color(0xff292929)
                             : Color(0xFFf2e7fe)),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                      },
                     ),
                     // SizedBox(width: 5),
                     Center(
@@ -352,11 +357,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               });
                             Search.clear();
                           },
-                          controller: searchController,
+                          onSubmitted: (value){
+                            setState(() {
+                              searched = true;
+                            });
+                            searchPatients(value);
+                          },
+                          //controller: searchController,
                           decoration: InputDecoration(
                               hintText: 'Search my list',
                               hintStyle: TextStyle(
-                                  color: Color(0xffffffff),
+                                  color: Color(0xfff2e7fe),
                                   fontFamily: 'Circular',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15.0),
@@ -367,10 +378,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       icon: Icon(Icons.search, color: Color(0xfff2e7fe)),
                       onPressed: () {
-                        setState(() {
-                          searched = true;
-                        });
-                        searchPatients();
+                        // setState(() {
+                        //   searched = true;
+                        // });
+                        //searchPatients();
                       },
                     ),
                   ],

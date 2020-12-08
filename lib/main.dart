@@ -69,6 +69,7 @@ import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDeta
 
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
+import 'package:medicine_reminder/PatientScreen/demo.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
@@ -109,7 +110,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: GooeyEdgeDemo()
+        home: PhasePage(),
       ),
     );
   }
