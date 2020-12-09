@@ -10,8 +10,8 @@ class MedicineAddon extends StatefulWidget {
 }
 
 class _MedicineAddon extends State<MedicineAddon> {
-  bool flag = true;
-  bool which = true;
+  bool flag = false;
+  bool which = false;
   bool yes = true;
 
   void setCustomRange(String message, bool option) {
@@ -134,13 +134,13 @@ class _MedicineAddon extends State<MedicineAddon> {
       },
     );
   }
-
-  void onSelect() {
-    setState(() {
-      flag = !flag;
-      which = !which;
-    });
-  }
+  //
+  // void onSelect() {
+  //   setState(() {
+  //     flag = !flag;
+  //     which = !which;
+  //   });
+  // }
 
   void onTap() {
     setState(() {
@@ -148,34 +148,55 @@ class _MedicineAddon extends State<MedicineAddon> {
     });
   }
 
-  InkWell showCards(String message, int index, bool flag, bool which) {
-    whichColour(int index) {
-      switch (index) {
-        case 0:
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-      }
-    }
+  // InkWell showCards(String message, int index, bool flag, bool which) {
+  InkWell showCards(String message, int index, bool select) {
+    // whichColour(int index) {
+    //   switch (index) {
+    //     case 0:
+    //       break;
+    //     case 1:
+    //       break;
+    //     case 2:
+    //       break;
+    //   }
+    // }
     return InkWell(
       onTap: () {
         switch (index) {
           case 0:
-            onSelect();
+            // onSelect();
             setState(() {
+              flag = true;
+              which = true;
               yes = true;
+              print('index : $index');
+              print('flag : $flag');
+              print('which : $which');
+              print('select : $select');
             });
             break;
           case 1:
             setCustomRange('Range of Days', false);
-            onSelect();
+            setState(() {
+              flag = true;
+              which = false;
+              print('index : $index');
+              print('flag : $flag');
+              print('which : $which');
+              print('select : $select');
+            });
             onTap();
             break;
           case 2:
             setCustomRange('Set of Days', true);
-            onSelect();
+            setState(() {
+              flag = false;
+              which = true;
+              print('index : $index');
+              print('flag : $flag');
+              print('which : $which');
+              print('select : $select');
+            });
             onTap();
             break;
         }
@@ -184,7 +205,7 @@ class _MedicineAddon extends State<MedicineAddon> {
         children: [
           Card(
             elevation: 20.0,
-            color: flag ? which ? Color(0xffbb86fe) : Color(0xff292929) : Color(0xff292929),
+            color: select ? Color(0xffbb86fe) : Color(0xff292929),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
             margin: EdgeInsets.all(7.0),
@@ -231,9 +252,12 @@ class _MedicineAddon extends State<MedicineAddon> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            showCards('Repeat\nTill\nCancelled', 0, flag, which),
-            showCards('Select\nRange of\nDays', 1, !flag, !which),
-            showCards('Custom\nSet of\nDays', 2, !flag, which),
+            showCards('Repeat\nTill\nCancelled', 0, (flag ? (which ? true : false):(which ? false : false))),
+            showCards('Select\nRange of\nDays', 1, (flag ? (which ? false : true):(which ? false : false))),
+            showCards('Custom\nSet of\nDays', 2, (which ? (flag ? false : false):(flag ? true : false))),
+            // showCards('Repeat\nTill\nCancelled', 0, flag, which),
+            // showCards('Select\nRange of\nDays', 1, !flag, which),
+            // showCards('Custom\nSet of\nDays', 2, true, false),
           ],
         )
       ],

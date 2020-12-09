@@ -52,4 +52,5 @@
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
