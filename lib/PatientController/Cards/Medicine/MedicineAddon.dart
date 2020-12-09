@@ -182,29 +182,6 @@ class _MedicineAddon extends State<MedicineAddon> {
                 ? setCustomRange('Set of Days', true)
                 : null;
       },
-
-      // onTap: () {
-      //   switch (index) {
-      //     case 0:
-      //       setState(() {
-      //         yes = true;
-      //       });
-      //       break;
-      //     case 1:
-      //       setCustomRange('Range of Days', false);
-      //       setState(() {
-      //         yes = false;
-      //       });
-      //       break;
-      //     case 2:
-      //       setCustomRange('Set of Days', true);
-      //       setState(() {
-      //         yes = false;
-      //       });
-      //       break;
-      //   }
-      // },
-
       child: Column(
         children: [
           Card(
