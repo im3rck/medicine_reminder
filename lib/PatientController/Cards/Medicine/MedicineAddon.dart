@@ -10,9 +10,14 @@ class MedicineAddon extends StatefulWidget {
 }
 
 class _MedicineAddon extends State<MedicineAddon> {
-  bool flag = false;
-  bool which = false;
+  int selectedIndex = 0;
   bool yes = true;
+
+  List<String> optionList = [
+    'Repeat\nTill\nCancelled',
+    'Select\nRange of\nDays',
+    'Custom\nSet of\nDays'
+  ];
 
   void setCustomRange(String message, bool option) {
     showModalBottomSheet(
@@ -34,16 +39,40 @@ class _MedicineAddon extends State<MedicineAddon> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Center(
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Circular',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffF2E7FE),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            color: Color(0xffbb86fe),
+                          ),
+                          color: Color(0xffbb86fe),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                      ),
+                        Center(
+                          child: Text(
+                            message,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Circular',
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffF2E7FE),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            color: Color(0xff121212),
+                          ),
+                          color: Color(0xff121212),
+                          onPressed: () {
+                          },
+                        ),
+                      ],
                     ),
                     Divider(
                       height: 20,
@@ -113,6 +142,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                           child: FloatingActionButton.extended(
                             onPressed: () {
                               Navigator.pop(context);
+                              Navigator.pop(context);
                             },
                             backgroundColor: Color(0xff292929),
                             foregroundColor: Color(0xffbb86fe),
@@ -134,78 +164,30 @@ class _MedicineAddon extends State<MedicineAddon> {
       },
     );
   }
-  //
-  // void onSelect() {
-  //   setState(() {
-  //     flag = !flag;
-  //     which = !which;
-  //   });
-  // }
 
-  void onTap() {
+  void changeIndex(int index) {
     setState(() {
-      yes = !yes;
+      selectedIndex = index;
+      selectedIndex == 0 ? yes = true : yes = false;
     });
   }
 
-  // InkWell showCards(String message, int index, bool flag, bool which) {
-  InkWell showCards(String message, int index, bool select) {
-    // whichColour(int index) {
-    //   switch (index) {
-    //     case 0:
-    //       break;
-    //     case 1:
-    //       break;
-    //     case 2:
-    //       break;
-    //   }
-    // }
+  InkWell showCards(String message, int index) {
     return InkWell(
       onTap: () {
-        switch (index) {
-          case 0:
-            // onSelect();
-            setState(() {
-              flag = true;
-              which = true;
-              yes = true;
-              print('index : $index');
-              print('flag : $flag');
-              print('which : $which');
-              print('select : $select');
-            });
-            break;
-          case 1:
-            setCustomRange('Range of Days', false);
-            setState(() {
-              flag = true;
-              which = false;
-              print('index : $index');
-              print('flag : $flag');
-              print('which : $which');
-              print('select : $select');
-            });
-            onTap();
-            break;
-          case 2:
-            setCustomRange('Set of Days', true);
-            setState(() {
-              flag = false;
-              which = true;
-              print('index : $index');
-              print('flag : $flag');
-              print('which : $which');
-              print('select : $select');
-            });
-            onTap();
-            break;
-        }
+        changeIndex(index);
+        selectedIndex == 1
+            ? setCustomRange('Range of Days', false)
+            : selectedIndex == 2
+                ? setCustomRange('Set of Days', true)
+                : null;
       },
       child: Column(
         children: [
           Card(
             elevation: 20.0,
-            color: select ? Color(0xffbb86fe) : Color(0xff292929),
+            color:
+                selectedIndex == index ? Color(0xffbb86fe) : Color(0xff292929),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
             margin: EdgeInsets.all(7.0),
@@ -213,12 +195,16 @@ class _MedicineAddon extends State<MedicineAddon> {
               height: (MediaQuery.of(context).size.height) * .15,
               width: (MediaQuery.of(context).size.width) * .25,
               decoration: BoxDecoration(
-                color: flag ? Color(0xffbb86fe) : Color(0xff121212),
-                border: Border.all(color: Color(0xffbb86fe), width: 1),
+                color: selectedIndex == index
+                    ? Color(0xffbb86fe)
+                    : Color(0xff292929),
+                border: Border.all(color: selectedIndex == index
+                    ? Color(0xff292929)
+                    : Color(0xffbb86fe), width: 1),
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xff121212).withOpacity(0.2),
+                    color: Color(0xff292929),
                     spreadRadius: 3,
                     blurRadius: 4,
                     offset: Offset(0, 3),
@@ -232,7 +218,9 @@ class _MedicineAddon extends State<MedicineAddon> {
                     fontSize: 16,
                     fontFamily: 'Circular',
                     fontWeight: FontWeight.bold,
-                    color: Color(0xffF2E7FE),
+                    color: selectedIndex == index
+                        ? Color(0xff121212)
+                        : Color(0xffF2E7FE),
                   ),
                 ),
               ),
@@ -249,17 +237,18 @@ class _MedicineAddon extends State<MedicineAddon> {
       children: [
         yes ? SelectedDaysUpdateExample() : SizedBox(height: 48),
         SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            showCards('Repeat\nTill\nCancelled', 0, (flag ? (which ? true : false):(which ? false : false))),
-            showCards('Select\nRange of\nDays', 1, (flag ? (which ? false : true):(which ? false : false))),
-            showCards('Custom\nSet of\nDays', 2, (which ? (flag ? false : false):(flag ? true : false))),
-            // showCards('Repeat\nTill\nCancelled', 0, flag, which),
-            // showCards('Select\nRange of\nDays', 1, !flag, which),
-            // showCards('Custom\nSet of\nDays', 2, true, false),
-          ],
-        )
+        Flexible(
+            child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  showCards(optionList[index], index),
+                ]);
+          },
+          itemCount: optionList.length,
+        ))
       ],
     );
   }

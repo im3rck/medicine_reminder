@@ -6,6 +6,7 @@ class SingleSelection extends StatefulWidget {
   final List<String> optionList = [
     '   DAILY   ',
     'CUSTOM',
+
   ];
   final updateIndices;
 
