@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void searchPatients(String searchText) {
     List names = Patientdata.map((items) => items['name']).toList();
-    String searchedName = searchText;//searchController.text;
+    String searchedName = searchText;
     int i = 0;
     for (String key in names) {
       if ((searchedName.toLowerCase()).compareTo(key.toLowerCase()) == 0) {

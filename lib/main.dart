@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage(),
+        home: PatientAddPage('Token')
       ),
     );
   }

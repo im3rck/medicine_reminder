@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientController/Cards/addedList.dart';
 import 'package:medicine_reminder/PatientController/Cards/details.dart';
-import 'package:medicine_reminder/PatientController/Cards/medicine.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/medicine.dart';
 import 'package:medicine_reminder/PatientController/Connection/Connection.dart';
 
 class Cards extends StatefulWidget {
