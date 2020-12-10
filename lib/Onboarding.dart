@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
-import 'package:medicine_reminder/LaunchScreen/demo.dart';
+import 'package:medicine_reminder/LaunchScreen/GooeyEdge.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Onboarding extends StatelessWidget {
@@ -193,6 +193,6 @@ class _onboardingState extends State<onboarding> {
 
   openLoginPage() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => GooeyEdgeDemo()));
+        context, MaterialPageRoute(builder: (context) => GooeyEdge()));
   }
 }

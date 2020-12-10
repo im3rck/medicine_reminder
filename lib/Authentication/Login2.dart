@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
 class Login2 extends StatefulWidget {
   @override
@@ -48,37 +47,19 @@ class _Login2State extends State<Login2> {
   }
 
   void _submitForm() async {
-    // Set the form to loading state
-    /*   setState(() {
-      _loginFormLoading = true;
-    });*/
-
-    // Run the create account method
     String _loginFeedback = await _loginAccount();
-
     // If the string is not null, we got error while create account.
     if (_loginFeedback != null) {
       _alertDialogBuilder(_loginFeedback);
-
-      // Set the form to regular state [not loading].
-      /*setState(() {
-        _loginFormLoading = false;
-      });*/
     }
   }
 
-  // Form Input Field Values
   String _loginEmail = "";
   String _loginPassword = "";
 
-  // TextEditingController emailController;
-
-  // TextEditingController passwordController;
   @override
   void initState() {
     _passwordVisible = false;
-    // emailController = new TextEditingController();
-    //  passwordController = new TextEditingController();
     super.initState();
   }
 
@@ -257,8 +238,7 @@ class _Login2State extends State<Login2> {
               ),
             ),
             InkWell(
-              onTap: (){
-                print("Test");
+              onTap: () {
                 // Future<void> resetPassword(String email) async {
                 //   await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
                 // }

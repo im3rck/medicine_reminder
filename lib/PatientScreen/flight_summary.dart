@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
-//file data before folding out
-
 import 'demo_data.dart';
 import 'patientMain.dart';
 
@@ -16,7 +14,12 @@ class FlightSummary extends StatelessWidget {
   final SummaryTheme theme;
   final bool isOpen;
 
-  const FlightSummary({Key key, this.boardingPass, this.theme = SummaryTheme.light, this.isOpen = false}) : super(key: key);
+  const FlightSummary(
+      {Key key,
+      this.boardingPass,
+      this.theme = SummaryTheme.light,
+      this.isOpen = false})
+      : super(key: key);
 
   Color get mainTextColor {
     Color textColor;
@@ -39,7 +42,11 @@ class FlightSummary extends StatelessWidget {
     return color;
   }
 
-  TextStyle get bodyTextStyle => TextStyle(color: mainTextColor, fontSize: 13, fontFamily: 'Oswald', package: App.pkg);
+  TextStyle get bodyTextStyle => TextStyle(
+      color: mainTextColor,
+      fontSize: 13,
+      fontFamily: 'Oswald',
+      package: App.pkg);
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +64,17 @@ class FlightSummary extends StatelessWidget {
             //_buildTicketHeader(context),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
-
               child: Stack(
                 children: <Widget>[
-                  Align(alignment: Alignment.centerLeft, child: _buildTicketOrigin()),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: _buildTicketOrigin()),
                   //Align(alignment: Alignment.center, child: _buildTicketDuration()),
-                  Align(alignment: Alignment.centerRight, child: _buildTicketDestination())
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: _buildTicketDestination())
                 ],
               ),
-
-
-
-
             ),
             _buildBottomIcon()
           ],
@@ -87,7 +93,9 @@ class FlightSummary extends StatelessWidget {
       return BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
         //pull medicine image from database and put it here
-        image: DecorationImage(image: AssetImage('images/App_logo_plain.png', package: App.pkg), fit: BoxFit.cover),
+        image: DecorationImage(
+            image: AssetImage('images/App_logo_plain.png', package: App.pkg),
+            fit: BoxFit.cover),
       );
   }
 
@@ -100,16 +108,19 @@ class FlightSummary extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Image.asset('images/pill.png', width: 8, package: App.pkg),
+                child:
+                    Image.asset('images/pill.png', width: 8, package: App.pkg),
               ),
-              Text('MedReminder'.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Circular',
-                    fontSize: 16,
-                    color: Color(0xffF2E7FE),
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.bold,
-                  ),)
+              Text(
+                'MedReminder'.toUpperCase(),
+                style: TextStyle(
+                  fontFamily: 'Circular',
+                  fontSize: 16,
+                  color: Color(0xffF2E7FE),
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
             ],
           ),
           Padding(
@@ -129,9 +140,9 @@ class FlightSummary extends StatelessWidget {
                 color: Color(0xfff2e7fe),
               ),
               padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(color: Color(0xff292929), shape: BoxShape.rectangle),
-              onDone: () {
-              },
+              decoration: BoxDecoration(
+                  color: Color(0xff292929), shape: BoxShape.rectangle),
+              onDone: () {},
             ),
           ),
         ],
@@ -152,12 +163,16 @@ class FlightSummary extends StatelessWidget {
   }
 
   Widget _buildTicketHeader(context) {
-    var headerStyle =
-        TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFFe46565), package: App.pkg);
+    var headerStyle = TextStyle(
+        fontFamily: 'OpenSans',
+        fontWeight: FontWeight.bold,
+        fontSize: 11,
+        color: Color(0xFFe46565),
+        package: App.pkg);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text("Ms.PatientName",style: headerStyle),
+        Text("Ms.PatientName", style: headerStyle),
         // Text(boardingPass.passengerName.toUpperCase(), style: headerStyle),
         //Text('BOARDING ${boardingPass.boardingTime.format(context)}', style: headerStyle),
       ],
@@ -171,42 +186,48 @@ class FlightSummary extends StatelessWidget {
           '\n\nParacetamol',
           style: bodyTextStyle.copyWith(fontSize: 14),
         ),
-        //Text(boardingPass.origin.city, style: bodyTextStyle.copyWith(color: secondaryTextColor)),
       ],
     );
   }
 
-  Widget _buildTicketDuration() {
-    String planeRoutePath;
-    if (theme == SummaryTheme.light) planeRoutePath = 'images/blank.png';//'images/planeroute_blue.png';
-    if (theme == SummaryTheme.dark) planeRoutePath = 'images/blank.png';//'images/planeroute_white.png';
-
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Container(
-            width: 120,
-            height: 58,
-            child: Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Image.asset(planeRoutePath, fit: BoxFit.cover, package: App.pkg),
-                if (theme == SummaryTheme.light) Image.asset('images/blank.png', height: 20, fit: BoxFit.contain, package: App.pkg),
-                if (theme == SummaryTheme.dark)
-                  _AnimatedSlideToRight(
-                    child: Image.asset('images/blank.png', height: 20, fit: BoxFit.contain, package: App.pkg),
-                    isOpen: isOpen,
-                  )
-              ],
-            ),
-          ),
-          Text(boardingPass.duration.toString(), textAlign: TextAlign.center, style: bodyTextStyle),
-        ],
-      ),
-    );
-  }
+  // Widget _buildTicketDuration() {
+  //   String planeRoutePath;
+  //   if (theme == SummaryTheme.light)
+  //     planeRoutePath = 'images/blank.png';
+  //   if (theme == SummaryTheme.dark)
+  //     planeRoutePath = 'images/blank.png';
+  //
+  //   return Container(
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //       children: <Widget>[
+  //         Container(
+  //           width: 120,
+  //           height: 58,
+  //           child: Stack(
+  //             alignment: Alignment.center,
+  //             children: <Widget>[
+  //               Image.asset(planeRoutePath,
+  //                   fit: BoxFit.cover, package: App.pkg),
+  //               if (theme == SummaryTheme.light)
+  //                 Image.asset('images/blank.png',
+  //                     height: 20, fit: BoxFit.contain, package: App.pkg),
+  //               if (theme == SummaryTheme.dark)
+  //                 _AnimatedSlideToRight(
+  //                   child: Image.asset('images/blank.png',
+  //                       height: 20, fit: BoxFit.contain, package: App.pkg),
+  //                   isOpen: isOpen,
+  //                 )
+  //             ],
+  //           ),
+  //         ),
+  //         Text(boardingPass.duration.toString(),
+  //             textAlign: TextAlign.center, style: bodyTextStyle),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildTicketDestination() {
     return Column(
@@ -240,19 +261,22 @@ class _AnimatedSlideToRight extends StatefulWidget {
   final Widget child;
   final bool isOpen;
 
-  const _AnimatedSlideToRight({Key key, this.child, @required this.isOpen}) : super(key: key);
+  const _AnimatedSlideToRight({Key key, this.child, @required this.isOpen})
+      : super(key: key);
 
   @override
   _AnimatedSlideToRightState createState() => _AnimatedSlideToRightState();
 }
 
-class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight> with SingleTickerProviderStateMixin {
+class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController( duration: Duration(milliseconds: 1700), vsync: this);
+    _controller = AnimationController(
+        duration: Duration(milliseconds: 1700), vsync: this);
   }
 
   @override
@@ -265,7 +289,8 @@ class _AnimatedSlideToRightState extends State<_AnimatedSlideToRight> with Singl
   Widget build(BuildContext context) {
     if (widget.isOpen) _controller.forward(from: 0);
     return SlideTransition(
-      position: Tween(begin: Offset(-2, 0), end: Offset(1, 0)).animate(CurvedAnimation(curve: Curves.easeOutQuad, parent: _controller)),
+      position: Tween(begin: Offset(-2, 0), end: Offset(1, 0)).animate(
+          CurvedAnimation(curve: Curves.easeOutQuad, parent: _controller)),
       child: widget.child,
     );
   }

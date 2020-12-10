@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'content_card.dart';
 import 'gooey_carousel.dart';
 
-class GooeyEdgeDemo extends StatefulWidget {
-  GooeyEdgeDemo( {Key key, this.title}) : super(key: key);
+class GooeyEdge extends StatefulWidget {
+  GooeyEdge( {Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _GooeyEdgeDemoState createState() => _GooeyEdgeDemoState();
+  _GooeyEdgeState createState() => _GooeyEdgeState();
 }
 
-class _GooeyEdgeDemoState extends State<GooeyEdgeDemo> {
+class _GooeyEdgeState extends State<GooeyEdge> {
   String T;
   @override
   Widget build(BuildContext context) {

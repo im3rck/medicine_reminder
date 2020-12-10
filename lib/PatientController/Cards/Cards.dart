@@ -28,7 +28,6 @@ class _CardsState extends State<Cards> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //SizedBox(height: 14.0),
             Details(widget.token),
             Medicines(),
             AddedList(),

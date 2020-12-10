@@ -33,27 +33,6 @@ class FlightDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Gate'.toUpperCase(), style: titleTextStyle),
-                  Text(boardingPass.gate, style: contentTextStyle),
-                ]),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Zone'.toUpperCase(), style: titleTextStyle),
-                  Text(boardingPass.zone.toString(), style: contentTextStyle),
-                ]),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Seat'.toUpperCase(), style: titleTextStyle),
-                  Text(boardingPass.seat, style: contentTextStyle),
-                ]),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Text('Class'.toUpperCase(), style: titleTextStyle),
-                  Text(boardingPass.flightClass, style: contentTextStyle),
-                ]),
-              ],
-            ),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[

@@ -1,10 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/widgets.dart';
 
 import 'Launch.dart';
-
-
 
 class SunAndMoon extends StatefulWidget {
   final bool isDragComplete;
@@ -14,7 +11,11 @@ class SunAndMoon extends StatefulWidget {
   SunAndMoon(
       {Key key,
       this.isDragComplete = false,
-      this.assetPaths = const ['images/Sun-Yellow.png', 'images/Sun-Red.png', 'images/Moon-Crescent.png'],
+      this.assetPaths = const [
+        'images/Sun-Yellow.png',
+        'images/Sun-Red.png',
+        'images/Moon-Crescent.png'
+      ],
       this.index})
       : super(key: key);
 
@@ -22,7 +23,8 @@ class SunAndMoon extends StatefulWidget {
   State<StatefulWidget> createState() => _SunAndMoonState();
 }
 
-class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateMixin {
+class _SunAndMoonState extends State<SunAndMoon>
+    with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _rotationAnimation;
   int _rotationRadius = 300;
@@ -33,7 +35,8 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
     super.initState();
     //Create unbounded controller so we can animate the rotation in positive or negative direction
     _animationController = AnimationController.unbounded(vsync: this);
-    _rotationAnimation = Tween<double>(begin: 1, end: 0).animate(_animationController);
+    _rotationAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_animationController);
   }
 
   @override
@@ -49,7 +52,8 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
     if (isDragComplete && widget.index != _currentIndex) {
       _currentIndex = widget.index;
       double nextAnimState = widget.index / 3;
-      _animationController.animateTo(nextAnimState, duration: Duration(milliseconds: 350), curve: Curves.easeOut);
+      _animationController.animateTo(nextAnimState,
+          duration: Duration(milliseconds: 350), curve: Curves.easeOut);
     }
     return Container(
       width: double.infinity,
@@ -73,7 +77,8 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
       child: RotationTransition(
         turns: _rotationAnimation,
         child: Transform.translate(
-          offset: Offset(_rotationRadius * cos(radianAngle), _rotationRadius * sin(radianAngle)),
+          offset: Offset(_rotationRadius * cos(radianAngle),
+              _rotationRadius * sin(radianAngle)),
           child: Image.asset(
             widget.assetPaths.elementAt(index),
             width: 60,
@@ -84,5 +89,4 @@ class _SunAndMoonState extends State<SunAndMoon> with SingleTickerProviderStateM
       ),
     );
   }
-
 }
