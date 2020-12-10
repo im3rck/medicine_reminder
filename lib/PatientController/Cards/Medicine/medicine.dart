@@ -206,7 +206,7 @@ class _Medicines extends State<Medicines> {
                               ],
                             ),
                             Container(
-                              width: (MediaQuery.of(context).size.width) * .9,
+                              width: (MediaQuery.of(context).size.width)*.9,
                               child: AutoComplete(),
                               // child: TextField(
                               //   onSubmitted: (value) {
@@ -236,7 +236,7 @@ class _Medicines extends State<Medicines> {
                               //         //  when the TextFormField in focused
                               //       ),
                               //       border: UnderlineInputBorder()),
-                              // ),
+                             // ),
                             ),
                             SizedBox(height: 16),
                             Row(

@@ -60,7 +60,26 @@ class _AutoCompleteState extends State<AutoComplete> {
             child: ListTile(
               title: TypeAheadField(
                   textFieldConfiguration: TextFieldConfiguration(
-                    decoration: InputDecoration(labelText: 'State'),
+                    decoration: InputDecoration(labelText: 'Medicine Name',
+                labelStyle: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Circular',
+                  color: Color(0xfff2e7fe).withOpacity(0.6),
+                  height: 2,
+                ),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 0),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Color(0xfff2e7fe)),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Color(0xffBB86fc)),
+                          //  when the TextFormField in focused
+                        ),
+                        border: UnderlineInputBorder()
+                    ),
                     controller: this._typeAheadController,
                   ),
                   suggestionsCallback: (pattern) async {
@@ -70,43 +89,48 @@ class _AutoCompleteState extends State<AutoComplete> {
                     return suggestionsBox;
                   },
                   itemBuilder: (context, UserDetail suggestion) {
-                    return Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Card(
-                        elevation: 10,
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.fromLTRB(3, 5, 10, 2),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  child: Image(
-                                    image:
-                                    NetworkImage(suggestion.url, scale: 3),
+                    return Container(
+                      color: Color(0xff292929),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Card(
+                          color: Color(0xff323232),
+                          elevation: 20,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(3, 5, 10, 2),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    child: Image(
+                                      image:
+                                      NetworkImage(suggestion.url, scale: 3),
+                                    ),
+                                  )),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    suggestion.title,
+                                    style: TextStyle(
+                                        color: Color(0xfff2e7fe),
+                                        fontFamily: 'Circular',
+                                        fontSize: 15),
                                   ),
-                                )),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  suggestion.title,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'BenchNine',
-                                      fontSize: 15),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
-                              child: Text(suggestion.id.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'BenchNine',
-                                      fontSize: 15)),
-                            )
-                          ],
+                              Padding(
+                                padding:
+                                const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
+                                child: Text(suggestion.id.toString(),
+                                    style: TextStyle(
+                                        color: Color(0xfff2e7fe),
+                                        fontFamily: 'Circular',
+                                        fontSize: 15)),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
