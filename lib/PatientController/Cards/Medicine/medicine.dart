@@ -47,7 +47,7 @@ class _Medicines extends State<Medicines> {
           }
         },
         child: Container(
-            height: (MediaQuery.of(context).size.height) * .30,
+            height: (MediaQuery.of(context).size.height) * .25,
             width: (MediaQuery.of(context).size.width) * .5,
             child: customCard(_icons[index], heading, body)));
   }
@@ -312,7 +312,7 @@ class _Medicines extends State<Medicines> {
                               ],
                             ),
                             SizedBox(
-                              height: 50,
+                              height: 20,
                             ),
                             single
                                 ? Row(

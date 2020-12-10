@@ -59,8 +59,11 @@ class _AutoCompleteState extends State<AutoComplete> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               title: TypeAheadField(
+                direction: AxisDirection.up,
                   textFieldConfiguration: TextFieldConfiguration(
-                    decoration: InputDecoration(labelText: 'Medicine Name',
+                    style: TextStyle(color: Color(0xfff2e7fe)),
+                    decoration: InputDecoration(
+                        labelText: 'Medicine Name',
                 labelStyle: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Circular',
