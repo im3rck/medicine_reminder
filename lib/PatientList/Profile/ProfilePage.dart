@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/services.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -9,7 +12,6 @@ class ProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<ProfilePage> {
   bool showPassword = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class _EditProfilePageState extends State<ProfilePage> {
               Icons.settings,
               color: Color(0xffbb86fe),
             ),
-            onPressed: () {
+            onPressed:() {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) => SettingsPage()));
             },
@@ -133,6 +135,7 @@ class _EditProfilePageState extends State<ProfilePage> {
                       pressed: true,
 
                       onPressed: (){
+                       // HapticFeedback.heavyImpact();
                         //openLoginPage();
                       },
                       style: NeumorphicStyle(

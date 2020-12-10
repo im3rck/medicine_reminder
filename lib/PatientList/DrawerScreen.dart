@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
