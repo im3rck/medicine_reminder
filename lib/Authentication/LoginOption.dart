@@ -7,7 +7,6 @@ class LoginOption extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
         Text(
           "Existing user?",
           style: TextStyle(
@@ -17,11 +16,9 @@ class LoginOption extends StatelessWidget {
             height: 1,
           ),
         ),
-
         SizedBox(
           height: 16,
         ),
-
         Container(
           height: 40,
           decoration: BoxDecoration(
@@ -29,10 +26,7 @@ class LoginOption extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(25),
             ),
-            border: Border.all(
-                color: Color(0xffBB86FC),
-                width: 1
-            ),
+            border: Border.all(color: Color(0xffBB86FC), width: 1),
             boxShadow: [
               BoxShadow(
                 color: Color(0xffF292929).withOpacity(0.2),
@@ -53,7 +47,6 @@ class LoginOption extends StatelessWidget {
             ),
           ),
         ),
-
       ],
     );
   }

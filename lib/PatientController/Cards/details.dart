@@ -15,11 +15,17 @@ final ImagePicker _picker = ImagePicker();
 
 class Details extends StatefulWidget {
   Details(this.token);
-  String token;
+  final String token;
   _Details createState() => _Details();
 }
 
 class _Details extends State<Details> {
+  final style = TextStyle(
+      color: Color(0xfff2e7fe),
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Circular',
+      fontSize: 25.0);
+
   FirebaseFirestore _db = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser;
   double yOffset = 0;
@@ -34,7 +40,7 @@ class _Details extends State<Details> {
   var rng = new Random();
   void setData(){
     String _fcmToken = widget.token;
-    print('Token value : ${_fcmToken}');
+    print('Token value : $_fcmToken');
     PPD newPatient = PPD(patientToken : _fcmToken,patientName : fnameController.text,age : ageController.text,
         gender : _value,relationship : relController.text,contactNo : contactController.text);
     var options = SetOptions(merge:true);
@@ -42,9 +48,6 @@ class _Details extends State<Details> {
     var patientDetails = newPatient.toMap();
     patientDetails['index'] = rng.nextInt(10000);
     Patientdata.add(patientDetails);
-    //create a new document
-
-    //print('New Token : ${newPatient.patientToken} , Uid ${currentUserId}');
     _db
         .collection('/users/${user.uid}/patients')
         .doc(newPatient.patientToken)
@@ -84,12 +87,7 @@ class _Details extends State<Details> {
                           color: Color(0xfff2e7fe)),
                       title: new Text(
                         'Photo Library',
-                        style: TextStyle(
-                          fontFamily: 'Circular',
-                          fontSize: 16,
-                          color: Color(0xffF2E7FE),
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: style,
                       ),
                       onTap: () {
                         _imgFromGallery();
@@ -100,12 +98,7 @@ class _Details extends State<Details> {
                         new Icon(Icons.photo_camera, color: Color(0xfff2e7fe)),
                     title: new Text(
                       'Camera',
-                      style: TextStyle(
-                        fontFamily: 'Circular',
-                        fontSize: 16,
-                        color: Color(0xffF2E7FE),
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: style,
                     ),
                     onTap: () {
                       _imgFromCamera();
@@ -223,12 +216,7 @@ class _Details extends State<Details> {
                                       Icons.person,
                                       color: Color(0xffF2E7FE),
                                     ),
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    labelStyle: style,
                                     filled: true,
                                     fillColor: Color(0xff121212),
                                     contentPadding: EdgeInsets.symmetric(
@@ -269,12 +257,7 @@ class _Details extends State<Details> {
                                           Icons.calendar_view_day,
                                           color: Color(0xffF2E7FE),
                                         ),
-                                        labelStyle: TextStyle(
-                                          fontFamily: 'Circular',
-                                          fontSize: 16,
-                                          color: Color(0xffF2E7FE),
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        labelStyle: style,
                                         filled: true,
                                         fillColor: Color(0xff121212),
                                         contentPadding: EdgeInsets.symmetric(
@@ -296,12 +279,7 @@ class _Details extends State<Details> {
 
                                   child: DropdownButton(
                                     hint: Text("Gender",
-                                        style: TextStyle(
-                                          fontFamily: 'Circular',
-                                          fontSize: 16,
-                                          color: Color(0xffF2E7FE),
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                        style: style),
                                     value: _value,
                                     dropdownColor: Color(0xff292929),
                                     iconEnabledColor: Color(0xFF3EB16F),
@@ -315,12 +293,7 @@ class _Details extends State<Details> {
                                       return new DropdownMenuItem(
                                         value: valueItem,
                                         child: new Text(valueItem,
-                                            style: TextStyle(
-                                              fontFamily: 'Circular',
-                                              fontSize: 16,
-                                              color: Color(0xffF2E7FE),
-                                              fontWeight: FontWeight.bold,
-                                            )),
+                                            style: style),
                                       );
                                     }).toList(),
                                   ),
@@ -348,12 +321,7 @@ class _Details extends State<Details> {
                                       Icons.phone,
                                       color: Color(0xffF2E7FE),
                                     ),
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    labelStyle: style,
                                     filled: true,
                                     fillColor: Color(0xff121212),
                                     contentPadding: EdgeInsets.symmetric(
@@ -389,12 +357,7 @@ class _Details extends State<Details> {
                                       Icons.people_outline_rounded,
                                       color: Color(0xffF2E7FE),
                                     ),
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    labelStyle: style,
                                     filled: true,
                                     fillColor: Color(0xff121212),
                                     contentPadding: EdgeInsets.symmetric(
@@ -442,12 +405,7 @@ class _Details extends State<Details> {
                                 child: Center(
                                   child: Text(
                                     "Confirm",
-                                    style: TextStyle(
-                                      fontFamily: 'Circular',
-                                      fontSize: 16,
-                                      color: Color(0xffF2E7FE),
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: style,
                                   ),
                                 ),
                               ),

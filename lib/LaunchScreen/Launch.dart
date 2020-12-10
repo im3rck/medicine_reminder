@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/env.dart';
-//import 'package:medicine_reminder/LaunchScreen/_shared/lib/env.dart';
-
-import 'demo.dart';
-
+import 'GooeyEdge.dart';
 
 class App extends StatelessWidget {
 
@@ -13,7 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: GooeyEdgeDemo(),
+      home: GooeyEdge(),
     );
   }
 }

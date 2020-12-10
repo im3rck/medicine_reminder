@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/Addmeds.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/AutoComplete.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/TimeIntervals.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
-import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 
 import 'MedicineAddon.dart';
 
@@ -19,12 +17,9 @@ class Medicines extends StatefulWidget {
 }
 
 class _Medicines extends State<Medicines> {
-  List<String> intervalItems = [];
-  List<String> scheduleItems = [];
   String _selected = '';
   String _selectedType = '0';
   double yOffset = 0;
-  TimeOfDay _time = TimeOfDay(hour: 0, minute: 00);
 
   List<IconData> _icons = [
     Icons.description,
@@ -38,7 +33,7 @@ class _Medicines extends State<Medicines> {
         onTap: () {
           switch (index) {
             case 0:
-              _newMedicine(context);
+              _newMedicine(true);
               break;
             case 1:
               _newSchedule(context);
@@ -64,14 +59,14 @@ class _Medicines extends State<Medicines> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (context) {
         return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _choice("By Medicine", "Set Schedule for Medicines", 0),
+          _choice("By Medicine", "Set Schedule for\nMedicines", 0),
           _choice("By Schedule", "Set Medicines for Schedules", 1),
         ]);
       },
     );
   }
 
-  void _newMedicine(context) {
+  void _newMedicine(bool single) {
     String _check() {
       if (_selected == 'Pill' || _selected == 'Tablet')
         return "numbers";
@@ -212,35 +207,36 @@ class _Medicines extends State<Medicines> {
                             ),
                             Container(
                               width: (MediaQuery.of(context).size.width) * .9,
-                              child: TextField(
-                                onSubmitted: (value) {
-                                  yOffset = 0;
-                                },
-                                // controller: emailController,
-                                style: TextStyle(color: Color(0xfff2e7fe)),
-                                decoration: InputDecoration(
-                                    labelText: 'Medicine Name',
-                                    labelStyle: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: 'Circular',
-                                      color: Color(0xfff2e7fe).withOpacity(0.6),
-                                      height: 2,
-                                    ),
-                                    filled: true,
-                                    fillColor: Color(0xff121212),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 0),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xfff2e7fe)),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0xffBB86fc)),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder()),
-                              ),
+                              child: AutoComplete(),
+                              // child: TextField(
+                              //   onSubmitted: (value) {
+                              //     yOffset = 0;
+                              //   },
+                              //   // controller: emailController,
+                              //   style: TextStyle(color: Color(0xfff2e7fe)),
+                              //   decoration: InputDecoration(
+                              //       labelText: 'Medicine Name',
+                              //       labelStyle: TextStyle(
+                              //         fontSize: 14,
+                              //         fontFamily: 'Circular',
+                              //         color: Color(0xfff2e7fe).withOpacity(0.6),
+                              //         height: 2,
+                              //       ),
+                              //       filled: true,
+                              //       fillColor: Color(0xff121212),
+                              //       contentPadding: EdgeInsets.symmetric(
+                              //           horizontal: 16, vertical: 0),
+                              //       enabledBorder: UnderlineInputBorder(
+                              //         borderSide:
+                              //             BorderSide(color: Color(0xfff2e7fe)),
+                              //       ),
+                              //       focusedBorder: UnderlineInputBorder(
+                              //         borderSide:
+                              //             BorderSide(color: Color(0xffBB86fc)),
+                              //         //  when the TextFormField in focused
+                              //       ),
+                              //       border: UnderlineInputBorder()),
+                              // ),
                             ),
                             SizedBox(height: 16),
                             Row(
@@ -318,17 +314,22 @@ class _Medicines extends State<Medicines> {
                             SizedBox(
                               height: 50,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                    child: _choice(
-                                        "Time", "Timing & Intervals", 2)),
-                                Expanded(
-                                    child:
-                                        _choice("Schedule", "Days & Range", 3)),
-                              ],
-                            ),
+                            single
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                          child: _choice(
+                                              "Schedule", "Days & Range", 3)),
+                                      Expanded(
+                                          child: _choice(
+                                              "Time", "Timing & Intervals", 2)),
+                                    ],
+                                  )
+                                : SizedBox(
+                                    height: 20,
+                                  ),
                             SizedBox(
                               height: 20,
                             ),
@@ -437,44 +438,6 @@ class _Medicines extends State<Medicines> {
         });
   }
 
-  String convertTime(String minutes) {
-    if (minutes.length == 1) {
-      return "0" + minutes;
-    } else {
-      return minutes;
-    }
-  }
-
-  Future<TimeOfDay> _selectTime(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
-        context: context,
-        initialTime: _time,
-        builder: (BuildContext context, Widget child) {
-          return Theme(
-            data: ThemeData.dark().copyWith(
-                colorScheme: ColorScheme.dark(
-                  primary: Color(0xffbb86fe),
-                  onPrimary: Color(0xff121212),
-                  surface: Color(0xff121212),
-                  onSurface: Color(0xfff2e7fe),
-                ),
-                buttonTheme:
-                    ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                dialogBackgroundColor: Color(0xffbb86fe)),
-            child: child,
-          );
-        });
-    if (picked != null && picked != _time) {
-      setState(() {
-        _time = picked;
-        intervalItems.add(
-            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
-        _timeInterval(context);
-      });
-    }
-    return picked;
-  }
-
   void _timeInterval(context) {
     showModalBottomSheet(
       context: context,
@@ -506,88 +469,7 @@ class _Medicines extends State<Medicines> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  new Expanded(
-                      child: new ListView.builder(
-                          itemCount: intervalItems.length,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            return new Container(
-                              alignment: Alignment.center,
-                              child: Card(
-                                elevation: 10.0,
-                                margin: new EdgeInsets.symmetric(
-                                    horizontal: 10.0, vertical: 10.0),
-                                child: Slidable(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff292929),
-                                    ),
-                                    child: ListTile(
-                                      leading: Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 10.0),
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                            color: Color(0xff292929),
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: Color(0xffbb86fe),
-                                                width: 4)),
-                                      ),
-                                      title: Text(
-                                        intervalItems[index],
-                                        style: TextStyle(
-                                          fontFamily: 'Circular',
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xfff2e7fe),
-                                          height: 2,
-                                        ),
-                                      ),
-                                      trailing: Container(
-                                        height: 50,
-                                        width: 5,
-                                        color: Color(0xffbb86fe),
-                                      ),
-                                    ),
-                                  ),
-                                  actionPane: SlidableBehindActionPane(),
-                                  secondaryActions: <Widget>[
-                                    IconSlideAction(
-                                      caption: 'Delete',
-                                      color: Colors.red,
-                                      icon: Icons.delete,
-                                      onTap: () {
-                                        intervalItems.removeAt(index);
-                                        Navigator.pop(context);
-                                        _timeInterval(context);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          })),
-                  FloatingActionButton.extended(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      setState(() {
-                        _selectTime(context);
-                      });
-                    },
-                    icon: Icon(Icons.add),
-                    backgroundColor: Color(0xff292929),
-                    foregroundColor: Color(0xffbb86fe),
-                    label: Text(
-                      "Interval",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Circular',
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffF2E7FE),
-                      ),
-                    ),
-                  )
+                  Expanded(child: TimeIntervals()),
                 ],
               ),
             );
@@ -669,7 +551,6 @@ class _Medicines extends State<Medicines> {
           builder: (BuildContext context, StateSetter myState) {
             return Container(
               padding: EdgeInsets.all(20.0),
-              // height: (MediaQuery.of(context).size.height) * .80,
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffBB86FC), width: 1),
                 color: Color(0xff292929),
@@ -688,95 +569,12 @@ class _Medicines extends State<Medicines> {
                       ),
                     ),
                   ),
-                  new Expanded(
-                      child: InkWell(
-                    onTap: () => _newMedicine(context),
-                    child: new ListView.builder(
-                        itemCount: scheduleItems.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return new Container(
-                            alignment: Alignment.center,
-                            child: Card(
-                              elevation: 10.0,
-                              margin: new EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10.0),
-                              child: Slidable(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff292929),
-                                  ),
-                                  child: ListTile(
-                                    leading: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10.0),
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff292929),
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                              color: Color(0xffbb86fe),
-                                              width: 4)),
-                                    ),
-                                    title: Text(
-                                      scheduleItems[index],
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xfff2e7fe),
-                                        height: 2,
-                                      ),
-                                    ),
-                                    trailing: Container(
-                                      height: 50,
-                                      width: 5,
-                                      color: Color(0xffbb86fe),
-                                    ),
-                                  ),
-                                ),
-                                actionPane: SlidableBehindActionPane(),
-                                actions: <Widget>[
-                                  IconSlideAction(
-                                    caption: 'MedList',
-                                    color: Color(0xff121212),
-                                    icon: Icons.list,
-                                    onTap: () => print('log'),
-                                  ),
-                                ],
-                                secondaryActions: <Widget>[
-                                  IconSlideAction(
-                                    caption: 'Delete',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    onTap: () {
-                                      scheduleItems.removeAt(index);
-                                      Navigator.pop(context);
-                                      _newSchedule(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                  )),
-                  FloatingActionButton.extended(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      _selectTimeSchedule(context);
-                    },
-                    icon: Icon(Icons.add),
-                    backgroundColor: Color(0xff292929),
-                    foregroundColor: Color(0xffbb86fe),
-                    label: Text(
-                      "Schedule",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xffF2E7FE),
-                      ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () => _newMedicine(false),
+                      child: TimeIntervals(),
                     ),
-                  )
+                  ),
                 ],
               ),
             );
@@ -784,38 +582,6 @@ class _Medicines extends State<Medicines> {
         );
       },
     );
-  }
-
-  Future<TimeOfDay> _selectTimeSchedule(BuildContext context) async {
-    final TimeOfDay picked = await showTimePicker(
-        context: context,
-        initialTime: _time,
-        builder: (BuildContext context, Widget child) {
-          return Theme(
-            data: ThemeData.dark().copyWith(
-                colorScheme: ColorScheme.dark(
-                  primary: Color(0xffbb86fe),
-                  onPrimary: Color(0xff121212),
-                  surface: Color(0xff121212),
-                  onSurface: Color(0xfff2e7fe),
-                ),
-                buttonTheme:
-                    ButtonThemeData(textTheme: ButtonTextTheme.primary),
-                dialogBackgroundColor: Color(0xffbb86fe)),
-            child: child,
-          );
-        });
-    if (picked != null && picked != _time) {
-      setState(() {
-        _time = picked;
-        // _clicked = true;
-        scheduleItems.add(
-            "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
-        print(scheduleItems);
-        _newSchedule(context);
-      });
-    }
-    return picked;
   }
 
   @override

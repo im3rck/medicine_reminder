@@ -51,16 +51,18 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
         : _openTickets.add(clickedTicket);
 
     // Calculate heights of the open and closed elements before the clicked item
-    double openTicketsOffset = Ticket.nominalOpenHeight *
-        _getOpenTicketsBefore(clickedTicket);
+    double openTicketsOffset =
+        Ticket.nominalOpenHeight * _getOpenTicketsBefore(clickedTicket);
     double closedTicketsOffset = Ticket.nominalClosedHeight *
         (clickedTicket - _getOpenTicketsBefore(clickedTicket));
 
-    double offset = openTicketsOffset + closedTicketsOffset -
+    double offset = openTicketsOffset +
+        closedTicketsOffset -
         (Ticket.nominalClosedHeight * .5);
 
     // Scroll to the clicked element
-    _scrollController.animateTo(max(0, offset), duration: Duration(seconds: 1),
+    _scrollController.animateTo(max(0, offset),
+        duration: Duration(seconds: 1),
         curve: Interval(.25, 1, curve: Curves.easeOutQuad));
     // Return true to stop the notification propagation
     return true;
@@ -68,9 +70,7 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
 
   _getOpenTicketsBefore(int ticketIndex) {
     // Search all indexes that are smaller to the current index in the list of indexes of open tickets
-    return _openTickets
-        .where((int index) => index < ticketIndex)
-        .length;
+    return _openTickets.where((int index) => index < ticketIndex).length;
   }
 
   Widget _buildAppBar() {
@@ -78,9 +78,9 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
     return AppBar(
       shadowColor: Color(0xffbb86fe),
       leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Color(0xffBB86Fe)),
-          onPressed: (){
-            Navigator.pop(context);
+        icon: Icon(Icons.arrow_back_ios, color: Color(0xffBB86Fe)),
+        onPressed: () {
+          Navigator.pop(context);
         },
       ),
       actions: <Widget>[
@@ -95,20 +95,17 @@ class _TicketFoldDemoState extends State<TicketFoldDemo> {
       title: Container(
         width: double.infinity,
         alignment: Alignment.center,
-
-        child:
-
-        Text(
-            'Medicines For Today'.toUpperCase(), textAlign: TextAlign.center,
-            style:
-            TextStyle(
-              fontFamily: 'Circular',
-              fontSize: 16,
-              letterSpacing: 0.5,
-              color: Color(0xffbb86fe),
-              fontWeight: FontWeight.bold,
-            ),),
-
+        child: Text(
+          'Medicines For Today'.toUpperCase(),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Circular',
+            fontSize: 16,
+            letterSpacing: 0.5,
+            color: Color(0xffbb86fe),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

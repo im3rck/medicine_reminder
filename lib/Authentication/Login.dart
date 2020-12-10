@@ -3,12 +3,12 @@ import 'package:medicine_reminder/Authentication/SignUp.dart';
 import 'package:medicine_reminder/Widgets/variables.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget{
+class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login>{
+class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -21,40 +21,54 @@ class _LoginState extends State<Login>{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 10,),
-              Text("Login", style: myStyle(28,Colors.grey[700],FontWeight.w700),
+              SizedBox(
+                height: 10,
               ),
-              SizedBox(height: 150,),
+              Text(
+                "Login",
+                style: myStyle(28, Colors.grey[700], FontWeight.w700),
+              ),
+              SizedBox(
+                height: 150,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  controller: emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,
                       filled: true,
                       // labelText: 'Email',
-                      prefixIcon: Icon(Icons.email, color: Colors.blueGrey,),
-                      labelStyle: myStyle(16,Colors.blueGrey),
-                    )
-                ),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.blueGrey,
+                      ),
+                      labelStyle: myStyle(16, Colors.blueGrey),
+                    )),
               ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  controller: passwordController,
+                    controller: passwordController,
                     decoration: InputDecoration(
                       fillColor: Colors.white30,
                       filled: true,
                       //labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock, color: Colors.blueGrey,),
+                      prefixIcon: Icon(
+                        Icons.lock,
+                        color: Colors.blueGrey,
+                      ),
                       labelStyle: myStyle(16),
-                    )
-                ),
+                    )),
               ),
-              SizedBox(height: 40,),
+              SizedBox(
+                height: 40,
+              ),
               InkWell(
                 onTap: () {
                   try {
@@ -62,8 +76,9 @@ class _LoginState extends State<Login>{
                         email: emailController.text,
                         password: passwordController.text);
                   } catch (e) {
-                      SnackBar snackBar = SnackBar(content: Text("Invalid Credentials"));
-                      Scaffold.of(context).showSnackBar(snackBar);
+                    SnackBar snackBar =
+                        SnackBar(content: Text("Invalid Credentials"));
+                    Scaffold.of(context).showSnackBar(snackBar);
                   }
                 },
                 child: Container(
@@ -74,32 +89,40 @@ class _LoginState extends State<Login>{
                       color: Colors.blueGrey,
                       // borderRadius: BorderRadius.circular(30),
                     ),
-                    child:  Center(
-                      child: Text("Login",style: myStyle(18, Colors.white, FontWeight.w400),),
-                    )
-                ),
+                    child: Center(
+                      child: Text(
+                        "Login",
+                        style: myStyle(18, Colors.white, FontWeight.w400),
+                      ),
+                    )),
               ),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don't have an account?",style: myStyle(17),),
+                  Text(
+                    "Don't have an account?",
+                    style: myStyle(17),
+                  ),
                   SizedBox(width: 10),
                   InkWell(
-                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp())),
-                    child: Text("Register Now",style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 17,
-                      decoration: TextDecoration.underline,
-                    ),
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SignUp())),
+                    child: Text(
+                      "Register Now",
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 17,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ],
               ),
             ],
           ),
-        )
-    );
-
+        ));
   }
 }

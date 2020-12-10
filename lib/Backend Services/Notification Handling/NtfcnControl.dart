@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/LaunchScreen/demo.dart';
+import 'package:medicine_reminder/LaunchScreen/GooeyEdge.dart';
 
 class Message_Handler extends StatefulWidget {
   @override
@@ -30,7 +30,7 @@ class _Message_HandlerState extends State<Message_Handler> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => GooeyEdgeDemo()));
+                      builder: (context) => GooeyEdge()));
             },
           ),
         );

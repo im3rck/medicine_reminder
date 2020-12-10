@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
-import 'package:medicine_reminder/PatientList/DrawerScreen.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PatientAddPage extends StatefulWidget {
   PatientAddPage(this.token);
@@ -18,6 +15,12 @@ class PatientAddPage extends StatefulWidget {
 }
 
 class _PatientAddPageState extends State<PatientAddPage> {
+  final style = TextStyle(
+      color: Color(0xfff2e7fe),
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Circular',
+      fontSize: 25.0);
+
   @override
   void initState() {
     super.initState();
@@ -63,20 +66,9 @@ class _PatientAddPageState extends State<PatientAddPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('New',
-                    style: TextStyle(
-                        color: Color(0xfff2e7fe),
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Circular',
-                        fontSize: 25.0) //customize color here
+                Text('New Patient',
+                    style: style //customize color here
                     ),
-                SizedBox(width: 10.0),
-                Text('Patient',
-                    style: TextStyle(
-                        fontFamily: 'Circular',
-                        color: Color(0xfff2e7fe),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 25.0))
               ],
             ),
             SizedBox(height: 30.0),

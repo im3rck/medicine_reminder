@@ -21,3 +21,6 @@ List<Map> Search = [
 
 List<Map> scheduleDays = [];
 List<Map> scheduleTime = [];
+
+List<String> intervalItems = [];
+List<String> scheduleItems = [];

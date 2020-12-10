@@ -9,18 +9,25 @@ class FoldingTicket extends StatefulWidget {
   final Function onClick;
   final Duration duration;
 
-  FoldingTicket({this.duration, @required this.entries, this.isOpen = false, this.onClick});
+  FoldingTicket(
+      {this.duration,
+      @required this.entries,
+      this.isOpen = false,
+      this.onClick});
 
   @override
   _FoldingTicketState createState() => _FoldingTicketState();
 }
 
-class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProviderStateMixin {
+class _FoldingTicketState extends State<FoldingTicket>
+    with SingleTickerProviderStateMixin {
   List<FoldEntry> _entries;
   double _ratio = 0.0;
   AnimationController _controller;
 
-  double get openHeight => _entries.fold(0.0, (val, o) => val + o.height) + FoldingTicket.padding * 2;
+  double get openHeight =>
+      _entries.fold(0.0, (val, o) => val + o.height) +
+      FoldingTicket.padding * 2;
 
   double get closedHeight => _entries[0].height + FoldingTicket.padding * 2;
 
@@ -29,7 +36,7 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController( vsync: this/*vsync: this*/);
+    _controller = AnimationController(vsync: this /*vsync: this*/);
     _controller.addListener(_tick);
     _updateFromWidget();
   }
@@ -51,10 +58,16 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(FoldingTicket.padding),
-      height: closedHeight + (openHeight - closedHeight) * Curves.easeOut.transform(_ratio),
+      height: closedHeight +
+          (openHeight - closedHeight) * Curves.easeOut.transform(_ratio),
       child: Container(
           decoration: BoxDecoration(
-            boxShadow: [BoxShadow(/*color: Color(0xff292929)*/ blurRadius: 10, spreadRadius: 1)],
+            boxShadow: [
+              BoxShadow(
+                  /*color: Color(0xff292929)*/
+                  blurRadius: 10,
+                  spreadRadius: 1)
+            ],
           ),
           child: _buildEntry(0)),
     );
@@ -70,7 +83,8 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
       ..setEntry(1, 2, 0.2)
       ..rotateX(pi * (ratio - 1.0));
 
-    Widget card = SizedBox(height: entry.height, child: ratio < 0.5 ? entry.back : entry.front);
+    Widget card = SizedBox(
+        height: entry.height, child: ratio < 0.5 ? entry.back : entry.front);
 
     return Transform(
         alignment: Alignment.topCenter,
@@ -93,7 +107,8 @@ class _FoldingTicketState extends State<FoldingTicket> with SingleTickerProvider
 
   void _updateFromWidget() {
     _entries = widget.entries;
-    _controller.duration = widget.duration ?? Duration(milliseconds: 400 * (_entries.length - 1));
+    _controller.duration =
+        widget.duration ?? Duration(milliseconds: 400 * (_entries.length - 1));
     isOpen ? _controller.forward() : _controller.reverse();
   }
 
