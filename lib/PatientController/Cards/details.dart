@@ -24,7 +24,7 @@ class _Details extends State<Details> {
       color: Color(0xfff2e7fe),
       fontWeight: FontWeight.bold,
       fontFamily: 'Circular',
-      fontSize: 25.0);
+      fontSize: 16.0);
 
   FirebaseFirestore _db = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser;

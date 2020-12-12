@@ -46,14 +46,8 @@ class _Medicines extends State<Medicines> {
           }
         },
         child: Container(
-            height: (MediaQuery
-                .of(context)
-                .size
-                .height) * .30,
-            width: (MediaQuery
-                .of(context)
-                .size
-                .width) * .5,
+            height: (MediaQuery.of(context).size.height) * .25,
+            width: (MediaQuery.of(context).size.width) * .5,
             child: customCard(_icons[index], heading, body)));
   }
 
@@ -170,51 +164,48 @@ class _Medicines extends State<Medicines> {
                                       borderRadius: BorderRadius.circular(25.0),
                                       child: _image != null
                                           ? ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                        child: Image.file(
-                                          File(_image.path),
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      )
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              child: Image.file(
+                                                File(_image.path),
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            )
                                           : Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xff121212),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(25),
-                                          ),
-                                          border: Border.all(
-                                              color: Color(0xffBB86FC),
-                                              width: 1),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xffbb86fe)
-                                                  .withOpacity(0.2),
-                                              spreadRadius: 3,
-                                              blurRadius: 4,
-                                              offset: Offset(5.0, 5.0),
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xff121212),
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(25),
+                                                ),
+                                                border: Border.all(
+                                                    color: Color(0xffBB86FC),
+                                                    width: 1),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0xffbb86fe)
+                                                        .withOpacity(0.2),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 4,
+                                                    offset: Offset(5.0, 5.0),
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Icon(
+                                                Icons.camera_alt,
+                                                color: Color(0xfff2e7fe),
+                                              ),
                                             ),
-                                          ],
-                                        ),
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Color(0xfff2e7fe),
-                                        ),
-                                      ),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                             Container(
-                              width: (MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width) * .9,
+                              width: (MediaQuery.of(context).size.width)*.9,
                               child: AutoComplete(),
                               // child: TextField(
                               //   onSubmitted: (value) {
@@ -244,7 +235,7 @@ class _Medicines extends State<Medicines> {
                               //         //  when the TextFormField in focused
                               //       ),
                               //       border: UnderlineInputBorder()),
-                              // ),
+                             // ),
                             ),
                             SizedBox(height: 16),
                             Row(
@@ -252,10 +243,7 @@ class _Medicines extends State<Medicines> {
                               children: [
                                 Container(
                                   width:
-                                  (MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width) * .4,
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
@@ -288,10 +276,7 @@ class _Medicines extends State<Medicines> {
                                 ),
                                 Container(
                                   width:
-                                  (MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width) * .4,
+                                      (MediaQuery.of(context).size.width) * .4,
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
@@ -326,24 +311,24 @@ class _Medicines extends State<Medicines> {
                               ],
                             ),
                             SizedBox(
-                              height: 50,
+                              height: 20,
                             ),
                             single
                                 ? Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                    child: _choice(
-                                        "Schedule", "Days & Range", 3)),
-                                Expanded(
-                                    child: _choice(
-                                        "Time", "Timing & Intervals", 2)),
-                              ],
-                            )
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                          child: _choice(
+                                              "Schedule", "Days & Range", 3)),
+                                      Expanded(
+                                          child: _choice(
+                                              "Time", "Timing & Intervals", 2)),
+                                    ],
+                                  )
                                 : SizedBox(
-                              height: 20,
-                            ),
+                                    height: 20,
+                                  ),
                             SizedBox(
                               height: 20,
                             ),
@@ -354,10 +339,7 @@ class _Medicines extends State<Medicines> {
                               },
                               child: Container(
                                 height: 40,
-                                width: (MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width) * .8,
+                                width: (MediaQuery.of(context).size.width) * .8,
                                 decoration: BoxDecoration(
                                   color: Color(0xff121212),
                                   borderRadius: BorderRadius.all(
@@ -368,7 +350,7 @@ class _Medicines extends State<Medicines> {
                                   boxShadow: [
                                     BoxShadow(
                                       color:
-                                      Color(0xffF292929).withOpacity(0.2),
+                                          Color(0xffF292929).withOpacity(0.2),
                                       spreadRadius: 3,
                                       blurRadius: 4,
                                       offset: Offset(0, 3),
@@ -405,7 +387,7 @@ class _Medicines extends State<Medicines> {
   void _showPicker(context) {
     _imgFromGallery() async {
       PickedFile image =
-      await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+          await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
 
       setState(() {
         _image = image;
@@ -414,7 +396,7 @@ class _Medicines extends State<Medicines> {
 
     _imgFromCamera() async {
       final PickedFile image =
-      await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
+          await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
       setState(() {
         _image = image;
@@ -461,10 +443,7 @@ class _Medicines extends State<Medicines> {
       backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (BuildContext context) {
-        var heightOfModalBottomSheet = MediaQuery
-            .of(context)
-            .size
-            .width;
+        var heightOfModalBottomSheet = MediaQuery.of(context).size.width;
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
@@ -508,10 +487,7 @@ class _Medicines extends State<Medicines> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter myState) {
             return Container(
-              height: (MediaQuery
-                  .of(context)
-                  .size
-                  .height) * .5,
+              height: (MediaQuery.of(context).size.height) * .5,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffBB86FC), width: 1),
@@ -617,16 +593,10 @@ class _Medicines extends State<Medicines> {
             _medicineChoice(context);
           },
           child: Container(
-              height: (MediaQuery
-                  .of(context)
-                  .size
-                  .height) * .25,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              height: (MediaQuery.of(context).size.height) * .25,
+              width: MediaQuery.of(context).size.width,
               child:
-              customCard(Icons.description, "Medicine", "Dosage Details")),
+                  customCard(Icons.description, "Medicine", "Dosage Details")),
         ),
       ],
     );

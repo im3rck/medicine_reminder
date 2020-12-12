@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromMedicineList.dart';
+import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromScheduleList.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
@@ -37,7 +40,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PatientAddPage('Token')
+        home: FromScheduleList(),
+        //PatientAddPage('Token')
       ),
     );
   }
