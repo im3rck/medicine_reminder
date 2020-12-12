@@ -46,6 +46,9 @@
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
                    android:value="AIzaSyCz4HBJOqOAOtE2XoU3_32cIfPsBQgomUE"/>
+        <meta-data
+                android:name="com.google.mlkit.vision.DEPENDENCIES"
+                android:value="barcode" />
         <activity
                 android:name="com.yalantis.ucrop.UCropActivity"
                 android:screenOrientation="portrait"

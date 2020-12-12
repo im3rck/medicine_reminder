@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
@@ -17,12 +19,41 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   String _fcmToken = null;
 
+
   // _scan() async {
   //   String temp = await scanner.scan();
   //   setState(() {
   //     _fcmToken = temp;
   //   });
   // }
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#bb86fe", "Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _fcmToken = barcodeScanRes;
+    });
+    if (_fcmToken != null) {
+      print("Valid");
+      print(_fcmToken);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
+    } else {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
+    }
+  }
   _scan() async {
     String temp = await scanner.scan();
     //String temp = await BarcodeScanner.scan();
@@ -42,7 +73,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-         _scan();
+         scanQR();
         break;//
       case  1:
         Navigator.push(
