@@ -48,8 +48,6 @@
 //         home: StoreLocator());
 //   }
 // }
-
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -95,7 +93,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: FromScheduleList(),
+        home: PhasePage(),
+        //PhasePage(),
         //PatientAddPage('Token')
       ),
     );
