@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Common/convert_time.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Global_Bloc.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Models/Errors.dart';
@@ -57,8 +58,8 @@ class _NewEntryState extends State<NewEntry> {
           color: Color(0xFFbb86fe),
         ),
         centerTitle: true,
-        title: Text(
-          "Add New Reminder",
+        title: Text("Add a New Reminder",
+          //AppLocalizations.of(context).translate('Add a New Reminder'),
           style: TextStyle(
             fontFamily: 'Circular',
             fontSize: 16,
@@ -76,7 +77,7 @@ class _NewEntryState extends State<NewEntry> {
             ),
             children: <Widget>[
               PanelTitle(
-                title: "Medicine Name",
+                title: AppLocalizations.of(context).translate('Medicine_Name'),
                 isRequired: true,
               ),
               TextFormField(
@@ -100,7 +101,7 @@ class _NewEntryState extends State<NewEntry> {
                     border: UnderlineInputBorder()),
               ),
               PanelTitle(
-                title: "Dosage in mg",
+                title: AppLocalizations.of(context).translate('Dosage'),
                 isRequired: false,
               ),
               TextFormField(
@@ -128,7 +129,7 @@ class _NewEntryState extends State<NewEntry> {
               ),
 
               PanelTitle(
-                title: "Medicine Type",
+                title: AppLocalizations.of(context).translate('Type'),
                 isRequired: false,
               ),
               Padding(
@@ -148,21 +149,21 @@ class _NewEntryState extends State<NewEntry> {
                                 : false),
                         MedicineTypeColumn(
                             type: MedicineType.Pill,
-                            name: "Pill",
+                            name: 'Pill',
                             iconValue: 0xe901,
                             isSelected: snapshot.data == MedicineType.Pill
                                 ? true
                                 : false),
                         MedicineTypeColumn(
                             type: MedicineType.Syringe,
-                            name: "Syringe",
+                            name: 'Injection',
                             iconValue: 0xe902,
                             isSelected: snapshot.data == MedicineType.Syringe
                                 ? true
                                 : false),
                         MedicineTypeColumn(
                             type: MedicineType.Tablet,
-                            name: "Tablet",
+                            name: 'Tablet',
                             iconValue: 0xe903,
                             isSelected: snapshot.data == MedicineType.Tablet
                                 ? true
@@ -173,13 +174,13 @@ class _NewEntryState extends State<NewEntry> {
                 ),
               ),
               PanelTitle(
-                title: "Interval Selection",
+                title: AppLocalizations.of(context).translate('Interval Selection'),
                 isRequired: true,
               ),
               //ScheduleCheckBoxes(),
               IntervalSelection(),
               PanelTitle(
-                title: "Starting Time",
+                title: AppLocalizations.of(context).translate('Starting Time'),
                 isRequired: true,
               ),
               SelectTime(),
@@ -277,7 +278,7 @@ class _NewEntryState extends State<NewEntry> {
                     ),
                     child: Center(
                       child: Text(
-                        "Confirm",
+                        'Confirm',
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: 'Circular',
@@ -562,7 +563,7 @@ class _SelectTimeState extends State<SelectTime> {
             child: Center(
               child: Text(
                 _clicked == false
-                    ? "Pick Time"
+                    ? AppLocalizations.of(context).translate('Time')
                     : "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}",
                 style: TextStyle(
                   fontSize: 20,

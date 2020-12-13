@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
@@ -54,21 +56,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
     }
   }
-  _scan() async {
-    String temp = await scanner.scan();
-    //String temp = await BarcodeScanner.scan();
-    setState(() {
-      _fcmToken = temp;
-    });
-    if (_fcmToken != null) {
-      print("Valid");
-      print(_fcmToken);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
-    } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
-    }
-  }
+  // _scan() async {
+  //   String temp = await scanner.scan();
+  //   //String temp = await BarcodeScanner.scan();
+  //   setState(() {
+  //     _fcmToken = temp;
+  //   });
+  //   if (_fcmToken != null) {
+  //     print("Valid");
+  //     print(_fcmToken);
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
+  //   } else {
+  //     Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
+  //   }
+  // }
 
   Future navigateToSubPage(context, int index) async {
     switch (index) {
@@ -99,8 +101,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: new BoxDecoration(
+        color: Color(0xff121212),
+        image: new DecorationImage(
+          image: new AssetImage('assets/images/bg.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       height: double.infinity,
-      color: Color(0xff121212),
+
       padding: EdgeInsets.only(top: 50, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,47 +187,48 @@ class _DrawerScreenState extends State<DrawerScreen> {
           //   width: 10,
           //   height: 180,
           // ),
-          Row(
-            children: [
-              GestureDetector(
-                  onTap: () async {
-                    await FirebaseAuth.instance.signOut();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 10,
-                        height: 20,
-                      ),
-                      Image.asset(
-                        'assets/images/logout.png',
-                        height: 25.0,
-                        width: 25.0,
-                        // allowDrawingOutsideViewBox: true,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Log out',
-                        style: TextStyle(
-                            color: Color(0xfff2e7fe),
-                            fontFamily: 'Circular',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                width: 10,
-                height: 80,
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     GestureDetector(
+          //         onTap: () async {
+          //           await FirebaseAuth.instance.signOut();
+          //         },
+          //         child: Row(
+          //           children: [
+          //             SizedBox(
+          //               width: 10,
+          //               height: 20,
+          //             ),
+          //             Image.asset(
+          //               'assets/images/logout.png',
+          //               height: 25.0,
+          //               width: 25.0,
+          //               // allowDrawingOutsideViewBox: true,
+          //             ),
+          //             SizedBox(
+          //               width: 10,
+          //             ),
+          //             Text(
+          //               AppLocalizations.of(context).translate('Log_Out'),
+          //               style: TextStyle(
+          //                   color: Color(0xfff2e7fe),
+          //                   fontFamily: 'Circular',
+          //                   fontWeight: FontWeight.bold,
+          //                   fontSize: 28),
+          //             )
+          //           ],
+          //         )),
+          //     SizedBox(
+          //       width: 10,
+          //       height: 80,
+          //     ),
+          //   ],
+          // ),
           // Flexible(
           //     child: FractionallySizedBox(
           //       heightFactor: 0.00000000001,
           //     )
+          SizedBox(height: 30,)
         ],
       ),
     );

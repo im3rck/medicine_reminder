@@ -54,15 +54,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromMedicineList.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromScheduleList.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
+import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,11 +77,23 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+
   final locatorService = GeoLocatorService();
+
   final placesService = PlacesService();
 
   @override
+
+
+
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
@@ -93,7 +111,30 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Digital Medical Assistant',
-        home: PhasePage(),
+        supportedLocales: [
+          Locale('en','US'),
+          Locale('hi','IN'),
+          Locale('ml','IN')
+        ],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          // Check if the current device locale is supported
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          // If the locale of the device is not supported, use the first one
+          // from the list (English, in this case).
+          return supportedLocales.first;
+        },
+        home: PhasePage()
+
         //PhasePage(),
         //PatientAddPage('Token')
       ),

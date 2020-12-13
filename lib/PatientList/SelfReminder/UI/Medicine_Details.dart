@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Global_Bloc.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Models/Medicine.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +23,8 @@ class MedicineDetails extends StatelessWidget {
           color: Color(0xFFbb86fe),
         ),
         centerTitle: true,
-        title: Text(
-          "Reminder Details",
+        title: Text("Reminder Details",
+          //AppLocalizations.of(context).translate('Reminder Details'),
           style: TextStyle(
             fontFamily: 'Circular',
             fontSize: 18,
@@ -78,8 +79,8 @@ class MedicineDetails extends StatelessWidget {
                           ],
                         ),
                         child: Center(
-                          child: Text(
-                            "Delete",
+                          child: Text( "Delete",
+                           // AppLocalizations.of(context).translate('Delete'),
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Circular',
@@ -280,13 +281,13 @@ class MainSection extends StatelessWidget {
                 child: Material(
                   color: Colors.transparent,
                   child: MainInfoTab(
-                    fieldTitle: "Medicine Name",
+                    fieldTitle: AppLocalizations.of(context).translate('Medicine_Name'),
                     fieldInfo: medicine.medicineName,
                   ),
                 ),
               ),
               MainInfoTab(
-                fieldTitle: "Dosage",
+                fieldTitle: AppLocalizations.of(context).translate('Dosage'),
                 fieldInfo: medicine.dosage == 0
                     ? "Not Specified"
                     : medicine.dosage.toString() + " mg",
@@ -351,20 +352,21 @@ class ExtendedSection extends StatelessWidget {
         shrinkWrap: true,
         children: <Widget>[
           ExtendedInfoTab(
-            fieldTitle: "Medicine Type",
+            fieldTitle: AppLocalizations.of(context).translate('Type'),
             fieldInfo: medicine.medicineType == "None"
                 ? "Not Specified"
                 : medicine.medicineType,
           ),
           ExtendedInfoTab(
-            fieldTitle: "Dose Interval",
+            fieldTitle: "Dosage Interval",
+            //AppLocalizations.of(context).translate('Dosage Interval'),
             fieldInfo: "Every " +
                 medicine.interval.toString() +
                 " hours  | " +
                 " ${medicine.interval == 24 ? "One time a day" : (24 / medicine.interval).floor().toString() + " times a day"}",
           ),
           ExtendedInfoTab(
-              fieldTitle: "Start Time",
+              fieldTitle: AppLocalizations.of(context).translate('Starting Time'),
               fieldInfo: medicine.startTime[0] +
                   medicine.startTime[1] +
                   ":" +

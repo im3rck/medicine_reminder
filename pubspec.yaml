@@ -71,6 +71,9 @@ dependencies:
   flutter_vibrate: ^1.0.0
   flutter_barcode_scanner: ^1.0.1
 
+  flutter_localizations:
+    sdk: flutter
+
 dev_dependencies:
   flutter_launcher_icons: "^0.8.0"
 
@@ -101,6 +104,10 @@ flutter:
      - images/applogononame.png
      - assets/Rive/
      - images/App_logo_plain.png
+     - lang/en.json
+     - lang/hi.json
+     - lang/ml.json
+
 
   #   - images/a_dot_ham.jpeg
   fonts:

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/Addmeds.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/AutoComplete.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/TimeIntervals.dart';
@@ -47,7 +48,7 @@ class _Medicines extends State<Medicines> {
           }
         },
         child: Container(
-            height: (MediaQuery.of(context).size.height) * .25,
+            height: (MediaQuery.of(context).size.height) * .35,
             width: (MediaQuery.of(context).size.width) * .5,
             child: customCard(_icons[index], heading, body)));
   }
@@ -59,8 +60,8 @@ class _Medicines extends State<Medicines> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       builder: (context) {
         return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _choice("By Medicine", "Set Schedule for\nMedicines", 0),
-          _choice("By Schedule", "Set Medicines for Schedules", 1),
+          _choice(AppLocalizations.of(context).translate('By_Medicine'), AppLocalizations.of(context).translate('Set_Schedule_for_Medicines'), 0),
+          _choice(AppLocalizations.of(context).translate('By_Schedule'), AppLocalizations.of(context).translate('Set_Medicines_for_Schedules'), 1),
         ]);
       },
     );
@@ -73,7 +74,7 @@ class _Medicines extends State<Medicines> {
       else if (_selected == 'Bottle' || _selected == 'Syringe')
         return 'mL';
       else
-        return 'Dosage';
+        return AppLocalizations.of(context).translate('Dosage');
     }
 
     double xOffset = 0;
@@ -116,7 +117,7 @@ class _Medicines extends State<Medicines> {
                                     iconEnabledColor: Color(0xFF3EB16F),
                                     dropdownColor: Color(0xff292929),
                                     hint: Text(
-                                      "Type",
+                                      AppLocalizations.of(context).translate('Type'),
                                       style: TextStyle(
                                         fontFamily: 'Circular',
                                         fontSize: 16,
@@ -131,8 +132,9 @@ class _Medicines extends State<Medicines> {
                                     items: [
                                       'Pill',
                                       'Bottle',
-                                      'Syringe',
-                                      'Tablet'
+                                      'Injection',
+                                      'Tablet',
+                                      'Other'
                                     ].map((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -212,6 +214,7 @@ class _Medicines extends State<Medicines> {
                               //   onSubmitted: (value) {
                               //     yOffset = 0;
                               //   },
+                              //   },
                               //   // controller: emailController,
                               //   style: TextStyle(color: Color(0xfff2e7fe)),
                               //   decoration: InputDecoration(
@@ -286,7 +289,7 @@ class _Medicines extends State<Medicines> {
                                     // controller: emailController,
                                     style: TextStyle(color: Color(0xfff2e7fe)),
                                     decoration: InputDecoration(
-                                        labelText: 'Initial Quantity',
+                                        labelText: AppLocalizations.of(context).translate('Initial_Quantity'),
                                         labelStyle: TextStyle(
                                           fontSize: 14,
                                           color: Color(0xfff2e7fe)
@@ -321,10 +324,10 @@ class _Medicines extends State<Medicines> {
                                     children: [
                                       Expanded(
                                           child: _choice(
-                                              "Schedule", "Days & Range", 3)),
+                                              AppLocalizations.of(context).translate('Time_Schedule'), AppLocalizations.of(context).translate('Days_and_Range'), 3)),
                                       Expanded(
                                           child: _choice(
-                                              "Time", "Timing & Intervals", 2)),
+                                              AppLocalizations.of(context).translate('Time'), AppLocalizations.of(context).translate('Timing_and_Intervals'), 2)),
                                     ],
                                   )
                                 : SizedBox(
@@ -360,7 +363,7 @@ class _Medicines extends State<Medicines> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Confirm",
+                                    AppLocalizations.of(context).translate('Confirm'),
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: 'Circular',
@@ -560,7 +563,7 @@ class _Medicines extends State<Medicines> {
                 children: [
                   Center(
                     child: Text(
-                      "Set The Schedule",
+                      AppLocalizations.of(context).translate('Set_The_Schedule'),
                       style: TextStyle(
                         fontFamily: 'Circular',
                         fontSize: 20,
@@ -597,7 +600,7 @@ class _Medicines extends State<Medicines> {
               height: (MediaQuery.of(context).size.height) * .25,
               width: MediaQuery.of(context).size.width,
               child:
-                  customCard(Icons.description, "Medicine", "Dosage Details")),
+                  customCard(Icons.description, AppLocalizations.of(context).translate('Medicine'), AppLocalizations.of(context).translate('Dosage_Details'))),
         ),
       ],
     );
