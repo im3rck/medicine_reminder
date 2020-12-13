@@ -59,6 +59,7 @@ import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromScheduleList.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/PatientList/Profile/CareGiverDetails.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';

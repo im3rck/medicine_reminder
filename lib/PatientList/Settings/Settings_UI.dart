@@ -35,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              AppLocalizations.of(context).translate('_Settings'),
+              AppLocalizations.of(context).translate('Settings'),
               style: TextStyle(
                 fontSize: 25,
                 color: Color(0xffbb86fe),

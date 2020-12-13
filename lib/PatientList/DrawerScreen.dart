@@ -6,6 +6,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/PatientList/Profile/CareGiverDetails.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/StoreLocator/screens/search.dart';
@@ -34,7 +35,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          "#bb86fe", "Cancel", true, ScanMode.QR);
+          "#bb86fe","Cancel", true, ScanMode.QR);
       print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
@@ -48,14 +49,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
     setState(() {
       _fcmToken = barcodeScanRes;
     });
-    if (_fcmToken != null) {
+    if (_fcmToken != null && _fcmToken != "-1" ) {
       print("Valid");
       print(_fcmToken);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
-    } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => PhasePage()));
     }
+    // } else {
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => PhasePage()));
+    // }
   }
   // _scan() async {
   //   String temp = await scanner.scan();
@@ -87,8 +89,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             context, MaterialPageRoute(builder: (context) => Search()));
         break;
       case 3:
+
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProfilePage()));
+            context, MaterialPageRoute(builder: (context) => CareGiverInfo()));
         break;
       case 4:
         Navigator.push(
@@ -101,7 +104,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return WillPopScope(
+        onWillPop: () async {
+      return false;
+    },
+      child: Container(
       decoration: new BoxDecoration(
         color: Color(0xff121212),
         image: new DecorationImage(
@@ -120,7 +127,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
               CircleAvatar(
                 radius: 25.0,
                 backgroundImage:
-                    NetworkImage('https://via.placeholder.com/150'),
+                    AssetImage('assets/images/usertrans.png'),
+                   // NetworkImage('https://via.placeholder.com/150'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
@@ -232,6 +240,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
           SizedBox(height: 30,)
         ],
       ),
-    );
+    ),);
   }
 }

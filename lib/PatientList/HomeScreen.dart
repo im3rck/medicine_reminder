@@ -325,18 +325,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        color: (isDrawerOpen
-                            ? Color(0xff292929)
-                            : Color(0xFFf2e7fe)),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => SettingsPage()));
-                      },
-                    ),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.settings,
+                    //     color: (isDrawerOpen
+                    //         ? Color(0xff292929)
+                    //         : Color(0xFFf2e7fe).withOpacity(0)),
+                    //   ),
+                    //   onPressed: () {
+                    //   //   Navigator.push(
+                    //   //       context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                    //   // },
+                    // ),
                     // SizedBox(width: 5),
                     Center(
                       child: SizedBox(
@@ -365,13 +365,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             searchPatients(value);
                           },
                           //controller: searchController,
+                          textAlign: TextAlign.center,
                           decoration: InputDecoration(
-                              hintText: AppLocalizations.of(context).translate('Search'),
+                              hintText: AppLocalizations.of(context).translate('Search')+ "...",
                               hintStyle: TextStyle(
-                                  color: Color(0xfff2e7fe),
+                                  color: Color(0xfff2e7fe).withOpacity(0.8),
                                   fontFamily: 'Circular',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15.0),
+                                  fontSize: 16.0),
                               border: InputBorder.none),
                         ),
                       ),

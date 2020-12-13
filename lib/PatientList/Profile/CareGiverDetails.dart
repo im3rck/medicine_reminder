@@ -10,8 +10,7 @@ import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageServi
 import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 
 class CareGiverInfo extends StatefulWidget {
-  CareGiverInfo(this.pno);
-  String pno;
+
   @override
   _PatientInfoState createState() => _PatientInfoState();
 }
@@ -20,14 +19,14 @@ final ImagePicker _picker = ImagePicker();
 
 class _PatientInfoState extends State<CareGiverInfo>
     with SingleTickerProviderStateMixin {
-  Map c = {
-    'patientToken': null,
-    'patientName': null,
-    'age': null,
-    'gender': null,
-    'contactNo': null,
-    'relationship': null,
-  };
+  // Map c = {
+  //   'patientToken': null,
+  //   'patientName': null,
+  //   'age': null,
+  //   'gender': null,
+  //   'contactNo': null,
+  //   'relationship': null,
+  // };
   String imageUrl = null;
   fetchImageUrl(String targetPath) async {
     var storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
@@ -37,30 +36,30 @@ class _PatientInfoState extends State<CareGiverInfo>
       imageUrl = tempURL;
     });
   }
-  dataFetch()  async {
-    print("Help");
-    FirebaseFirestore _newDb = FirebaseFirestore.instance;
-    await _newDb
-        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
-        .get()
-        .then((QuerySnapshot querySnapshot) => {
-      querySnapshot.docs.forEach((doc) {
-        if(doc['contactNo']==widget.pno) {
-          print(doc['patientName']);
-          setState(() {
-            c = {
-              'patientToken': doc['patientToken'],
-              'patientName': doc['patientName'],
-              'age': doc['age'],
-              'gender': doc['gender'],
-              'contactNo': doc['contactNo'],
-              'relationship': doc['relationship'],
-            };
-          });
-        }
-        print(c); }) });
-
-  }
+  // dataFetch()  async {
+  //   print("Help");
+  //   FirebaseFirestore _newDb = FirebaseFirestore.instance;
+  //   await _newDb
+  //       .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) => {
+  //     querySnapshot.docs.forEach((doc) {
+  //       if(doc['contactNo']==widget.pno) {
+  //         print(doc['patientName']);
+  //         setState(() {
+  //           c = {
+  //             'patientToken': doc['patientToken'],
+  //             'patientName': doc['patientName'],
+  //             'age': doc['age'],
+  //             'gender': doc['gender'],
+  //             'contactNo': doc['contactNo'],
+  //             'relationship': doc['relationship'],
+  //           };
+  //         });
+  //       }
+  //       print(c); }) });
+  //
+  // }
   AnimationController animationController;
   Animation degOneTranslationAnimation,
       degTwoTranslationAnimation,
@@ -80,19 +79,19 @@ class _PatientInfoState extends State<CareGiverInfo>
   String _value;
   String valueItem;
 
-  void _setText() {
-    Map map = {
-      'index': Patientdata.length + 1,
-      'name': fnameController.text,
-      'age': ageController.text,
-      'gender': _value,
-      'rel': relController.text
-    };
-    Patientdata.add(map);
-  }
+  // void _setText() {
+  //   Map map = {
+  //     'index': Patientdata.length + 1,
+  //     'name': fnameController.text,
+  //     'age': ageController.text,
+  //     'gender': _value,
+  //     'rel': relController.text
+  //   };
+  //   Patientdata.add(map);
+  // }
   @override
   void initState() {
-    dataFetch();
+    //dataFetch();
     animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 250));
     degOneTranslationAnimation = TweenSequence([
@@ -194,7 +193,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                     ),
                                     Transform.translate(
                                       offset: Offset.fromDirection(
-                                          getRadiansFromDegree(180),
+                                          getRadiansFromDegree(165),
                                           degOneTranslationAnimation.value *
                                               100),
                                       child: Transform(
@@ -222,7 +221,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                     ),
                                     Transform.translate(
                                       offset: Offset.fromDirection(
-                                          getRadiansFromDegree(135),
+                                          getRadiansFromDegree(105),
                                           degTwoTranslationAnimation.value *
                                               100),
                                       child: Transform(
@@ -241,50 +240,51 @@ class _PatientInfoState extends State<CareGiverInfo>
                                             color: Color(0xffbb86fe),
                                           ),
                                           onClick: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ImageCapture(
-                                                            newFile: (File imageFile){
-                                                              ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
-                                                              fetchImageUrl('PatientImages/${c['contactNo']}');
-                                                            }
-                                                        )
-                                                ));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             // ImageCapture(
+                                            //             //     newFile: (File imageFile){
+                                            //             //       ImageService _IS = ImageService.PatientImage(imageFile,c['contactNo']);
+                                            //             //       fetchImageUrl('PatientImages/${c['contactNo']}');
+                                            //             //     }
+                                            //             // )
+                                            // //    )
+                                            // );
 
                                           },
                                         ),
                                       ),
                                     ),
-                                    Transform.translate(
-                                      offset: Offset.fromDirection(
-                                          getRadiansFromDegree(90),
-                                          degThreeTranslationAnimation.value *
-                                              100),
-                                      child: Transform(
-                                        transform: Matrix4.rotationZ(
-                                            getRadiansFromDegree(
-                                                rotationAnimation.value))
-                                          ..scale(degThreeTranslationAnimation
-                                              .value),
-                                        alignment: Alignment.center,
-                                        child: CircularButton(
-                                          color: Color(0xff323232),
-                                          width: 50,
-                                          height: 50,
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color:
-                                            Colors.red.withOpacity(0.6),
-                                          ),
-                                          onClick: () {
-                                            openAlertBox(context);
-                                            print('Third Button');
-                                          },
-                                        ),
-                                      ),
-                                    ),
+                                    // Transform.translate(
+                                    //   offset: Offset.fromDirection(
+                                    //       getRadiansFromDegree(90),
+                                    //       degThreeTranslationAnimation.value *
+                                    //           100),
+                                    //   child: Transform(
+                                    //     transform: Matrix4.rotationZ(
+                                    //         getRadiansFromDegree(
+                                    //             rotationAnimation.value))
+                                    //       ..scale(degThreeTranslationAnimation
+                                    //           .value),
+                                    //     alignment: Alignment.center,
+                                    //     child: CircularButton(
+                                    //       color: Color(0xff323232),
+                                    //       width: 50,
+                                    //       height: 50,
+                                    //       icon: Icon(
+                                    //         Icons.delete,
+                                    //         color:
+                                    //         Colors.red.withOpacity(0.6),
+                                    //       ),
+                                    //       onClick: () {
+                                    //       //  openAlertBox(context);
+                                    //         print('Third Button');
+                                    //       },
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     Transform(
                                       transform: Matrix4.rotationZ(
                                           getRadiansFromDegree(
@@ -333,7 +333,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.11,),
-                          Text(c['patientName']==null? "": c['patientName'],
+                          Text("CareGiver",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -357,7 +357,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.16,),
-                          Text(c['age']==null? "": c['age'] ,
+                          Text("69",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -382,7 +382,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text(c['contactNo']==null? "": c['contactNo'],
+                          Text("8138861023",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -406,7 +406,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                                 fontWeight: FontWeight.bold,
                               )),
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text(c['relationship']==null? "" : c['relationship'],
+                          Text("Dad",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 18,
@@ -671,7 +671,7 @@ class _PatientInfoState extends State<CareGiverInfo>
                             ),
                             InkWell(
                               onTap: () {
-                                _setText();
+                               // _setText();
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },
@@ -721,103 +721,103 @@ class _PatientInfoState extends State<CareGiverInfo>
       },
     );
   }
-  openAlertBox(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            backgroundColor: Color(0xff292929),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30.0),
-              ),
-            ),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            content: Container(
-              width: (MediaQuery.of(context).size.width)*.5,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        "Remove this Patient?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: 'Circular',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xffF2E7FE),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                        },
-                        child: InkWell(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 2.743,
-                            padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF292929),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(30.0),
-                              ),
-                            ),
-                            child: Text(
-                              "Yes",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xffbb86fe),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: InkWell(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 2.743,
-                            padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-                            decoration: BoxDecoration(
-                              color: Color(0xff292929),
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(30.0)),
-                            ),
-                            child: Text(
-                              "No",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Circular',
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xffbb86fe),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  // openAlertBox(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return AlertDialog(
+  //           backgroundColor: Color(0xff292929),
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.all(
+  //               Radius.circular(30.0),
+  //             ),
+  //           ),
+  //           contentPadding: EdgeInsets.only(top: 10.0),
+  //           content: Container(
+  //             width: (MediaQuery.of(context).size.width)*.5,
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.start,
+  //               crossAxisAlignment: CrossAxisAlignment.stretch,
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: <Widget>[
+  //                 Padding(
+  //                   padding: EdgeInsets.all(16),
+  //                   child: Center(
+  //                     child: Text(
+  //                       "Remove this Patient?",
+  //                       textAlign: TextAlign.center,
+  //                       style: TextStyle(
+  //                         fontSize: 16,
+  //                         fontFamily: 'Circular',
+  //                         fontWeight: FontWeight.bold,
+  //                         color: Color(0xffF2E7FE),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                   children: <Widget>[
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                       },
+  //                       child: InkWell(
+  //                         child: Container(
+  //                           width: MediaQuery.of(context).size.width / 2.743,
+  //                           padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+  //                           decoration: BoxDecoration(
+  //                             color: Color(0xFF292929),
+  //                             borderRadius: BorderRadius.only(
+  //                               bottomLeft: Radius.circular(30.0),
+  //                             ),
+  //                           ),
+  //                           child: Text(
+  //                             "Yes",
+  //                             style: TextStyle(
+  //                               fontSize: 18,
+  //                               fontFamily: 'Circular',
+  //                               fontWeight: FontWeight.bold,
+  //                               color: Color(0xffbb86fe),
+  //                             ),
+  //                             textAlign: TextAlign.center,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                         Navigator.of(context).pop();
+  //                       },
+  //                       child: InkWell(
+  //                         child: Container(
+  //                           width: MediaQuery.of(context).size.width / 2.743,
+  //                           padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
+  //                           decoration: BoxDecoration(
+  //                             color: Color(0xff292929),
+  //                             borderRadius: BorderRadius.only(
+  //                                 bottomRight: Radius.circular(30.0)),
+  //                           ),
+  //                           child: Text(
+  //                             "No",
+  //                             style: TextStyle(
+  //                               fontSize: 18,
+  //                               fontFamily: 'Circular',
+  //                               fontWeight: FontWeight.bold,
+  //                               color: Color(0xffbb86fe),
+  //                             ),
+  //                             textAlign: TextAlign.center,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 )
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
   _imgFromGallery() async {
     PickedFile image =
     await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
