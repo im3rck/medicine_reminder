@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,6 +10,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "Settings",
+              AppLocalizations.of(context).translate('Settings'),
               style: TextStyle(
                 fontSize: 25,
                 color: Color(0xffbb86fe),
@@ -51,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 8,
                 ),
                 Text(
-                  "Account",
+                  AppLocalizations.of(context).translate('Account'),
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xfff2e7fe),
@@ -69,9 +72,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             buildAccountOptionRow(context, "Change password"),
             buildAccountOptionRow(context, "Language"),
-            buildAccountOptionRow(context, "Support Us"),
-            buildAccountOptionRow(context, "Report a Bug"),
-            buildAccountOptionRow(context, "Privacy and security"),
+            buildAccountOptionRow(context, AppLocalizations.of(context).translate('Support_Us')),
+            buildAccountOptionRow(context, AppLocalizations.of(context).translate('Report_a_Bug')),
+            buildAccountOptionRow(context, AppLocalizations.of(context).translate('Privacy_and_Security')),
             SizedBox(
               height: 20,
             ),
@@ -100,7 +103,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   pressed: true,
 
                   onPressed: () async{
-                      await FirebaseAuth.instance.signOut();
+                    await FirebaseAuth.instance.signOut();
                     },
                   style: NeumorphicStyle(
                     border: NeumorphicBorder(
@@ -114,7 +117,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     shadowLightColor: Colors.grey[800],
                   ),
                   child: Text(
-                    "Log Out",
+                    AppLocalizations.of(context).translate('Log_Out'),
                     style: TextStyle(
                       fontSize: 16,
                       color: Color(0xffbb86fe),
@@ -129,6 +132,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
       ),
     );
+
   }
 
 

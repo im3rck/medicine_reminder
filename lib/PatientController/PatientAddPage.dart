@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 
@@ -66,7 +67,7 @@ class _PatientAddPageState extends State<PatientAddPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('New Patient',
+                Text(AppLocalizations.of(context).translate('New_Patient'),
                     style: style //customize color here
                     ),
               ],

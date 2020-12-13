@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class TimeIntervals extends StatefulWidget {
@@ -122,7 +123,7 @@ class _TimeIntervals extends State<TimeIntervals> {
           backgroundColor: Color(0xff292929),
           foregroundColor: Color(0xffbb86fe),
           label: Text(
-            "Interval",
+            AppLocalizations.of(context).translate('Interval'),
             style: TextStyle(
               fontSize: 16,
               fontFamily: 'Circular',

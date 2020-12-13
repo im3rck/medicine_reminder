@@ -24,7 +24,9 @@ class _EditProfilePageState extends State<ProfilePage> {
             Icons.arrow_back_ios,
             color: Color(0xffbb86fe),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
         actions: [
           IconButton(
@@ -113,9 +115,9 @@ class _EditProfilePageState extends State<ProfilePage> {
               buildTextField("Full Name", "Jain Alex", false),
               buildTextField("E-mail", "alexd@gmail.com", false),
               buildTextField("Password", "********", true),
-              buildTextField("Location", "TVM, Kerala", false),
+              //buildTextField("Location", "TVM, Kerala", false),
               SizedBox(
-                height: 15,
+                height: 55,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -137,6 +139,7 @@ class _EditProfilePageState extends State<ProfilePage> {
                       onPressed: (){
                        // HapticFeedback.heavyImpact();
                         //openLoginPage();
+                        Navigator.of(context).pop();
                       },
                       style: NeumorphicStyle(
                         border: NeumorphicBorder(

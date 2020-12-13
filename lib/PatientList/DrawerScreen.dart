@@ -1,6 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/PatientList/Profile/CareGiverDetails.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/StoreLocator/screens/search.dart';
@@ -17,32 +23,62 @@ class DrawerScreen extends StatefulWidget {
 class _DrawerScreenState extends State<DrawerScreen> {
   String _fcmToken = null;
 
+
   // _scan() async {
   //   String temp = await scanner.scan();
   //   setState(() {
   //     _fcmToken = temp;
   //   });
   // }
-  _scan() async {
-    String temp = await scanner.scan();
-    //String temp = await BarcodeScanner.scan();
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#bb86fe","Cancel", true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
     setState(() {
-      _fcmToken = temp;
+      _fcmToken = barcodeScanRes;
     });
-    if (_fcmToken != null) {
+    if (_fcmToken != null && _fcmToken != "-1" ) {
       print("Valid");
       print(_fcmToken);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
-    } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
     }
+    // } else {
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => PhasePage()));
+    // }
   }
+  // _scan() async {
+  //   String temp = await scanner.scan();
+  //   //String temp = await BarcodeScanner.scan();
+  //   setState(() {
+  //     _fcmToken = temp;
+  //   });
+  //   if (_fcmToken != null) {
+  //     print("Valid");
+  //     print(_fcmToken);
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
+  //   } else {
+  //     Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
+  //   }
+  // }
 
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:
-         _scan();
+         scanQR();
         break;//
       case  1:
         Navigator.push(
@@ -53,8 +89,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             context, MaterialPageRoute(builder: (context) => Search()));
         break;
       case 3:
+
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProfilePage()));
+            context, MaterialPageRoute(builder: (context) => CareGiverInfo()));
         break;
       case 4:
         Navigator.push(
@@ -67,9 +104,20 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return WillPopScope(
+        onWillPop: () async {
+      return false;
+    },
+      child: Container(
+      decoration: new BoxDecoration(
+        color: Color(0xff121212),
+        image: new DecorationImage(
+          image: new AssetImage('assets/images/bg.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       height: double.infinity,
-      color: Color(0xff121212),
+
       padding: EdgeInsets.only(top: 50, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +127,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
               CircleAvatar(
                 radius: 25.0,
                 backgroundImage:
-                    NetworkImage('https://via.placeholder.com/150'),
+                    AssetImage('assets/images/usertrans.png'),
+                   // NetworkImage('https://via.placeholder.com/150'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(
@@ -147,49 +196,50 @@ class _DrawerScreenState extends State<DrawerScreen> {
           //   width: 10,
           //   height: 180,
           // ),
-          Row(
-            children: [
-              GestureDetector(
-                  onTap: () async {
-                    await FirebaseAuth.instance.signOut();
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 10,
-                        height: 20,
-                      ),
-                      Image.asset(
-                        'assets/images/logout.png',
-                        height: 25.0,
-                        width: 25.0,
-                        // allowDrawingOutsideViewBox: true,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Log out',
-                        style: TextStyle(
-                            color: Color(0xfff2e7fe),
-                            fontFamily: 'Circular',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                width: 10,
-                height: 80,
-              ),
-            ],
-          ),
+          // Row(
+          //   children: [
+          //     GestureDetector(
+          //         onTap: () async {
+          //           await FirebaseAuth.instance.signOut();
+          //         },
+          //         child: Row(
+          //           children: [
+          //             SizedBox(
+          //               width: 10,
+          //               height: 20,
+          //             ),
+          //             Image.asset(
+          //               'assets/images/logout.png',
+          //               height: 25.0,
+          //               width: 25.0,
+          //               // allowDrawingOutsideViewBox: true,
+          //             ),
+          //             SizedBox(
+          //               width: 10,
+          //             ),
+          //             Text(
+          //               AppLocalizations.of(context).translate('Log_Out'),
+          //               style: TextStyle(
+          //                   color: Color(0xfff2e7fe),
+          //                   fontFamily: 'Circular',
+          //                   fontWeight: FontWeight.bold,
+          //                   fontSize: 28),
+          //             )
+          //           ],
+          //         )),
+          //     SizedBox(
+          //       width: 10,
+          //       height: 80,
+          //     ),
+          //   ],
+          // ),
           // Flexible(
           //     child: FractionallySizedBox(
           //       heightFactor: 0.00000000001,
           //     )
+          SizedBox(height: 30,)
         ],
       ),
-    );
+    ),);
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/UI/Medicine_Details.dart';
 
+
+
 class FromScheduleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

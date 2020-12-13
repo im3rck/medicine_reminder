@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
@@ -325,7 +326,7 @@ class _PatientInfoState extends State<PatientInfo>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("Name:",
+                          Text( AppLocalizations.of(context).translate('Name')+" :",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 20,
@@ -349,7 +350,7 @@ class _PatientInfoState extends State<PatientInfo>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("Age:",
+                          Text(AppLocalizations.of(context).translate('Age')+" :",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 20,
@@ -374,7 +375,7 @@ class _PatientInfoState extends State<PatientInfo>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("Contact:",
+                          Text(AppLocalizations.of(context).translate('Number')+" :",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 20,
@@ -398,7 +399,7 @@ class _PatientInfoState extends State<PatientInfo>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: (MediaQuery.of(context).size.width)*.05,),
-                          Text("Relation:",
+                          Text(AppLocalizations.of(context).translate('Relationship')+" :",
                               style:TextStyle(
                                 fontFamily: 'Circular',
                                 fontSize: 20,

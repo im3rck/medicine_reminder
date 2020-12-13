@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineList.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -40,7 +41,7 @@ class _AddedList extends State<AddedList> {
           child: Container(
               height: 185.0,
               width: (MediaQuery.of(context).size.width) * .5,
-              child: customCard(Icons.assignment, "Medicine", "List")),
+              child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Medicine'), AppLocalizations.of(context).translate('List'))),
         ),
         InkWell(
           onTap: () {
@@ -49,7 +50,7 @@ class _AddedList extends State<AddedList> {
           child: Container(
               height: 185.0,
               width: (MediaQuery.of(context).size.width) * .5,
-              child: customCard(Icons.assignment, "Schedule", "List")),
+              child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Schedule'), AppLocalizations.of(context).translate('List'))),
         ),
       ],
     );

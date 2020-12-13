@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double xOffset = 230;
-  double yOffset = 150;
+  double yOffset = 130;
   double scaleFactor = 0.6;
   bool isDrawerOpen = true;
 
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                                       child: Text(
-                                        (element['age']).toString() + " years",
+                                        (element['age']).toString() + AppLocalizations.of(context).translate('Years'),
                                         style: new TextStyle(
                                             color: Color(0xfff2e7fe),
                                             fontFamily: 'Circular',
@@ -324,18 +325,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        color: (isDrawerOpen
-                            ? Color(0xff292929)
-                            : Color(0xFFf2e7fe)),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => SettingsPage()));
-                      },
-                    ),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.settings,
+                    //     color: (isDrawerOpen
+                    //         ? Color(0xff292929)
+                    //         : Color(0xFFf2e7fe).withOpacity(0)),
+                    //   ),
+                    //   onPressed: () {
+                    //   //   Navigator.push(
+                    //   //       context, MaterialPageRoute(builder: (context) => SettingsPage()));
+                    //   // },
+                    // ),
                     // SizedBox(width: 5),
                     Center(
                       child: SizedBox(
@@ -364,13 +365,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             searchPatients(value);
                           },
                           //controller: searchController,
+                          textAlign: TextAlign.center,
                           decoration: InputDecoration(
-                              hintText: 'Search my list',
+                              hintText: AppLocalizations.of(context).translate('Search')+ "...",
                               hintStyle: TextStyle(
-                                  color: Color(0xfff2e7fe),
+                                  color: Color(0xfff2e7fe).withOpacity(0.8),
                                   fontFamily: 'Circular',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15.0),
+                                  fontSize: 16.0),
                               border: InputBorder.none),
                         ),
                       ),

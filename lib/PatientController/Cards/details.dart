@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/PatientPrimaryDetails.dart';
@@ -211,7 +212,7 @@ class _Details extends State<Details> {
                                 controller: fnameController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
-                                    labelText: 'Name',
+                                    labelText: AppLocalizations.of(context).translate('Name'),
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Color(0xffF2E7FE),
@@ -252,7 +253,7 @@ class _Details extends State<Details> {
                                     controller: ageController,
                                     style: TextStyle(color: Color(0xfff2e7fe)),
                                     decoration: InputDecoration(
-                                        labelText: 'Age',
+                                        labelText: AppLocalizations.of(context).translate('Age'),
                                         prefixIcon: Icon(
                                           Icons.calendar_view_day,
                                           color: Color(0xffF2E7FE),
@@ -278,7 +279,7 @@ class _Details extends State<Details> {
                                   height: (MediaQuery.of(context).size.height)*.08,
 
                                   child: DropdownButton(
-                                    hint: Text("Gender",
+                                    hint: Text(AppLocalizations.of(context).translate('Gender'),
                                         style: style),
                                     value: _value,
                                     dropdownColor: Color(0xff292929),
@@ -288,7 +289,7 @@ class _Details extends State<Details> {
                                         _value = newValue;
                                       });
                                     },
-                                    items: ['Male', 'Female', 'Other']
+                                    items: [AppLocalizations.of(context).translate('Male'), AppLocalizations.of(context).translate('Female'), AppLocalizations.of(context).translate('Other')]
                                         .map((valueItem) {
                                       return new DropdownMenuItem(
                                         value: valueItem,
@@ -316,7 +317,7 @@ class _Details extends State<Details> {
                                 controller: contactController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
-                                    labelText: 'Contact',
+                                    labelText: AppLocalizations.of(context).translate('Contact'),
                                     prefixIcon: Icon(
                                       Icons.phone,
                                       color: Color(0xffF2E7FE),
@@ -352,7 +353,7 @@ class _Details extends State<Details> {
                                 controller: relController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
                                 decoration: InputDecoration(
-                                    labelText: 'Relationship',
+                                    labelText: AppLocalizations.of(context).translate('Relationship'),
                                     prefixIcon: Icon(
                                       Icons.people_outline_rounded,
                                       color: Color(0xffF2E7FE),
@@ -404,7 +405,7 @@ class _Details extends State<Details> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Confirm",
+                                    AppLocalizations.of(context).translate('Confirm'),
                                     style: style,
                                   ),
                                 ),
@@ -436,7 +437,7 @@ class _Details extends State<Details> {
           child: Container(
               height: (MediaQuery.of(context).size.height) * .25,
               width: MediaQuery.of(context).size.width,
-              child: customCard(Icons.person, "Details", "Patient Bio")),
+              child: customCard(Icons.person, AppLocalizations.of(context).translate('Details'), AppLocalizations.of(context).translate('Patient_Bio'))),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Global_Bloc.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Models/Medicine.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/UI/Medicine_Details.dart';
@@ -91,7 +92,7 @@ class TopContainer extends StatelessWidget {
               bottom: 10,
             ),
             child: Text(
-              "Self Reminder",
+              AppLocalizations.of(context).translate('Self_Reminder'),
               style:  TextStyle(
                 fontFamily: 'Circular',
                 fontSize: 36,
@@ -107,7 +108,7 @@ class TopContainer extends StatelessWidget {
             padding: EdgeInsets.only(top: 12.0),
             child: Center(
               child: Text(
-                "Number of Reminders",
+                AppLocalizations.of(context).translate('Number of Reminders'),
                 style:  TextStyle(
                   fontFamily: 'Circular',
                   fontSize: 16,
@@ -155,7 +156,7 @@ class BottomContainer extends StatelessWidget {
             color: Color(0xFF121212),
             child: Center(
               child: Text(
-                "Press + to add a Reminder",
+                AppLocalizations.of(context).translate('infoText'),
                 textAlign: TextAlign.center,
                 style:  TextStyle(
                   fontFamily: 'Circular',

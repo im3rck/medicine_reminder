@@ -35,9 +35,9 @@ dependencies:
   rive: ^0.6.2+2
   cloud_firestore: ^0.14.1+3
   uuid: ^2.2.2
-  firebase_auth:
-  firebase_core:
-  firebase_storage:
+  firebase_auth: ^0.18.4+1
+  firebase_core: ^0.5.3
+  firebase_storage: ^5.2.0
   permission_handler: ^5.0.1+1
   firebase_messaging: ^7.0.3
   google_fonts:
@@ -69,6 +69,12 @@ dependencies:
   google_sign_in: ^4.5.6
   flutter_typeahead: ^1.9.1
   flutter_vibrate: ^1.0.0
+  flutter_barcode_scanner: ^1.0.1
+  lottie: ^0.7.0+1
+  neumorphic:
+
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_launcher_icons: "^0.8.0"
@@ -100,6 +106,11 @@ flutter:
      - images/applogononame.png
      - assets/Rive/
      - images/App_logo_plain.png
+     - lang/en.json
+     - lang/hi.json
+     - lang/ml.json
+     - data/liquid.json
+
 
   #   - images/a_dot_ham.jpeg
   fonts:

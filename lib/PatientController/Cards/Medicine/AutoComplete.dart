@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+
 class AutoComplete extends StatefulWidget {
   AutoComplete({Key key, this.title}) : super(key: key);
 
@@ -63,7 +65,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                   textFieldConfiguration: TextFieldConfiguration(
                     style: TextStyle(color: Color(0xfff2e7fe)),
                     decoration: InputDecoration(
-                        labelText: 'Medicine Name',
+                        labelText: AppLocalizations.of(context).translate('Medicine_Name'),
                 labelStyle: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Circular',
