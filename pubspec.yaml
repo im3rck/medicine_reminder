@@ -52,7 +52,7 @@ dependencies:
   rxdart:
   provider: ^4.3.2+2
   shared_preferences:
-  flutter_local_notifications:
+  flutter_local_notifications: ^3.0.2
   qrscan: ^0.2.19
   flutter_neumorphic: ^3.0.3
   weekday_selector: ^0.4.0
@@ -72,6 +72,7 @@ dependencies:
   flutter_barcode_scanner: ^1.0.1
   lottie: ^0.7.0+1
   neumorphic:
+  flutter_native_timezone: ^1.0.4
 
   flutter_localizations:
     sdk: flutter

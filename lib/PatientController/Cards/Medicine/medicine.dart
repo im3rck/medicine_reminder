@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
-import 'package:medicine_reminder/PatientController/Cards/Medicine/Addmeds.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/AutoComplete.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/TimeIntervals.dart';
 import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
