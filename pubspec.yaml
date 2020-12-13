@@ -70,6 +70,8 @@ dependencies:
   flutter_typeahead: ^1.9.1
   flutter_vibrate: ^1.0.0
   flutter_barcode_scanner: ^1.0.1
+  lottie: ^0.7.0+1
+  neumorphic:
 
   flutter_localizations:
     sdk: flutter
@@ -107,6 +109,7 @@ flutter:
      - lang/en.json
      - lang/hi.json
      - lang/ml.json
+     - data/liquid.json
 
 
   #   - images/a_dot_ham.jpeg

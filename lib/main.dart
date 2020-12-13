@@ -55,6 +55,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
+import 'package:medicine_reminder/Enhancements/SplashScreen/mainSplash.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromMedicineList.dart';
 import 'package:medicine_reminder/PatientController/MedicineList/MedicineDetails/FromScheduleList.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
@@ -133,7 +134,7 @@ class _MyAppState extends State<MyApp> {
           // from the list (English, in this case).
           return supportedLocales.first;
         },
-        home: PhasePage()
+        home: mainSplash()
 
         //PhasePage(),
         //PatientAddPage('Token')
