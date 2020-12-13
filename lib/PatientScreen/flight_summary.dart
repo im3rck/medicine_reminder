@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-
 import 'demo_data.dart';
 import 'patientMain.dart';
 
