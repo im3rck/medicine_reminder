@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/StoreLocator/screens/search.dart';
@@ -53,7 +54,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PhasePage()));
     }
   }
   // _scan() async {

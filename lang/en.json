@@ -20,7 +20,7 @@
   "Female": "Female",
   "Other": "Other",
   "Contact": "Contact",
-  "Relationship":"Relationship",
+  "Relationship":"Relation",
   "Confirm": "Confirm",
   "By_Medicine": "By Medicine",
   "Set_Schedule_for_Medicines": "Set Schedule for Medicines",
@@ -42,7 +42,7 @@
   "infoText": "Press + to add a Reminder",
   "Add a New Reminder": "Add a New Reminder",
   "Medicine Type": "Medicine Type",
-  "Bottle": "Bottle"
+  "Bottle": "Bottle",
   "Pill": "Pill",
   "Syringe": "Injection",
   "Tablet": "Tablet",
@@ -51,5 +51,6 @@
   "Pick Time": "Pick Time",
   "Reminder Details": "Reminder Details",
   "Dosage Interval": "Dosage Interval",
-  "Delete": "Delete"
+  "Delete": "Delete",
+  "Number": "Contact"
 }
