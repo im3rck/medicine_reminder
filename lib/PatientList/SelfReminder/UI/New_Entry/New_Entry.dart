@@ -371,7 +371,6 @@ class _NewEntryState extends State<NewEntry> {
       'repeatDailyAtTime channel name',
       'repeatDailyAtTime description',
       importance: Importance.max,
-      //sound: 'sound',
       ledColor: Color(0xFFbb86fe),
       ledOffMs: 1000,
       ledOnMs: 1000,
