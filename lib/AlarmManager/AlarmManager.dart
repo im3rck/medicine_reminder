@@ -31,7 +31,7 @@ class AlarmManager {
     return random.nextInt(90000) + 10000;
   }
 
-  Future onSelectNotification(BuildContext context) {
+  Future onSelectNotification(String payload, BuildContext context) {
     return Navigator.of(context).push(MaterialPageRoute(builder: (_) {
       return TicketFoldDemo();
     }));

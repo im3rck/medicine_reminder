@@ -73,6 +73,7 @@ dependencies:
   lottie: ^0.7.0+1
   neumorphic:
   flutter_native_timezone: ^1.0.4
+  android_alarm_manager: ^0.4.5+17
 
 
   flutter_localizations:
