@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/Enhancements/SplashScreen/ui/widgets/liquid.dart';
+import 'package:medicine_reminder/PatientScreen/Notif2Patient/ui/widgets/liquid.dart';
 import 'package:medicine_reminder/PatientScreen/demo.dart';
 class HomeView extends StatefulWidget {
   @override
@@ -21,10 +20,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           alignment: Alignment.center,
           children: <Widget>[
             Text(
-              'Confirm'.toUpperCase(),
+              "Marked as Taken",
               style: TextStyle(
                   color: Color(0xffbb86fe),
-                  fontSize: 40,
+                  fontSize: 30,
+                  fontFamily: 'Circular',
                   fontWeight: FontWeight.w900),
             ),
             Liquid(

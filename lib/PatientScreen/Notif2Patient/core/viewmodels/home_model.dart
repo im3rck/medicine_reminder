@@ -19,7 +19,7 @@ class HomeModel extends ChangeNotifier {
     print('Menu is opening..');
     isOpening = !isOpening;
     if (isOpening) {
-      openValue = 75.0;
+      openValue = 100.0;
       controller.forward();
     } else {
       openValue = 0.0;

@@ -73,6 +73,7 @@ dependencies:
   lottie: ^0.7.0+1
   neumorphic:
 
+
   flutter_localizations:
     sdk: flutter
 
