@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medicine_reminder/AlarmManager/AlarmManager.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/PatientLog/mainLog.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
@@ -108,7 +109,9 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: PatientAddPage('Token')),
+          home: MainLog(),
+          //PatientAddPage('Token')
+      ),
     );
   }
 }
