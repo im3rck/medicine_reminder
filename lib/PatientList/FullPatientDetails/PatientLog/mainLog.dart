@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MainLog> {
       key: _scaffoldKey,
       appBar: _buildAppBar(),
       body: LiquidPullToRefresh(
-        color: Color(0xff121212),
+        color: Color(0xff292929),
         backgroundColor: Color(0xffbb86fe),
         height: (MediaQuery.of(context).size.height) / 7,
         key: _refreshIndicatorKey,
@@ -92,7 +92,9 @@ class _MyHomePageState extends State<MainLog> {
                 itemBuilder: (BuildContext context, int index) {
                   final String item = _items[index];
                   return ListTile(
-                    tileColor: Color(0xff292929),
+                    autofocus: true,
+                    tileColor: Color(0xff121212),
+                    contentPadding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                     isThreeLine: true,
                     leading: Container(
                       margin:

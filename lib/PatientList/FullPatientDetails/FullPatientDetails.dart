@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/Details/PatientInfo.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/Lists/MedicineLists.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/AddMedicine/AddMedicine.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/PatientLog/mainLog.dart';
 
 class BottomNavBar extends StatefulWidget {
   BottomNavBar(this.pno);
@@ -21,6 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PatientInfo(pno),
       MedicineList(),
       AddMedicine(),
+      MainLog()
     ];
     super.initState();
   }
@@ -38,6 +40,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Icon(Icons.perm_identity, color: Color(0xffbb86fe), size: 30),
             Icon(Icons.list,color: Color(0xffbb86fe), size: 30),
             Icon(Icons.add, color: Color(0xffbb86fe), size: 30),
+            Icon(Icons.assignment_ind_rounded, color: Color(0xffbb86fe), size: 30)
             // Icon(Icons.call_split, size: 30),
             // Icon(Icons.perm_identity, size: 30),
           ],
