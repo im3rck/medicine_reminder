@@ -1,11 +1,13 @@
 import 'dart:isolate';
-
+import 'package:medicine_reminder/LaunchScreen/GooeyEdge.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:medicine_reminder/AlarmManager/AlarmManager.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+import 'package:medicine_reminder/Enhancements/SplashScreen/SplashScreen.dart';
+import 'package:medicine_reminder/LaunchScreen/gooey_edge.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/PatientLog/mainLog.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
@@ -15,7 +17,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:android_alarm_manager/android_alarm_manager.dart';
-
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientController/PatientAddPage.dart';
 import 'PatientScreen/demo.dart';
 
@@ -110,7 +112,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: PhasePage(),
+          home: SplashScreen(),
           //PatientAddPage('Token')
       ),
     );

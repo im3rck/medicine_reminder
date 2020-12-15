@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MainLog> {
         showChildOpacityTransition: false,
         child: StreamBuilder<int>(
             stream: counterStream,
-            builder: (context, snapshot) {
+            builder: (context, st) {
               return ListView.builder(
                 padding: kMaterialListPadding,
                 itemCount: _items.length,
