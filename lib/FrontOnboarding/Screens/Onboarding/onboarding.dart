@@ -17,6 +17,7 @@ import 'package:medicine_reminder/FrontOnboarding/Screens/Onboarding/Widgets/nex
 import 'package:medicine_reminder/FrontOnboarding/Screens/Onboarding/Widgets/onboarding_page_indicator.dart';
 import 'package:medicine_reminder/FrontOnboarding/Screens/Onboarding/Widgets/ripple.dart';
 import 'package:medicine_reminder/LaunchScreen/GooeyEdge.dart';
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 
 
 class Onboarding extends StatefulWidget {
@@ -31,6 +32,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
+
   AnimationController _cardsAnimationController;
   AnimationController _pageIndicatorAnimationController;
   AnimationController _rippleAnimationController;

@@ -70,14 +70,14 @@ class _ContentCardState extends State<ContentCard> {
                   flex: 3,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Image.asset('images/actor-${widget.color}.png',
+                      child: Image.asset('assets/images/screen-${widget.color}.png',
                           fit: BoxFit.contain, package: App.pkg)),
                 ),
 
                 //Slider circles
                 Container(
                     height: 14,
-                    child: Image.asset('images/Slider-${widget.color}.png',
+                    child: Image.asset('assets/images/S-${widget.color}.png',
                         package: App.pkg)),
 
                 //Bottom content

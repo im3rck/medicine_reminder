@@ -8,6 +8,7 @@ import 'package:medicine_reminder/AlarmManager/AlarmManager.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/Enhancements/SplashScreen/SplashScreen.dart';
 import 'package:medicine_reminder/LaunchScreen/gooey_edge.dart';
+import 'package:medicine_reminder/MiddleOnboarding/Onboarding.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/PatientLog/mainLog.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
@@ -112,7 +113,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: SplashScreen(),
+          home: GooeyEdgeDemo(),
           //PatientAddPage('Token')
       ),
     );
