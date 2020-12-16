@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -5,7 +6,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
 Future<User> signInWithGoogle() async {
-  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAccount googleSignInAccount = await GoogleSignIn().signIn();
   final GoogleSignInAuthentication googleSignInAuthentication =
   await googleSignInAccount.authentication;
 
@@ -24,6 +25,44 @@ Future<User> signInWithGoogle() async {
 
   return user;
 }
+
+// Future loginWithGoogle() async {
+//   try {
+//     GoogleSignInAccount googleSignInAccount = await GoogleSignIn().signIn();
+//
+//     GoogleSignInAuthentication authentication =
+//     await googleSignInAccount.authentication;
+//
+//     final AuthCredential credential = GoogleAuthProvider.credential(
+//       idToken: authentication.idToken,
+//       accessToken: authentication.accessToken,
+//     );
+//
+//     final UserCredential userCredential =
+//     await FirebaseAuth.instance.signInWithCredential(credential);
+//
+//     User user = userCredential.user;
+//     if (user != null) {
+//       final QuerySnapshot result = await FirebaseFirestore.instance
+//           .collection("users")
+//           .where("id", isEqualTo: user.uid)
+//           .get();
+//
+//       final List<DocumentSnapshot> documents = result.docs;
+//
+//       if (documents.length == 0) {
+//         UserModel(user.uid).changeUser(
+//           username: user.displayName,
+//           email: user.email,
+//           picture: user.photoURL,
+//         );
+//       }
+//     }
+//   } on PlatformException catch (e) {
+//     print("Something wrong $e");
+//     return null;
+//   }
+// }
 
 void signOutGoogle() async {
   await googleSignIn.signOut();

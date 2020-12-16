@@ -13,7 +13,6 @@ class _GoogleLoginState extends State<GoogleLogin> {
 
   void signIn() {
     signInWithGoogle().then((user) => {
-      this.user = user,
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => SuccessPage()))
         });
@@ -76,7 +75,7 @@ class SuccessPage extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  "GLogin",
+                  "GLogout",
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
