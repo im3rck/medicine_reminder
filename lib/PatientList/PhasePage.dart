@@ -11,7 +11,6 @@ class PhasePage extends StatefulWidget {
 }
 
 class _PhasePageState extends State<PhasePage> {
-  //List<Map> patientData = [];
   initState()  {
      query();
     super.initState();
