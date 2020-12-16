@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
-import 'package:flare_flutter/flare.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'dart:async';
 
 class SuccessScreen extends StatefulWidget {
