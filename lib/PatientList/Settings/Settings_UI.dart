@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
-
+import 'package:medicine_reminder/Authentication/GoogleAuth.dart';
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +101,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   pressed: true,
 
                   onPressed: () async{
-                    await FirebaseAuth.instance.signOut();
+                      signOutGoogle();
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return GooeyEdgeDemo();}), ModalRoute.withName('/'));
                     },
                   style: NeumorphicStyle(
                     border: NeumorphicBorder(

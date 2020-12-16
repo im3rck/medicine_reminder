@@ -139,9 +139,7 @@ class _ContentCardState extends State<ContentCard> {
                             MaterialPageRoute(
                                 builder: (context) => (widget.color == 'Red'
                                     ? QrGen()
-                                    : Login(
-                                  screenHeight: height
-                                ))));
+                                    : AuthPage())));
                         //Navigator.pop(context);
                       },
                       child: Container(
