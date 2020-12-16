@@ -5,7 +5,7 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 
 import 'Launch.dart';
-
+import 'package:medicine_reminder/Authentication/Login/login.dart';
 class ContentCard extends StatefulWidget {
   final String color;
   final Color altColor;
@@ -46,6 +46,7 @@ class _ContentCardState extends State<ContentCard> {
     var scaleX = 1.2 + sin(time) * .05;
     var scaleY = 1.2 + cos(time) * .07;
     var offsetY = 20 + cos(time) * 20;
+    double height = MediaQuery.of(context).size.height;
     return Stack(
       alignment: Alignment.center,
       fit: StackFit.expand,
@@ -97,6 +98,7 @@ class _ContentCardState extends State<ContentCard> {
   }
 
   Widget _buildBottomContent() {
+    double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,7 +108,7 @@ class _ContentCardState extends State<ContentCard> {
             style: TextStyle(
                 height: 1.2,
                 fontSize: 30.0,
-                fontFamily: 'DMSerifDisplay',
+                fontFamily: 'Circular',
                 color: (widget.color == 'Yellow'
                     ? Color(0xFF121212)
                     : Colors.white),
@@ -116,7 +118,7 @@ class _ContentCardState extends State<ContentCard> {
             style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.w300,
-                fontFamily: 'OpenSans',
+                fontFamily: 'Circular',
                 color: (widget.color == 'Yellow'
                     ? Color(0xFF121212)
                     : Colors.white),
@@ -128,60 +130,65 @@ class _ContentCardState extends State<ContentCard> {
             opacity: 1.0, //_changeOpacity(),
             child: (widget.color == 'Yellow'
                 ? Text('')
-                : InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => (widget.color == 'Red'
-                                  ? QrGen()
-                                  : AuthPage())));
-                      //Navigator.pop(context);
-                    },
-                    child: Container(
-                      height: 40,
-                      width: (MediaQuery.of(context).size.width) * .8,
-                      decoration: BoxDecoration(
-                        color: (widget.color == 'Red'
-                            ? Color(0xff456BFF)
-                            : (widget.color == 'Blue'
-                                ? Color(0xff121212)
-                                : Color(0xffF2E7FE))),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(25),
-                        ),
-                        border: Border.all(
-                            color: (widget.color == 'Blue'
-                                ? Color(0xff456BFF)
-                                : Color(0xff121212)),
-                            width: 2),
-                        boxShadow: [
-                          BoxShadow(
-                            color: (widget.color == 'Red'
-                                ? Color(0xff456BFF)
-                                : (widget.color == 'Blue'
-                                    ? Color(0xff121212)
-                                    : Color(0xffF2E7FE))),
-                            spreadRadius: 3,
-                            blurRadius: 4,
-                            offset: Offset(0, 3),
+                : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => (widget.color == 'Red'
+                                    ? QrGen()
+                                    : Login(
+                                  screenHeight: height
+                                ))));
+                        //Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: (MediaQuery.of(context).size.width) * .8,
+                        decoration: BoxDecoration(
+                          color: (widget.color == 'Red'
+                              ? Color(0xff456BFF)
+                              : (widget.color == 'Blue'
+                                  ? Color(0xff121212)
+                                  : Color(0xffF2E7FE))),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Confirm",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: (widget.color == 'Yellow'
-                                ? Color(0xff121212)
-                                : Color(0xffF2E7FE)),
+                          border: Border.all(
+                              color: (widget.color == 'Blue'
+                                  ? Color(0xff456BFF)
+                                  : Color(0xff121212)),
+                              width: 2),
+                          boxShadow: [
+                            BoxShadow(
+                              color: (widget.color == 'Red'
+                                  ? Color(0xff456BFF)
+                                  : (widget.color == 'Blue'
+                                      ? Color(0xff121212)
+                                      : Color(0xffF2E7FE))),
+                              spreadRadius: 3,
+                              blurRadius: 4,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: (widget.color == 'Yellow'
+                                  ? Color(0xff121212)
+                                  : Color(0xffF2E7FE)),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  )),
+                )),
           ),
         )
       ],

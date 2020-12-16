@@ -15,9 +15,9 @@ import 'package:medicine_reminder/StoreLocator/models/place.dart';
 import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart';
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:provider/provider.dart';
-
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientScreen/demo.dart';
-
+import 'package:medicine_reminder/Authentication/Login/login.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -105,7 +105,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: GoogleLogin()),
+          home: GooeyEdgeDemo()),
     );
   }
 }
