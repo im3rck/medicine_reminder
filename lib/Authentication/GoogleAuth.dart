@@ -66,4 +66,5 @@ Future<User> signInWithGoogle() async {
 
 void signOutGoogle() async {
   await googleSignIn.signOut();
+  await googleSignIn.disconnect();
 }
