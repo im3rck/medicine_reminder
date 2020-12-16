@@ -34,9 +34,9 @@ class _AutoCompleteState extends State<AutoComplete> {
     var data = await http.get(url);
     var jsonData = json.decode(data.body);
     List<UserDetail> users = [];
-    for (var u in jsonData) {
+    for (var item in jsonData) {
       UserDetail user =
-      UserDetail(id: u['id'], title: u['title'], url: u['thumbnailUrl']);
+          UserDetail(id: item['id'], title: item['title'], url: item['thumbnailUrl']);
       users.add(user);
     }
     print(users.length);
@@ -48,7 +48,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     List<UserDetail> matches = [];
     matches.addAll(_det);
     matches.retainWhere(
-            (UserDetail s) => s.title.toLowerCase().contains(query.toLowerCase()));
+        (UserDetail s) => s.title.toLowerCase().contains(query.toLowerCase()));
     return matches;
   }
 
@@ -61,30 +61,28 @@ class _AutoCompleteState extends State<AutoComplete> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               title: TypeAheadField(
-                direction: AxisDirection.up,
+                  direction: AxisDirection.up,
                   textFieldConfiguration: TextFieldConfiguration(
                     style: TextStyle(color: Color(0xfff2e7fe)),
                     decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).translate('Medicine_Name'),
-                labelStyle: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Circular',
-                  color: Color(0xfff2e7fe).withOpacity(0.6),
-                  height: 2,
-                ),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 0),
+                        labelText: AppLocalizations.of(context)
+                            .translate('Medicine_Name'),
+                        labelStyle: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Circular',
+                          color: Color(0xfff2e7fe).withOpacity(0.6),
+                          height: 2,
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Color(0xfff2e7fe)),
+                          borderSide: BorderSide(color: Color(0xfff2e7fe)),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                          BorderSide(color: Color(0xffBB86fc)),
+                          borderSide: BorderSide(color: Color(0xffBB86fc)),
                           //  when the TextFormField in focused
                         ),
-                        border: UnderlineInputBorder()
-                    ),
+                        border: UnderlineInputBorder()),
                     controller: this._typeAheadController,
                   ),
                   suggestionsCallback: (pattern) async {
@@ -109,8 +107,8 @@ class _AutoCompleteState extends State<AutoComplete> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(30.0),
                                     child: Image(
-                                      image:
-                                      NetworkImage(suggestion.url, scale: 3),
+                                      image: NetworkImage(suggestion.url,
+                                          scale: 3),
                                     ),
                                   )),
                               Expanded(
@@ -127,7 +125,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                               ),
                               Padding(
                                 padding:
-                                const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
+                                    const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
                                 child: Text(suggestion.id.toString(),
                                     style: TextStyle(
                                         color: Color(0xfff2e7fe),
