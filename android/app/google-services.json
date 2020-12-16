@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "145485577103-uq7md6vo4t98rgf400cdml5bc6dm657b.apps.googleusercontent.com",
+          "client_id": "145485577103-h4tc8g9h4pnjtobmht6eej2u9cfe7rtc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medicine_reminder",
+            "certificate_hash": "b628f648585e2894a0d97cac8ba9f7e3d1ce10f2"
+          }
+        },
+        {
+          "client_id": "145485577103-hpo62sq4g0ds8nhe257mlcc1b2gh9nlm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.medicine_reminder",

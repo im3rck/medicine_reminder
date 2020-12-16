@@ -75,6 +75,9 @@ dependencies:
   android_alarm_manager: ^0.4.5+17
   liquid_pull_to_refresh: ^2.0.0
   shared_preferences: ^0.5.12+4
+  path_provider: ^1.2.0
+  get_it:
+  progress_hud: ^1.1.0
 
 
   flutter_localizations:
