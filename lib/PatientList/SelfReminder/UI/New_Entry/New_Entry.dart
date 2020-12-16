@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/AlarmManager/TimeZone.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Common/convert_time.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Global_Bloc.dart';
@@ -11,6 +12,7 @@ import 'package:medicine_reminder/PatientList/SelfReminder/UI/New_Entry/New_Entr
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:medicine_reminder/Enhancements/SuccessScreen/SuccessScreen.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NewEntry extends StatefulWidget {
   @override
@@ -387,14 +389,30 @@ class _NewEntryState extends State<NewEntry> {
       } else {
         hour = hour + (medicine.interval * i);
       }
-      await flutterLocalNotificationsPlugin.showDailyAtTime(
+      final timeZone = TimeZone();
+      String timeZoneName = await timeZone.getTimeZoneName();
+      final location = await timeZone.getLocation(timeZoneName);
+      DateTime dateTime = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, hour, minute, 0);
+      final scheduledNotificationDateTime =
+      tz.TZDateTime.from(dateTime, location);
+      // await flutterLocalNotificationsPlugin.showDailyAtTime(
+      //     int.parse(medicine.notificationIDs[i]),
+      //     'Self Reminder: ${medicine.medicineName}',
+      //     medicine.medicineType.toString() != MedicineType.None.toString()
+      //         ? 'It is time to take your ${medicine.medicineType.toLowerCase()}, according to schedule'
+      //         : 'It is time to take your medicine, according to schedule',
+      //     Time(hour, minute, 0),
+      //     platformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.zonedSchedule(
           int.parse(medicine.notificationIDs[i]),
           'Self Reminder: ${medicine.medicineName}',
           medicine.medicineType.toString() != MedicineType.None.toString()
               ? 'It is time to take your ${medicine.medicineType.toLowerCase()}, according to schedule'
               : 'It is time to take your medicine, according to schedule',
-          Time(hour, minute, 0),
-          platformChannelSpecifics);
+          scheduledNotificationDateTime,
+          platformChannelSpecifics,
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation: null);
       hour = ogValue;
     }
     //await flutterLocalNotificationsPlugin.cancelAll();
