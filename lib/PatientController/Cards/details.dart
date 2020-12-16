@@ -387,7 +387,6 @@ class _Details extends State<Details> {
                                           );
                                         });
                                   }
-
                                   yOffset = 0;
 
                                 },
