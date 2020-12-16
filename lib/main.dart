@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientScreen/demo.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
+import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -105,7 +106,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: GooeyEdgeDemo()),
+          home: PatientAddPage('token')),
     );
   }
 }
