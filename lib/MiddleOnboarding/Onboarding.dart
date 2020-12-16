@@ -34,17 +34,17 @@ class _onboardingState extends State<onboarding> {
       backgroundColor: Color(0xff292929),
       body: Stack(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          currentPage==0 || currentPage==1 ? Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 padding: EdgeInsets.all(5.0),
                 color: Color(0xff292929),
-                
+
                 height: MediaQuery.of(context).size.height * 0.6,
                 child: PageView(
                   controller: _pageController,
-                  
+                  physics: BouncingScrollPhysics(),
                   //scrollDirection: Axis.vertical,
                   children: [
                     onBoardPage("obm", "Welcome", 1),
@@ -57,10 +57,38 @@ class _onboardingState extends State<onboarding> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(3, (index) => getIndicator(index)),
-              )
+              ),
+              SizedBox(height: 5.0,)
+            ],
+          ) : Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                padding: EdgeInsets.all(5.0),
+                color: Color(0xff292929),
+                
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: PageView(
+                  controller: _pageController,
+                  physics: BouncingScrollPhysics(),
+                  //scrollDirection: Axis.vertical,
+                  children: [
+                    onBoardPage("obm", "Welcome", 1),
+                    onBoardPage("obc", "Custodian", 2),
+                    onBoardPage("obp", "Convalescent", 3),
+                  ],
+                  onPageChanged: (value) => {setCurrentPage(value)},
+                ),
+              ),
+              Row(
+
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // children: List.generate(3, (index) => getIndicator(index)),
+              ),
+              SizedBox(height: 5.0,)
             ],
           ),
-          Positioned(
+         currentPage==0 || currentPage==1 ? SizedBox(): Positioned(
             bottom: 0,
             left: 0,
             right: 0,

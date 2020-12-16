@@ -62,10 +62,10 @@ class GooeyCarouselState extends State<GooeyCarousel> with SingleTickerProviderS
           clipBehavior: Clip.hardEdge,
           clipper: GooeyEdgeClipper(_edge, margin: 10.0),
         ),
-        SunAndMoon(
-          index: _dragIndex,
-          isDragComplete: _dragCompleted,
-          )
+        // SunAndMoon(
+        //   index: _dragIndex,
+        //   isDragComplete: _dragCompleted,
+        //   )
       ],)
     );
   }
