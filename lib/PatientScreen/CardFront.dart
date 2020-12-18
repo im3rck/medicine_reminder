@@ -19,26 +19,7 @@ class FrontCard extends StatelessWidget {
       this.isOpen = false})
       : super(key: key);
 
-  // Color get mainTextColor {
-  //   Color textColor;
-  //   if (theme == SummaryTheme.dark) textColor = Colors.white;
-  //   if (theme == SummaryTheme.light) textColor = Color(0xFF083e64);
-  //   return textColor;
-  // }
-  //
-  // Color get secondaryTextColor {
-  //   Color textColor;
-  //   if (theme == SummaryTheme.dark) textColor = Color(0xff61849c);
-  //   if (theme == SummaryTheme.light) textColor = Color(0xFF838383);
-  //   return textColor;
-  // }
-  //
-  // Color get separatorColor {
-  //   Color color;
-  //   if (theme == SummaryTheme.light) color = Color(0xff292929);
-  //   if (theme == SummaryTheme.dark) color = Color(0xff396583);
-  //   return color;
-  // }
+
 
   TextStyle get bodyTextStyle => TextStyle(
         color: Color(0xffF2E7FE),

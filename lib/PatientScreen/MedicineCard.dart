@@ -17,10 +17,9 @@ class _MedicineCardState extends State<MedicineCard> {
   final List<int> _openCards = [];
 
   final List<ScheduleModel> medicineCards = GetMedicineCards().medCards;
-
-  render() async {
-    FirebaseFirestore _db = FirebaseFirestore.instance;
-    Stream<List<ScheduleModel>> streamData = _db
+  Stream<List<ScheduleModel>> retest()  {
+    Stream<List<ScheduleModel>> target;
+    target =  FirebaseFirestore.instance
         .collection(
         'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
         .snapshots()
@@ -28,9 +27,22 @@ class _MedicineCardState extends State<MedicineCard> {
         snapshot.docs
             .map((doc) => ScheduleModel.fromJson(doc.data()))
             .toList());
-    assert(streamData != null);
-    var scheduleList = await streamData.elementAt(0);
-    scheduleList.forEach((element) {
+    return target;
+  }
+  render(List<ScheduleModel> streamData)  {
+   // FirebaseFirestore _db = FirebaseFirestore.instance;
+   //  Stream<List<ScheduleModel>> streamData =  await _db
+   //      .collection(
+   //      'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
+   //      .snapshots()
+   //      .map((snapshot) =>
+   //      snapshot.docs
+   //          .map((doc) => ScheduleModel.fromJson(doc.data()))
+   //          .toList());
+   // assert(streamData != null);
+    // Stream<List<ScheduleModel>> streamData;
+   // var scheduleList = await streamData.elementAt(0);
+    streamData.forEach((element) {
       element.dateTime = DateTime.now(); //
       GetMedicineCards.pushData(element);
     });
@@ -43,7 +55,7 @@ class _MedicineCardState extends State<MedicineCard> {
   void initState() {
     super.initState();
 
-    render();
+   // render();
   }
 
   @override
@@ -55,22 +67,11 @@ class _MedicineCardState extends State<MedicineCard> {
         child: Flex(direction: Axis.vertical, children: <Widget>[
           Expanded(
             child: StreamBuilder<List<ScheduleModel>>(
-                stream: Stream.value(medicineCards), // medCards
+                stream: retest(),
+                //Stream.value(medicineCards), // medCards
                 builder: (context, snapshot) {
-                  // var k = snapshot.data;
-                  // var b = k == null
-                  //     ? NewScheduleModel(
-                  //         dateTime: DateTime.now(),
-                  //         medName: 'MedName4',
-                  //         dosage: '22',
-                  //         imageUrl: 'skiff',
-                  //         scheduleId: 'abjured',
-                  //         patientToken: 'eight',
-                  //         isTimed: true)
-                  //     : k.elementAt(0);
-                  // // var c = k.length;
-                  // // print('SIDED : ${c}');
-                  // print('A : ${b.medName}');
+                  print("help: ${snapshot.data==null? "Pink":snapshot.data}");
+                  if(snapshot.data!=null)render((snapshot.data));
                   return ListView.builder(
                     controller: _scrollController,
                     physics: BouncingScrollPhysics(),
