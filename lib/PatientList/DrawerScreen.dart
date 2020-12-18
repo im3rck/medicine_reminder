@@ -1,20 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
-import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/Profile/CareGiverDetails.dart';
 import 'package:medicine_reminder/PatientList/SelfReminder/Selfmain.dart';
-import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'configuration.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:medicine_reminder/PatientList/Profile/ProfilePage.dart';
 import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
-
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -81,21 +74,24 @@ class _DrawerScreenState extends State<DrawerScreen> {
          scanQR();
         break;//
       case  1:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MedicineReminder()));
+        Navigator.of(context).push(FadeRoute(
+          builder: (context) => MedicineReminder()
+        ));
         break;
       case 2:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Search()));
+        Navigator.of(context).push(FadeRoute(
+            builder: (context) => Search()
+        ));
         break;
       case 3:
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => CareGiverInfo()));
+        Navigator.of(context).push(FadeRoute(
+            builder: (context) => CareGiverInfo()
+        ));
         break;
       case 4:
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SettingsPage()));
+        Navigator.of(context).push(FadeRoute(
+            builder: (context) => SettingsPage()
+        ));
         break;
 
 

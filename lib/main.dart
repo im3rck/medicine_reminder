@@ -6,6 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medicine_reminder/Authentication/GoogleSignUp.dart';
+
+
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/Enhancements/SplashScreen/SplashScreen.dart';
 import 'package:medicine_reminder/LaunchScreen/gooey_edge.dart';
@@ -111,7 +113,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: MedicineCard()),
+          home: PhasePage()),
     );
   }
 }
