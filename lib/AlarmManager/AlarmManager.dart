@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-import 'package:medicine_reminder/PatientScreen/demo.dart';
+import 'package:medicine_reminder/PatientScreen/MedicineCard.dart';
 import 'TimeZone.dart';
 
 Random random = new Random();
@@ -33,7 +33,7 @@ class AlarmManager {
 
   Future onSelectNotification(String payload, BuildContext context) {
     return Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return TicketFoldDemo();
+      return MedicineCard();
     }));
   }
 

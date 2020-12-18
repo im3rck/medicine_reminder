@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientScreen/Notif2Patient/ui/widgets/liquid.dart';
-import 'package:medicine_reminder/PatientScreen/demo.dart';
+import 'package:medicine_reminder/PatientScreen/MedicineCard.dart';
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -18,6 +19,48 @@ class _MedicineAddon extends State<MedicineAddon> {
     'Select\nRange of\nDays',
     'Custom\nSet of\nDays'
   ];
+
+  String _selectedDate;
+  String _dateCount;
+  String _range;
+  String _rangeCount;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = '';
+    _dateCount = '';
+    _range = '';
+    _rangeCount = '';
+  }
+
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      if (args.value is PickerDateRange) {
+        _range =
+            DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
+                ' - ' +
+                DateFormat('dd/MM/yyyy')
+                    .format(args.value.endDate ?? args.value.startDate)
+                    .toString();
+      } else if (args.value is DateTime) {
+        _selectedDate = args.value;
+      } else if (args.value is List<DateTime>) {
+        _dateCount = args.value.length.toString();
+      } else {
+        _rangeCount = args.value.length.toString();
+      }
+    });
+    DateTime dateTime = DateTime(2020);
+    print('Selected date: ' + _selectedDate);
+    print('Selected date count: ' + _dateCount);
+    print('Selected date : ' + args.value.toString());
+    print('Selected range: ' + _range);
+    print('Start: ' + args.value.startDate.toString());
+    print('End: ' + args.value.endDate.toString());
+    print('Selected ranges count: ' + _rangeCount);
+  }
 
   void setCustomRange(String message, bool option) {
     showModalBottomSheet(
@@ -89,6 +132,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                           ),
                           child: SfDateRangePicker(
                             view: DateRangePickerView.month,
+                            onSelectionChanged: _onSelectionChanged,
                             backgroundColor: Color(0xff121212),
                             selectionColor: Color(0xffbb86fe),
                             rangeSelectionColor: option

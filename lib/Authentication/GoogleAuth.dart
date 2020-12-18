@@ -22,7 +22,6 @@ Future<User> signInWithGoogle() async {
 
   final User currentUser = _auth.currentUser;
   assert(currentUser.uid == user.uid);
-  print(user);
   return user;
 }
 

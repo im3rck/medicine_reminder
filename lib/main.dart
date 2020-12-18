@@ -9,6 +9,8 @@ import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.d
 import 'package:medicine_reminder/Enhancements/SplashScreen/SplashScreen.dart';
 import 'package:medicine_reminder/LaunchScreen/gooey_edge.dart';
 import 'package:medicine_reminder/MiddleOnboarding/Onboarding.dart';
+import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
+import 'package:medicine_reminder/PatientList/FullPatientDetails/AddMedicine/AddMedicine.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/PatientLog/mainLog.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/StoreLocator/models/place.dart';
@@ -16,7 +18,7 @@ import 'package:medicine_reminder/StoreLocator/services/geolocator_service.dart'
 import 'package:medicine_reminder/StoreLocator/services/places_service.dart';
 import 'package:provider/provider.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
-import 'PatientScreen/demo.dart';
+import 'PatientScreen/MedicineCard.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -56,7 +58,7 @@ class _MyAppState extends State<MyApp> {
 
   Future onSelectNotification(String payload) {
     return Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return TicketFoldDemo();
+      return MedicineCard();
     }));
   }
 
@@ -105,7 +107,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: GooeyEdgeDemo()),
+          home: MedicineCard()),
     );
   }
 }
