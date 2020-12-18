@@ -15,12 +15,15 @@ PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
 class Details extends StatefulWidget {
+
   Details(this.token);
   final String token;
   _Details createState() => _Details();
 }
 
+
 class _Details extends State<Details> {
+  final _formKey = GlobalKey<FormState>();
   final style = TextStyle(
       color: Color(0xfff2e7fe),
       fontWeight: FontWeight.bold,
@@ -30,30 +33,51 @@ class _Details extends State<Details> {
   FirebaseFirestore _db = FirebaseFirestore.instance;
   User user = FirebaseAuth.instance.currentUser;
   double yOffset = 0;
-  TextEditingController fnameController = TextEditingController();
-  TextEditingController relController = TextEditingController();
-  TextEditingController ageController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
-  TextEditingController contactController = TextEditingController();
+  TextEditingController fnameController = new TextEditingController();
+  TextEditingController relController = new TextEditingController();
+  TextEditingController ageController = new TextEditingController();
+  TextEditingController genderController = new TextEditingController();
+  TextEditingController contactController = new TextEditingController();
   String _value;
   String valueItem;
-
+  String _name;
   var rng = new Random();
   void setData(){
-    String _fcmToken = widget.token;
-    print('Token value : $_fcmToken');
-    PPD newPatient = PPD(patientToken : _fcmToken,patientName : fnameController.text,age : ageController.text,
-        gender : _value,relationship : relController.text,contactNo : contactController.text);
-    var options = SetOptions(merge:true);
+    if(fnameController.text==null || fnameController.text.length<4 || contactController.text.length < 10 || relController.text ==null || ageController.text==null){
+      showModalBottomSheet(
+          context: context,
+          backgroundColor: Color(0xff292929),
+          builder: (BuildContext bc) {
+            return SafeArea(
+              child: Container(
+                height: (MediaQuery.of(context).size.height)*.06,
+                child: Container(
+                  child: Center(child: Text("Enter Valid data in the fields",style: style,)),
+                ),
+              ),
+            );
+          });
+    }
+    else {
+      String _fcmToken = widget.token;
+      print('Token value : $_fcmToken');
+      PPD newPatient = PPD(patientToken: _fcmToken,
+          patientName: fnameController.text,
+          age: ageController.text,
+          gender: _value,
+          relationship: relController.text,
+          contactNo: contactController.text);
+      var options = SetOptions(merge: true);
 
-    var patientDetails = newPatient.toMap();
-    patientDetails['index'] = rng.nextInt(10000);
-    Patientdata.add(patientDetails);
-    _db
-        .collection('/users/${user.uid}/patients')
-        .doc(newPatient.patientToken)
-        .set(patientDetails,options);
-
+      var patientDetails = newPatient.toMap();
+      patientDetails['index'] = rng.nextInt(10000);
+      Patientdata.add(patientDetails);
+      _db
+          .collection('/users/${user.uid}/patients')
+          .doc(newPatient.patientToken)
+          .set(patientDetails, options);
+      Navigator.pop(context);
+    }
   }
 
   _imgFromGallery() async {
@@ -201,12 +225,31 @@ class _Details extends State<Details> {
                             ),
                             Container(
                               width: (MediaQuery.of(context).size.width) * .9,
-                              child: TextField(
+                              child: TextFormField(
                                 keyboardType: TextInputType.name,
                                 onTap: () {
                                   yOffset = -210;
                                 },
-                                onSubmitted: (value) {
+                                onChanged: (value){
+                                  _name=value;
+                                },
+                                onFieldSubmitted: (value) {
+                                  if(value==null|| value.length<4 ){
+                                    yOffset = 0;
+                                    showModalBottomSheet(
+                                        context: context,
+                                        backgroundColor: Color(0xff292929),
+                                        builder: (BuildContext bc) {
+                                          return SafeArea(
+                                            child: Container(
+                                              height: (MediaQuery.of(context).size.height)*.06,
+                                              child: Container(
+                                                child: Center(child: Text("Please enter a longer name",style: style,)),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }
                                   yOffset = 0;
                                 },
                                 controller: fnameController,
@@ -248,6 +291,22 @@ class _Details extends State<Details> {
                                       yOffset = -210;
                                     },
                                     onSubmitted: (value) {
+                                      if(value==null){
+                                        yOffset = 0;
+                                        showModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Color(0xff292929),
+                                            builder: (BuildContext bc) {
+                                              return SafeArea(
+                                                child: Container(
+                                                  height: (MediaQuery.of(context).size.height)*.06,
+                                                  child: Container(
+                                                    child: Center(child: Text("Please enter a valid age",style: style,)),
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      }
                                       yOffset = 0;
                                     },
                                     controller: ageController,
@@ -312,7 +371,24 @@ class _Details extends State<Details> {
                                   yOffset = -210;
                                 },
                                 onSubmitted: (value) {
+                                  if(value==null || value.length<10 ){
+                                    yOffset = 0;
+                                    showModalBottomSheet(
+                                        context: context,
+                                        backgroundColor: Color(0xff292929),
+                                        builder: (BuildContext bc) {
+                                          return SafeArea(
+                                            child: Container(
+                                              height: (MediaQuery.of(context).size.height)*.06,
+                                              child: Container(
+                                                child: Center(child: Text("Enter a valid phone number",style: style,)),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }
                                   yOffset = 0;
+
                                 },
                                 controller: contactController,
                                 style: TextStyle(color: Color(0xfff2e7fe)),
@@ -348,6 +424,22 @@ class _Details extends State<Details> {
                                   yOffset = -210;
                                 },
                                 onSubmitted: (value) {
+                                  if(value=='null'|| value.length<1 ){
+                                    yOffset = 0;
+                                    showModalBottomSheet(
+                                        context: context,
+                                        backgroundColor: Color(0xff292929),
+                                        builder: (BuildContext bc) {
+                                          return SafeArea(
+                                            child: Container(
+                                              height: (MediaQuery.of(context).size.height)*.06,
+                                              child: Container(
+                                                child: Center(child: Text("Please enter a valid relation",style: style,)),
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }
                                   yOffset = 0;
                                 },
                                 controller: relController,
@@ -379,9 +471,13 @@ class _Details extends State<Details> {
                             ),
                             InkWell(
                               onTap: () {
-                                setData();
-                                Navigator.pop(context);
-                                yOffset = 0;
+                                if (_formKey.currentState.validate()) {
+                                  // If the form is valid, display a snackbar. In the real world,
+                                  // you'd often call a server or save the information in a database.
+
+                                  setData();
+                                  yOffset = 0;
+                                }
                               },
                               child: Container(
                                 height: 40,
@@ -427,19 +523,22 @@ class _Details extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        InkWell(
-          onTap: () {
-            _popupCard(context);
-          },
-          child: Container(
-              height: (MediaQuery.of(context).size.height) * .25,
-              width: MediaQuery.of(context).size.width,
-              child: customCard(Icons.person, AppLocalizations.of(context).translate('Details'), AppLocalizations.of(context).translate('Patient_Bio'))),
-        ),
-      ],
+    return Form(
+      key: _formKey,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              _popupCard(context);
+            },
+            child: Container(
+                height: (MediaQuery.of(context).size.height) * .25,
+                width: MediaQuery.of(context).size.width,
+                child: customCard(Icons.person, AppLocalizations.of(context).translate('Details'), AppLocalizations.of(context).translate('Patient_Bio'))),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -17,6 +17,11 @@ class Medicines extends StatefulWidget {
 }
 
 class _Medicines extends State<Medicines> {
+  final style = TextStyle(
+      color: Color(0xfff2e7fe),
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Circular',
+      fontSize: 16.0);
   String _selected = '';
   String _selectedType = '0';
   double yOffset = 0;
@@ -250,6 +255,22 @@ class _Medicines extends State<Medicines> {
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
+                                      if(value==null ){
+                                        yOffset = 0;
+                                        showModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Color(0xff292929),
+                                            builder: (BuildContext bc) {
+                                              return SafeArea(
+                                                child: Container(
+                                                  height: (MediaQuery.of(context).size.height)*.06,
+                                                  child: Container(
+                                                    child: Center(child: Text("Enter a valid Dosage",style: style,)),
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      }
                                       yOffset = 0;
                                     },
                                     // controller: emailController,
@@ -283,6 +304,22 @@ class _Medicines extends State<Medicines> {
                                   child: TextField(
                                     keyboardType: TextInputType.number,
                                     onSubmitted: (value) {
+                                      if(value==null ){
+                                        yOffset = 0;
+                                        showModalBottomSheet(
+                                            context: context,
+                                            backgroundColor: Color(0xff292929),
+                                            builder: (BuildContext bc) {
+                                              return SafeArea(
+                                                child: Container(
+                                                  height: (MediaQuery.of(context).size.height)*.06,
+                                                  child: Container(
+                                                    child: Center(child: Text("Enter a valid Quantity",style: style,)),
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      }
                                       yOffset = 0;
                                     },
                                     // controller: emailController,

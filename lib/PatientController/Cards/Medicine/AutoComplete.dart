@@ -61,6 +61,7 @@ class _AutoCompleteState extends State<AutoComplete> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               title: TypeAheadField(
+
                   direction: AxisDirection.up,
                   textFieldConfiguration: TextFieldConfiguration(
                     style: TextStyle(color: Color(0xfff2e7fe)),

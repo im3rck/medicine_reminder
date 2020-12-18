@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,6 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientScreen/MedicineCard.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
+import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -34,6 +36,8 @@ void main() async {
   // await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
   Paint.enableDithering = true;
+  String token = await FirebaseMessaging().getToken();
+  print('Token : $token');
   runApp(MyApp());
   // await AndroidAlarmManager.periodic(const Duration(minutes: 1), helloAlarmID, setNotifications);
 }
