@@ -22,6 +22,7 @@ class _MedicineAddon extends State<MedicineAddon> {
     'Select\nRange of\nDays',
     'Custom\nSet of\nDays'
   ];
+
   void initState() {
     _selectedDate = '';
     _dateCount = '';
@@ -61,50 +62,8 @@ class _MedicineAddon extends State<MedicineAddon> {
         _rangeCount = args.value.length.toString();
       }
       print(_range);
-      print (_dateCount);
+      print(_dateCount);
     });
-  }
-
-  String _selectedDate;
-  String _dateCount;
-  String _range;
-  String _rangeCount;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDate = '';
-    _dateCount = '';
-    _range = '';
-    _rangeCount = '';
-  }
-
-
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    setState(() {
-      if (args.value is PickerDateRange) {
-        _range =
-            DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
-                ' - ' +
-                DateFormat('dd/MM/yyyy')
-                    .format(args.value.endDate ?? args.value.startDate)
-                    .toString();
-      } else if (args.value is DateTime) {
-        _selectedDate = args.value;
-      } else if (args.value is List<DateTime>) {
-        _dateCount = args.value.length.toString();
-      } else {
-        _rangeCount = args.value.length.toString();
-      }
-    });
-    DateTime dateTime = DateTime(2020);
-    print('Selected date: ' + _selectedDate);
-    print('Selected date count: ' + _dateCount);
-    print('Selected date : ' + args.value.toString());
-    print('Selected range: ' + _range);
-    print('Start: ' + args.value.startDate.toString());
-    print('End: ' + args.value.endDate.toString());
-    print('Selected ranges count: ' + _rangeCount);
   }
 
   void setCustomRange(String message, bool option) {
@@ -157,8 +116,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                             color: Color(0xff121212),
                           ),
                           color: Color(0xff121212),
-                          onPressed: () {
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -178,7 +136,6 @@ class _MedicineAddon extends State<MedicineAddon> {
                           child: SfDateRangePicker(
                             onSelectionChanged: _onSelectionChanged,
                             view: DateRangePickerView.month,
-                            onSelectionChanged: _onSelectionChanged,
                             backgroundColor: Color(0xff121212),
                             selectionColor: Color(0xffbb86fe),
                             rangeSelectionColor: option
@@ -288,9 +245,11 @@ class _MedicineAddon extends State<MedicineAddon> {
                 color: selectedIndex == index
                     ? Color(0xffbb86fe)
                     : Color(0xff292929),
-                border: Border.all(color: selectedIndex == index
-                    ? Color(0xff292929)
-                    : Color(0xffbb86fe), width: 1),
+                border: Border.all(
+                    color: selectedIndex == index
+                        ? Color(0xff292929)
+                        : Color(0xffbb86fe),
+                    width: 1),
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
