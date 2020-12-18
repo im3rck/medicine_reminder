@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'GoogleAuth.dart';
 
 class GoogleLogin extends StatefulWidget {
@@ -64,6 +63,7 @@ class SuccessPage extends StatelessWidget {
         child: InkWell(
           onTap: () {
             signOut();
+            Navigator.pop(context);
           },
           child: Container(
               width: MediaQuery.of(context).size.width / 4,

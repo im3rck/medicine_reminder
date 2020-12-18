@@ -399,6 +399,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
+  get_it:
+    dependency: "direct main"
+    description:
+      name: get_it
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.3"
   google_fonts:
     dependency: "direct main"
     description:
@@ -582,7 +589,7 @@ packages:
     source: hosted
     version: "0.1.4"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -665,6 +672,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
+  progress_hud:
+    dependency: "direct main"
+    description:
+      name: progress_hud
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   provider:
     dependency: "direct main"
     description:
@@ -776,7 +790,7 @@ packages:
       name: simple_gesture_detector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   sky_engine:
     dependency: transitive
     description: flutter

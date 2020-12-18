@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:medicine_reminder/PatientScreen/Notif2Patient/core/viewmodels/home_model.dart';
 import 'package:medicine_reminder/PatientScreen/Notif2Patient/ui/shared/globals.dart';
 import 'package:lottie/lottie.dart';
-import 'package:medicine_reminder/PatientScreen/demo.dart';
+import 'package:medicine_reminder/PatientScreen/MedicineCard.dart';
 import 'package:neumorphic/neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -208,7 +208,7 @@ class _LiquidState extends State<Liquid> {
   }
   route() {
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => TicketFoldDemo()
+        builder: (context) => MedicineCard()
     )
     );
   }

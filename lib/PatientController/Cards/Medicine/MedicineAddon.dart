@@ -22,6 +22,7 @@ class _MedicineAddon extends State<MedicineAddon> {
     'Select\nRange of\nDays',
     'Custom\nSet of\nDays'
   ];
+
   void initState() {
     _selectedDate = '';
     _dateCount = '';
@@ -61,7 +62,7 @@ class _MedicineAddon extends State<MedicineAddon> {
         _rangeCount = args.value.length.toString();
       }
       print(_range);
-      print (_dateCount);
+      print(_dateCount);
     });
   }
 
@@ -115,8 +116,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                             color: Color(0xff121212),
                           ),
                           color: Color(0xff121212),
-                          onPressed: () {
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),
@@ -245,9 +245,11 @@ class _MedicineAddon extends State<MedicineAddon> {
                 color: selectedIndex == index
                     ? Color(0xffbb86fe)
                     : Color(0xff292929),
-                border: Border.all(color: selectedIndex == index
-                    ? Color(0xff292929)
-                    : Color(0xffbb86fe), width: 1),
+                border: Border.all(
+                    color: selectedIndex == index
+                        ? Color(0xff292929)
+                        : Color(0xffbb86fe),
+                    width: 1),
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
