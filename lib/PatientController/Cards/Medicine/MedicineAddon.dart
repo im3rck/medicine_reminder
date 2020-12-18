@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -12,12 +13,57 @@ class MedicineAddon extends StatefulWidget {
 class _MedicineAddon extends State<MedicineAddon> {
   int selectedIndex = 0;
   bool yes = true;
-
+  String _selectedDate;
+  String _dateCount;
+  String _range;
+  String _rangeCount;
   List<String> optionList = [
     'Repeat\nTill\nCancelled',
     'Select\nRange of\nDays',
     'Custom\nSet of\nDays'
   ];
+  void initState() {
+    _selectedDate = '';
+    _dateCount = '';
+    _range = '';
+    _rangeCount = '';
+    super.initState();
+  }
+
+  /// The method for [DateRangePickerSelectionChanged] callback, which will be
+  /// called whenever a selection changed on the date picker widget.
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    /// The argument value will return the changed date as [DateTime] when the
+    /// widget [SfDateRangeSelectionMode] set as single.
+    ///
+    /// The argument value will return the changed dates as [List<DateTime>]
+    /// when the widget [SfDateRangeSelectionMode] set as multiple.
+    ///
+    /// The argument value will return the changed range as [PickerDateRange]
+    /// when the widget [SfDateRangeSelectionMode] set as range.
+    ///
+    /// The argument value will return the changed ranges as
+    /// [List<PickerDateRange] when the widget [SfDateRangeSelectionMode] set as
+    /// multi range.
+    setState(() {
+      if (args.value is PickerDateRange) {
+        _range =
+            DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
+                ' - ' +
+                DateFormat('dd/MM/yyyy')
+                    .format(args.value.endDate ?? args.value.startDate)
+                    .toString();
+      } else if (args.value is DateTime) {
+        _selectedDate = args.value;
+      } else if (args.value is List<DateTime>) {
+        _dateCount = args.value.length.toString();
+      } else {
+        _rangeCount = args.value.length.toString();
+      }
+      print(_range);
+      print (_dateCount);
+    });
+  }
 
   void setCustomRange(String message, bool option) {
     showModalBottomSheet(
@@ -88,6 +134,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                             backgroundColor: Color(0xff121212),
                           ),
                           child: SfDateRangePicker(
+                            onSelectionChanged: _onSelectionChanged,
                             view: DateRangePickerView.month,
                             backgroundColor: Color(0xff121212),
                             selectionColor: Color(0xffbb86fe),
