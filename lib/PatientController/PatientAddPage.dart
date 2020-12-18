@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/Cards/Cards.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
+import 'package:medicine_reminder/Enhancements/ConfirmButton/SlideButton.dart';
 
 
 class PatientAddPage extends StatefulWidget {
@@ -15,7 +17,8 @@ class PatientAddPage extends StatefulWidget {
   _PatientAddPageState createState() => _PatientAddPageState();
 }
 
-class _PatientAddPageState extends State<PatientAddPage> {
+class _PatientAddPageState extends State<PatientAddPage>  with TickerProviderStateMixin {
+  AnimationController _submitAnimationController;
   final style = TextStyle(
       color: Color(0xfff2e7fe),
       fontWeight: FontWeight.bold,
@@ -25,89 +28,109 @@ class _PatientAddPageState extends State<PatientAddPage> {
   @override
   void initState() {
     super.initState();
+    _submitAnimationController = AnimationController(
+       vsync: this,
+      duration: Duration(milliseconds: 1),
+    );
+    _submitAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _goToResultPage().then((_) => _submitAnimationController.reset());
+      }
+    });
+  }
+  void dispose() {
+    _submitAnimationController.dispose();
+    super.dispose();
+  }
+  void onPacmanSubmit() {
+    _submitAnimationController.forward();
   }
 
-  @override
+  _goToResultPage() async {
+    return Navigator.of(context).push(FadeRoute(
+      builder: (context) => PhasePage()
+    ));
+  }
+@override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Color(0xff121212),
-        body: ListView(
-          children: <Widget>[
+        backgroundColor: Colors.grey[800],
+        appBar: AppBar(
+          shadowColor: Color(0xff292929),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Color(0xffBB86Fe)),
+            onPressed: () {
+              Navigator.of(context).push(FadeRoute(
+                  builder: (context) => PhasePage()
+              ));
+            },
+          ),
+          actions: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 15.0, left: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Color(0xffbb86fe),
-                    ),
-                    color: Color(0xffbb86fe),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => PhasePage()));
-                    },
-                  ),
-                  IconButton(
-                      icon: FaIcon(
-                        FontAwesomeIcons.qrcode,
-                        color: Color(0xffbb86fe),
-                      ),
-                      splashColor: Color(0xfff2e7fe),
-                      onPressed: null)
-                ],
+              padding: const EdgeInsets.only(right: 18.0),
+              child: Icon(Icons.more_horiz, color: Color(0xff292929), size: 28),
+            )
+          ],
+          brightness: Brightness.light,
+          backgroundColor: Color(0xff292929),
+          elevation: 10.0,
+          title: Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: Text(
+              'New Convalescent ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Circular',
+                fontSize: 20,
+                letterSpacing: 0.5,
+                color: Color(0xfff2e7fe),
+                fontWeight: FontWeight.bold,
               ),
             ),
-            //SizedBox(height: 10.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(AppLocalizations.of(context).translate('New_Patient'),
-                    style: style //customize color here
-                    ),
-              ],
-            ),
-            SizedBox(height: 30.0),
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: (MediaQuery.of(context).size.height) * .8,
-                  decoration: BoxDecoration(
-                    color: Color(0xff292929),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0)),
+          ),
+        ),
+        body: Column(
+          children: <Widget>[
+           // SizedBox(height: (MediaQuery.of(context).size.height)*.01,),
+            Container(
+               // height: (MediaQuery.of(context).size.height) * .8,
+                child: Cards(widget.token)),
+           SizedBox(height: (MediaQuery.of(context).size.height)*.01,),
+            Container(
+              margin: EdgeInsets.only(bottom: (MediaQuery.of(context).size.height)*.01,),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width)*.02),
+                height: (MediaQuery.of(context).size.height)*.1,
+                decoration: BoxDecoration(
+                  color: Color(0xff121212),
+                  border: Border.all(
+                      color: Color(0xffbb86fe),
+                      width: 1
                   ),
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xff121212).withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 4,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
                 ),
-                Container(
-                    height: (MediaQuery.of(context).size.height) * .8,
-                    child: Cards(widget.token))
-              ],
+                child: PacmanSlider(
+                  submitAnimationController: _submitAnimationController,
+                  onSubmit: onPacmanSubmit,
+                ),
+              ),
             )
           ],
         ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   backgroundColor: Color(0xff292929),
-        //   foregroundColor: Color(0xffbb86fe),
-        //   label: Text(
-        //     "Done",
-        //     style: TextStyle(
-        //       fontSize: 16,
-        //       fontFamily: 'Circular',
-        //       fontWeight: FontWeight.bold,
-        //       color: Color(0xffF2E7FE),
-        //     ),
-        //   ),
-        // )
+
       ),
     );
   }

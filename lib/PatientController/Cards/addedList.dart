@@ -39,7 +39,7 @@ class _AddedList extends State<AddedList> {
             _medicineList();
           },
           child: Container(
-              height: 185.0,
+              height: (MediaQuery.of(context).size.height)*.25,
               width: (MediaQuery.of(context).size.width) * .5,
               child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Medicine'), AppLocalizations.of(context).translate('List'))),
         ),
@@ -48,7 +48,7 @@ class _AddedList extends State<AddedList> {
             _medicineList();
           },
           child: Container(
-              height: 185.0,
+              height: (MediaQuery.of(context).size.height)*.25,
               width: (MediaQuery.of(context).size.width) * .5,
               child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Schedule'), AppLocalizations.of(context).translate('List'))),
         ),

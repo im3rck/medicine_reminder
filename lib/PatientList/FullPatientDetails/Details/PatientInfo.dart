@@ -892,7 +892,6 @@ class _PatientInfoState extends State<PatientInfo>
   }
 
   Widget _buildAppBar() {
-    Color appBarIconsColor = Color(0xFF292929);
     return AppBar(
       shadowColor: Color(0xff292929),
       leading: IconButton(
@@ -904,7 +903,7 @@ class _PatientInfoState extends State<PatientInfo>
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 18.0),
-          child: Icon(Icons.more_horiz, color: Color(0xffBB86Fe), size: 28),
+          child: Icon(Icons.more_horiz, color: Color(0xff292929), size: 28),
         )
       ],
       brightness: Brightness.light,
@@ -920,7 +919,7 @@ class _PatientInfoState extends State<PatientInfo>
             fontFamily: 'Circular',
             fontSize: 20,
             letterSpacing: 0.5,
-            color: Color(0xffbb86fe),
+            color: Color(0xfff2e7fe),
             fontWeight: FontWeight.bold,
           ),
         ),

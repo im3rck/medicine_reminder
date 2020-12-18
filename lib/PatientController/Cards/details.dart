@@ -534,7 +534,7 @@ class _Details extends State<Details> {
             },
             child: Container(
                 height: (MediaQuery.of(context).size.height) * .25,
-                width: MediaQuery.of(context).size.width,
+                width: (MediaQuery.of(context).size.width),
                 child: customCard(Icons.person, AppLocalizations.of(context).translate('Details'), AppLocalizations.of(context).translate('Patient_Bio'))),
           ),
         ],
