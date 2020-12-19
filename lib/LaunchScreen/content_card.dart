@@ -5,7 +5,6 @@ import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
 import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 import 'Launch.dart';
-import 'package:medicine_reminder/Authentication/Login/login.dart';
 class ContentCard extends StatefulWidget {
   final String color;
   final Color altColor;
@@ -46,7 +45,6 @@ class _ContentCardState extends State<ContentCard> {
     var scaleX = 1.2 + sin(time) * .05;
     var scaleY = 1.2 + cos(time) * .07;
     var offsetY = 20 + cos(time) * 20;
-    double height = MediaQuery.of(context).size.height;
     return Stack(
       alignment: Alignment.center,
       fit: StackFit.expand,
