@@ -9,9 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/FullPatientDetails/FullPatientDetails.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
-
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 String imageUrl;
 
 class HomeScreen extends StatefulWidget {
@@ -45,11 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               scaleFactor = 1;
                               isDrawerOpen = false;
                             })
-                          : Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      BottomNavBar(element['contactNo'])));
+                          : Navigator.of(context).push(FadeRoute(
+                          builder: (context) => BottomNavBar(element['contactNo'])
+                      ));
                     },
                     child: Container(
                       height: 200,
