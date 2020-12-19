@@ -11,51 +11,30 @@ class MedicineCard extends StatefulWidget {
 }
 
 class _MedicineCardState extends State<MedicineCard> {
-
   final ScrollController _scrollController = ScrollController();
 
   final List<int> _openCards = [];
 
   final List<ScheduleModel> medicineCards = GetMedicineCards().medCards;
-  Stream<List<ScheduleModel>> retest()  {
+
+  Stream<List<ScheduleModel>> stream() {
     Stream<List<ScheduleModel>> target;
-    target =  FirebaseFirestore.instance
+    target = FirebaseFirestore.instance
         .collection(
-        'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
+            'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
         .snapshots()
-        .map((snapshot) =>
-        snapshot.docs
+        .map((snapshot) => snapshot.docs
             .map((doc) => ScheduleModel.fromJson(doc.data()))
             .toList());
     return target;
   }
-  render(List<ScheduleModel> streamData)  {
-   // FirebaseFirestore _db = FirebaseFirestore.instance;
-   //  Stream<List<ScheduleModel>> streamData =  await _db
-   //      .collection(
-   //      'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
-   //      .snapshots()
-   //      .map((snapshot) =>
-   //      snapshot.docs
-   //          .map((doc) => ScheduleModel.fromJson(doc.data()))
-   //          .toList());
-   // assert(streamData != null);
-    // Stream<List<ScheduleModel>> streamData;
-   // var scheduleList = await streamData.elementAt(0);
+
+  render(List<ScheduleModel> streamData) {
     streamData.forEach((element) {
       element.dateTime = DateTime.now(); //
       GetMedicineCards.pushData(element);
     });
-
     // GetMedicineCards.popData();   Note : After mark as taken is pressed
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
-
-   // render();
   }
 
   @override
@@ -67,11 +46,9 @@ class _MedicineCardState extends State<MedicineCard> {
         child: Flex(direction: Axis.vertical, children: <Widget>[
           Expanded(
             child: StreamBuilder<List<ScheduleModel>>(
-                stream: retest(),
-                //Stream.value(medicineCards), // medCards
+                stream: stream(),
                 builder: (context, snapshot) {
-                  print("help: ${snapshot.data==null? "Pink":snapshot.data}");
-                  if(snapshot.data!=null)render((snapshot.data));
+                  if (snapshot.data != null) render((snapshot.data));
                   return ListView.builder(
                     controller: _scrollController,
                     physics: BouncingScrollPhysics(),
@@ -91,20 +68,10 @@ class _MedicineCardState extends State<MedicineCard> {
   }
 
   bool _handleClickedCard(int clickedCard) {
-    _getOpenCardsBefore(int ticketIndex) {
-      // Search all indexes that are smaller to the current index in the list of indexes of open tickets
-      return _openCards
-          .where((int index) => index < ticketIndex)
-          .length;
-    }
-
-    // Scroll to ticket position
-    // Add or remove the item of the list of open tickets
     _openCards.contains(clickedCard)
         ? _openCards.remove(clickedCard)
         : _openCards.add(clickedCard);
 
-    // Calculate heights of the open and closed elements before the clicked item
     double openCardsOffset =
         Ticket.nominalOpenHeight * _getOpenCardsBefore(clickedCard);
     double closedTicketsOffset = Ticket.nominalClosedHeight *
@@ -114,12 +81,14 @@ class _MedicineCardState extends State<MedicineCard> {
         closedTicketsOffset -
         (Ticket.nominalClosedHeight * .5);
 
-    // Scroll to the clicked element
     _scrollController.animateTo(max(0, offset),
         duration: Duration(seconds: 1),
         curve: Interval(.25, 1, curve: Curves.easeOutQuad));
-    // Return true to stop the notification propagation
     return true;
+  }
+
+  _getOpenCardsBefore(int ticketIndex) {
+    return _openCards.where((int index) => index < ticketIndex).length;
   }
 
   Widget _buildAppBar() {
