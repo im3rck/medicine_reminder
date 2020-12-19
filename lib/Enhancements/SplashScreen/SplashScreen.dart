@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 import 'package:medicine_reminder/FrontOnboarding/FrontMainOnboarding.dart';
 import 'package:medicine_reminder/LaunchScreen/GooeyEdge.dart';
 import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:rive/rive.dart';
 import 'dart:async';
-
+import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,12 +21,14 @@ class _NEWState extends State<SplashScreen> {
     bool _seen = (prefs.getBool('seen') ?? false);
 
     if (_seen) {
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new GooeyEdge()));
+      Navigator.of(context).push(FadeRoute(
+          builder: (context) => GooeyEdgeDemo()
+      ));
     } else {
       prefs.setBool('seen', true);
-      Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new App()));
+      Navigator.of(context).push(FadeRoute(
+          builder: (context) => App()
+      ));
     }
   }
   Artboard _riveArtboard;

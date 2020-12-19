@@ -113,7 +113,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: PatientAddPage('token')),
+          home: SplashScreen()),
     );
   }
 }

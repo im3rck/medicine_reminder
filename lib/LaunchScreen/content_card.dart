@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/scheduler.dart';
 import 'package:medicine_reminder/Enhancements/PreviewAuth.dart';
 import 'package:medicine_reminder/PatientScreen/QrGen.dart';
-
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 import 'Launch.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
 class ContentCard extends StatefulWidget {
@@ -98,7 +98,6 @@ class _ContentCardState extends State<ContentCard> {
   }
 
   Widget _buildBottomContent() {
-    double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -130,63 +129,59 @@ class _ContentCardState extends State<ContentCard> {
             opacity: 1.0, //_changeOpacity(),
             child: (widget.color == 'Yellow'
                 ? Text('')
-                : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => (widget.color == 'Red'
-                                    ? QrGen()
-                                    : AuthPage())));
-                        //Navigator.pop(context);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: (MediaQuery.of(context).size.width) * .8,
-                        decoration: BoxDecoration(
-                          color: (widget.color == 'Red'
-                              ? Color(0xff456BFF)
-                              : (widget.color == 'Blue'
-                                  ? Color(0xff121212)
-                                  : Color(0xffF2E7FE))),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(25),
-                          ),
-                          border: Border.all(
-                              color: (widget.color == 'Blue'
-                                  ? Color(0xff456BFF)
-                                  : Color(0xff121212)),
-                              width: 2),
-                          boxShadow: [
-                            BoxShadow(
-                              color: (widget.color == 'Red'
-                                  ? Color(0xff456BFF)
-                                  : (widget.color == 'Blue'
-                                      ? Color(0xff121212)
-                                      : Color(0xffF2E7FE))),
-                              spreadRadius: 3,
-                              blurRadius: 4,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
+                : InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(FadeRoute(
+                          builder: (context) => (widget.color == 'Red'
+                              ? QrGen()
+                              : AuthPage())
+                      ));
+                      //Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: (MediaQuery.of(context).size.height)*.08,
+                      width: (MediaQuery.of(context).size.width) * .8,
+                      decoration: BoxDecoration(
+                        color: (widget.color == 'Red'
+                            ? Color(0xff456BFF)
+                            : (widget.color == 'Blue'
+                                ? Color(0xff121212)
+                                : Color(0xffF2E7FE))),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
                         ),
-                        child: Center(
-                          child: Text(
-                            "Continue",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: (widget.color == 'Yellow'
-                                  ? Color(0xff121212)
-                                  : Color(0xffF2E7FE)),
-                            ),
+                        border: Border.all(
+                            color: (widget.color == 'Blue'
+                                ? Color(0xff456BFF)
+                                : Color(0xff121212)),
+                            width: 2),
+                        boxShadow: [
+                          BoxShadow(
+                            color: (widget.color == 'Red'
+                                ? Color(0xff456BFF)
+                                : (widget.color == 'Blue'
+                                    ? Color(0xff121212)
+                                    : Color(0xffF2E7FE))),
+                            spreadRadius: 3,
+                            blurRadius: 4,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Continue",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: (widget.color == 'Yellow'
+                                ? Color(0xff121212)
+                                : Color(0xffF2E7FE)),
                           ),
                         ),
                       ),
                     ),
-                )),
+                  )),
           ),
         )
       ],
