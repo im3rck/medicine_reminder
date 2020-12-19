@@ -8,13 +8,13 @@ enum SummaryTheme { dark, light }
 Duration _duration = Duration(seconds: 10);
 
 class FrontCard extends StatelessWidget {
-  final ScheduleModel miniDetails;
+  final ScheduleModel data;
   final SummaryTheme theme;
   final bool isOpen;
 
   const FrontCard(
       {Key key,
-      this.miniDetails,
+      this.data,
       this.theme = SummaryTheme.light,
       this.isOpen = false})
       : super(key: key);
@@ -39,13 +39,13 @@ class FrontCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             _buildLogoHeader(),
-            _buildSeparationLine(),
+            isOpen ? SizedBox() : _buildSeparationLine(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: Align(
                   alignment: Alignment.center,
-                  child: isOpen ? SizedBox():Text(
-                    miniDetails.medName.toUpperCase(),
+                  child: isOpen ? SizedBox() : Text(
+                    data.medName.toUpperCase(),
                     style: bodyTextStyle.copyWith(fontSize: 42),
                   ),
               ),

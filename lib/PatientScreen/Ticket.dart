@@ -33,7 +33,7 @@ class _TicketState extends State<Ticket> {
   void initState() {
     super.initState();
     _isOpen = false;
-    frontCard = FrontCard(miniDetails: widget.medicineCard);
+    frontCard = FrontCard(data: widget.medicineCard);
     middleCard = MiddleCard(widget.medicineCard);
   }
 
@@ -52,10 +52,22 @@ class _TicketState extends State<Ticket> {
 
   void _handleOnTap() {
     widget.onClick();
+    _isOpen ?
+    setState(() {
+      _isOpen = !_isOpen;
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          topCard = FrontCard(
+              data: widget.medicineCard,
+              theme: SummaryTheme.dark,
+              isOpen: _isOpen);
+        });
+      });
+    }) :
     setState(() {
       _isOpen = !_isOpen;
       topCard = FrontCard(
-          miniDetails: widget.medicineCard,
+          data: widget.medicineCard,
           theme: SummaryTheme.dark,
           isOpen: _isOpen);
     });

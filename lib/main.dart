@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: SplashScreen()),
+          home: MedicineCard()),
     );
   }
 }
