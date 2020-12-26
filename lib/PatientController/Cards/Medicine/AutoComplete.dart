@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
+import 'package:medicine_reminder/Backend%20Services/Services/cF_Services.dart';
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/MedicineDescription.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/scheduleData.dart';
 
 class AutoComplete extends StatefulWidget {
   AutoComplete({Key key, this.title}) : super(key: key);
@@ -16,29 +19,46 @@ class AutoComplete extends StatefulWidget {
 }
 
 class UserDetail {
-  final int id;
+  final String id;
   final String title;
-  final String url;
 
-  UserDetail({this.id, this.title, this.url});
+
+  UserDetail({this.id, this.title});
 }
 
 class _AutoCompleteState extends State<AutoComplete> {
-  int _counter = 0;
+
   final TextEditingController _typeAheadController = TextEditingController();
+
+  FirestoreServices _fS = new FirestoreServices.test();
+
+  List<MedicineDB> medList;
 
   static List<UserDetail> _det = [];
 
+
+  obtainData() async {
+    medList =  await _fS.getMedicineFromDataBase().first;
+  }
+
+  void initState(){
+    super.initState();
+    obtainData();
+  }
+
   Future<List<UserDetail>> _getUsers() async {
-    String url = 'https://jsonplaceholder.typicode.com/photos';
-    var data = await http.get(url);
-    var jsonData = json.decode(data.body);
+    // String url = 'https://jsonplaceholder.typicode.com/photos';
+    // var data = await http.get(url);
+    // var jsonData = json.decode(data.body);
+    //medList.forEach((element) { print('AAAAAAAAA ${element.MedName} ${element.Type}');});
     List<UserDetail> users = [];
-    for (var item in jsonData) {
-      UserDetail user =
-          UserDetail(id: item['id'], title: item['title'], url: item['thumbnailUrl']);
+    medList.forEach((element) {
+      var temp = element.toMap();
+      UserDetail user =  UserDetail(id: temp['MedName'], title: temp['Type']);
       users.add(user);
-    }
+    });
+
+
     print(users.length);
     _det = users;
     return users;
@@ -48,7 +68,7 @@ class _AutoCompleteState extends State<AutoComplete> {
     List<UserDetail> matches = [];
     matches.addAll(_det);
     matches.retainWhere(
-        (UserDetail s) => s.title.toLowerCase().contains(query.toLowerCase()));
+            (UserDetail s) => s.id.toLowerCase().contains(query.toLowerCase()));
     return matches;
   }
 
@@ -61,9 +81,13 @@ class _AutoCompleteState extends State<AutoComplete> {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               title: TypeAheadField(
-
+                autoFlipDirection: true,
                   direction: AxisDirection.up,
+
                   textFieldConfiguration: TextFieldConfiguration(
+                    onSubmitted: (value){
+                      medicineName=value;
+                    },
                     style: TextStyle(color: Color(0xfff2e7fe)),
                     decoration: InputDecoration(
                         labelText: AppLocalizations.of(context)
@@ -75,7 +99,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                           height: 2,
                         ),
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Color(0xfff2e7fe)),
                         ),
@@ -93,6 +117,7 @@ class _AutoCompleteState extends State<AutoComplete> {
                     return suggestionsBox;
                   },
                   itemBuilder: (context, UserDetail suggestion) {
+                   // print('ABCD : ${suggestion.title} ${suggestion.id}');
                     return Container(
                       color: Color(0xff292929),
                       child: Padding(
@@ -105,33 +130,37 @@ class _AutoCompleteState extends State<AutoComplete> {
                             children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.fromLTRB(3, 5, 10, 2),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    child: Image(
-                                      image: NetworkImage(suggestion.url,
-                                          scale: 3),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height*.01,
+                                    width: MediaQuery.of(context).size.height*.01,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      child: Image(
+                                        image: AssetImage('assets/images/usertrans.png'),
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   )),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Text(
-                                    suggestion.title,
+                                    suggestion.id,
                                     style: TextStyle(
                                         color: Color(0xfff2e7fe),
                                         fontFamily: 'Circular',
-                                        fontSize: 15),
+                                        fontSize: 10),
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
-                                child: Text(suggestion.id.toString(),
+                                const EdgeInsets.fromLTRB(50.0, 10, 10, 10),
+                                child: Text(suggestion.title == null ? 'Value': suggestion.title,
                                     style: TextStyle(
                                         color: Color(0xfff2e7fe),
                                         fontFamily: 'Circular',
-                                        fontSize: 15)),
+                                        fontSize: 10)),
                               )
                             ],
                           ),
@@ -140,7 +169,9 @@ class _AutoCompleteState extends State<AutoComplete> {
                     );
                   },
                   onSuggestionSelected: (suggestion) {
-                    this._typeAheadController.text = suggestion;
+                    this._typeAheadController.text = suggestion.id;
+                    print('value : ${_typeAheadController.text}');
+                    medicineName = _typeAheadController.text;
                   }),
             ),
           );

@@ -8,6 +8,8 @@ import 'package:medicine_reminder/StoreLocator/screens/search.dart';
 import 'configuration.dart';
 import 'package:medicine_reminder/PatientList/Settings/Settings_UI.dart';
 import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
@@ -45,29 +47,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
     if (_fcmToken != null && _fcmToken != "-1" ) {
       print("Valid");
       print(_fcmToken);
+      FirebaseFirestore.instance.collection('/users/${FirebaseAuth.instance.currentUser.uid}/patients')
+          .doc(_fcmToken)
+          .set({'patientToken': _fcmToken, 'patientName': 'Krithik'});
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
     }
-    // } else {
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => PhasePage()));
-    // }
-  }
-  // _scan() async {
-  //   String temp = await scanner.scan();
-  //   //String temp = await BarcodeScanner.scan();
-  //   setState(() {
-  //     _fcmToken = temp;
-  //   });
-  //   if (_fcmToken != null) {
-  //     print("Valid");
-  //     print(_fcmToken);
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
-  //   } else {
-  //     Navigator.push(context, MaterialPageRoute(builder: (context) => QrGen()));
-  //   }
-  // }
 
+  }
   Future navigateToSubPage(context, int index) async {
     switch (index) {
       case 0:

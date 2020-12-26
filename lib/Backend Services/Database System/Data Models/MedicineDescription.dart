@@ -1,14 +1,13 @@
+import 'package:medicine_reminder/PatientList/HomeScreen.dart';
+
 class MedicineDescription{
   final String medName;
-  final String type;
+  String medUrl;
   String medId;
-  final String dosage;
   String availableQuantity;
-  var image;
 
-  MedicineDescription({this.medName,this.type,this.dosage,this.availableQuantity}){
+  MedicineDescription({this.medName,this.availableQuantity,this.medUrl}){
     this.medId = getId(medName);
-    this.image = null;
   }
 
   // Hash Function to obtain case-insensitive medicine id from medicine name
@@ -43,7 +42,7 @@ class MedicineDescription{
       'x':'o','X':'o',
       'y':'p','Y':'p',
       'z':'q','Z':'q',
-      '0':'A',
+      '0':'A', ' ':' ',
       '1':'B',
       '2':'C',
       '3':'D',
@@ -61,13 +60,34 @@ class MedicineDescription{
   }
 
   Map<String,dynamic> toMap(){
+
     return {
       'medId' : medId,
       'medName' : medName,
-      'type' : type,
-      'dosage' : dosage,
-      'availableQuantity' : availableQuantity
+      'availableQuantity' : availableQuantity,
+      'imageUrl': imageUrl
     };
   }
 
+}
+
+class MedicineDB{
+  String MedName;
+  String Type;
+
+  MedicineDB({this.MedName, this.Type});
+
+  factory MedicineDB.fromJson(Map<String, dynamic> json){
+    return MedicineDB(
+      MedName: json['MedName'],
+      Type: json['Type'],
+    );
+  }
+
+  Map<String,dynamic> toMap() {
+    return {
+      'MedName': MedName,
+      'Type': Type
+    };
+  }
 }

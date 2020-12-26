@@ -6,8 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medicine_reminder/Authentication/GoogleSignUp.dart';
-
-
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/Enhancements/SplashScreen/SplashScreen.dart';
 import 'package:medicine_reminder/LaunchScreen/gooey_edge.dart';
@@ -23,7 +21,6 @@ import 'package:provider/provider.dart';
 import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientScreen/MedicineCard.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
-import 'package:medicine_reminder/PatientController/PatientAddPage.dart';
 import 'package:flutter/services.dart';
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -41,6 +38,7 @@ void main() async {
   Paint.enableDithering = true;
   String token = await FirebaseMessaging().getToken();
   print('Token : $token');
+  print(DateTime.tuesday.toString());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(new MyApp()); });
@@ -116,7 +114,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: MedicineCard()),
+          home: PatientAddPage('token')),
     );
   }
 }

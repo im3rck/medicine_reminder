@@ -10,7 +10,8 @@ class AddedList extends StatefulWidget {
 }
 
 class _AddedList extends State<AddedList> {
-  void _medicineList() {
+
+  void _scheduleList() {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -24,7 +25,7 @@ class _AddedList extends State<AddedList> {
               color: Color(0xff292929),
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: PatientMedicineList());
+            child: PatientScheduleList());
       },
     );
   }
@@ -34,22 +35,22 @@ class _AddedList extends State<AddedList> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        // InkWell(
+        //   onTap: () {
+        //     _medicineList();
+        //   },
+        //   child: Container(
+        //       height: (MediaQuery.of(context).size.height)*.25,
+        //       width: (MediaQuery.of(context).size.width) * .5,
+        //       child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Medicine'), AppLocalizations.of(context).translate('List'))),
+        // ),
         InkWell(
           onTap: () {
-            _medicineList();
+            _scheduleList();
           },
           child: Container(
               height: (MediaQuery.of(context).size.height)*.25,
-              width: (MediaQuery.of(context).size.width) * .5,
-              child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Medicine'), AppLocalizations.of(context).translate('List'))),
-        ),
-        InkWell(
-          onTap: () {
-            _medicineList();
-          },
-          child: Container(
-              height: (MediaQuery.of(context).size.height)*.25,
-              width: (MediaQuery.of(context).size.width) * .5,
+              width: (MediaQuery.of(context).size.width),
               child: customCard(Icons.assignment, AppLocalizations.of(context).translate('Schedule'), AppLocalizations.of(context).translate('List'))),
         ),
       ],

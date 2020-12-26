@@ -42,7 +42,7 @@ class _Details extends State<Details> {
   String valueItem;
   String _name;
   var rng = new Random();
-  void setData(){
+  void setData(context){
     if(fnameController.text==null || fnameController.text.length<4 || contactController.text.length < 10 || relController.text ==null || ageController.text==null){
       showModalBottomSheet(
           context: context,
@@ -60,7 +60,7 @@ class _Details extends State<Details> {
     }
     else {
       String _fcmToken = widget.token;
-      print('Token value : $_fcmToken');
+    //  print('Token value : $_fcmToken');
       PPD newPatient = PPD(patientToken: _fcmToken,
           patientName: fnameController.text,
           age: ageController.text,
@@ -70,7 +70,7 @@ class _Details extends State<Details> {
       var options = SetOptions(merge: true);
 
       var patientDetails = newPatient.toMap();
-      patientDetails['index'] = rng.nextInt(10000);
+      patientDetails['index'] = rng.nextInt(100000);
       Patientdata.add(patientDetails);
       _db
           .collection('/users/${user.uid}/patients')
@@ -475,7 +475,7 @@ class _Details extends State<Details> {
                                   // If the form is valid, display a snackbar. In the real world,
                                   // you'd often call a server or save the information in a database.
 
-                                  setData();
+                                  setData(context);
                                   yOffset = 0;
                                 }
                               },

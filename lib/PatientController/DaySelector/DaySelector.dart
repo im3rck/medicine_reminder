@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/scheduleData.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
 
@@ -30,11 +31,13 @@ class _SelectedDaysUpdateExampleState extends State<SelectedDaysUpdateExample> {
 
   @override
   Widget build(BuildContext context) {
+    print(valuesToEnglishDays(values, true));
+    daysList = valuesToEnglishDays(values, true);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        // Text(
-        //     'The days that are currently selected are: ${valuesToEnglishDays(values, true)}.'),
+        Text(
+            'The days that are currently selected are: ${valuesToEnglishDays(values, true)}.'),
         WeekdaySelector(
           selectedFillColor: Color(0xffbb86fe),
           color: Color(0xfff2e7fe),
@@ -63,8 +66,8 @@ String valuesToEnglishDays(List<bool> values, bool searchedValue) {
     // Use v == true, as the value could be null, as well (disabled days).
     if (v == searchedValue) days.add(intDayToEnglish(i));
   }
-  if (days.isEmpty) return 'NONE';
-  return days.join(', ');
+  if (days.isEmpty) return 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday';
+  return days.join(',');
 }
 
 

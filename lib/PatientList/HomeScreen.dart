@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                                       child: Text(
-                                        (element['age']).toString() + AppLocalizations.of(context).translate('Years'),
+                                        (element['age']).toString() + 'Years',
                                         style: new TextStyle(
                                             color: Color(0xfff2e7fe),
                                             fontFamily: 'Circular',
@@ -363,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           //controller: searchController,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
-                              hintText: AppLocalizations.of(context).translate('Search')+ "...",
+                              hintText: 'Search'+ "...",
                               hintStyle: TextStyle(
                                   color: Color(0xfff2e7fe).withOpacity(0.8),
                                   fontFamily: 'Circular',

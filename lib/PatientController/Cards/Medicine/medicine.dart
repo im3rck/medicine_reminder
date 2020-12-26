@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/AutoComplete.dart';
 import 'package:medicine_reminder/PatientController/Cards/Medicine/TimeIntervals.dart';
@@ -8,7 +9,13 @@ import 'package:medicine_reminder/PatientController/Cards/customCard.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'MedicineAddon.dart';
-
+import 'package:medicine_reminder/PatientController/Cards/Medicine/scheduleData.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
+import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
+import 'package:medicine_reminder/Backend%20Services/Services/cF_Services.dart';
 PickedFile _image;
 final ImagePicker _picker = ImagePicker();
 
@@ -17,6 +24,20 @@ class Medicines extends StatefulWidget {
 }
 
 class _Medicines extends State<Medicines> {
+  // void initState(){
+  //   Pink();
+  // }
+  // Pink() async {
+  //    await FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/')
+  //       .ref('PatientImages/595956898.png')
+  //       .writeToFile(imageFile);
+  // // }
+  // //COPIED THIS
+   String imageUrl;
+  // File imageFile;
+  //COPIED THIS
+  TextEditingController dosageController = new TextEditingController();
+  TextEditingController initialQuantityController = new TextEditingController();
   final style = TextStyle(
       color: Color(0xfff2e7fe),
       fontWeight: FontWeight.bold,
@@ -32,7 +53,29 @@ class _Medicines extends State<Medicines> {
     Icons.alarm_add,
     Icons.calendar_today,
   ];
+   var uuid = Uuid();
+  void writeRepeatedSchedules(context) async {
+    FirestoreServices FS = FirestoreServices.test();
+    RepeatedScheduleModel rsm;
+    rsm = RepeatedScheduleModel(days: daysList,time: timeOfDay.hour.toString() + ':' + timeOfDay.minute.toString(),
+        medName: medicineName, dosage: dosageController.text, imageUrl: "abcd", scheduleId: uuid.v1()  );
+    FS.createRepeatedSchedule(rsm);
+  }
+ void writeSchedule(context) async {
+   FirestoreServices FS = FirestoreServices.test();
+   if(dateList!=null){
+     newScheduleModel nsm;
+     dateList.forEach((date){
+       print("Potato + ${date.toIso8601String()}");
+       nsm =  newScheduleModel(date: date.year.toString() + '-' + date.month.toString() + '-' + date.day.toString(),
+         time: timeOfDay.hour.toString() + ':' + timeOfDay.minute.toString(),
+         medName: medicineName, dosage: dosageController.text, imageUrl: "abcd", scheduleId: uuid.v1()
+        );
+       FS.createTimedSchedule(nsm);
+     });
+   }
 
+ }
   InkWell _choice(String heading, String body, int index) {
     return InkWell(
         onTap: () {
@@ -165,19 +208,34 @@ class _Medicines extends State<Medicines> {
                                   child: GestureDetector(
                                     onTap: () {
                                       yOffset = 0;
-                                      _showPicker(context);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ImageCapture  (
+                                                      newFile: (File imageFile){
+                                                        ImageService _IS = ImageService.MedicineImage(imageFile,medicineName);
+                                                        // fetchImageUrl('PatientImages/${c['contactNo']}');
+                                                        // setState(()  {
+                                                        // //  callImage();
+                                                        //  imageUrl = 'gs://medicine-reminder-406a5.appspot.com/MedicineImages/g5e7l9e.png';
+                                                        //      //_IS.targetUrl;
+                                                        // });
+                                                      }
+                                                  )
+                                          ));
                                     },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(25.0),
-                                      child: _image != null
+                                      child: imageUrl != null
                                           ? ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(25),
-                                              child: Image.file(
-                                                File(_image.path),
+                                              child: Image.network(
+                                                imageUrl,
                                                 width: 100,
                                                 height: 100,
-                                                fit: BoxFit.fitHeight,
+                                                fit: BoxFit.contain,
                                               ),
                                             )
                                           : Container(
@@ -273,7 +331,7 @@ class _Medicines extends State<Medicines> {
                                       }
                                       yOffset = 0;
                                     },
-                                    // controller: emailController,
+                                    controller: dosageController,
                                     style: TextStyle(color: Color(0xfff2e7fe)),
                                     decoration: InputDecoration(
                                         labelText: _check(),
@@ -322,7 +380,7 @@ class _Medicines extends State<Medicines> {
                                       }
                                       yOffset = 0;
                                     },
-                                    // controller: emailController,
+                                    controller: initialQuantityController,
                                     style: TextStyle(color: Color(0xfff2e7fe)),
                                     decoration: InputDecoration(
                                         labelText: AppLocalizations.of(context).translate('Initial_Quantity'),
@@ -374,6 +432,7 @@ class _Medicines extends State<Medicines> {
                             ),
                             InkWell(
                               onTap: () {
+                                flag ? writeRepeatedSchedules(context) : writeSchedule(context);
                                 Navigator.pop(context);
                                 yOffset = 0;
                               },
@@ -422,6 +481,11 @@ class _Medicines extends State<Medicines> {
         );
       },
     );
+  }
+  callImage () async
+  {
+    imageUrl = await FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/').ref('MedicineImages/${medicineName}.png').getDownloadURL();
+    print("IMAGE URL ${imageUrl}");
   }
 
   void _showPicker(context) {
@@ -549,9 +613,9 @@ class _Medicines extends State<Medicines> {
                   ),
                   SizedBox(height: 25),
                   Expanded(child: MedicineAddon()),
-                  SizedBox(
-                    height: 10.0,
-                  ),
+                  // SizedBox(
+                  //   height: 10.0,
+                  // ),
                   Center(
                       child: Container(
                           padding: EdgeInsets.only(bottom: 10),

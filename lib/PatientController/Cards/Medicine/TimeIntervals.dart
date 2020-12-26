@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/scheduleData.dart';
 
 class TimeIntervals extends StatefulWidget {
   _TimeIntervals createState() => _TimeIntervals();
@@ -42,8 +43,12 @@ class _TimeIntervals extends State<TimeIntervals> {
         _time = picked;
         intervalItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+
       });
     }
+    timeOfDay = DateTime(2020,0,0,picked.hour,picked.minute,0);
+    print("Nolan");
+    print(timeOfDay);
     return picked;
   }
 
@@ -60,7 +65,7 @@ class _TimeIntervals extends State<TimeIntervals> {
                   child: Card(
                     elevation: 10.0,
                     margin:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                     child: Slidable(
                       child: Container(
                         decoration: BoxDecoration(

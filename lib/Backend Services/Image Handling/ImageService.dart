@@ -38,21 +38,20 @@ class ImageService{
     dataInitialization(imageFile);
     this.imagePath = 'MedicineImages/${MedicineDescription.getId(medicineName)}.png';
     uploadFetchImage();
-    fetchImageUrl();
   }
 
   ImageService.CareGiverImage(File imageFile,String caregiverEmail){
     dataInitialization(imageFile);
     this.imagePath = 'CareGiverImages/$caregiverEmail.png';
     uploadFetchImage();
-    fetchImageUrl();
+
   }
 
   ImageService.PatientImage(File imageFile,String patientContactNumber){
     dataInitialization(imageFile);
     this.imagePath = 'PatientImages/$patientContactNumber.png';
     uploadFetchImage();
-    fetchImageUrl();
+
   }
 
   dataInitialization(File imageFile){
@@ -61,15 +60,11 @@ class ImageService{
   }
 
   uploadFetchImage() async {
-    var snapShot = storage.ref().child(imagePath).putFile(pickedImageFile);
-    targetUrl = await storage.ref(imagePath).getDownloadURL();
+    print("Oxygen:");
+    print(imagePath);
+    var snapShot = storage.ref().child(imagePath).putFile(pickedImageFile).snapshot;
+    //targetUrl = await storage.ref(imagePath).getDownloadURL();
+   // targetUrl = await  snapShot.ref.getDownloadURL();
   }
 
-  fetchImageUrl() async {
-    targetUrl = await storage.ref(imagePath).getDownloadURL();
-  }
-
-  String getImageUrl(){
-    return targetUrl;
-  }
 }

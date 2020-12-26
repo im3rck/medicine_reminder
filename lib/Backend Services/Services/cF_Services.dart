@@ -14,6 +14,7 @@ class FirestoreServices{
   PPD newPatient;
   CGD newCaregiver;
   String ImgUrl;
+  FirestoreServices.test();
 
   FirestoreServices.patient(PPD patient){
     this.newPatient = patient;
@@ -26,7 +27,16 @@ class FirestoreServices{
     newCaregiver.setUserID(currentUserId);
     createCaregiverProfile();
   }
-
+  createTimedSchedule(newScheduleModel schedule){
+    _db.collection('users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+        .doc(schedule.scheduleId)
+        .set(schedule.toMap(),SetOptions(merge: true));
+  }
+  createRepeatedSchedule(RepeatedScheduleModel schedule){
+    _db.collection('users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/RepeatedSchedules')
+        .doc(schedule.scheduleId)
+        .set(schedule.toMap(),SetOptions(merge: true));
+  }
   //Create Operations
 
   //Create CareGiver Profile :
@@ -135,4 +145,49 @@ class FirestoreServices{
         .doc('uOzQ4baX4CbRy3vnSKCyCJGi7sw1')
         .update({'email': FieldValue.delete(),'username': FieldValue.delete(),'uid': FieldValue.delete(),'password': FieldValue.delete()});
   }
+
+  Stream<List<newScheduleModel>> getTimedSchedules(String patientToken){
+    return _db
+        .collection('/users/${currentUserId}/patients/${patientToken}/TimedSchedules')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => newScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+  Stream<List<newScheduleModel>> getMockSchedules(){
+
+    return _db
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => newScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+  Stream<List<RepeatedScheduleModel>> getMockRepeatedSchedules(){
+    return _db
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/RepeatedSchedules')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => RepeatedScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+
+  Stream<List<newScheduleModel>> getRepeatedSchedules(String patientToken){
+    return _db
+        .collection('/users/${currentUserId}/patients/${patientToken}/RepeatedSchedules')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => newScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+  Stream<List<MedicineDB>> getMedicineFromDataBase(){
+    return _db
+        .collection('/Medicines')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => MedicineDB.fromJson(doc.data()))
+        .toList());
+  }
+
 }
+

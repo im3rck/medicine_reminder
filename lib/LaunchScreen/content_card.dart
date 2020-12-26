@@ -84,7 +84,7 @@ class _ContentCardState extends State<ContentCard> {
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                    child: _buildBottomContent(),
+                    child: _buildBottomContent(context),
                   ),
                 ),
               ],
@@ -95,7 +95,7 @@ class _ContentCardState extends State<ContentCard> {
     );
   }
 
-  Widget _buildBottomContent() {
+  Widget _buildBottomContent(context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

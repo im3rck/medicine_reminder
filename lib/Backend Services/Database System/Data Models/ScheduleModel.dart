@@ -12,47 +12,104 @@ class SM {
 
 class newScheduleModel {
 
-  DateTime dateTime;
+  String date;
+  String time;
   String medName;
   String dosage;
   String imageUrl;
   String scheduleId;
-  String patientToken;
-  bool isTimed;
-
 
   newScheduleModel({
-      this.dateTime,
+      this.date,
+      this.time,
       this.medName,
       this.imageUrl,
       this.dosage,
       this.scheduleId,
-      this.patientToken,
-      this.isTimed = true,
+
     });
 
   factory newScheduleModel.fromJson(Map<String, dynamic> json){
-    print('Inside : ${json} ${DateTime.parse(json['dateTime'])}');
-
+   // print('Inside : ${json} ${DateTime.parse(json['dateTime'])}');
+    print("DEADBEEF");
     return newScheduleModel(
-        dateTime: DateTime.parse(json['dateTime']),
+        //dateTime: DateTime.parse(json['dateTime']),
+        date: json['date'],
+        time: json['time'],
         medName: json['medName'],
         dosage: json['dosage'],
         imageUrl: json['imageUrl'],
         scheduleId: json['scheduleId'],
-        patientToken: json['patientToken'],
-        isTimed: true
+
     );
   }
 
+
   Map<String,dynamic> toMap(){
     return {
-      'dateTime': dateTime.toIso8601String(),
+      //'dateTime': dateTime.toIso8601String(),
+      'date': date,
+      'time': time,
       'medName': medName,
       'dosage': dosage,
       'imageUrl': imageUrl,
       'scheduleId' : scheduleId,
-      'patientToken' : patientToken
     };
   }
+}
+class RepeatedScheduleModel {
+
+  String days;
+  String time;
+  String medName;
+  String dosage;
+  String imageUrl;
+  String scheduleId;
+
+  RepeatedScheduleModel({
+    this.days,
+    this.time,
+    this.medName,
+    this.imageUrl,
+    this.dosage,
+    this.scheduleId,
+
+  });
+
+  factory RepeatedScheduleModel.fromJson(Map<String, dynamic> json){
+    // print('Inside : ${json} ${DateTime.parse(json['dateTime'])}');
+    print("DEADBEEF");
+    return RepeatedScheduleModel(
+      //dateTime: DateTime.parse(json['dateTime']),
+      days: json['days'],
+      time: json['time'],
+      medName: json['medName'],
+      dosage: json['dosage'],
+      imageUrl: json['imageUrl'],
+      scheduleId: json['scheduleId'],
+
+    );
+  }
+
+
+  Map<String,dynamic> toMap(){
+    return {
+      //'dateTime': dateTime.toIso8601String(),
+      'days': days,
+      'time': time,
+      'medName': medName,
+      'dosage': dosage,
+      'imageUrl': imageUrl,
+      'scheduleId' : scheduleId,
+    };
+  }
+}
+class AlarmSchedule{
+  DateTime dateTime;
+  String medName;
+  String dosage;
+  String imageUrl;
+
+  AlarmSchedule({this.dateTime,this.medName,this.imageUrl,this.dosage});
+
 }

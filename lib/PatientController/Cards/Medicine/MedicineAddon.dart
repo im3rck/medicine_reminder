@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:medicine_reminder/PatientController/DaySelector/DaySelector.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:medicine_reminder/PatientController/Cards/Medicine/scheduleData.dart';
 
 class MedicineAddon extends StatefulWidget {
   @override
@@ -11,18 +12,14 @@ class MedicineAddon extends StatefulWidget {
 }
 
 class _MedicineAddon extends State<MedicineAddon> {
-  int selectedIndex = 0;
-  bool yes = true;
+  int selectedIndex = -1;
+  bool yes = false;
   String _selectedDate;
   String _dateCount;
   String _range;
   String _rangeCount;
-  List<String> optionList = [
-    'Repeat\nTill\nCancelled',
-    'Select\nRange of\nDays',
-    'Custom\nSet of\nDays'
-  ];
 
+  @override
   void initState() {
     _selectedDate = '';
     _dateCount = '';
@@ -46,25 +43,56 @@ class _MedicineAddon extends State<MedicineAddon> {
     /// The argument value will return the changed ranges as
     /// [List<PickerDateRange] when the widget [SfDateRangeSelectionMode] set as
     /// multi range.
-    setState(() {
-      if (args.value is PickerDateRange) {
-        _range =
-            DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
-                ' - ' +
-                DateFormat('dd/MM/yyyy')
-                    .format(args.value.endDate ?? args.value.startDate)
-                    .toString();
-      } else if (args.value is DateTime) {
-        _selectedDate = args.value;
-      } else if (args.value is List<DateTime>) {
-        _dateCount = args.value.length.toString();
-      } else {
-        _rangeCount = args.value.length.toString();
-      }
-      print(_range);
-      print(_dateCount);
-    });
+    // setState(() {
+    //   if (args.value is PickerDateRange) {
+    //     _range =
+    //         DateFormat('dd/MM/yyyy').format(args.value.startDate).toString() +
+    //             ' - ' +
+    //             DateFormat('dd/MM/yyyy')
+    //                 .format(args.value.endDate ?? args.value.startDate)
+    //                 .toString();
+    //   } else if (args.value is DateTime) {
+    //     _selectedDate = args.value;
+    //   } else if (args.value is List<DateTime>) {
+    //     _dateCount = args.value.length.toString();
+    //   } else {
+    //     _rangeCount = args.value.length.toString();
+    //   }
+    // });
+    dateList = [];
+    startDate = null;
+    endDate = null;
+
+     if(args.value is PickerDateRange) {
+  //     print('S TIME : ${args.value.startDate.year}');
+    //   print('E TIME : ${args.value.startDate.toIso8601String()}');
+       var start = args.value.startDate;
+       var end = args.value.endDate ?? args.value.startDate;
+       // args.value.endDate ?? args.value.startDate
+       startDateTime = DateTime(start.year, start.month, start.day,
+           start.hour, start.minute, 0);
+      print('NEW S TIME : ${startDateTime.toIso8601String()}');
+     //  print('END TIME : ${end.month}');
+       endDateTime = DateTime(end.year, end.month, end.day,
+           end.hour, end.minute, 0);
+      print('NEW E TIME : ${endDateTime.toIso8601String()}');
+       assert(startDateTime!=null);
+       assert(endDateTime!=null);
+        startDate = startDateTime;
+        endDate = endDateTime;
+     }
+     else if(args.value is List<DateTime>){
+       args.value.forEach((dateSet){
+          dateList.add(dateSet);
+       });
+     }
   }
+
+  List<String> optionList = [
+    'Repeat\nTill\nCancelled',
+    'Select\nRange of\nDays',
+    'Custom\nSet of\nDays'
+  ];
 
   void setCustomRange(String message, bool option) {
     showModalBottomSheet(
@@ -116,7 +144,8 @@ class _MedicineAddon extends State<MedicineAddon> {
                             color: Color(0xff121212),
                           ),
                           color: Color(0xff121212),
-                          onPressed: () {},
+                          onPressed: () {
+                          },
                         ),
                       ],
                     ),
@@ -143,7 +172,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                                 : Color(0xffbb86fe).withOpacity(0.1),
                             startRangeSelectionColor: Color(0xffbb86fe),
                             endRangeSelectionColor:
-                                option ? Color(0xfff2e7fe) : Color(0xffbb86fe),
+                            option ? Color(0xfff2e7fe) : Color(0xffbb86fe),
                             enablePastDates: false,
                             monthViewSettings: DateRangePickerMonthViewSettings(
                               firstDayOfWeek: 1,
@@ -188,6 +217,7 @@ class _MedicineAddon extends State<MedicineAddon> {
                           padding: EdgeInsets.only(bottom: 5),
                           child: FloatingActionButton.extended(
                             onPressed: () {
+                              createRangeList();
                               Navigator.pop(context);
                               Navigator.pop(context);
                             },
@@ -211,11 +241,20 @@ class _MedicineAddon extends State<MedicineAddon> {
       },
     );
   }
-
+  void createRangeList(){
+    if(startDate == null)return;
+   for(DateTime k = startDate; !k.isAfter(endDate);)
+     {
+       print("DEADBEEF" + k.toIso8601String() + DateFormat('EEEE').format(k));
+       dateList.add(k);
+       k=k.add(Duration(days: 1));
+     }
+  }
   void changeIndex(int index) {
     setState(() {
       selectedIndex = index;
       selectedIndex == 0 ? yes = true : yes = false;
+      flag = yes;
     });
   }
 
@@ -226,15 +265,15 @@ class _MedicineAddon extends State<MedicineAddon> {
         selectedIndex == 1
             ? setCustomRange('Range of Days', false)
             : selectedIndex == 2
-                ? setCustomRange('Set of Days', true)
-                : null;
+            ? setCustomRange('Set of Days', true)
+            : null;
       },
       child: Column(
         children: [
           Card(
             elevation: 20.0,
             color:
-                selectedIndex == index ? Color(0xffbb86fe) : Color(0xff292929),
+            selectedIndex == index ? Color(0xffbb86fe) : Color(0xff292929),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
             margin: EdgeInsets.all(7.0),
@@ -245,11 +284,9 @@ class _MedicineAddon extends State<MedicineAddon> {
                 color: selectedIndex == index
                     ? Color(0xffbb86fe)
                     : Color(0xff292929),
-                border: Border.all(
-                    color: selectedIndex == index
-                        ? Color(0xff292929)
-                        : Color(0xffbb86fe),
-                    width: 1),
+                border: Border.all(color: selectedIndex == index
+                    ? Color(0xff292929)
+                    : Color(0xffbb86fe), width: 1),
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: [
                   BoxShadow(
@@ -285,19 +322,18 @@ class _MedicineAddon extends State<MedicineAddon> {
     return Column(
       children: [
         yes ? SelectedDaysUpdateExample() : SizedBox(height: 48),
-        SizedBox(height: 20),
         Flexible(
             child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  showCards(optionList[index], index),
-                ]);
-          },
-          itemCount: optionList.length,
-        ))
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      showCards(optionList[index], index),
+                    ]);
+              },
+              itemCount: optionList.length,
+            ))
       ],
     );
   }

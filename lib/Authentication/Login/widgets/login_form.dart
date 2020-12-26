@@ -25,7 +25,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  void signIn() {
+  void signIn(context) {
     signInWithGoogle().then((user) => {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => PhasePage()))
@@ -82,7 +82,7 @@ class _LoginFormState extends State<LoginForm> {
                   pressed: true,
 
                   onPressed: () {
-                    signIn();
+                    signIn(context);
                   },
                   style: NeumorphicStyle(
                     border: NeumorphicBorder(

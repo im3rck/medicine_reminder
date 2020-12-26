@@ -19,7 +19,7 @@ class _PhasePageState extends State<PhasePage> {
     Patientdata = [];
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
     await _newDb
-        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients')
         .get()
         .then((QuerySnapshot querySnapshot) =>
     {
@@ -34,7 +34,7 @@ class _PhasePageState extends State<PhasePage> {
           'index': doc['index'],
         };
         Patientdata.add(map);
-        print(Patientdata);
+        print("Yellow");
       })});
   }
   @override

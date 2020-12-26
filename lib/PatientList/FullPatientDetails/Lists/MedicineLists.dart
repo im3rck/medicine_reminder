@@ -22,7 +22,7 @@ class _PatientInfoState extends State<MedicineList> {
               color: Color(0xff292929),
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: PatientMedicineList());
+            child: PatientScheduleList());
       },
     );
   }

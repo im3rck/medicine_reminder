@@ -78,6 +78,7 @@ dependencies:
   path_provider: ^1.2.0
   get_it:
   progress_hud: ^1.1.0
+  firebase_ml_vision: ^0.9.10
 
 
   flutter_localizations:
