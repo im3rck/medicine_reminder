@@ -1,3 +1,6 @@
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
+
+
 class ScheduleModel {
   DateTime dateTime;
   String medName;
@@ -41,9 +44,9 @@ class ScheduleModel {
 }
 
 class GetMedicineCards {
-  static List<ScheduleModel> medicineCard = [];
+  static List<newScheduleModel> medicineCard = [];
 
-  static pushData(ScheduleModel scheduleModel) =>
+  static pushData(newScheduleModel scheduleModel) =>
       medicineCard.add(scheduleModel);
 
   static popData() => medicineCard.removeLast();

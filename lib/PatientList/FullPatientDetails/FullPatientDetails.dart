@@ -20,8 +20,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     _children = [
       PatientInfo(pno),
-      MedicineList(),
-      AddMedicine(),
+      MedicineList(pno),
+      AddMedicine(pno),
       MainLog()
     ];
     super.initState();

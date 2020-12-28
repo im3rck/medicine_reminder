@@ -29,8 +29,8 @@ class _CardsState extends State<Cards> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Details(widget.token),
-            Medicines(),
-            AddedList(),
+            Medicines(widget.token),
+            AddedList(widget.token),
           ],
         ),
       ],

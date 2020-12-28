@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medicine_reminder/PatientList/HomeScreen.dart';
 import 'package:medicine_reminder/PatientList/DrawerScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 
 class PhasePage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _PhasePageState extends State<PhasePage> {
     Patientdata = [];
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
     await _newDb
-        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients')
+        .collection('/users/${FirebaseAuth.instance.currentUser.uid}/patients')
         .get()
         .then((QuerySnapshot querySnapshot) =>
     {
@@ -34,7 +34,7 @@ class _PhasePageState extends State<PhasePage> {
           'index': doc['index'],
         };
         Patientdata.add(map);
-        print("Yellow");
+       // print("Yellow");
       })});
   }
   @override

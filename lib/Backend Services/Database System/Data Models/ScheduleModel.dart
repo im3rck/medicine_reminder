@@ -31,7 +31,7 @@ class newScheduleModel {
 
   factory newScheduleModel.fromJson(Map<String, dynamic> json){
    // print('Inside : ${json} ${DateTime.parse(json['dateTime'])}');
-    print("DEADBEEF");
+   // print("DEADBEEF");
     return newScheduleModel(
         //dateTime: DateTime.parse(json['dateTime']),
         date: json['date'],
@@ -78,7 +78,7 @@ class RepeatedScheduleModel {
 
   factory RepeatedScheduleModel.fromJson(Map<String, dynamic> json){
     // print('Inside : ${json} ${DateTime.parse(json['dateTime'])}');
-    print("DEADBEEF");
+   // print("DEADBEEF");
     return RepeatedScheduleModel(
       //dateTime: DateTime.parse(json['dateTime']),
       days: json['days'],

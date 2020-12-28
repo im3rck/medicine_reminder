@@ -47,9 +47,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
     if (_fcmToken != null && _fcmToken != "-1" ) {
       print("Valid");
       print(_fcmToken);
-      FirebaseFirestore.instance.collection('/users/${FirebaseAuth.instance.currentUser.uid}/patients')
-          .doc(_fcmToken)
-          .set({'patientToken': _fcmToken, 'patientName': 'Krithik'});
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PatientAddPage(_fcmToken)));
     }

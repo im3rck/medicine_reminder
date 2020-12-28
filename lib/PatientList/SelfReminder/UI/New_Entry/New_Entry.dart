@@ -241,8 +241,8 @@ class _NewEntryState extends State<NewEntry> {
 
                     Medicine newEntryMedicine = Medicine(
                       notificationIDs: notificationIDs,
-                      medicineName: medicineName,
-                      dosage: dosage,
+                      medicineName: medicineName,dosage: dosage,
+
                       medicineType: medicineType,
                       interval: interval,
                       startTime: startTime,

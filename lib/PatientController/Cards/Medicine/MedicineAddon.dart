@@ -245,7 +245,7 @@ class _MedicineAddon extends State<MedicineAddon> {
     if(startDate == null)return;
    for(DateTime k = startDate; !k.isAfter(endDate);)
      {
-       print("DEADBEEF" + k.toIso8601String() + DateFormat('EEEE').format(k));
+      // print("DEADBEEF" + k.toIso8601String() + DateFormat('EEEE').format(k));
        dateList.add(k);
        k=k.add(Duration(days: 1));
      }

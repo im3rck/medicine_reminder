@@ -58,23 +58,7 @@ class FirestoreServices{
     FetchImage('MedicineImages/${MedicineDescription.getId(schedule.medName)}');
     newSchedule= SM (schedule.medName,schedule.imageUrl,quantity,schedule.time,schedule.dosage,schedule.date);
   }
-  // FirestoreServices.getSchedule(){
-  //   int quantity = 0;
-  //   _db
-  //       .collection('users/${currentUserId}/Medicines')
-  //       .doc('${MedicineDescription.getId(schedule.medName)}')
-  //       .get()
-  //       .then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       quantity=0;
-  //     } else {
-  //       var temp = documentSnapshot.data();
-  //       quantity = temp['remainingQuantity'];
-  //     }
-  //   });
-  //   FetchImage('MedicineImages/${MedicineDescription.getId(schedule.medName)}');
-  //   newSchedule= SM (schedule.medName,schedule.imageUrl,quantity,schedule.time,schedule.dosage,schedule.date);
-  // }
+
 
   FetchImage(String ImagePath)  async{
     var storage = FirebaseStorage.instanceFor(bucket: 'gs://medicine-reminder-406a5.appspot.com/');
@@ -139,12 +123,48 @@ class FirestoreServices{
         .toList());
   }
   //Delete
-
+  deletePatient(String value){
+    _db .collection('/users/${user.uid}/patients')
+        .doc(value)
+        .delete();
+  }
   delete(){
     _db.collection('users')
         .doc('uOzQ4baX4CbRy3vnSKCyCJGi7sw1')
         .update({'email': FieldValue.delete(),'username': FieldValue.delete(),'uid': FieldValue.delete(),'password': FieldValue.delete()});
   }
+
+  mockDelete(String value) {
+     _db .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/RepeatedSchedules')
+        .where('medName', isEqualTo: value)
+        .snapshots().forEach((element) {
+            element.docs.forEach((target) {
+              var data = target.data();
+              _db .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/RepeatedSchedules')
+                  .doc(data['scheduleId'])
+                  .delete();
+          });
+    });
+     _db .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+         .where('medName', isEqualTo: value)
+         .snapshots().forEach((element) {
+       element.docs.forEach((target) {
+         var data = target.data();
+         _db .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+             .doc(data['scheduleId'])
+             .delete();
+       });
+     });
+
+  }
+  mockDeleteSchedule(String value) {
+    _db .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+        .doc(value)
+        .delete();
+
+  }
+
+
 
   Stream<List<newScheduleModel>> getTimedSchedules(String patientToken){
     return _db
@@ -154,18 +174,36 @@ class FirestoreServices{
         .map((doc) => newScheduleModel.fromJson(doc.data()))
         .toList());
   }
-  Stream<List<newScheduleModel>> getMockSchedules(){
+  Stream<List<newScheduleModel>> getMockSchedules(String value){
 
     return _db
-        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/${value}/TimedSchedules')
         .snapshots()
         .map((snapshot) => snapshot.docs
         .map((doc) => newScheduleModel.fromJson(doc.data()))
         .toList());
   }
-  Stream<List<RepeatedScheduleModel>> getMockRepeatedSchedules(){
+  Stream<List<RepeatedScheduleModel>> getMockRepeatedSchedules(String value){
     return _db
-        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/RepeatedSchedules')
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/${value}/RepeatedSchedules')
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => RepeatedScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+  Stream<List<newScheduleModel>> getMockDailySchedules(String value){
+
+    return _db
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/${value}/TimedSchedules')
+
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => newScheduleModel.fromJson(doc.data()))
+        .toList());
+  }
+  Stream<List<RepeatedScheduleModel>> getMockDailyRepeatedSchedules(String value){
+    return _db
+        .collection('/users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/${value}/RepeatedSchedules')
         .snapshots()
         .map((snapshot) => snapshot.docs
         .map((doc) => RepeatedScheduleModel.fromJson(doc.data()))
@@ -180,6 +218,7 @@ class FirestoreServices{
         .map((doc) => newScheduleModel.fromJson(doc.data()))
         .toList());
   }
+
   Stream<List<MedicineDB>> getMedicineFromDataBase(){
     return _db
         .collection('/Medicines')

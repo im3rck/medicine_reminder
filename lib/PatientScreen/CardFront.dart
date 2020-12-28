@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'CardData.dart';
-
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
 enum SummaryTheme { dark, light }
 
 Duration _duration = Duration(seconds: 10);
 
 class FrontCard extends StatelessWidget {
-  final ScheduleModel data;
+  final newScheduleModel data;
   final SummaryTheme theme;
   final bool isOpen;
 
@@ -82,42 +82,42 @@ class FrontCard extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Image.asset('images/pill.png', width: 10),
+                child: Image.asset('assets/Logo/AppLogo.png', width: 10),
               ),
-              Text(
-                'MedReminder'.toUpperCase(),
-                style: TextStyle(
-                  fontFamily: 'Circular',
-                  fontSize: 16,
-                  color: Color(0xffF2E7FE),
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
+              // Text(
+              //   'MedReminder'.toUpperCase(),
+              //   style: TextStyle(
+              //     fontFamily: 'Circular',
+              //     fontSize: 16,
+              //     color: Color(0xffF2E7FE),
+              //     letterSpacing: 1.5,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: SlideCountdownClock(
-              duration: _duration,
-              slideDirection: SlideDirection.Down,
-              separator: "-",
-              textStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Color(0xffbb86fe),
-              ),
-              separatorTextStyle: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Color(0xfff2e7fe),
-              ),
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  color: Color(0xff292929), shape: BoxShape.rectangle),
-              onDone: () {},
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.all(5),
+          //   child: SlideCountdownClock(
+          //     duration: _duration,
+          //     slideDirection: SlideDirection.Down,
+          //     separator: "-",
+          //     textStyle: TextStyle(
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.bold,
+          //       color: Color(0xffbb86fe),
+          //     ),
+          //     separatorTextStyle: TextStyle(
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.bold,
+          //       color: Color(0xfff2e7fe),
+          //     ),
+          //     padding: EdgeInsets.all(5),
+          //     decoration: BoxDecoration(
+          //         color: Color(0xff292929), shape: BoxShape.rectangle),
+          //     onDone: () {},
+          //   ),
+          // ),
         ],
       );
     if (theme == SummaryTheme.dark)

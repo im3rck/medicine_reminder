@@ -43,12 +43,13 @@ class _TimeIntervals extends State<TimeIntervals> {
         _time = picked;
         intervalItems.add(
             "${convertTime(_time.hour.toString())}:${convertTime(_time.minute.toString())}");
+        DateTime temp = DateTime(2020,0,0,picked.hour,picked.minute);
+        timeList.add(temp);
 
       });
     }
-    timeOfDay = DateTime(2020,0,0,picked.hour,picked.minute,0);
-    print("Nolan");
-    print(timeOfDay);
+    // print("Nolan");
+    // print(timeOfDay);
     return picked;
   }
 

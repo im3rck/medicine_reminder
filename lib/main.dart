@@ -22,17 +22,22 @@ import 'package:medicine_reminder/LaunchScreen/demo.dart';
 import 'PatientScreen/MedicineCard.dart';
 import 'package:medicine_reminder/Authentication/Login/login.dart';
 import 'package:flutter/services.dart';
+import 'package:medicine_reminder/AlarmManager/AlarmManager.dart';
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
+
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
-// void setNotifications() {
-//   AlarmManager alarmManager = AlarmManager();
-//   alarmManager.showNotification(12345, 'It works', 'GG WP');
-// }
+alarmTest(){
+  AlarmManager _AL = AlarmManager();
+  DateTime dT = DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day,DateTime.now().hour,16);
+  _AL.scheduleNotification(5000, 'title', 'body', dT);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // final int helloAlarmID = 0;
+  //alarmTest();
   // await AndroidAlarmManager.initialize();
   await Firebase.initializeApp();
   Paint.enableDithering = true;
@@ -54,6 +59,35 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    FirebaseMessaging _fcm = FirebaseMessaging();
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
     var initializationSettingsAndroid =
         AndroidInitializationSettings('applogo');
     var initializationSettingsIOs = IOSInitializationSettings();
@@ -63,10 +97,14 @@ class _MyAppState extends State<MyApp> {
         onSelectNotification: onSelectNotification);
   }
 
-  Future onSelectNotification(String payload) {
-    return Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return MedicineCard();
-    }));
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    await Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => PhasePage()),
+    );
   }
 
   final locatorService = GeoLocatorService();
@@ -114,7 +152,7 @@ class _MyAppState extends State<MyApp> {
             }
             return supportedLocales.first;
           },
-          home: PatientAddPage('token')),
+          home: MedicineCard('alalalalldldlaslalsalsllsllaslsd')),
     );
   }
 }

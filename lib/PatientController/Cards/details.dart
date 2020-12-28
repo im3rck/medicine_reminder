@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'dart:io';
@@ -23,6 +24,13 @@ class Details extends StatefulWidget {
 
 
 class _Details extends State<Details> {
+  String value;
+  void initState(){
+    getToken();
+  }
+  void getToken() async{
+    value =  await FirebaseMessaging().getToken();
+  }
   final _formKey = GlobalKey<FormState>();
   final style = TextStyle(
       color: Color(0xfff2e7fe),
@@ -70,12 +78,17 @@ class _Details extends State<Details> {
       var options = SetOptions(merge: true);
 
       var patientDetails = newPatient.toMap();
+      patientDetails['UID'] = user.uid;
+      patientDetails['caregiverToken'] = value;
       patientDetails['index'] = rng.nextInt(100000);
       Patientdata.add(patientDetails);
       _db
           .collection('/users/${user.uid}/patients')
           .doc(newPatient.patientToken)
           .set(patientDetails, options);
+      // FirebaseFirestore.instance.collection('/users/${FirebaseAuth.instance.currentUser.uid}/patients')
+      //     .doc(_fcmToken)
+      //     .set({'patientToken': _fcmToken, 'patientName': 'H'});
       Navigator.pop(context);
     }
   }

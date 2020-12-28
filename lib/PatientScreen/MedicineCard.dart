@@ -1,12 +1,15 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
+import 'package:medicine_reminder/Backend%20Services/Services/cF_Services.dart';
 import 'CardData.dart';
 import 'Ticket.dart';
 
 class MedicineCard extends StatefulWidget {
   @override
+  MedicineCard(this.patientID);
+  String patientID;
   _MedicineCardState createState() => _MedicineCardState();
 }
 
@@ -15,23 +18,71 @@ class _MedicineCardState extends State<MedicineCard> {
 
   final List<int> _openCards = [];
 
-  final List<ScheduleModel> medicineCards = GetMedicineCards().medCards;
+  final List<newScheduleModel> medicineCards = GetMedicineCards().medCards;
+  String dateCheck =  DateTime.now().year.toString() + "-" + DateTime.now().month.toString()+ "-" +DateTime.now().day.toString();
+  // Stream<List<newScheduleModel>> stream() {
+  //   Stream<List<newScheduleModel>> target;
+  //   target = FirebaseFirestore.instance
+  //       .collection(
+  //           'users/qYfmaBH7usYg7CGx7JTzTlgCRdx1/patients/alalalalldldlaslalsalsllsllaslsd/TimedSchedules')
+  //       .snapshots()
+  //       .map((snapshot) => snapshot.docs
+  //           .map((doc) => newScheduleModel.fromJson(doc.data()))
+  //           .toList());
+  //   print(target.toString());
+  //   return target;
+  // }
+  Stream<List<newScheduleModel>> getSchedules(){
+    FirestoreServices services = FirestoreServices.test();
+    scheduleList = services.getMockDailySchedules(widget.patientID);
+    repeatedScheduleList = services.getMockDailyRepeatedSchedules(widget.patientID);
+    newScheduleModel newsm;
+    List<newScheduleModel> finalList = [];
+    scheduleList.forEach((value) {
 
-  Stream<List<ScheduleModel>> stream() {
-    Stream<List<ScheduleModel>> target;
-    target = FirebaseFirestore.instance
-        .collection(
-            'users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients/Duhshshshsggshdhejshdhdhegdgdhhdgdgehd/TimedSchedules')
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => ScheduleModel.fromJson(doc.data()))
-            .toList());
-    return target;
+      value.forEach((element) {
+        if(element.date==dateCheck)
+        finalList.add(element);
+      });
+
+    });
+    repeatedScheduleList.forEach((listOfSchedules) {
+      listOfSchedules.forEach((schedule) {
+        List<String> days = schedule.days.split(',');
+        List<int> daysCode = [];
+        days.forEach((element) {
+          daysCode.add(decode(element));
+        });
+        if(daysCode.contains(DateTime.now().weekday) ){
+
+          newsm = newScheduleModel(date: '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}', time: schedule.time, medName: schedule.medName, dosage: schedule.dosage, imageUrl: 'abcde', scheduleId: schedule.scheduleId );
+          finalList.add(newsm);
+
+        }
+      });
+    });
+    Stream<List<newScheduleModel>> schedules = Stream.value(finalList);
+    return schedules;
   }
+  Stream<List<newScheduleModel>> scheduleList;
+  Stream<List<RepeatedScheduleModel>> repeatedScheduleList;
+  List<String> names = [];
 
-  render(List<ScheduleModel> streamData) {
+  decode(String day){
+    switch(day)
+    {
+      case "Monday" : { return 1; }
+      case "Tuesday" : { return 2; }
+      case "Wednesday" : { return 3; }
+      case "Thursday" : { return 4; }
+      case "Friday" : { return 5; }
+      case "Saturday" : { return 6; }
+      case "Sunday" : { return 7; }
+      default: {return 0;}
+    }
+  }
+  render(List<newScheduleModel> streamData) {
     streamData.forEach((element) {
-      element.dateTime = DateTime.now(); //
       GetMedicineCards.pushData(element);
     });
     // GetMedicineCards.popData();   Note : After mark as taken is pressed
@@ -45,8 +96,8 @@ class _MedicineCardState extends State<MedicineCard> {
       body: Container(
         child: Flex(direction: Axis.vertical, children: <Widget>[
           Expanded(
-            child: StreamBuilder<List<ScheduleModel>>(
-                stream: stream(),
+            child: StreamBuilder<List<newScheduleModel>>(
+                stream: getSchedules(),
                 builder: (context, snapshot) {
                   if (snapshot.data != null) render((snapshot.data));
                   return ListView.builder(

@@ -3,11 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medicine_reminder/Enhancements/FadeAnimation/FadeAnimation.dart';
 import 'package:medicine_reminder/Enhancements/LanguageConfig/AppLocalizations.dart';
+import 'package:medicine_reminder/PatientList/PhasePage.dart';
 import 'package:medicine_reminder/PatientList/datafile.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageHandler.dart';
 import 'package:medicine_reminder/Backend%20Services/Image%20Handling/ImageService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medicine_reminder/Backend%20Services/Services/cF_Services.dart';
 
 class PatientInfo extends StatefulWidget {
   PatientInfo(this.pno);
@@ -41,11 +45,11 @@ class _PatientInfoState extends State<PatientInfo>
     print("Help");
     FirebaseFirestore _newDb = FirebaseFirestore.instance;
     await _newDb
-        .collection('/users/uOzQ4baX4CbRy3vnSKCyCJGi7sw1/patients')
+        .collection('/users/${FirebaseAuth.instance.currentUser.uid}/patients')
         .get()
         .then((QuerySnapshot querySnapshot) => {
       querySnapshot.docs.forEach((doc) {
-        if(doc['contactNo']==widget.pno) {
+        if(doc['patientToken']==widget.pno) {
           print(doc['patientName']);
           setState(() {
             c = {
@@ -80,16 +84,16 @@ class _PatientInfoState extends State<PatientInfo>
   String _value;
   String valueItem;
 
-  void _setText() {
-    Map map = {
-      'index': Patientdata.length + 1,
-      'name': fnameController.text,
-      'age': ageController.text,
-      'gender': _value,
-      'rel': relController.text
-    };
-    Patientdata.add(map);
-  }
+  // void _setText() {
+  //   Map map = {
+  //     'index': Patientdata.length + 1,
+  //     'name': fnameController.text,
+  //     'age': ageController.text,
+  //     'gender': _value,
+  //     'rel': relController.text
+  //   };
+  //   Patientdata.add(map);
+  // }
   @override
   void initState() {
     dataFetch();
@@ -282,7 +286,6 @@ class _PatientInfoState extends State<PatientInfo>
                                           ),
                                           onClick: () {
                                             openAlertBox(context);
-                                            print('Third Button');
                                           },
                                         ),
                                       ),
@@ -767,6 +770,7 @@ class _PatientInfoState extends State<PatientInfo>
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {
+                          delPatient(widget.pno);
                         },
                         child: InkWell(
                           child: Container(
@@ -824,6 +828,14 @@ class _PatientInfoState extends State<PatientInfo>
             ),
           );
         });
+
+  }
+  delPatient(String value){
+    FirestoreServices services = FirestoreServices.test();
+    services.deletePatient(value);
+    Navigator.of(context).push(FadeRoute(
+        builder: (context) => PhasePage()
+    ));
   }
   _imgFromGallery() async {
     PickedFile image =

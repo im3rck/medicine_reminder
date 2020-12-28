@@ -1,30 +1,13 @@
 //Details in the opened card
-
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'CardData.dart';
 
 class MiddleCard extends StatelessWidget {
-  final ScheduleModel medicineCard;
-  final TextStyle titleTextStyle = TextStyle(
-    fontFamily: 'OpenSans',
-    fontSize: 11,
-    height: 1,
-    letterSpacing: .2,
-    fontWeight: FontWeight.w600,
-    color: Color(0xffafafaf),
-  );
-  final TextStyle contentTextStyle = TextStyle(
-    fontFamily: 'Oswald',
-    fontSize: 16,
-    height: 1.8,
-    letterSpacing: .3,
-    color: Color(0xff083e64),
-  );
-
-  MiddleCard(this.medicineCard);
-
+  final newScheduleModel medicineCard;
+   MiddleCard(this.medicineCard);
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
@@ -41,10 +24,10 @@ class MiddleCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Medicine Name : '.toUpperCase(),
+                        'Name'.toUpperCase(),
                         style: TextStyle(
                           fontFamily: 'Circular',
                           fontSize: 14,
@@ -69,7 +52,7 @@ class MiddleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Quantity : '.toUpperCase(),
+                        'Quantity'.toUpperCase(),
                         style: TextStyle(
                           fontFamily: 'Circular',
                           fontSize: 14,
@@ -78,7 +61,7 @@ class MiddleCard extends StatelessWidget {
                         ),
                       ), //titleTextStyle),
                       Text(
-                        medicineCard.dosage,
+                        "       "+medicineCard.dosage,
                         style: TextStyle(
                           fontFamily: 'Circular',
                           fontSize: 16,
@@ -93,7 +76,7 @@ class MiddleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Consume At'.toUpperCase(),
+                        'TIME',
                         style: TextStyle(
                           fontFamily: 'Circular',
                           fontSize: 14,
@@ -102,13 +85,11 @@ class MiddleCard extends StatelessWidget {
                         ),
                       ), //titleTextStyle),
                       Text(
-                        DateFormat('MMM d, H:mm')
-                            .format(medicineCard.dateTime)
-                            .toUpperCase(),
+                         medicineCard.time,
                         style: TextStyle(
                           fontFamily: 'Circular',
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Color(0xfff2e7fe),
                           fontWeight: FontWeight.bold,
                           height: 2,
                           letterSpacing: .5,

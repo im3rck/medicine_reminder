@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               isDrawerOpen = false;
                             })
                           : Navigator.of(context).push(FadeRoute(
-                          builder: (context) => BottomNavBar(element['contactNo'])
+                          builder: (context) => BottomNavBar(element['patientToken'])
                       ));
                     },
                     child: Container(
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                                       child: Text(
-                                        (element['age']).toString() + 'Years',
+                                        (element['age']).toString() + ' years',
                                         style: new TextStyle(
                                             color: Color(0xfff2e7fe),
                                             fontFamily: 'Circular',
@@ -321,19 +321,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // IconButton(
-                    //   icon: Icon(
-                    //     Icons.settings,
-                    //     color: (isDrawerOpen
-                    //         ? Color(0xff292929)
-                    //         : Color(0xFFf2e7fe).withOpacity(0)),
-                    //   ),
-                    //   onPressed: () {
-                    //   //   Navigator.push(
-                    //   //       context, MaterialPageRoute(builder: (context) => SettingsPage()));
-                    //   // },
-                    // ),
-                    // SizedBox(width: 5),
                     Center(
                       child: SizedBox(
                         width: 100,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:medicine_reminder/Backend%20Services/Database%20System/Data%20Models/ScheduleModel.dart';
 import 'CardData.dart';
 import 'CardInner.dart';
 import 'CardFront.dart';
@@ -9,7 +9,7 @@ import 'FoldingLogic.dart';
 class Ticket extends StatefulWidget {
   static const double nominalOpenHeight = 400;
   static const double nominalClosedHeight = 160;
-  final ScheduleModel medicineCard;
+  final newScheduleModel medicineCard;
   final Function onClick;
 
   const Ticket({Key key, @required this.medicineCard, @required this.onClick})

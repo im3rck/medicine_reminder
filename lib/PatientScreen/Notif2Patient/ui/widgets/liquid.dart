@@ -208,7 +208,7 @@ class _LiquidState extends State<Liquid> {
   }
   route() {
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (context) => MedicineCard()
+        builder: (context) => MedicineCard('alalalalldldlaslalsalsllsllaslsd')
     )
     );
   }
