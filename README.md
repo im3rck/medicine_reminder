@@ -1,7 +1,6 @@
 # medicine_reminder
 
-A new Flutter project.
-
+A Reminder App that enables a Custodian to remotely set and monitor the schedules of their Patients effectively
 ## Getting Started
 
 This project is a starting point for a Flutter application.
